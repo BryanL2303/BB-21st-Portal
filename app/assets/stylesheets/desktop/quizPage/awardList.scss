@@ -1,0 +1,29 @@
+@media screen{
+	.award-list{
+		position: relative;
+		height: 50%;
+		width: 15%;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		border-style: solid;
+		border-color: darkgrey;
+		border-radius: 5px;
+		margin-top: 2%;
+		left: 2%;
+	}
+
+	.award-list button{
+		display: flex;
+		padding: 2%;
+		background-color: white;
+		border: none;
+		height: 100%;
+		width: 100%;
+	}
+
+	.award-list button:hover{
+		background-color: lightgrey;
+		border: none;
+	}
+}

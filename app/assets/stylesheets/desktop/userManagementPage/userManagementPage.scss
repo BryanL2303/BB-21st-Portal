@@ -1,0 +1,113 @@
+@media screen{
+	.user-management-page .page-container{
+		overflow: hidden;
+		display: flex;
+		margin-top: 3vh;
+	}
+
+	.user-management-page .page-container button{
+		display: flex;
+		padding: 2%;
+		background-color: white;
+		border: none;
+		height: 100%;
+		width: 80%;
+	}
+
+	.user-management-page .page-container button:hover{
+		background-color: lightgrey;
+		border: none;
+	}
+
+	.user-management-page .page-container .users-list{
+		height: 100%;
+		width: 26%;
+		border-style: solid;
+		border-color: darkgrey;
+		border-radius: 5px;
+		padding: 1%;
+		margin: 1%;
+	}
+
+	.user-management-page .page-container .users-list button{
+		width: 95%;
+		text-align: left;
+	}
+
+	.user-management-page .page-container .main-block{
+		height: 100%;
+		width: 70%;
+		border-style: solid;
+		border-color: darkgrey;
+		border-radius: 5px;
+		padding: 1%;
+		margin: 1%;
+	}
+
+	.user-management-page .page-container .user-information .edit-button{
+		margin-left: 70%;
+		width: 30%;
+	}
+
+	.user-management-page .page-container .user-information .delete-button{
+		margin-left: 70%;
+		width: 30%;
+	}
+
+	.user-management-page .create-account-form label{
+		font-size: auto;
+	}
+
+	.user-management-page .create-account-form button{
+		margin-left: 70%;
+		width: 30%;
+	}
+
+	.user-management-page .create-account-form__name{
+		width: 50%;
+		font-size: 20px;
+		margin: 1%;
+	}
+
+	.user-management-page .create-account-form__password{
+		width: 50%;
+		font-size: 20px;
+		margin: 1%;
+	}
+
+	.user-management-page .create-account-form__type{
+		width: 20%;
+		font-size: 20px;
+		margin: 1%;
+		text-align: center;
+		border: solid;
+		border-color: black;
+		border-width: 1px;
+	}
+
+	.user-management-page .create-account-form__rank{
+		width: 20%;
+		font-size: 20px;
+		margin: 1%;
+		text-align: center;
+		border: solid;
+		border-color: black;
+		border-width: 1px;
+	}
+
+	.user-management-page .create-account-form__level{
+		width: 15%;
+		font-size: 20px;
+		margin: 1%;
+		text-align: center;
+		border: solid;
+		border-color: black;
+		border-width: 1px;
+	}
+
+	.user-management-page .edit-field{
+		width: 50%;
+		font-size: 20px;
+		margin: 1%;
+	}
+}

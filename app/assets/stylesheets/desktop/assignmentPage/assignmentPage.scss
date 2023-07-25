@@ -1,0 +1,21 @@
+@media screen{
+	.assignment-description{
+		position: relative;
+		height: 15vh;
+		width: 100vw;
+		overflow: hidden;
+		text-align: center;
+	}
+
+	.assignment-page table{
+		border: solid;
+		margin-left: 10vw;
+		width: 80vw;
+		text-align: left;
+	}
+
+	.assignment-page .results-button{
+		margin-top: 2vh;
+		margin-left: 80vw;
+	}
+}

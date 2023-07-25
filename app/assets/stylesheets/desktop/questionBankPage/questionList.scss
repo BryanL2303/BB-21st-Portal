@@ -1,0 +1,24 @@
+@media screen{
+	.question-list-page{
+		position: relative;
+		height: 100%;
+		width: 80%;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		border: black;
+		border-radius: 5px;
+		margin-top: 2%;
+		margin-left: 5%;
+	}
+
+	.question-list button{
+		width: 80%;
+		text-align: left;
+	}
+
+	.question-list .question-editor button{
+		width: 10%;
+		text-align: left;
+	}
+}

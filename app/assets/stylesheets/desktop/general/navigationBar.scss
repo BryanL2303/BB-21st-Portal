@@ -1,0 +1,46 @@
+@media screen{
+	.navigation-bar{
+		position: relative;
+		height: 7vh;
+		width: 100%;
+		background-color: #1E90FF;
+		margin: 0;
+		padding: 0;
+	}
+
+	.crest{
+		position: absolute;
+		left: 0;
+	}
+
+	.account-dropdown{
+		position: absolute;
+		right: 0;
+	}
+
+	.navigation-bar button{
+		height: 100%;
+		padding: 0;
+	}
+
+	.navigation-bar img{
+		height: 100%;
+	}
+
+	.navigation-bar .user-menu{
+		visibility: hidden;
+		position: absolute;
+		top: 100%;
+		right: 0%;
+		z-index: 1000;
+		width: 20%;
+	}
+
+	.navigation-bar .user-menu button{
+		width: 100%;
+	}
+
+	.navigation-bar .user-menu button:hover{
+		opacity: 0.8;
+	}
+}

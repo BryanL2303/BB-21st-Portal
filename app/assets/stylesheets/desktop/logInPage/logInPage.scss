@@ -1,0 +1,47 @@
+@media screen{
+	.log-in-page{
+		position: relative;
+		height: 100vh;
+		width: 100vw;
+		overflow: hidden;
+		text-align: center;
+	}
+
+	.log-in-form{
+		height: 50%;
+		width: 50%;
+		position: absolute;
+		top: 25%;
+		left: 25%;
+		border: solid;
+		border-radius: 3%;
+	}
+
+	.log-in-form{
+		font-size: 30px;
+	}
+
+	.log-in-form__name{
+		position: absolute;
+		top: 30%;
+		left: 25%;
+		width: 50%;
+		font-size: 20px;
+	}
+
+	.log-in-form__password{
+		position: absolute;
+		top: 40%;
+		left: 25%;
+		width: 50%;	
+		font-size: 20px;
+	}
+
+	.log-in-form button{
+		position: absolute;
+		top: 50%;
+		left: 25%;
+		width: 50%;	
+		font-size: 20px;
+	}
+}
