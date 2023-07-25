@@ -31,7 +31,7 @@ const UserManagementPage = () => {
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>
           <p>Current Users</p>
-          {cookies.get('Type') == "Officer" && <OfficerAccountsList setPageState = {setPageState}/>}
+          {cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin" && <OfficerAccountsList setPageState = {setPageState}/>}
           {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState}/>}
           {cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState}/>}
         </div>
