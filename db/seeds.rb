@@ -7,3 +7,4 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 admin = Account.new(account_name: "Administrator", account_type: "Admin", password: "manager")
+admin.save
