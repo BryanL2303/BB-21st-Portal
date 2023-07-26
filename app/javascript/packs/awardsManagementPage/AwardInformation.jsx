@@ -12,6 +12,9 @@ const AwardInformation = ({awardId}) => {
    {mastery_name: 'Advanced', mastery_requirements: '', results_description: '', recommended_level: ''},
    {mastery_name: 'Master', mastery_requirements: '', results_description: '', recommended_level: ''}]);
   const [hasMastery, setHasMastery] = useState(false);
+  const [level1, setRecommendedLevel1] = useState()
+  const [level2, setRecommendedLevel2] = useState()
+  const [level3, setRecommendedLevel3] = useState()
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -32,8 +35,13 @@ const AwardInformation = ({awardId}) => {
         })
         .then(resp => {
           setMasteries(resp.data)
+          setRecommendedLevel1(resp.data[0].recommended_level)
+          setRecommendedLevel2(resp.data[1].recommended_level)
+          setRecommendedLevel3(resp.data[2].recommended_level)
         })
         .catch(resp => errorMessage(resp.response.statusText))
+      } else {
+        setRecommendedLevel1(resp.data.recommended_level)
       }
     })
     .catch(resp => errorMessage(resp.response.statusText))
@@ -42,6 +50,7 @@ const AwardInformation = ({awardId}) => {
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-award-form__level')[0].innerHTML = e.target.className
+    setRecommendedLevel1(e.target.className)
   }
 
   function setLevel2(e) {
@@ -49,9 +58,11 @@ const AwardInformation = ({awardId}) => {
     let m = 0
     if (e.target.id == "Advanced") {
       m = 1
+      setRecommendedLevel2(e.target.className)
     }
     if (e.target.id == "Master") {
       m = 2
+      setRecommendedLevel3(e.target.className)
     }
     document.getElementsByClassName('create-award-form__level')[m].value = e.target.className
   }
@@ -71,16 +82,20 @@ const AwardInformation = ({awardId}) => {
       if (e.target[2].value == '' || e.target[3].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': e.target[4].value, 'require_certification': e.target[5].checked})
+      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
     } else {
-      let i = 2
-      while (i <= 10) {
-        if (e.target[i].value == '' || e.target[i + 1].value == '') {
-          submit = false
-        }
-        details.push({'id': e.target[i].id, 'mastery_requirements': e.target[i].value, 'results_description': e.target[i + 1].value, 'recommended_level': e.target[i + 2].value, 'require_certification': e.target[i + 3].checked})
-        i += 4
+      if (e.target[2].value == '' || e.target[3].value == '') {
+        submit = false
       }
+      details.push({'id': e.target[2].id, 'mastery_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
+      if (e.target[5].value == '' || e.target[6].value == '') {
+        submit = false
+      }
+      details.push({'id': e.target[5].id, 'mastery_requirements': e.target[5].value, 'results_description': e.target[6].value, 'recommended_level': level2, 'require_certification': e.target[7].checked})
+      if (e.target[8].value == '' || e.target[9].value == '') {
+        submit = false
+      }
+      details.push({'id': e.target[8].id, 'mastery_requirements': e.target[8].value, 'results_description': e.target[9].value, 'recommended_level': level3, 'require_certification': e.target[10].checked})
     }
     if (submit) {
       axios.post('/api/award/' + awardId + '/edit_award', {

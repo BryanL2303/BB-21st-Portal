@@ -8,6 +8,8 @@ import axios from 'axios'
 const AccountCreationForm = () => {
   const cookies = new Cookies()
   const [accountType, setAccountType] = useState('Boy');
+  const [accountRank, setAccountRank] = useState();
+  const [accountLevel, setAccountLevel] = useState();
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -23,11 +25,13 @@ const AccountCreationForm = () => {
   function setRank(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className
+    setAccountRank(e.target.className)
   }
 
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__level')[0].innerHTML = e.target.className
+    setAccountLevel(e.target.className)
   }
 
   function doNothing(e) {
@@ -38,39 +42,37 @@ const AccountCreationForm = () => {
   //If the username is not unique returns an alert back to the user
   function submitForm(e) {
     e.preventDefault()
-    let credentials = null
+    let credential = null
     let level = null
     let submit = true
     if (accountType == "Boy") {
-      level = e.target[4].value
-      if (isNaN(parseInt(level))) {
-        submit = false
-      }
+      level = accountLevel
     } else {
-      credential = e.target[4].value
+      credential = e.target[2].value
       if (credential == '') {
         submit = false
       }
     }
-    if (e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == '' || e.target[3].value == '') {
+    if (e.target[0].value == '' || e.target[1].value == '') {
       submit = false
     }
     if (submit) {
       axios.post('/api/account/0/create_account', {
         account_name: e.target[0].value,
         password: e.target[1].value,
-        account_type: e.target[2].value,
-        rank: e.target[3].value,
+        account_type: accountType,
+        rank: accountRank,
         level: level,
-        credentials: credentials
+        credentials: credential
       })
       .then(resp => {
         if (resp.data != false) {
           alert("Account has been created, please refresh the page to update user list")
           e.target[0].value = ''
           e.target[1].value = ''
-          e.target[2].value = ''
-          setAccountType()
+          setAccountType('Boy')
+          setAccountRank('REC')
+          setAccountLevel('1')
         }
         else{
           alert("Username has been taken, please try another name.")

@@ -8,6 +8,8 @@ import axios from 'axios'
 const UserInformation = ({userId}) => {
   const cookies = new Cookies()
   const [account, setAccount] = useState();
+  const [accountRank, setAccountRank] = useState();
+  const [accountLevel, setAccountLevel] = useState();
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -21,6 +23,8 @@ const UserInformation = ({userId}) => {
     })
     .then(resp => {
       setAccount(resp.data)
+      setAccountRank(resp.data.rank)
+      setAccountLevel(resp.data.level)
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [userId])
@@ -28,11 +32,13 @@ const UserInformation = ({userId}) => {
   function setRank(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className
+    setAccountRank(e.target.className)
   }
 
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__level')[0].innerHTML = e.target.className
+    setAccountLevel(e.target.className)
   }
 
   function editAccount(e) {
@@ -43,11 +49,14 @@ const UserInformation = ({userId}) => {
     let extra = 4
     let password = null
     if (cookies.get('Type') == 'Admin') {
-      extra = 3
-      password = e.target[3].value
+      extra = 2
+      password = e.target[2].value
+      if (password == '') {
+        submit = false
+      }
     }
     if (account.account_type == "Boy") {
-      level = e.target[extra].value
+      level = accountLevel
       if (isNaN(parseInt(level))) {
         submit = false
       }
@@ -57,16 +66,16 @@ const UserInformation = ({userId}) => {
         submit = false
       }
     }
-    if (e.target[0].value == '' || e.target[1].value == '' || e.target[2].value == '' || e.target[3].value == '') {
+    if (e.target[0].value == '' || e.target[1].value == '') {
       submit = false
     }
     if (submit) {
       axios.post('/api/account/' + account.id + '/edit_account', {
         id: account.id,
-        account_name: e.target[1].value,
+        account_name: e.target[0].value,
         password: password,
-        account_type: e.target[2].value,
-        rank: e.target[0].value,
+        account_type: e.target[1].value,
+        rank: accountRank,
         level: level,
         credentials: credentials
       })

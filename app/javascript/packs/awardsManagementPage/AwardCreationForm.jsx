@@ -8,6 +8,9 @@ import axios from 'axios'
 const AwardCreationForm = () => {
   const cookies = new Cookies()
   const [hasMastery, setHasMastery] = useState(true);
+  const [level1, setRecommendedLevel1] = useState('1')
+  const [level2, setRecommendedLevel2] = useState('1')
+  const [level3, setRecommendedLevel3] = useState('1')
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -17,16 +20,19 @@ const AwardCreationForm = () => {
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-award-form__level')[0].innerHTML = e.target.className
+    setRecommendedLevel1(e.target.className)
   }
 
   function setLevel2(e) {
     e.preventDefault()
     document.getElementsByClassName('create-award-form__level')[1].innerHTML = e.target.className
+    setRecommendedLevel2(e.target.className)
   }
 
   function setLevel3(e) {
     e.preventDefault()
     document.getElementsByClassName('create-award-form__level')[2].innerHTML = e.target.className
+    setRecommendedLevel3(e.target.className)
   }
 
   function setMastery(e) {
@@ -43,16 +49,20 @@ const AwardCreationForm = () => {
       if (e.target[2].value == '' || e.target[3].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': e.target[4].value, 'require_certification': e.target[5].checked})
+      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
     } else {
-      let i = 2
-      while (i <= 10) {
-        if (e.target[i].value == '' || e.target[i + 1].value == '') {
-          submit = false
-        }
-        details.push({'badge_requirements': e.target[i].value, 'results_description': e.target[i + 1].value, 'recommended_level': e.target[i + 2].value, 'require_certification': e.target[i + 3].checked})
-        i += 4
+      if (e.target[2].value == '' || e.target[3].value == '') {
+        submit = false
       }
+      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
+      if (e.target[5].value == '' || e.target[6].value == '') {
+        submit = false
+      }
+      details.push({'badge_requirements': e.target[5].value, 'results_description': e.target[6].value, 'recommended_level': level2, 'require_certification': e.target[7].checked})
+      if (e.target[8].value == '' || e.target[9].value == '') {
+        submit = false
+      }
+      details.push({'badge_requirements': e.target[8].value, 'results_description': e.target[9].value, 'recommended_level': level3, 'require_certification': e.target[10].checked})
     }
     if (submit) {
       axios.post('/api/award/0/create_award', {
@@ -64,6 +74,10 @@ const AwardCreationForm = () => {
         if (resp.data != false) {
           alert("Award has been created, please refresh the page to update award list")
           e.target[0].value = ''
+          e.target[1].checked = false
+          setRecommendedLevel1('1')
+          setRecommendedLevel2('1')
+          setRecommendedLevel3('1')
         }
         else{
           alert("Badge with same name already exists, please check existing awards")
