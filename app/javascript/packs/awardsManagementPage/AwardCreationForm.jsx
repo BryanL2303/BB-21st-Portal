@@ -74,10 +74,14 @@ const AwardCreationForm = () => {
         if (resp.data != false) {
           alert("Award has been created, please refresh the page to update award list")
           e.target[0].value = ''
-          e.target[1].checked = false
+          e.target[1].checked = true
+          setHasMastery(true)
           setRecommendedLevel1('1')
           setRecommendedLevel2('1')
           setRecommendedLevel3('1')
+          document.getElementsByClassName('create-award-form__level')[0].innerHTML = '1'
+          document.getElementsByClassName('create-award-form__level')[1].innerHTML = '1'
+          document.getElementsByClassName('create-award-form__level')[2].innerHTML = '1'
         }
         else{
           alert("Badge with same name already exists, please check existing awards")

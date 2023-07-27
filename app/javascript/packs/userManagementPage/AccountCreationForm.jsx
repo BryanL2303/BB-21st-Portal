@@ -70,9 +70,6 @@ const AccountCreationForm = () => {
           alert("Account has been created, please refresh the page to update user list")
           e.target[0].value = ''
           e.target[1].value = ''
-          setAccountType('Boy')
-          setAccountRank('REC')
-          setAccountLevel('1')
         }
         else{
           alert("Username has been taken, please try another name.")
