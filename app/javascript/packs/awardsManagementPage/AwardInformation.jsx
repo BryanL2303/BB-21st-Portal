@@ -71,6 +71,12 @@ const AwardInformation = ({awardId}) => {
     setHasMastery(e.target.checked)
   }
 
+  function updateHeight(e) {
+    let descriptionBox = e.target
+    descriptionBox.style['height'] = '0px'
+    descriptionBox.style['height'] = `${descriptionBox.scrollHeight}px`
+  }
+
   function editAward(e) {
     e.preventDefault()
     let details = []
@@ -147,10 +153,12 @@ const AwardInformation = ({awardId}) => {
         <br/>
         {award != null && !hasMastery && <div>
           <label>Badge requirements (description of requirements): </label>
-          <input className='edit-field' defaultValue={award.badge_requirements}></input>
+          <br/>
+          <textarea className='edit-field' defaultValue={award.badge_requirements} onChange={updateHeight}></textarea>
           <br/>
           <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-          <input className='edit-field' defaultValue={award.results_description}></input>
+          <br/>
+          <textarea className='edit-field' defaultValue={award.results_description} onChange={updateHeight}></textarea>
           <br/>
           <label>Recommended level for completion: Sec </label>
           <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>{award.recommended_level}</label>} position="bottom">
@@ -172,10 +180,12 @@ const AwardInformation = ({awardId}) => {
               <label style={{fontSize: '20px'}}>{mastery.mastery_name}</label>
               <br/>
               <label>Badge requirements (description of requirements): </label>
-              <input id={mastery.id} className='edit-field' defaultValue={mastery.mastery_requirements}></input>
+              <br/>
+              <textarea id={mastery.id} className='edit-field' defaultValue={mastery.mastery_requirements} onChange={updateHeight}></textarea>
               <br/>
               <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-              <input className='edit-field' defaultValue={mastery.results_description}></input>
+              <br/>
+              <textarea className='edit-field' defaultValue={mastery.results_description} onChange={updateHeight}></textarea>
               <br/>
               <label>Recommended level for completion: Sec </label>
               <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>{mastery.recommended_level}</label>} position="bottom">

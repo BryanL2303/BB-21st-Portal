@@ -39,6 +39,12 @@ const AwardCreationForm = () => {
     setHasMastery(!hasMastery)
   }
 
+  function updateHeight(e) {
+    let descriptionBox = e.target
+    descriptionBox.style['height'] = '0px'
+    descriptionBox.style['height'] = `${descriptionBox.scrollHeight}px`
+  }
+
   //Sends the information from the form to the backend to try and create an account
   //If the username is not unique returns an alert back to the user
   function submitForm(e) {
@@ -106,10 +112,10 @@ const AwardCreationForm = () => {
       <br/>
       {!hasMastery && <div>
         <label>Badge requirements (description of requirements): </label>
-        <input className='create-award-form__requirements'></input>
+        <textarea className='create-award-form__requirements' onChange={updateHeight}></textarea>
         <br/>
         <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-        <input className='create-award-form__description'></input>
+        <textarea className='create-award-form__description' onChange={updateHeight}></textarea>
         <br/>
         <label>Recommended level for completion: Sec </label>
         <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>1</label>} position="bottom">
@@ -129,10 +135,10 @@ const AwardCreationForm = () => {
         <label style={{fontSize: '20px'}}>Basic</label>
         <br/>
         <label>Badge requirements (description of requirements): </label>
-        <input className='create-award-form__requirements'></input>
+        <textarea className='create-award-form__requirements' onChange={updateHeight}></textarea>
         <br/>
         <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-        <input className='create-award-form__description'></input>
+        <textarea className='create-award-form__description' onChange={updateHeight}></textarea>
         <br/>
         <label>Recommended level for completion: Sec </label>
         <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>1</label>} position="bottom">
@@ -150,10 +156,10 @@ const AwardCreationForm = () => {
         <label style={{fontSize: '20px'}}>Advanced</label>
         <br/>
         <label>Badge requirements (description of requirements): </label>
-        <input className='create-award-form__requirements'></input>
+        <textarea className='create-award-form__requirements' onChange={updateHeight}></textarea>
         <br/>
         <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-        <input className='create-award-form__description'></input>
+        <textarea className='create-award-form__description' onChange={updateHeight}></textarea>
         <br/>
         <label>Recommended level for completion: Sec </label>
         <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>1</label>} position="bottom">
@@ -171,10 +177,12 @@ const AwardCreationForm = () => {
         <label style={{fontSize: '20px'}}>Master</label>
         <br/>
         <label>Badge requirements (description of requirements): </label>
-        <input className='create-award-form__requirements'></input>
+        <br/>
+        <textarea className='create-award-form__requirements' onChange={updateHeight}></textarea>
         <br/>
         <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-        <input className='create-award-form__description'></input>
+        <br/>
+        <textarea className='create-award-form__description' onChange={updateHeight}></textarea>
         <br/>
         <label>Recommended level for completion: Sec </label>
         <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>1</label>} position="bottom">
