@@ -27,6 +27,7 @@ root.render(
       <Routes>
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path='/' element={<LogInPage/>}/>
+        <Route path='/quiz' element={<QuizListPage/>}/>
         <Route path='/home' element={<QuizListPage/>}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202307200000002) do
+ActiveRecord::Schema[7.0].define(version: 202307280000003) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,12 +36,29 @@ ActiveRecord::Schema[7.0].define(version: 202307200000002) do
   create_table "assigned_accounts", force: :cascade do |t|
     t.bigint "account_id"
     t.bigint "assignment_id"
-    t.integer "score"
     t.integer "attempts"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "score"
     t.index ["account_id"], name: "index_assigned_accounts_on_account_id"
     t.index ["assignment_id"], name: "index_assigned_accounts_on_assignment_id"
+  end
+
+  create_table "assignment_answers", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "assignment_id"
+    t.bigint "question_id"
+    t.bigint "question_option_id"
+    t.string "question_type"
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "attempt"
+    t.float "score"
+    t.index ["account_id"], name: "index_assignment_answers_on_account_id"
+    t.index ["assignment_id"], name: "index_assignment_answers_on_assignment_id"
+    t.index ["question_id"], name: "index_assignment_answers_on_question_id"
+    t.index ["question_option_id"], name: "index_assignment_answers_on_question_option_id"
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -90,13 +107,13 @@ ActiveRecord::Schema[7.0].define(version: 202307200000002) do
 
   create_table "questions", force: :cascade do |t|
     t.string "question"
-    t.integer "marks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "question_type"
     t.boolean "permanent"
     t.bigint "award_id"
     t.bigint "mastery_id"
+    t.float "marks"
     t.index ["award_id"], name: "index_questions_on_award_id"
     t.index ["mastery_id"], name: "index_questions_on_mastery_id"
   end
@@ -114,10 +131,10 @@ ActiveRecord::Schema[7.0].define(version: 202307200000002) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "quiz_name"
-    t.integer "marks"
     t.boolean "assigned"
     t.bigint "award_id"
     t.bigint "mastery_id"
+    t.float "marks"
     t.index ["award_id"], name: "index_quizzes_on_award_id"
     t.index ["mastery_id"], name: "index_quizzes_on_mastery_id"
   end

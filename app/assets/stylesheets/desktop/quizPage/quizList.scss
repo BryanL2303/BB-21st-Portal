@@ -3,7 +3,8 @@
 		position: relative;
 		height: 100%;
 		width: 80%;
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
 		margin: 0;
 		padding: 0;
 		border: black;

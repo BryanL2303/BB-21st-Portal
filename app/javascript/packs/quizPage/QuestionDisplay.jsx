@@ -45,7 +45,7 @@ const QuestionDisplay = ({questionId}) => {
       {question != null && question.question_type == "MCQ" && options.map((option) => {
         return (
           <div>
-            <input type='radio' value={option.id} name={question.id}></input>
+            <input id={question.id} type='radio' value={option.id} name={question.id}></input>
             <label id={question.id} className='question__option'>{option.answer}</label>
           </div>
         )
@@ -53,16 +53,12 @@ const QuestionDisplay = ({questionId}) => {
       {question != null && question.question_type == "MRQ" && options.map((option) => {
         return (
           <div>
-            <input type='checkbox' value={option.id} name={question.id}></input>
+            <input id={question.id} type='checkbox' value={option.id} name={question.id}></input>
             <label id={question.id} className='question__option'>{option.answer}</label>
           </div>
         )
       })}
-      {question != null && question.question_type == "Open-ended" && options.map((option) => {
-        return (
-          <input></input>
-        )
-      })}
+      {question != null && question.question_type == "Open-ended" && <input id={question.id} name={question.id}></input>}
     </div>
   )
 }

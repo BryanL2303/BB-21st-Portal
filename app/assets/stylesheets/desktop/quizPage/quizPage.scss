@@ -1,5 +1,7 @@
 @media screen{
 	.page-container{
 		display: flex;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 }

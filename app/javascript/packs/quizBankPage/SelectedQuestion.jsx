@@ -23,7 +23,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
           question_id: questionId
         })
         .then( resp => {
-          setRubric(resp.data)
+          setRubric(resp.data.rubric)
         })
         .catch(resp => errorMessage(resp.response.statusText))
       } else {
@@ -53,7 +53,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       {question != null && question.question_type == "MCQ" && options.map((option) => {
         return (
           <div>
-            <input type='radio' value={option.id} name='option' disabled={true} checked={option.correct}></input>
+            <input id={question.id} type='radio' value={option.id} name='option' disabled={true} checked={option.correct}></input>
             <input id={question.id} className='create-question-form__option' disabled={true} value={option.answer}></input>
           </div>
         )
@@ -61,16 +61,12 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       {question != null && question.question_type == "MRQ" && options.map((option) => {
         return (
           <div>
-            <input type='checkbox' value={option.id} name='option' disabled={true} checked={option.correct}></input>
-            <input className='create-question-form__option' disabled={true} value={option.answer}></input>
+            <input id={question.id} type='checkbox' value={option.id} name='option' disabled={true} checked={option.correct}></input>
+            <input id={question.id} className='create-question-form__option' disabled={true} value={option.answer}></input>
           </div>
         )
       })}
-      {question != null && question.question_type == "Open-ended" && options.map((option) => {
-        return (
-          <p>{rubric}</p>
-        )
-      })}
+      {question != null && question.question_type == "Open-ended" && <input id={question.id} disabled defaultValue={rubric}></input>}
       {marks != -100 && <button onClick={reSelect}>Pick a different question</button>}
     </div>
   )

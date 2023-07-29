@@ -19,7 +19,7 @@ module Api
 					end
 			 	else
 					if params[:question_type] == 'Open-ended'
-						answerRubric = AnswerRubric.new(rubric: params[:answer], question_id: question.id)
+						answerRubric = AnswerRubric.new(rubric: params[:answer][0], question_id: question.id)
 						if answerRubric.save
 						else
 							render json: {error: answerRubric.errors.message}, status: 422
@@ -66,30 +66,31 @@ module Api
 
 		def editQuestion
 			question = Question.find_by(id: params[:question_id])
-			question.question = params[:question]
-			question.marks = params[:marks]
-			question.permanent = params[:permanent]
+			question['question'] = params[:question]
+			question['marks'] = params[:marks]
 
-			if question.save
-				if question.question_type == 'MCQ' || question.question_type == 'MRQ' 
-					options = QuestionOption.where(question_id: question.id)
-					options.destroy_all
-					for option in params[:answer]
-						questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct], question_id: question.id)
-						if questionOption.save
-						else
-							render json: {error: questionOption.errors.messages}, status: 422
-						end
-					end
-				elsif params[:question_type] == 'Open-ended'
-					rubric = AnswerRubric.find_by(question_id: question.id)
-					rubric.destroy
-					answerRubric = AnswerRubric.new(rubric: params[:answer], question_id: question.id)
-					if answerRubric.save
+			if question.question_type == 'MCQ' || question.question_type == 'MRQ' 
+				options = QuestionOption.where(question_id: question.id)
+				options.destroy_all
+				for option in params[:answer]
+					questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct], question_id: question.id)
+					if questionOption.save
 					else
-						render json: {error: answerRubric.errors.message}, status: 422
+						render json: {error: questionOption.errors.messages}, status: 422
 					end
 				end
+			elsif question.question_type == 'Open-ended'
+				rubric = AnswerRubric.find_by(question_id: question.id)
+				rubric.destroy
+				answerRubric = AnswerRubric.new(rubric: params[:rubric], question_id: question.id)
+				if answerRubric.save
+				else
+					render json: {error: answerRubric.errors.message}, status: 422
+				end
+			end
+
+			if question.save
+				
 				render json: true
 			else
 				render json: {error: question.errors.messages}, status: 422

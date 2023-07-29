@@ -47,7 +47,7 @@ const QuizCreationPage = () => {
         i = 999 
       }
       else if (e.target[i + 1].value == "Question bank") {
-        existingQuestions.push(e.target[i + 3].id)
+        existingQuestions.push(e.target[i + 2].id)
         let counter = 2
         while (e.target[i + counter] != null && e.target[i + counter].className != "create-quiz-question__type") {
           counter += 1;

@@ -16,7 +16,7 @@ const OpenEndedRubricEditor = ({ question }) => {
       question_id: question.id
     })
     .then(resp => {
-      setRubric(resp.data)
+      setRubric(resp.data.rubric)
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])

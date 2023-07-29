@@ -1,6 +1,7 @@
 @media screen{
 	.result-generation-page .page-container{
-		overflow: hidden;
+		overflow-x: hidden;
+		overflow-y: auto;
 		margin-top: 3vh;
 		margin-left: 10vw;
 		width: 80vw;

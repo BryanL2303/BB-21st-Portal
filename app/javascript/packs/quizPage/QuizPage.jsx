@@ -5,6 +5,7 @@ import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {QuestionDisplay} from './QuestionDisplay'
+import * as XLSX from 'xlsx'
 
 /*For boys to attempt quizzes
 */
@@ -13,6 +14,13 @@ const QuizPage = () => {
   const [quiz, setQuiz] = useState();
   const [questions, setQuestions] = useState([]);
   const { id } = useParams()
+
+  /*let reader = new FileReader();
+  reader.readAsArrayBuffer(worksheet)
+  reader.onload((e) => {
+    setExcelFile(e.target.result)
+    console.log(e.target.result)
+  })*/
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -53,9 +61,20 @@ const QuizPage = () => {
           selected = []
         }
         currentQuestion = e.target[i].name
+        if (e.target[i].type == 'radio' || e.target[i].type == 'checkbox') {
+          if (e.target[i].checked) {
+            selected.push(e.target[i].value)
+          }          
+        } else {
+          selected = e.target[i].value
+        }
       } else {
-        if (e.target[i].checked) {
-          selected.push(e.target[i].value)
+        if (e.target[i].type == 'radio' || e.target[i].type == 'checkbox') {
+          if (e.target[i].checked) {
+            selected.push(e.target[i].value)
+          }          
+        } else {
+          selected = e.target[i].value
         }
       }
       i++
