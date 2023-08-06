@@ -41,6 +41,18 @@ const OpenEndedRubricEditor = ({ question }) => {
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }
+
+  function setPermanent(e) {
+    e.preventDefault()
+    axios.post('/api/question/0/set_permanent', {
+      question_id: question.id
+    })
+    .then(resp => {
+      question = resp.data
+      alert("Refresh the page")
+    })
+    .catch(resp => errorMessage(resp.response.statusText))
+  }
  
   //Sends the information from the form to the backend to edit the options
   //Also delete the options deleted
@@ -76,10 +88,11 @@ const OpenEndedRubricEditor = ({ question }) => {
         <label> Marks: </label>
         <input defaultValue={question.marks}></input>
         <label> Rubric: </label>
-        <input defaultValue={rubric}></input>
-        <button>Save Options</button>
+        <textarea defaultValue={rubric}></textarea>
+        {!question.assigned && <button>Save Options</button>}
         </form>
-        <button onClick={ deleteQuestion }>Delete Question</button>
+        {!question.permanent && <button onClick={ setPermanent }>Make Question Permanent</button>}
+        {!question.assigned && <button onClick={ deleteQuestion }>Delete Question</button>}
         <button onClick={ blurEdit }>Hide</button>
       </div>}
     </div>

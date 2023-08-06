@@ -12,12 +12,14 @@ import {AccountResultDisplay} from './AccountResultDisplay'
 */
 const ResultPage = () => {
   const cookies = new Cookies()
-  const [quiz, setQuiz] = useState();
+  const [account, setAccount] = useState();
   const [assignment, setAssignment] = useState();
   const [assignedAccounts, setAssignedAccounts] = useState([]);
-  const [assignees, setAssignees] = useState(0);
-  const [passees, setPassees] = useState(0);
+  const [award, setAward] = useState();
+  const [mastery, setMastery] = useState();
   const { id } = useParams()
+  let date = new Date();
+  const formattedDate = date.toLocaleDateString('en-GB');
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -27,37 +29,27 @@ const ResultPage = () => {
   useEffect(() => {
     //make axios call and set Quiz
     if (id != 0) {
-      axios.post('/api/assignment/' + id + '/get_assignment', {
-        'id': id
+      //make axios call and set Quiz and Questions
+      axios.post('/api/assignment/' + id + '/get_results_information', {
+        'id': id,
+        'token': cookies.get('Token')
       })
       .then(resp => {
-        axios.post('/api/quiz/' + resp.data.quiz_id + '/get_quiz', {
-          'id': resp.data.quiz_id
-        })
-        .then(resp => {
-          setQuiz(resp.data)
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
-        setAssignment(resp.data)
-        axios.post('/api/assigned_account/0/get_assigned_accounts', {
-          'assignment_id': resp.data.id
-        })
-        .then(resp => {
-          setAssignedAccounts(resp.data)
-          setAssignees(resp.data.length)
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
-        })
+        setAccount(resp.data['account'])
+        setAssignedAccounts(resp.data['assigned_accounts'])
+        setAssignment(resp.data['assignment'])
+        setAward(resp.data['award'])
+        setMastery(resp.data['mastery'])
+      })
       .catch(resp => errorMessage(resp.response.statusText))
     }
   }, [])
 
   const styles = StyleSheet.create({
     viewer: {
-      width: '80vw',
-      marginLeft: '10vw',
-      height: '80vh',
-      marginTop: '5vh'
+      width: '90vw',
+      marginLeft: '5vw',
+      height: '90vh',
     },
     logo: {
       height: '4vh'
@@ -271,116 +263,116 @@ const ResultPage = () => {
   `;
 
   return(
-    <div className="assignment-page">
-    <NavigationBar/>
-    {quiz != null && <PDFViewer style={styles.viewer}>
-      <Document>
-        <Page>
-          <View>
-            <Header>              
-              <Image style={styles.logo} src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></Image>
-              <HeaderText>
-                <HeaderLogoColumn>
-                  <HeaderLogoRow>
-                    <Text>THE BOYS'BRIGADE</Text>
-                  </HeaderLogoRow>
-                  <HeaderLogoRow>
-                    <Text>21st SINGAPORE COMPANY</Text>
-                  </HeaderLogoRow>
-                  <HeaderLogoRow>
-                    <Text>GEYLANG METHODIST SCHOOL</Text>
-                  </HeaderLogoRow>
-                  <HeaderLogoRow>
-                    <Text>(SECONDARY)</Text>
-                  </HeaderLogoRow>
-                </HeaderLogoColumn>
-                <HeaderVerseColumn>
-                  <HeaderVerseRow>
-                    <Text>This hope we have as an anchor of the soul, a hope both</Text>
-                  </HeaderVerseRow>
-                  <HeaderVerseRow>
-                    <Text>sure and stedfast and one which enters within the veil</Text>
-                  </HeaderVerseRow>
-                  <HeaderVerseRow>
-                    <Text>where Jesus has entered as a forerunner for us...</Text>
-                  </HeaderVerseRow>
-                  <HeaderVerseRow>
-                    <Text>Hebrews 6:19-20a</Text>
-                  </HeaderVerseRow>
-                </HeaderVerseColumn>
-              </HeaderText>
-            </Header>
-          </View>
+    <div className="result-page">
+      <NavigationBar/>
+      {account != null && assignment != null && <PDFViewer style={styles.viewer}>
+        <Document>
+          <Page>
+            <View>
+              <Header>              
+                <Image style={styles.logo} src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></Image>
+                <HeaderText>
+                  <HeaderLogoColumn>
+                    <HeaderLogoRow>
+                      <Text style={{fontFamily: 'Times-Bold'}}>THE BOYS'BRIGADE</Text>
+                    </HeaderLogoRow>
+                    <HeaderLogoRow>
+                      <Text style={{fontFamily: 'Times-Bold'}}>21st SINGAPORE COMPANY</Text>
+                    </HeaderLogoRow>
+                    <HeaderLogoRow>
+                      <Text>GEYLANG METHODIST SCHOOL</Text>
+                    </HeaderLogoRow>
+                    <HeaderLogoRow>
+                      <Text>(SECONDARY)</Text>
+                    </HeaderLogoRow>
+                  </HeaderLogoColumn>
+                  <HeaderVerseColumn>
+                    <HeaderVerseRow>
+                      <Text>This hope we have as an anchor of the soul, a hope both</Text>
+                    </HeaderVerseRow>
+                    <HeaderVerseRow>
+                      <Text style={{fontFamily: 'Times-Bold'}}>sure and stedfast</Text> <Text> and one which enters within the veil</Text>
+                    </HeaderVerseRow>
+                    <HeaderVerseRow>
+                      <Text>where Jesus has entered as a forerunner for us...</Text>
+                    </HeaderVerseRow>
+                    <HeaderVerseRow>
+                      <Text>Hebrews 6:19-20a</Text>
+                    </HeaderVerseRow>
+                  </HeaderVerseColumn>
+                </HeaderText>
+              </Header>
+            </View>
 
-          <Text style={{textAlign: 'center', marginTop: '2%'}}>RESULTS</Text>
-          <DescriptionBlock>
-            <Label>
-              <Text>BADGE:</Text>
-              <Text>DATE:</Text>
-              <Text>DESCRIPTION:</Text>
-            </Label>
-            <Description>
-              <Text>{quiz.quiz_name}</Text>
-              <Text>25/1/2023</Text>
-              <Text>Boys have completed assessment for Drill Basic based on curricullum</Text>
-            </Description>
-          </DescriptionBlock>
+            <Text style={{fontFamily: 'Times-Bold', textAlign: 'center', marginTop: '2%'}}>RESULTS</Text>
+            <DescriptionBlock>
+              <Label>
+                <Text>BADGE:</Text>
+                <Text>DATE:</Text>
+                <Text>DESCRIPTION:</Text>
+              </Label>
+              <Description>
+                {mastery == null && award != null && <Text style={{fontFamily: 'Times-Bold'}}>{award.badge_name}</Text>}
+                {mastery != null && <Text style={{fontFamily: 'Times-Bold'}}>{award.badge_name} {mastery.mastery_name}</Text>}
+                <Text style={{fontFamily: 'Times-Bold'}}>{formattedDate}</Text>
+                {mastery == null && award != null && <Text>{award.results_description}</Text>}
+                {mastery != null && <Text>{mastery.results_description}</Text>}
+              </Description>
+            </DescriptionBlock>
 
-          <Table>
-            <TableHeaderRow>
-              <TableNumberColumn>
-                <Text>No.</Text>
-              </TableNumberColumn>
-              <TableNameHeaderColumn>
-                <Text>Name</Text>
-              </TableNameHeaderColumn>
-              <TableLevelColumn>
-                <Text>Level</Text>
-              </TableLevelColumn>
-              <TableResultColumn>
-                <Text>Pass/Fail</Text>
-              </TableResultColumn>
-            </TableHeaderRow>
-            {assignedAccounts.map((assignedAccount) => {
-              return(
-                <TableRow>
-                  <TableNumberColumn>
-                    <Text>1</Text>
-                  </TableNumberColumn>
-                  <TableNameColumn>
-                    <Text>{assignedAccount.account_id}</Text>
-                  </TableNameColumn>
-                  <TableLevelColumn>
-                    <Text>Sec </Text>
-                  </TableLevelColumn>
-                  <TableResultColumn>
-                    <Text>{assignedAccount.score}</Text>
-                  </TableResultColumn>
-                </TableRow>
-              )
-            })}
-          </Table>
+            <Table>
+              <TableHeaderRow style={{fontFamily: 'Times-Bold'}}>
+                <TableNumberColumn>
+                  <Text>No.</Text>
+                </TableNumberColumn>
+                <TableNameHeaderColumn>
+                  <Text>Name</Text>
+                </TableNameHeaderColumn>
+                <TableLevelColumn>
+                  <Text>Level</Text>
+                </TableLevelColumn>
+                <TableResultColumn>
+                  <Text>Pass/Fail</Text>
+                </TableResultColumn>
+              </TableHeaderRow>
+              {assignedAccounts.map((assignedAccount, index) => {
+                return(
+                  <TableRow>
+                    <TableNumberColumn>
+                      <Text>{index + 1}</Text>
+                    </TableNumberColumn>
+                    <TableNameColumn>
+                      <Text>{assignedAccount.account_name}</Text>
+                    </TableNameColumn>
+                    <TableLevelColumn>
+                      <Text>Sec {assignedAccount.level}</Text>
+                    </TableLevelColumn>
+                    <TableResultColumn>
+                      <Text style={{fontFamily: 'Times-Bold'}}>Pass</Text>
+                    </TableResultColumn>
+                  </TableRow>
+                )
+              })}
+            </Table>
 
-          <SignatureBlock></SignatureBlock>
-          <CredentialsColumn>
-            <Text>Chief Instructor/Assessor's Signature</Text>
-            <Text>Name: SCL Colin Tang</Text>
-            <Text>Credentials: Acting Platoon Commander, BB 21st Singapore Company</Text>
-          </CredentialsColumn>
+            <SignatureBlock></SignatureBlock>
+            <CredentialsColumn>
+              <Text>Chief Instructor/Assessor's Signature</Text>
+              <Text>Name: {account.rank} {account.account_name}</Text>
+              <Text>Credentials: {account.credentials}, BB 21st Singapore Company</Text>
+            </CredentialsColumn>
 
-          <Footer>
-            <FooterPageColumn>
-              <Text>Page | 1 of 1</Text>
-            </FooterPageColumn>
-            <FooterVersionColumn>
-              <Text>For 32A Submission | 2022 v1</Text>
-            </FooterVersionColumn>
-          </Footer>
-        </Page>
-      </Document>
-    </PDFViewer>}
-    
-    <button className="results-button">This should be a button that renders the 32a results</button>
+            <Footer>
+              <FooterPageColumn>
+                <Text>Page | 1 of 1</Text>
+              </FooterPageColumn>
+              <FooterVersionColumn>
+                <Text>For 32A Submission | 2022 v1</Text>
+              </FooterVersionColumn>
+            </Footer>
+          </Page>
+        </Document>
+      </PDFViewer>}
     </div>
   )
 }

@@ -1,23 +1,23 @@
 @media screen{
-	.quiz-list-page .page-container{
+	.question-bank-page .page-container{
 		overflow: hidden;
 		display: flex;
 		margin-top: 3vh;
 		height: 90vh;
 	}
 
-	.quiz-list-page .page-container .mastery-selector button{
+	.question-bank-page .page-container button{
 		display: flex;
 		padding: 2%;
 		background-color: white;
 		height: 4vh;
 	}
 
-	.quiz-list-page .page-container .mastery-selector button:hover{
+	.question-bank-page .page-container button:hover{
 		background-color: lightgrey;
 	}
 
-	.quiz-list-page .page-container .quiz-list-block{
+	.question-bank-page .page-container .question-list-page{
 		max-height: 90%;
 		width: 70%;
 		border-style: solid;
@@ -25,11 +25,5 @@
 		border-radius: 5px;
 		padding: 1%;
 		margin: 1%;
-	}
-
-	.quiz-list button{
-		width: 95%;
-		margin-left: 2.5%;
-		text-align: left;
 	}
 }

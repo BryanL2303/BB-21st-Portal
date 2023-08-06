@@ -66,7 +66,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
           </div>
         )
       })}
-      {question != null && question.question_type == "Open-ended" && <input id={question.id} disabled defaultValue={rubric}></input>}
+      {question != null && question.question_type == "Open-ended" && <textarea id={question.id} disabled defaultValue={rubric}></textarea>}
       {marks != -100 && <button onClick={reSelect}>Pick a different question</button>}
     </div>
   )

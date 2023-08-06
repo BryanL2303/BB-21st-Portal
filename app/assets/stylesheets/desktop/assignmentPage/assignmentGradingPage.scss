@@ -1,0 +1,27 @@
+@media screen{
+	.assignment-grading-page .page-container{
+		overflow-x: hidden;
+		overflow-y: auto;
+		margin-top: 3vh;
+		height: 90vh;
+		margin-left: 5%;
+		width: 90%;
+	}
+
+	.assignment-grading-page .page-container button{
+		display: flex;
+		padding: 1%;
+		background-color: white;
+	}
+
+	.assignment-grading-page .page-container .attempt-selector{
+		display: flex;
+	}
+
+	.assignment-grading-page .page-container .attempt-selector button{
+	}
+
+	.assignment-grading-page .page-container .attempt-selector .selected{
+		background-color: grey;
+	}
+}

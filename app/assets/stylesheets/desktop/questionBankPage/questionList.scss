@@ -1,24 +1,34 @@
 @media screen{
 	.question-list-page{
+		max-height: 95%;
+		border-style: solid;
+		border-color: darkgrey;
+		border-radius: 5px;
+		padding: 1%;
+		margin: 1%;
+		overflow-x: hidden;
+		overflow-y: auto;
 		position: relative;
-		height: 100%;
-		width: 80%;
-		overflow: hidden;
-		margin: 0;
-		padding: 0;
+		width: 70%;
+	}
+
+	.question-list{
+		position: relative;
+		width: 95%;
+		margin: 1%;
+		padding: 1%;
 		border: black;
 		border-radius: 5px;
 		margin-top: 2%;
-		margin-left: 5%;
 	}
 
 	.question-list button{
-		width: 80%;
+		width: 100%;
 		text-align: left;
 	}
 
 	.question-list .question-editor button{
-		width: 10%;
+		width: 20%;
 		text-align: left;
 	}
 }

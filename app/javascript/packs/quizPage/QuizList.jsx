@@ -81,7 +81,7 @@ const QuizList = () => {
   //View a quiz
   function viewQuiz(e) {
     e.preventDefault()
-    window.location.href = '/quiz/' + e.target.className
+    window.location.href = '/quiz_result/' + e.target.className
   }
 
   function showMastery(e) {
@@ -91,28 +91,30 @@ const QuizList = () => {
   }
 
   return(
-    <div className='quiz-list'>
-      {masteries != null && <div>
+    <div className='quiz-list-block'>
+      {masteries != null && <div className='mastery-selector'>
           <button id={0} onClick={showMastery}>Basic</button>
           <button id={1} onClick={showMastery}>Advanced</button>
           <button id={2} onClick={showMastery}>Master</button>
         </div>}
 
-      {currentAward != null && currentMastery == null && <h1>{currentAward.badge_name}</h1>}
-      {currentAward != null && currentMastery != null && <h1>{currentAward.badge_name} {currentMastery.mastery_name}</h1>}
-      <br/>
-      <h2>Complete these tests assigned to you!</h2>
-      {quizzes.map((quiz) => {
-        return(
-          <button className={quiz.id} onClick={viewQuiz}>{quiz.quiz_name}</button>
-        )
-      })}
-      <h2>Test Yourself!</h2>
-      <button>
-        <h3>Practise Quiz</h3>
+      <div className='quiz-list'>
+        {currentAward != null && currentMastery == null && <h1>{currentAward.badge_name}</h1>}
+        {currentAward != null && currentMastery != null && <h1>{currentAward.badge_name} {currentMastery.mastery_name}</h1>}
         <br/>
-        <p>Complete a quiz with 10 random questions from the question bank!</p>
-      </button>
+        <h2>Complete these tests assigned to you!</h2>
+        {quizzes.map((quiz) => {
+          return(
+            <button className={quiz.id} onClick={viewQuiz}>{quiz.quiz_name}</button>
+          )
+        })}
+        <h2>Test Yourself!</h2>
+        <button>
+          <h3>Practise Quiz</h3>
+          <br/>
+          <p> Complete a quiz with 10 random questions from the question bank!</p>
+        </button>
+      </div>
     </div>
   )
 }

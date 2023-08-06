@@ -111,26 +111,28 @@ const QuizCreationPage = () => {
   }
 
   return(
-    <div>
-    <NavigationBar/>
-    <label>Create a quiz for: {award.awardId}</label>
-    <div className="quiz-creation-summary">
-      <h2>Summary</h2>
-      <p>Number of questions: {number}</p>
-      <p>Total marks: {marks}</p>
-    </div>
-    <form className='create-quiz-form' onSubmit={ submitForm }>
-      <input placeholder="Name of the quiz"></input>
-      {questions.map((num) => {
-        return (
-          <SetQuestionForm number={number} setNumber={setNumber} marks={marks} setMarks={setMarks}/>
-        )
-      })}
-      
-      <button>Create Quiz</button>
-    </form>
-    <button onClick={addQuestion}>Add Question</button>
-    <button>Save Quiz</button>
+    <div className='quiz-creation-page'>
+      <NavigationBar/>
+      <div className='page-container'>
+        <label>Create a quiz for: {award.awardId}</label>
+        <div className="quiz-creation-summary">
+          <h2>Summary</h2>
+          <p>Number of questions: {number}</p>
+          <p>Total marks: {marks}</p>
+        </div>
+        <form className='create-quiz-form' onSubmit={ submitForm }>
+          <input placeholder="Name of the quiz"></input>
+          {questions.map((num) => {
+            return (
+              <SetQuestionForm number={number} setNumber={setNumber} marks={marks} setMarks={setMarks}/>
+            )
+          })}
+          
+          <button>Create Quiz</button>
+        </form>
+        <button onClick={addQuestion}>Add Question</button>
+        <button>Save Quiz</button>
+      </div>
     </div>
   )
 }

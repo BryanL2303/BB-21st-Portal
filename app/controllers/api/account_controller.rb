@@ -48,6 +48,13 @@ module Api
 			render json: accounts
 		end
 
+		def getOwnAccount
+			accountId = decode_token(params[:token])
+			account = Account.find_by(id: accountId)
+
+			render json: account
+		end
+
 		def getAccountsByIds
 			accounts = Account.where(id: params[:boy_ids]).order('level').order('account_name')
 
@@ -96,11 +103,16 @@ module Api
 
 		def getAssignments
 			account = decode_token(params[:token])
-			assignments = Assignment.where(topic_name: params[:topic_name])
+
+			if params[:award]['masteryId'] == '0'
+				assignments = Assignment.where(award_id: params[:award]['awardId']).order('id')
+			else
+				assignments = Assignment.where(mastery_id: params[:award]['masteryId']).order('id')
+			end
 			quizzes = []
 			for assignment in assignments
 				assignedAssignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id: account)
-				if assignedAssignments != nil
+				if assignedAssignments != []
 					quiz = Quiz.find_by(id: assignment.quiz_id)
 					quizzes.append(quiz)
 				end

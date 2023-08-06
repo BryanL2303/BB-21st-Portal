@@ -5,6 +5,16 @@
 		margin-top: 3vh;
 		margin-left: 10vw;
 		width: 80vw;
-		height: 90vh;
+		margin-top: 3vh;
+		height: 85vh;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.result-generation-page .page-container button{
+		width: 15vw;
+	}
+
+	.result-page{
 	}
 }

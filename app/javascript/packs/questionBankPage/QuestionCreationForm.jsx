@@ -53,7 +53,11 @@ const QuestionCreationForm = () => {
       })
       .then(resp => {
         //Reset all the input fields
-        console.log(resp.data)
+        e.target[1].value = ''
+        e.target[2].value = ''
+        setType("")
+        e.target[0].value = ''
+        alert("Question has been created, please refresh the page.")
       })
       .catch(resp => console.log(resp.response.statusText))
     }

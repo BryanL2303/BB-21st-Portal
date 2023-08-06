@@ -1,21 +1,18 @@
 @media screen{
-	.quiz-page .page-container{
+	.quiz-creation-page .page-container{
 		overflow-x: hidden;
 		overflow-y: auto;
 		margin-top: 3vh;
 		height: 90vh;
-		margin-left: 5%;
-		width: 90%;
 	}
 
-	.quiz-page .page-container button{
-		display: flex;
+	.quiz-creation-page .page-container button{
 		padding: 2%;
 		background-color: white;
 		height: 4vh;
 	}
 
-	.quiz-page .page-container button:hover{
+	.quiz-creation-page .page-container button:hover{
 		background-color: lightgrey;
 	}
 }

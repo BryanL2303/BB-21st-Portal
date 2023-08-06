@@ -1,0 +1,33 @@
+@media screen{
+	.quiz-result-page .page-container{
+		overflow-x: hidden;
+		overflow-y: auto;
+		margin-top: 3vh;
+		height: 90vh;
+		margin-left: 5%;
+		width: 90%;
+	}
+
+	.quiz-result-page .page-container button{
+		display: flex;
+		padding: 2%;
+		background-color: white;
+		height: 2vh;
+	}
+
+	.quiz-result-page .page-container button:hover{
+		background-color: lightgrey;
+	}
+
+	.quiz-result-page .page-container .attempt-selector{
+		display: flex;
+	}
+
+	.quiz-result-page .page-container .attempt-selector button{
+		height: 2vh;
+	}
+
+	.quiz-result-page .page-container .attempt-selector .selected{
+		background-color: grey;
+	}
+}

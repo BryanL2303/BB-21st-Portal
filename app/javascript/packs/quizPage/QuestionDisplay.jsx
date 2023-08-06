@@ -58,7 +58,7 @@ const QuestionDisplay = ({questionId}) => {
           </div>
         )
       })}
-      {question != null && question.question_type == "Open-ended" && <input id={question.id} name={question.id}></input>}
+      {question != null && question.question_type == "Open-ended" && <textarea id={question.id} name={question.id}></textarea>}
     </div>
   )
 }

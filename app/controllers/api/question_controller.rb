@@ -4,9 +4,9 @@ module Api
 
 		def createQuestion
 			if params[:award][:masteryId] == '0'
-				question = Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks], award_id: params[:award][:awardId], permanent: true)
+				question = Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks], award_id: params[:award][:awardId], permanent: true, assigned: false)
 			else
-				question = Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks], mastery_id: params[:award][:masteryId], permanent: true)
+				question = Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks], mastery_id: params[:award][:masteryId], permanent: true, assigned: false)
 			end			
 			if question.save
 				if params[:question_type] == 'MCQ' || params[:question_type] == 'MRQ' 
@@ -95,6 +95,14 @@ module Api
 			else
 				render json: {error: question.errors.messages}, status: 422
 			end
+		end
+
+		def setPermanent
+			question = Question.find_by(id: params[:question_id])
+			question['permanent'] = true
+			question.save
+
+			render json: question
 		end
 
 		def deleteQuestion

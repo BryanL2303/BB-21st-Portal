@@ -116,28 +116,30 @@ const QuizList = () => {
   }
 
   return(
-    <div className='quiz-list'>
-      {masteries != null && <div>
+    <div className='quiz-list-block'>
+      {masteries != null && <div className='mastery-selector'>
           <button id={0} onClick={showMastery}>Basic</button>
           <button id={1} onClick={showMastery}>Advanced</button>
           <button id={2} onClick={showMastery}>Master</button>
         </div>}
 
-      {currentAward != null && currentMastery == null && <h1>{currentAward.badge_name}</h1>}
-      {currentAward != null && currentMastery != null && <h1>{currentAward.badge_name} {currentMastery.mastery_name}</h1>}
-      <h2>Assigned Tests</h2>
-      {assignments.map((assignment) => {
-        return (
-          <button className={assignment.id} onClick={editAssignmentPage}>{assignment.quiz_id}</button>
-        )
-      })}
-      <h2>Quizzes</h2>
-      {quizzes.map((quiz) => {
-        return (
-          <button className={quiz.id} onClick={editQuizPage}>{quiz.quiz_name} [- / {quiz.marks}]</button>
-        )
-      })}
-      <button onClick={quizCreationPage}>Create a new quiz</button>
+      <div className='quiz-list'>
+        {currentAward != null && currentMastery == null && <h1>{currentAward.badge_name}</h1>}
+        {currentAward != null && currentMastery != null && <h1>{currentAward.badge_name} {currentMastery.mastery_name}</h1>}
+        <h2>Assigned Tests</h2>
+        {assignments.map((assignment) => {
+          return (
+            <button className={assignment.id} onClick={editAssignmentPage}>{assignment.assignment_name}</button>
+          )
+        })}
+        <h2>Quizzes</h2>
+        {quizzes.map((quiz) => {
+          return (
+            <button className={quiz.id} onClick={editQuizPage}>{quiz.quiz_name} [- / {quiz.marks}]</button>
+          )
+        })}
+        <button onClick={quizCreationPage}>Create a new quiz</button>
+      </div>
     </div>
   )
 }

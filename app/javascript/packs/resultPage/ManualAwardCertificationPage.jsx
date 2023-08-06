@@ -8,6 +8,7 @@ import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 
 /*For officers/primers to generate award certifications
+No longer used in new awards system
 */
 const ManualAwardCertificationPage = ({award, masteryLevel, instructor}) => {
   const cookies = new Cookies()
@@ -190,7 +191,9 @@ const ManualAwardCertificationPage = ({award, masteryLevel, instructor}) => {
             <Description>
               <Text style={{height: '1.4vh'}}>:   {award.badge_name}</Text>
               <Text style={{height: '1.4vh'}}></Text>
-              <Text style={{height: '1.4vh'}}>:   {masteryLevel}</Text>
+              {masteryLevel == '1' && <Text style={{height: '1.4vh'}}>:   Basic</Text>}
+              {masteryLevel == '2' && <Text style={{height: '1.4vh'}}>:   Advanced</Text>}
+              {masteryLevel == '3' && <Text style={{height: '1.4vh'}}>:   Mastery</Text>}
             </Description>
           </DescriptionBlock>
 
@@ -213,7 +216,7 @@ const ManualAwardCertificationPage = ({award, masteryLevel, instructor}) => {
               <Text style={{marginTop: '1.2vh'}}>:</Text>
               <Text style={{marginTop: '1.2vh'}}>:</Text>
               <Text style={{marginTop: '1.2vh'}}>:</Text>
-              <Text style={{marginTop: '2.4vh'}}>:   LTA SEETOH KEH MENG DAVID</Text>
+              <Text style={{marginTop: '2.4vh'}}>:   LTA SEETOH KAH MENG DAVID</Text>
               <Text style={{marginTop: '1.2vh'}}>:</Text>
               <Text style={{marginTop: '1.2vh'}}>:</Text>
             </Credential>

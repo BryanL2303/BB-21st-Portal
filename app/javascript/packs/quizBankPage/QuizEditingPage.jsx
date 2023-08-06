@@ -134,23 +134,37 @@ const QuizEditingPage = () => {
     window.location.href = '/quiz_bank'
   }
 
+  function deleteQuiz(e) {
+    e.preventDefault()
+    axios.post('/api/quiz/' + quiz.id + '/delete_quiz', {
+      'id': quiz.id
+    })
+    .then(resp => {
+      window.location.href = '/quiz_bank'
+    })
+    .catch(resp => errorMessage(resp.response.statusText))
+  }
+
   return(
-    <div>
-    <NavigationBar/>
-    {quiz != null && <div className="quiz-editor">
-      <h2>{quiz.quiz_name}</h2>
-      <p>Total marks: {quiz.marks}</p>
-    </div>}
-    {quiz == null && <p>Some how quiz is null</p>}
-    {questions.map((question) => {
-      return(
-        <div className="question-editor">
-          <SelectedQuestion questionId={question.id} setQuestionId={doNothing} marks={-100} setMarks={doNothing}/>
-        </div>
-      )
-    })}
-    <button onClick={quizAssignmentPage}>Assign quiz to Boys</button>
-    <button onClick={quizBankPage}>Return to Quiz Bank</button>
+    <div className='quiz-editing-page'>
+      <NavigationBar/>
+      <div className='page-container'>
+        {quiz != null && <div className="quiz-editor">
+          <h2>{quiz.quiz_name}</h2>
+          <p>Total marks: {quiz.marks}</p>
+        </div>}
+        {quiz == null && <p>Some how quiz is null</p>}
+        {questions.map((question) => {
+          return(
+            <div className="question-editor">
+              <SelectedQuestion questionId={question.id} setQuestionId={doNothing} marks={-100} setMarks={doNothing}/>
+            </div>
+          )
+        })}
+        <button onClick={quizAssignmentPage}>Assign quiz to Boys</button>
+        {quiz != null && quiz.assigned == false && <button onClick={deleteQuiz}>Delete Quiz</button>}
+        <button onClick={quizBankPage}>Return to Quiz Bank</button>
+      </div>
     </div>
   )
 }

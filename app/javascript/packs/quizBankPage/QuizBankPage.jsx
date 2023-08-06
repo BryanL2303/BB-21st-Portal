@@ -16,7 +16,7 @@ const QuizBankPage = () => {
   }
 
   return(
-    <div className='question-bank-page'>
+    <div className='quiz-bank-page'>
       <NavigationBar/>
       <div className='page-container'>
         <AwardList/>

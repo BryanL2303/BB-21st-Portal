@@ -48,6 +48,54 @@ module Api
 			end
 		end
 
+		def getAssignmentAnswers
+			data = {}
+			assigned_account = AssignedAccount.find_by(id: params[:id])
+			data["assigned_account"] = assigned_account
+			data["account"] = Account.find_by(id: assigned_account.account_id)
+			assignment = Assignment.find_by(id: assigned_account.assignment_id)
+			data["assignment"] = assignment
+			quiz = Quiz.find_by(id: assignment.quiz_id)
+			data["quiz"] = quiz
+
+			attemptScore = AttemptScore.where(assigned_account_id: assigned_account.id).find_by(attempt: params[:attempt])
+			data["attempt_score"] = attemptScore
+
+			quizQuestions = QuizQuestion.where(quiz_id: quiz.id).order('question_id')
+			
+			data["questions"] = []
+			assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id).where(attempt: params[:attempt])
+			for quizQuestion in quizQuestions
+				answer = {}
+				question = Question.find_by(id: quizQuestion.question_id)
+				if question.question_type != 'Open-ended'
+					rubric = QuestionOption.where(question_id: question.id).order('id')
+					answer = []
+					for option in rubric
+						assignmentAnswer = assignmentAnswers.where(question_id: question.id).find_by(question_option_id: option.id)
+						answer.push({"rubric": option, "answer": assignmentAnswer})
+					end
+				else
+					rubric = AnswerRubric.where(question_id: question.id)
+					answer["rubric"] = rubric
+					assignmentAnswer = assignmentAnswers.where(question_id: question.id)
+					answer["answer"] = assignmentAnswer
+				end
+
+				data["questions"].append({'question': question, 'answer': answer})
+			end
+
+			render json: data
+		end
+
+		def setGraded
+			attemptScore = AttemptScore.find_by(id: params[:attempt_score_id])
+			attemptScore.graded = true
+			attemptScore.save
+
+			render json: attemptScore
+		end
+
 		def deleteAssignedAccount
 			assigned_account = AssignedAccount.find_by(id: params[:id])
 

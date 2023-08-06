@@ -61,10 +61,9 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
 
   const styles = StyleSheet.create({
     viewer: {
-      width: '80vw',
-      marginLeft: '10vw',
-      height: '80vh',
-      marginTop: '5vh'
+      width: '90vw',
+      marginLeft: '5vw',
+      height: '79vh',
     },
     logo: {
       height: '4vh'
@@ -349,11 +348,11 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
                 <Text>Pass/Fail</Text>
               </TableResultColumn>
             </TableHeaderRow>
-            {boys.map((boy) => {
+            {boys.map((boy, index) => {
               return(
                 <TableRow>
                   <TableNumberColumn>
-                    <Text>1</Text>
+                    <Text>{index + 1}</Text>
                   </TableNumberColumn>
                   <TableNameColumn>
                     <Text>{boy.account_name}</Text>
@@ -385,12 +384,6 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
             </FooterVersionColumn>
           </Footer>
         </Page>
-      </Document>
-    </PDFViewer>}
-    {mastery != null && mastery.require_certification && 
-    <PDFViewer style={styles.viewer}>
-      <Document>
-        <ManualAwardCertificationPage award={award} masteryLevel={masteryLevel} instructor={instructor}/>
       </Document>
     </PDFViewer>}
   </div>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         post '/authenticate_account' => 'account#authenticateAccount'
         post '/get_account' => 'account#getAccount'
         post '/get_accounts' => 'account#getAccounts'
+        post '/get_own_account' => 'account#getOwnAccount'
         post '/get_accounts_by_ids' => 'account#getAccountsByIds'
         post '/toggle_type' => 'account#toggleType'
         post '/edit_account' => 'account#editAccount'
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
         post '/get_options' => 'question#getOptions'
         post '/get_rubric' => 'question#getRubric'
         post '/edit_question' => 'question#editQuestion'
+        post '/set_permanent' => 'question#setPermanent'
         post '/delete_question' => 'question#deleteQuestion'
       end
     end
@@ -88,6 +90,8 @@ Rails.application.routes.draw do
         post '/get_assignment' => 'assignment#getAssignment'
         post '/get_assignments' => 'assignment#getAssignments'
         post '/submit_assignment' => 'assignment#submitAssignment'
+        post '/grade_question' => 'assignment#gradeQuestion'
+        post '/get_results_information' => 'assignment#getResultsInformation'
         post '/delete_assignment' => 'assignment#deleteAssignment'
       end
     end
@@ -97,7 +101,9 @@ Rails.application.routes.draw do
         post '/create_assigned_account' => 'assigned_account#createAssignedAccount'
         post '/get_assigned_account' => 'assigned_account#getAssignedAccount'
         post '/get_assigned_accounts' => 'assigned_account#getAssignedAccounts'
+        post '/get_assignment_answers' => 'assigned_account#getAssignmentAnswers'
         post '/update_assigned_account' => 'assigned_account#updateAssignedAccount'
+        post '/set_graded' => 'assigned_account#setGraded'
         post '/delete_assigned_account' => 'assigned_account#deleteAssignedAccount'
       end
     end

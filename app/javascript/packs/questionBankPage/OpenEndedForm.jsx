@@ -16,7 +16,7 @@ const OpenEndedForm = () => {
   return(
     <div className='open-ended-segment'>
       <label>Give a general rubric for future assessment</label>
-      <input className='open-ended__rubric'></input>
+      <textarea className='open-ended__rubric'></textarea>
     </div>
   )
 }

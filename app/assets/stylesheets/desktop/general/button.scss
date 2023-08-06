@@ -8,4 +8,15 @@
 		background-color: lightgrey;
 		border: none;
 	}
+
+	.mastery-selector{
+		display: flex;
+	}
+
+	.mastery-selector button{
+		border: solid;
+		border-style: solid;
+		border-color: darkgrey;
+		border-radius: 5px;
+	}
 }

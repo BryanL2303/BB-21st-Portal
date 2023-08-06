@@ -125,7 +125,7 @@ const QuestionList = () => {
 
   return(
     <div className='question-list-page'>
-      {masteries != null && <div>
+      {masteries != null && <div className='mastery-selector'>
           <button id={0} onClick={showMastery}>Basic</button>
           <button id={1} onClick={showMastery}>Advanced</button>
           <button id={2} onClick={showMastery}>Master</button>
@@ -137,24 +137,24 @@ const QuestionList = () => {
       <br/>
       
       <div className='question-list'>
-      <h2>MCQ Questions</h2>
-      {mcqQuestions.map((question) => {
-        return (
-          <McqOptionsEditor question={question}/>
-        )
-      })}
-      <h2>MRQ Questions</h2>
-      {mrqQuestions.map((question) => {
-        return (
-          <MrqOptionsEditor question={question}/>
-        )
-      })}
-      <h2>Open-ended Questions</h2>
-      {openEndQuestions.map((question) => {
-        return (
-          <OpenEndedRubricEditor question={question}/>
-        )
-      })}
+        <h2>MCQ Questions</h2>
+        {mcqQuestions.map((question) => {
+          return (
+            <McqOptionsEditor question={question}/>
+          )
+        })}
+        <h2>MRQ Questions</h2>
+        {mrqQuestions.map((question) => {
+          return (
+            <MrqOptionsEditor question={question}/>
+          )
+        })}
+        <h2>Open-ended Questions</h2>
+        {openEndQuestions.map((question) => {
+          return (
+            <OpenEndedRubricEditor question={question}/>
+          )
+        })}
       </div>
     </div>
   )

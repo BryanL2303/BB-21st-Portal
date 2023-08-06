@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202307280000003) do
+ActiveRecord::Schema[7.0].define(version: 202308030000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 202307280000003) do
     t.datetime "updated_at", null: false
     t.integer "attempt"
     t.float "score"
+    t.string "comments"
     t.index ["account_id"], name: "index_assignment_answers_on_account_id"
     t.index ["assignment_id"], name: "index_assignment_answers_on_assignment_id"
     t.index ["question_id"], name: "index_assignment_answers_on_question_id"
@@ -66,11 +67,25 @@ ActiveRecord::Schema[7.0].define(version: 202307280000003) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "quiz_id"
-    t.string "topic_name"
     t.boolean "show_answer"
     t.integer "attempt_limit"
+    t.bigint "award_id"
+    t.bigint "mastery_id"
+    t.string "assignment_name"
     t.index ["account_id"], name: "index_assignments_on_account_id"
+    t.index ["award_id"], name: "index_assignments_on_award_id"
+    t.index ["mastery_id"], name: "index_assignments_on_mastery_id"
     t.index ["quiz_id"], name: "index_assignments_on_quiz_id"
+  end
+
+  create_table "attempt_scores", force: :cascade do |t|
+    t.bigint "assigned_account_id"
+    t.float "score"
+    t.integer "attempt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "graded"
+    t.index ["assigned_account_id"], name: "index_attempt_scores_on_assigned_account_id"
   end
 
   create_table "awards", force: :cascade do |t|
@@ -114,6 +129,7 @@ ActiveRecord::Schema[7.0].define(version: 202307280000003) do
     t.bigint "award_id"
     t.bigint "mastery_id"
     t.float "marks"
+    t.boolean "assigned"
     t.index ["award_id"], name: "index_questions_on_award_id"
     t.index ["mastery_id"], name: "index_questions_on_mastery_id"
   end
@@ -137,12 +153,6 @@ ActiveRecord::Schema[7.0].define(version: 202307280000003) do
     t.float "marks"
     t.index ["award_id"], name: "index_quizzes_on_award_id"
     t.index ["mastery_id"], name: "index_quizzes_on_mastery_id"
-  end
-
-  create_table "topics", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "topic_name"
   end
 
 end

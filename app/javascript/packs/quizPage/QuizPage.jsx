@@ -13,6 +13,8 @@ const QuizPage = () => {
   const cookies = new Cookies()
   const [quiz, setQuiz] = useState();
   const [questions, setQuestions] = useState([]);
+  const [assignedAccount, setAssignedAccount] = useState();
+  const [attemptScore, setAttemptScore] = useState();
   const { id } = useParams()
 
   /*let reader = new FileReader();
@@ -33,7 +35,6 @@ const QuizPage = () => {
       'id': id
     })
     .then(resp => {
-      console.log(resp.data)
       setQuiz(resp.data)
     })
     .catch(resp => errorMessage(resp.response.statusText))
@@ -43,6 +44,16 @@ const QuizPage = () => {
     .then(resp => {
       console.log(resp.data)
       setQuestions(resp.data)
+    })
+    .catch(resp => errorMessage(resp.response.statusText))
+    axios.post('/api/assignment/0/get_assignment', {
+      'token': cookies.get('Token'),
+      'quiz_id': id,
+      'id': '0'
+    })
+    .then(resp => {
+      setAssignedAccount(resp.data['assigned_account'])
+      setAttemptScore(resp.data['attemptScore'])
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
@@ -91,24 +102,26 @@ const QuizPage = () => {
   }
 
   return(
-    <div>
-    <NavigationBar/>
-    {quiz != null && <div className="quiz-editor">
-      <h2>{quiz.quiz_name}</h2>
-      <p>Total marks: {quiz.marks}</p>
-    </div>}
-    {quiz == null && <p>Some how quiz is null</p>}
-    <form onSubmit={submitQuiz}>
-    {questions.map((question) => {
-      return(
-        <div className="question-editor">
-          <QuestionDisplay questionId={question.id}/>
-        </div>
-      )
-    })}
-    
-    <button>Submit Quiz</button>
-    </form>
+    <div className='quiz-page'>
+      <NavigationBar/>
+      <div className='page-container'>
+        {quiz != null && <div className="quiz">
+          <h2>{quiz.quiz_name}</h2>
+          <p>Total marks: {quiz.marks}</p>
+        </div>}
+        {quiz == null && <p>Some how quiz is null</p>}
+        <form onSubmit={submitQuiz}>
+          {questions.map((question) => {
+            return(
+              <div className="question">
+                <QuestionDisplay questionId={question.id}/>
+              </div>
+            )
+          })}
+          
+          <button>Submit Quiz</button>
+        </form>
+      </div>
     </div>
   )
 }

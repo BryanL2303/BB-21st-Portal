@@ -48,32 +48,47 @@ const AssignmentPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
 
+  function deleteAssignment(e) {
+    axios.post('/api/assignment/' + e.target.id + '/delete_assignment', {
+      'id': e.target.id
+    })
+    .then(resp => {
+      window.location.href = '/quiz_bank'
+    })
+    .catch(resp => errorMessage(resp.response.statusText))
+  }
+
+  function renderResults(e) {
+    window.location.href = '/view_result/' + assignment.id
+  }
+
   return(
     <div className="assignment-page">
-    <NavigationBar/>
-    {assignment != null && quiz != null && <div className="assignment-description">
-      <h2>{quiz.quiz_name}</h2>
-      <p>Boys that has passed: {passees} / {assignees}</p>
-    </div>}
-    {assignment == null && <p>Some how assignment is null</p>}
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Attempts</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        {quiz != null && assignedAccounts.map((assignedAccount) => {
-          return(
-            <AssignedAccountDisplay assignedAccount={assignedAccount} passees={passees} setPassees={setPassees}/>
-          )
-        })}
-      </tbody>
-    </table>
-    
-    <button className="results-button">This should be a button that renders the 32a results</button>
+      <NavigationBar/>
+      {assignment != null && quiz != null && <div className="assignment-description">
+        <h2>{quiz.quiz_name}</h2>
+        <p>Boys that has passed: {passees} / {assignees}</p>
+      </div>}
+      {assignment == null && <p>Some how assignment is null</p>}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Attempts</th>
+            <th>Best Score</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {quiz != null && assignedAccounts.map((assignedAccount) => {
+            return(
+              <AssignedAccountDisplay assignedAccount={assignedAccount} passees={passees} setPassees={setPassees}/>
+            )
+          })}
+        </tbody>
+      </table>
+      {assignment != null && <button id={assignment.id} className="results-button" onClick={deleteAssignment}>Delete Assignment</button>}
+      <button className="results-button" onClick={renderResults}>Render 32A results</button>
     </div>
   )
 }

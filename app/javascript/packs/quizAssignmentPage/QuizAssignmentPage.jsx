@@ -48,13 +48,13 @@ const QuizAssignmentPage = () => {
     let i = 0
     let showAnswer = false
     let attemptLimit = 0
-    if (e.target[0].checked) {
-      attemptLimit = e.target[1].value
+    if (e.target[1].checked) {
+      attemptLimit = e.target[2].value
+      showAnswer = e.target[3].checked
+      i = 4
+    } else {
       showAnswer = e.target[2].checked
       i = 3
-    } else {
-      showAnswer = e.target[1].checked
-      i = 2
     }
     while (e.target[i] != null) {
       if (e.target[i].checked) {
@@ -67,6 +67,7 @@ const QuizAssignmentPage = () => {
       'quiz_id': id,
       'award': award,
       'accounts': accounts,
+      'assignment_name': e.target[0].value,
       'show_answer': showAnswer,
       'attempt_limit': attemptLimit
     })
@@ -90,32 +91,37 @@ const QuizAssignmentPage = () => {
   }
 
   return(
-    <div>
-    <NavigationBar/>
-    {quiz != null && <div className="quiz-editor">
-      <h2>{quiz.quiz_name}</h2>
-      <p>Total marks: {quiz.marks}</p>
-    </div>}
-    {quiz == null && <p>Some how quiz is null</p>}
-    <form onSubmit={createAssignment}>
-    <label>Limit the number of times Boys can attempt the quiz</label>
-    <input type='checkbox' onClick={limitAttempts}></input>
-    <br/>
-    {limiter && <div>
-      <label>How many times can each Boy attempt the quiz?</label>
-      <input className="limiter-input" defaultValue={3}></input>
-     </div>}
-    <label>Do you want to show the boys the answers after they attempt the quiz?</label>
-    <input type='checkbox'></input>
-    <p>Pick the Boys to assign this quiz to</p>
-    {accounts.map((account) => {
-      return(
-        <AccountSelector account={account}/>
-      )
-    })}
-    <button>Assign quiz</button>
-    </form>
-    <button onClick={quizBankPage}>Return to Quiz Bank</button>
+    <div className='quiz-assignment-page'>
+      <NavigationBar/>
+      <div className='page-container'>
+        {quiz != null && <div>
+          <h2>{quiz.quiz_name}</h2>
+          <p>Total marks: {quiz.marks}</p>
+        </div>}
+        {quiz == null && <p>Some how quiz is null</p>}
+        {quiz!= null && <form onSubmit={createAssignment}>
+          <label>Name of the assignment: </label>
+          <input defaultValue={quiz.quiz_name}></input>
+          <br/>
+          <label>Limit the number of times Boys can attempt the quiz: </label>
+          <input type='checkbox' onClick={limitAttempts}></input>
+          <br/>
+          {limiter && <div>
+            <label>How many times can each Boy attempt the quiz?</label>
+            <input className="limiter-input" defaultValue={3}></input>
+           </div>}
+          <label>Do you want to show the boys the answers after they attempt the quiz?</label>
+          <input type='checkbox'></input>
+          <p>Pick the Boys to assign this quiz to</p>
+          {accounts.map((account) => {
+            return(
+              <AccountSelector account={account}/>
+            )
+          })}
+          <button>Assign quiz</button>
+        </form>}
+        <button onClick={quizBankPage}>Return to Quiz Bank</button>
+      </div>
     </div>
   )
 }

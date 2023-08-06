@@ -156,7 +156,6 @@ const ResultGenerationPage = () => {
           <br/>
           <button>Generate Results</button>
         </form>}
-        <br/>
         {pdf && <ManualResultPage awardId={awardId} masteryLevel={masteryLevel} instructorId={instructorId} boyIds={boys}/>}
         {pdf && <button onClick={undoPdf}>Change fields</button>}
       </div>
