@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Popup from 'reactjs-popup';
 import Cookies from 'universal-cookie'
 import axios from 'axios'
@@ -10,7 +10,9 @@ import {SetQuestionForm} from './SetQuestionForm'
 */
 const QuizCreationPage = () => {
   const cookies = new Cookies()
-  const [award, setAward] = useContext(AwardContext)
+  const [awardId, setAwardId] = useContext(AwardContext)
+  const [award, setAward] = useState();
+  const [mastery, setMastery] = useState();
   const [number, setNumber] = useState(1);
   const [quizName, setQuizName] = useState("");
   const [marks, setMarks] = useState(0);
@@ -20,6 +22,16 @@ const QuizCreationPage = () => {
   if (cookies.get('Token') == null) {
     window.location.href = '/'
   }
+
+  useEffect(() => {
+    axios.post('/api/award/' + awardId.awardId + '/get_award', {
+      'id': awardId.awardId
+    })
+    .then(resp => {
+      setAward(resp.data)
+    })
+    .catch(resp => errorMessage(resp.response.statusText))
+  }, [awardId.awardId])
 
   function addQuestion(e) {
     e.preventDefault()
@@ -114,24 +126,26 @@ const QuizCreationPage = () => {
     <div className='quiz-creation-page'>
       <NavigationBar/>
       <div className='page-container'>
-        <label>Create a quiz for: {award.awardId}</label>
+        {award != null && !award.has_mastery && <h1>Create a quiz for: {award.badge_name}</h1>}
+        {award != null && award.has_mastery && <h1>Create a quiz for: {award.badge_name} {awardId.masteryId.mastery_name}</h1>}
         <div className="quiz-creation-summary">
           <h2>Summary</h2>
           <p>Number of questions: {number}</p>
           <p>Total marks: {marks}</p>
         </div>
         <form className='create-quiz-form' onSubmit={ submitForm }>
+          <label>Quiz name: </label>
           <input placeholder="Name of the quiz"></input>
           {questions.map((num) => {
             return (
               <SetQuestionForm number={number} setNumber={setNumber} marks={marks} setMarks={setMarks}/>
             )
           })}
-          
-          <button>Create Quiz</button>
+
+          <button type='button' onClick={addQuestion}>Add Question</button>
+          <button type='submit'>Create Quiz</button>
         </form>
-        <button onClick={addQuestion}>Add Question</button>
-        <button>Save Quiz</button>
+
       </div>
     </div>
   )

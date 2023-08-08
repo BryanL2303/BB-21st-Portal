@@ -35,17 +35,22 @@ const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
   }
 
   return(
-    <div>
+    <div className='question-container'>
     {exist == 'true' && <div className='mcq-options-segment'>
+      <br/>
+      <label>Question Type: </label>
       <Popup className='question-type-popup' trigger={<input className='create-quiz-question__type' value={type}></input>} position="bottom">
         <p className='MCQ' onClick={setQuestionType}>MCQ</p>
         <p className='MRQ' onClick={setQuestionType}>MRQ</p>
         <p className='Open-ended' onClick={setQuestionType}>Open-ended</p>
       </Popup>
+      <br/>
+      {type != '' && <label>Use question from: </label>}
       {type != '' && <Popup className='question-source-popup' trigger={<input className='create-quiz-question__source' value={source}></input>} position="bottom">
         <p className='Question bank' onClick={setQuestionSource}>Question bank</p>
         <p className='Create new question' onClick={setQuestionSource}>Create new question</p>
       </Popup>}
+      <br/>
       {source == 'Question bank' && <QuestionSelector type={type} marks={marks} setMarks={setMarks}/>}
       {source == 'Create new question' && <NewQuizQuestionForm type={type} marks={marks} setMarks={setMarks}/>}
       <button onClick={deleteQuestion}>Delete Question</button>

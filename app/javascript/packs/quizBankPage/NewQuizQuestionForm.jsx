@@ -31,7 +31,10 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
 
   return(
     <div className='create-question-form'>
+      <label>Question: </label>
       <input className='create-question-form__question' placeholder='question'></input>
+      <br/>
+      <label>Marks: </label>
       <input className='create-question-form__marks' onChange={changeLocalMarks} placeholder='marks'></input>
       {type == "MCQ" && <McqOptionsForm/>}
       {type == "MRQ" && <MrqOptionsForm/>}

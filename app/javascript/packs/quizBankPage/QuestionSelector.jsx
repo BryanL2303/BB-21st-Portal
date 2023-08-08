@@ -39,7 +39,7 @@ const QuestionSelector = ({type, marks, setMarks}) => {
 
   return(
     <div className='question-selector'>
-      <h1>Select a question</h1>
+      <h3>Select a question</h3>
       {selected == false && questions.map((question) => {
         return (
           <button className={question.id} onClick={select}>{question.question}</button>

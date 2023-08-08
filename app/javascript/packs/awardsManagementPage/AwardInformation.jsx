@@ -107,7 +107,7 @@ const AwardInformation = ({awardId}) => {
       axios.post('/api/award/' + awardId + '/edit_award', {
         id: awardId,
         badge_name: e.target[0].value,
-        has_mastery: e.target[1].value,
+        has_mastery: e.target[1].checked,
         details: details
       })
       .then(resp => {
@@ -118,7 +118,7 @@ const AwardInformation = ({awardId}) => {
           alert("Failed to update")
         }
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(resp => console.log(resp.response.statusText))
     }
     else {
       alert("Please fill in all fields first")

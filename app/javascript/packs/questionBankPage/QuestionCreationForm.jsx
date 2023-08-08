@@ -69,12 +69,18 @@ const QuestionCreationForm = () => {
   return(
     <form className='create-question-form' onSubmit={ submitForm }>
       <label>Add a question into the question bank</label>
+      <br/>
+      <label>Question type: </label>
       <Popup className='question-type-popup' trigger={<input className='create-question-form__type' placeholder='MCQ/MRQ/Open-ended'></input>} position="bottom">
         <p className='MCQ' onClick={setFormType}>MCQ</p>
         <p className='MRQ' onClick={setFormType}>MRQ</p>
         <p className='Open-ended' onClick={setFormType}>Open-ended</p>
       </Popup>
+      <br/>
+      <label>Question: </label>
       <input className='create-question-form__question' placeholder='question'></input>
+      <br/>
+      <label>Marks: </label>
       <input className='create-question-form__marks' placeholder='marks'></input>
       {type == "MCQ" && <McqOptionsForm/>}
       {type == "MRQ" && <MrqOptionsForm/>}
