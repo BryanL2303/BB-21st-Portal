@@ -233,17 +233,46 @@ const ResultGenerationPage = () => {
               <br/>
               <label>Description of badgework:</label>
               <br/>
-              <textarea defaultValue='THIS IS FOR CUSTOM DESCRIPTIONS'></textarea>
+              <label>{award.description_cue}</label>
+              <br/>
+              <textarea onBlur={updateCustomDescription} defaultValue='Give a description for the results form'></textarea>
               <br/>
               <label>Fields of custom columns:</label>
               <br/>
-              <textarea defaultValue='THIS IS FOR CUSTOM COLUMNS'></textarea>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    {columns.map((column) =>{
+                      return(
+                        <th>{column.column_title}</th>
+                      )
+                    })}
+                  </tr>
+                </thead>
+                <tbody>
+                  {boys.map((boy) => {
+                    return(
+                      <tr>
+                        <th>Sec {boy.level} {boy.rank} {boy.account_name}</th>
+                        {columns.map((column) =>{
+                          return(
+                            <th><input id={column.column_title}></input></th>
+                          )
+                        })}
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
             </div>}
             {award != null && mastery != null && mastery.custom_description && <div>
               <br/>
               <label>Description of badgework:</label>
               <br/>
-              <textarea onBlur={updateCustomDescription} defaultValue='THIS IS FOR CUSTOM DESCRIPTIONS'></textarea>
+              <label>{mastery.description_cue}</label>
+              <br/>
+              <textarea onBlur={updateCustomDescription} defaultValue='Give a description for the results form'></textarea>
               <br/>
               <label>Fields of custom columns:</label>
               <br/>
