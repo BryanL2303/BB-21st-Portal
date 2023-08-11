@@ -58,10 +58,6 @@ const AssignmentPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
   }
 
-  function renderResults(e) {
-    window.location.href = '/view_result/' + assignment.id
-  }
-
   return(
     <div className="assignment-page">
       <NavigationBar/>
@@ -88,7 +84,6 @@ const AssignmentPage = () => {
         </tbody>
       </table>
       {assignment != null && <button id={assignment.id} className="results-button" onClick={deleteAssignment}>Delete Assignment</button>}
-      <button className="results-button" onClick={renderResults}>Render 32A results</button>
     </div>
   )
 }

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
-import {AwardCreationForm} from './AwardCreationForm'
 import {AwardInformation} from './AwardInformation'
+import {AwardEditor} from './AwardEditor'
 
 /*To access current users and create new accounts
 */
@@ -21,7 +21,7 @@ const AwardsManagementPage = () => {
     axios.post('/api/award/0/get_awards', {
     })
     .then(resp => {
-      setAwards(resp.data)
+      setAwards(resp.data['awards'])
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
@@ -31,17 +31,11 @@ const AwardsManagementPage = () => {
     setPageState(e.target.className)
   }
 
-  //Show the form to create new accounts
-  function showForm () {
-    setPageState("form");
-  }
-
   return(
     <div className='award-management-page'>
       <NavigationBar/>
       <div className='page-container'>
         <div className='awards-list'>
-          <button onClick = {showForm}>Create New Award</button>
           <p>Current Awards</p>
           {awards.map((award) => {
             return(
@@ -50,8 +44,8 @@ const AwardsManagementPage = () => {
           })}
         </div>
         <div className='main-block'>
-          {pageState == "form" && <AwardCreationForm/>}
-          {pageState != "form" && <AwardInformation awardId={pageState}/>}
+          {pageState != "form" && cookies.get("Type") != 'Admin' && <AwardInformation awardId={pageState}/>}
+          {pageState != "form" && cookies.get("Type") == 'Admin' && <AwardEditor awardId={pageState}/>}
         </div>
       </div>
     </div>

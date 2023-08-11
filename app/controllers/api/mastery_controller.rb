@@ -17,8 +17,10 @@ module Api
 			render json: mastery
 		end
 
-		def getQuizzes
-			
+		def getColumns
+			columns = CustomColumn.where(mastery_id: params[:id])
+
+			render json: columns
 		end
 
 		def getQuestions
@@ -26,9 +28,6 @@ module Api
 		end
 
 		def deleteAward
-			#Need to loop through all replies, comments and topics related to this account
-			#and delete them all
-
 			if topic.destroy
 				head :no_content
 			else

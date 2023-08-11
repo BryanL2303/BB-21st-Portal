@@ -1,18 +1,28 @@
 @media screen{
 	.result-generation-page .page-container{
+		overflow: hidden;
+		margin-top: 3vh;
+		height: 90vh;
+		display: flex;
+	}
+
+	.result-generation-page .page-container .main-block{
 		overflow-x: hidden;
 		overflow-y: auto;
-		margin-top: 3vh;
-		margin-left: 10vw;
-		width: 80vw;
-		margin-top: 3vh;
-		height: 85vh;
+		padding-left: 10vw;
+		width: 100vw;
+		height: auto;
+		max-height: 95%;
 		display: flex;
 		flex-direction: column;
 	}
 
 	.result-generation-page .page-container button{
 		width: 15vw;
+	}
+
+	.result-generation-page .page-container textarea{
+		height: 200px;
 	}
 
 	.result-page{

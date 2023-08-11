@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202308030000001) do
+ActiveRecord::Schema[7.0].define(version: 202308100000002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,7 +96,21 @@ ActiveRecord::Schema[7.0].define(version: 202308030000001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "has_mastery"
-    t.boolean "require_certification"
+    t.boolean "custom_description"
+    t.string "description_cue"
+    t.boolean "has_results"
+    t.boolean "has_pass"
+    t.boolean "has_custom_columns"
+  end
+
+  create_table "custom_columns", force: :cascade do |t|
+    t.string "column_title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "award_id"
+    t.bigint "mastery_id"
+    t.index ["award_id"], name: "index_custom_columns_on_award_id"
+    t.index ["mastery_id"], name: "index_custom_columns_on_mastery_id"
   end
 
   create_table "masteries", force: :cascade do |t|
@@ -107,7 +121,11 @@ ActiveRecord::Schema[7.0].define(version: 202308030000001) do
     t.datetime "updated_at", null: false
     t.bigint "award_id"
     t.string "mastery_requirements"
-    t.boolean "require_certification"
+    t.boolean "custom_description"
+    t.string "description_cue"
+    t.boolean "has_results"
+    t.boolean "has_pass"
+    t.boolean "has_custom_columns"
     t.index ["award_id"], name: "index_masteries_on_award_id"
   end
 

@@ -118,9 +118,11 @@ const QuizList = () => {
   return(
     <div className='quiz-list-block'>
       {masteries != null && <div className='mastery-selector'>
-          <button id={0} onClick={showMastery}>Basic</button>
-          <button id={1} onClick={showMastery}>Advanced</button>
-          <button id={2} onClick={showMastery}>Master</button>
+          {masteries.map((mastery, index) => {
+            return(
+              <button id={index} onClick={showMastery}>{mastery.mastery_name}</button>
+            )
+          })}
         </div>}
 
       <div className='quiz-list'>

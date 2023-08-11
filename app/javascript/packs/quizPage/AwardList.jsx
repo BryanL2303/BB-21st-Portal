@@ -15,7 +15,8 @@ const AwardList = () => {
     axios.post('/api/award/0/get_awards', {
     })
     .then(resp => {
-      setAwards(resp.data)
+      console.log(resp.data)
+      setAwards(resp.data['awards'])
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])

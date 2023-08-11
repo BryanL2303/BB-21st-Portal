@@ -44,9 +44,14 @@ module Api
 		end
 
 		def getAwards
-			awards = Award.all.order('badge_name')
+			awards = Award.all.order('id')
+			masteries = []
+			for award in awards
+				mastery = Mastery.where(award_id: award.id).order('id')
+				masteries.push(mastery)
+			end
 			
-			render json: awards
+			render json: {'awards': awards, 'masteries': masteries}
 		end
 
 		def editAward
@@ -141,6 +146,12 @@ module Api
 
 		def getQuestions
 			
+		end
+
+		def getColumns
+			columns = CustomColumn.where(award_id: params[:id])
+
+			render json: columns
 		end
 
 		def deleteAward

@@ -7,16 +7,12 @@ import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {AccountResultDisplay} from './AccountResultDisplay'
-import {ManualAwardCertificationPage} from './ManualAwardCertificationPage'
 
 /*For officers/primers to generate results
 */
-const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
+const ManualResultPage = ({award, mastery, instructorId, boys, customDescription, columns, columnContents}) => {
   const cookies = new Cookies()
-  const [award, setAward] = useState();
-  const [mastery, setMastery] = useState();
   const [instructor, setInstructor] = useState();
-  const [boys, setBoys] = useState([]);
   let date = new Date();
   const formattedDate = date.toLocaleDateString('en-GB');
 
@@ -27,34 +23,11 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
 
   useEffect(() => {
     //make axios call and set states
-    axios.post('/api/award/' + awardId + '/get_award', {
-      'id': awardId
-    })
-    .then(resp => {
-      setAward(resp.data)
-      if (resp.data.has_mastery) {
-        axios.post('/api/award/' + awardId + '/get_masteries', {
-          'award_id': awardId
-        })
-        .then(resp => {
-          setMastery(resp.data[parseInt(masteryLevel) - 1])
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
-      }
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/' + instructorId + '/get_account', {
       'id': instructorId
     })
     .then(resp => {
       setInstructor(resp.data)
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
-    axios.post('/api/account/0/get_accounts_by_ids', {
-      'boy_ids': boyIds
-    })
-    .then(resp => {
-      setBoys(resp.data)
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
@@ -155,6 +128,7 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
     margin-top: 4%;
     border: 1px solid #000000;
     border-top: 1px none;
+    border-right: 1px none;
     flex-wrap: nowrap;
     display: flex;
     flex-direction: column;
@@ -223,6 +197,7 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
     justify-content: center;
     display: flex;
     flex-direction: column;
+    border-right: 1px solid #000000;
     font-size: 9px;
   `;
 
@@ -328,8 +303,9 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
               {mastery == null && <Text style={{fontFamily: 'Times-Bold'}}>{award.badge_name}</Text>}
               {mastery != null && <Text style={{fontFamily: 'Times-Bold'}}>{award.badge_name} {mastery.mastery_name}</Text>}
               <Text style={{fontFamily: 'Times-Bold'}}>{formattedDate}</Text>
-              {mastery == null && <Text>{award.results_description}</Text>}
-              {mastery != null && <Text>{mastery.results_description}</Text>}
+              {customDescription != null && <Text>{customDescription}</Text>}
+              {mastery == null && customDescription == null && <Text>{award.results_description}</Text>}
+              {mastery != null && customDescription == null && <Text>{mastery.results_description}</Text>}
             </Description>
           </DescriptionBlock>
 
@@ -344,6 +320,13 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
               <TableLevelColumn>
                 <Text>Level</Text>
               </TableLevelColumn>
+              {columns.map((column) => {
+                return (
+                  <TableLevelColumn>
+                    <Text>{column.column_title}</Text>
+                  </TableLevelColumn>
+                )
+              })}
               <TableResultColumn>
                 <Text>Pass/Fail</Text>
               </TableResultColumn>
@@ -360,6 +343,13 @@ const ManualResultPage = ({awardId, masteryLevel, instructorId, boyIds}) => {
                   <TableLevelColumn>
                     <Text>Sec {boy.level}</Text>
                   </TableLevelColumn>
+                  {columns.map((column) => {
+                    return (
+                      <TableLevelColumn>
+                        <Text>{columnContents[column.column_title][index]}</Text>
+                      </TableLevelColumn>
+                    )
+                  })}
                   <TableResultColumn>
                     <Text style={{fontFamily: 'Times-Bold'}}>Pass</Text>
                   </TableResultColumn>

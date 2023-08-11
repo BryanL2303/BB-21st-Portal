@@ -55,20 +55,20 @@ const AwardCreationForm = () => {
       if (e.target[2].value == '' || e.target[3].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
+      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1})
     } else {
       if (e.target[2].value == '' || e.target[3].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
-      if (e.target[5].value == '' || e.target[6].value == '') {
+      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1})
+      if (e.target[4].value == '' || e.target[5].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[5].value, 'results_description': e.target[6].value, 'recommended_level': level2, 'require_certification': e.target[7].checked})
-      if (e.target[8].value == '' || e.target[9].value == '') {
+      details.push({'badge_requirements': e.target[4].value, 'results_description': e.target[5].value, 'recommended_level': level2})
+      if (e.target[6].value == '' || e.target[7].value == '') {
         submit = false
       }
-      details.push({'badge_requirements': e.target[8].value, 'results_description': e.target[9].value, 'recommended_level': level3, 'require_certification': e.target[10].checked})
+      details.push({'badge_requirements': e.target[6].value, 'results_description': e.target[7].value, 'recommended_level': level3})
     }
     if (submit) {
       axios.post('/api/award/0/create_award', {
@@ -125,9 +125,6 @@ const AwardCreationForm = () => {
           <p className='2' onClick={setLevel}>2</p>
           <p className='1' onClick={setLevel}>1</p>
         </Popup>
-        <br/>
-        <label>This badge requires awards certification: </label>
-        <input className='create-award-form__certification' type='checkbox' defaultChecked={false}></input>
         <br/>
       </div>}
       {hasMastery && <div>

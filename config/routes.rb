@@ -27,15 +27,14 @@ Rails.application.routes.draw do
         post '/get_masteries' => 'award#getMasteries'
         post '/get_quizzes' => 'award#getQuizzes'
         post '/get_questions' => 'award#getQuestions'
+        post '/get_columns' => 'award#getColumns'
         post '/delete_award' => 'award#deleteAward'
       end
     end
 
-    resources :topic do
+    resources :mastery do
       member do
-        post '/create_topic' => 'topic#createTopic'
-        get '/get_topics' => 'topic#getTopics'
-        post '/delete_topic' => 'topic#deleteTopic'
+        post '/get_columns' => 'mastery#getColumns'
       end
     end
 

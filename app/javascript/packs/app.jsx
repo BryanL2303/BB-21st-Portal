@@ -16,7 +16,6 @@ import { AssignmentPage } from './assignmentPage/AssignmentPage'
 import { AssignmentGradingPage } from './assignmentPage/AssignmentGradingPage'
 import { ResultPage } from './resultPage/ResultPage'
 import { ResultGenerationPage } from './resultPage/ResultGenerationPage'
-import { AwardCertificationPage } from './awardCertificationPage/AwardCertificationPage'
 import { AdminPage } from './adminPage/AdminPage'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
@@ -43,7 +42,6 @@ root.render(
         <Route path='/view_assignment/:id' element={<AssignmentPage/>}/>
         <Route path='/view_assignment/grade/:id' element={<AssignmentGradingPage/>}/>
         <Route path='/view_result/:id' element={<ResultPage/>}/>
-        <Route path='/view_award_certification/:id' element={<AwardCertificationPage/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
       </Routes>
