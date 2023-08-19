@@ -34,8 +34,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
 
   const styles = StyleSheet.create({
     viewer: {
-      width: '90vw',
-      marginLeft: '5vw',
+      width: '100%',
       height: '79vh',
     },
     logo: {
@@ -117,6 +116,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
   const Description = styled.View`
     margin-left: 2%;
     display: flex;
+    width: 85%;
     flex-direction: column;
     align-content: flex-start;
     font-size: 9px;
