@@ -94,7 +94,7 @@ const AccountCreationForm = () => {
       <br/>
       <label>Account Type: </label>
       <Popup className='account-type-popup' trigger={<label className='create-account-form__type'>Boy</label>} position="bottom">
-        {cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin" && <p className='Officer' onClick={setType}>Officer</p>}
+        {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") && <p className='Officer' onClick={setType}>Officer</p>}
         <p className='Primer' onClick={setType}>Primer</p>
         <p className='Boy' onClick={setType}>Boy</p>
       </Popup>
