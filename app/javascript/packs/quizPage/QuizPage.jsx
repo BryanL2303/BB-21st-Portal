@@ -5,7 +5,6 @@ import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {QuestionDisplay} from './QuestionDisplay'
-import * as XLSX from 'xlsx'
 
 /*For boys to attempt quizzes
 */
@@ -16,13 +15,6 @@ const QuizPage = () => {
   const [assignedAccount, setAssignedAccount] = useState();
   const [attemptScore, setAttemptScore] = useState();
   const { id } = useParams()
-
-  /*let reader = new FileReader();
-  reader.readAsArrayBuffer(worksheet)
-  reader.onload((e) => {
-    setExcelFile(e.target.result)
-    console.log(e.target.result)
-  })*/
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {

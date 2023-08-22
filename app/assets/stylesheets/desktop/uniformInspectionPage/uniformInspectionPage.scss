@@ -1,0 +1,47 @@
+@media screen{
+	.uniform-inspection-page .page-container{
+		margin-top: 3vh;
+		height: 85vh;
+		display: flex;
+		flex-direction: column;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding-left: 10vw;
+		padding-right: 10vw;
+		width: 80vw;
+	}
+
+	.uniform-inspection-page .page-container button{
+		width: 15vw;
+	}
+
+	.uniform-inspection-page table{
+		border: solid;
+		width: 80vw;
+		text-align: left;
+	}
+
+	.uniform-inspection-page table th{
+		text-align: center;
+	}
+
+	.uniform-inspection-page table tr{
+		text-align: center;
+	}
+
+	.uniform-inspection-result-page .page-container{
+		margin-top: 3vh;
+		height: 85vh;
+		display: flex;
+		flex-direction: column;
+		overflow-x: hidden;
+		overflow-y: auto;
+		padding-left: 10vw;
+		padding-right: 10vw;
+		width: 80vw;
+	}
+
+	.uniform-inspection-result-page .page-container button{
+		width: 15vw;
+	}
+}

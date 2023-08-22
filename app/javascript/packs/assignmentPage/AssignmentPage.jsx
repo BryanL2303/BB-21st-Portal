@@ -63,7 +63,6 @@ const AssignmentPage = () => {
       <NavigationBar/>
       {assignment != null && quiz != null && <div className="assignment-description">
         <h2>{quiz.quiz_name}</h2>
-        <p>Boys that has passed: {passees} / {assignees}</p>
       </div>}
       {assignment == null && <p>Some how assignment is null</p>}
       <table>
@@ -87,5 +86,7 @@ const AssignmentPage = () => {
     </div>
   )
 }
+
+//<p>Boys that has passed: {passees} / {assignees}</p>
 
 export { AssignmentPage }

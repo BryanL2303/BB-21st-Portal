@@ -16,6 +16,9 @@ import { AssignmentPage } from './assignmentPage/AssignmentPage'
 import { AssignmentGradingPage } from './assignmentPage/AssignmentGradingPage'
 import { ResultPage } from './resultPage/ResultPage'
 import { ResultGenerationPage } from './resultPage/ResultGenerationPage'
+import { UniformInspectionPage } from './uniformInspectionPage/UniformInspectionPage'
+import { UniformInspectionResultPage } from './uniformInspectionPage/UniformInspectionResultPage'
+import { UniformInspectionForm } from './uniformInspectionPage/UniformInspectionForm'
 import { AdminPage } from './adminPage/AdminPage'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
@@ -42,6 +45,9 @@ root.render(
         <Route path='/view_assignment/:id' element={<AssignmentPage/>}/>
         <Route path='/view_assignment/grade/:id' element={<AssignmentGradingPage/>}/>
         <Route path='/view_result/:id' element={<ResultPage/>}/>
+        <Route path='/uniform_inspection_results' element={<UniformInspectionPage/>}/>
+        <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
+        <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
       </Routes>

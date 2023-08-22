@@ -45,6 +45,11 @@ const NavigationBar = () => {
     window.location.href = '/generate_result'
   }
 
+  //Go to UniformInspectionPage
+  function uniformInspectionPage () {
+    window.location.href = '/uniform_inspection_results'
+  }
+
   //Go to ResetPasswordPage
   function resetPasswordPage () {
     window.location.href = '/reset_password'
@@ -79,6 +84,7 @@ const NavigationBar = () => {
         {cookies.get("Type") != "Boy" && <button className="user-management--button" onClick={userManagementPage}>Users Management</button>}
         {cookies.get("Type") != "Boy" && <button className="award-management--button" onClick={awardManagementPage}>Awards</button>}
         {cookies.get("Type") != "Boy" && <button className="result-generation--button" onClick={resultGenerationPage}>Result Generation</button>}
+        {cookies.get("Type") != "Boy" && <button className="uniform-inspection--button" onClick={uniformInspectionPage}>Uniform Inspection</button>}
         <button onClick={resetPasswordPage}>Reset Password</button>
         <button className="log-out--button" onClick={logOut}>Log Out</button>
       </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202308100000002) do
+ActiveRecord::Schema[7.0].define(version: 202308200000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -103,6 +103,15 @@ ActiveRecord::Schema[7.0].define(version: 202308100000002) do
     t.boolean "has_custom_columns"
   end
 
+  create_table "component_fields", force: :cascade do |t|
+    t.bigint "uniform_component_id"
+    t.string "description"
+    t.integer "score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uniform_component_id"], name: "index_component_fields_on_uniform_component_id"
+  end
+
   create_table "custom_columns", force: :cascade do |t|
     t.string "column_title"
     t.datetime "created_at", null: false
@@ -171,6 +180,32 @@ ActiveRecord::Schema[7.0].define(version: 202308100000002) do
     t.float "marks"
     t.index ["award_id"], name: "index_quizzes_on_award_id"
     t.index ["mastery_id"], name: "index_quizzes_on_mastery_id"
+  end
+
+  create_table "selected_components", force: :cascade do |t|
+    t.bigint "uniform_inspection_id"
+    t.bigint "component_field_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["component_field_id"], name: "index_selected_components_on_component_field_id"
+    t.index ["uniform_inspection_id"], name: "index_selected_components_on_uniform_inspection_id"
+  end
+
+  create_table "uniform_components", force: :cascade do |t|
+    t.string "component_name"
+    t.integer "total_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "uniform_inspections", force: :cascade do |t|
+    t.bigint "account_id"
+    t.integer "total_score"
+    t.string "date"
+    t.integer "assessor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_uniform_inspections_on_account_id"
   end
 
 end

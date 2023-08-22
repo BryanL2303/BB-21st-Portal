@@ -106,6 +106,16 @@ Rails.application.routes.draw do
         post '/delete_assigned_account' => 'assigned_account#deleteAssignedAccount'
       end
     end
+
+    resources :uniform_inspection do 
+      member do
+        post '/create_uniform_inspection' => 'uniform_inspection#createUniformInspection'
+        post '/get_inspection' => 'uniform_inspection#getInspection'
+        post '/get_inspections' => 'uniform_inspection#getInspectionsSummary'
+        post '/get_component_fields' => 'uniform_inspection#getComponentFields'
+        post '/delete_uniform_inspection' => 'uniform_inspection#deleteUniformInspection'
+      end
+    end
   end
 
   get '*path', to: 'pages#index', via: :all

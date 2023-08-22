@@ -15,6 +15,10 @@ const QuizListPage = () => {
     window.location.href = '/'
   }
 
+  if (cookies.get('Type') != 'Boy') {
+    window.location.href = '/user_management'
+  }
+
   return(
     <div className='quiz-list-page'>
       <NavigationBar/>
