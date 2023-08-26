@@ -125,10 +125,21 @@ const UniformInspectionForm = () => {
   }
 
   return(
-    <div className='uniform-inspection-page'>
+    <div className='uniform-inspection-form'>
       <NavigationBar/>
+      <div className='header'>
+        <label>Currently Inspecting: </label>
+        <select onChange={setForm} defaultValue={null}>
+          {boys.map((boy) => {
+            return(
+              <option value={boy.id}>{boy.rank} {boy.account_name}</option>
+            )
+          })}
+        </select>
+      </div>
       <div className='page-container'>
         <h2>Uniform Inspection</h2>
+        <br/>
         <label>Pick the boys to inspect: </label>
         {boyAccounts.map((boyAccount) => {
           return(
@@ -140,15 +151,6 @@ const UniformInspectionForm = () => {
         })}
         <br/>
         <form onSubmit={submitInspection}>
-          <label>Currently Inspecting: </label>
-          <select onChange={setForm} defaultValue={null}>
-            {boys.map((boy) => {
-              return(
-                <option value={boy.id}>{boy.rank} {boy.account_name}</option>
-              )
-            })}
-          </select>
-          <br/>
           {currentForm != null && components.map((component) => {
             return(
               <div>

@@ -39,6 +39,9 @@ const ResultGenerationPage = () => {
     .then(resp => {
       setAwards(resp.data['awards'])
       setMasteries(resp.data['masteries'])
+      setAward(resp.data['awards'][0])
+      setAwardId(resp.data['awards'][0].id)
+      setMasteryLevel('0')
     })
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
@@ -53,6 +56,7 @@ const ResultGenerationPage = () => {
     })
     .then(resp => {
       setPrimerAccounts(resp.data)
+      setInstructorId(resp.data[0].id)
     })
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
@@ -65,24 +69,25 @@ const ResultGenerationPage = () => {
   }, [])
 
   function selectAward(e) {
-    setAwardId(e.target.id)
-    setMasteryLevel(e.target.className)
+    let data = e.target.value.split(" ")
+    setAwardId(data[0])
+    setMasteryLevel(data[1])
     setCustomDescription()
     setColumnContents({})
     //make axios call and set states
-    axios.post('/api/award/' + e.target.id + '/get_award', {
-      'id': e.target.id
+    axios.post('/api/award/' + data[0] + '/get_award', {
+      'id': data[0]
     })
     .then(resp => {
       setAward(resp.data)
       if (resp.data.has_mastery) {
-        axios.post('/api/award/' + e.target.id + '/get_masteries', {
-          'award_id': e.target.id
+        axios.post('/api/award/' + data[0] + '/get_masteries', {
+          'award_id': data[0]
         })
         .then(resp => {
-          setMastery(resp.data[parseInt(e.target.className) - 1])
-          axios.post('/api/mastery/' + resp.data[parseInt(e.target.className) - 1].id + '/get_columns', {
-            'id': resp.data[parseInt(e.target.className) - 1].id
+          setMastery(resp.data[parseInt(data[1]) - 1])
+          axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns', {
+            'id': resp.data[parseInt(data[1]) - 1].id
           })
           .then(resp => {
             setColumns(resp.data)
@@ -106,7 +111,7 @@ const ResultGenerationPage = () => {
   }
 
   function selectInstructor(e) {
-    setInstructorId(e.target.id)
+    setInstructorId(e.target.value)
   }
 
   function selectBoy(e) {
@@ -172,50 +177,40 @@ const ResultGenerationPage = () => {
           <h1>Generate Results</h1>
           <br/>
           <p>Pick the badge to generate results for</p>
-          {awards.map((award, index) => {
-            if (!award.has_mastery && award.has_results) {
-              return(
-                <div>
-                  <input type='radio' id={award.id} className='0' onChange={selectAward} name='award'></input>
-                  <label> {award.badge_name}</label>
-                </div>
-              )
-            } else {
-              return (
-                <div>
-                  {masteries[index].map((mastery, index) => {
-                    if (mastery.has_results) {
-                      return (
-                        <div>
-                          <input type='radio' id={award.id} className={index + 1} onChange={selectAward} name='award'></input>
-                          <label> {award.badge_name} {mastery.mastery_name}</label>
-                          <br/>
-                        </div>
-                      )
-                    }
-                  })}
-                </div>
-              )
-            }
-          })}
+          <select onChange={selectAward}>
+            {awards.map((award, index) => {
+              if (!award.has_mastery && award.has_results) {
+                return(
+                  <option value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>
+                )
+              } 
+              else {
+                let array = []
+                masteries[index].map((mastery, index) => {
+                  if (mastery.has_results) {
+                    array.push(<option value={String(award.id) + ' ' + String(index + 1)}>{award.badge_name} {mastery.mastery_name}</option>)
+                  }
+                })
+                return(array)
+              }
+            })}            
+          </select>
+          <br/>
           <br/>
           <p>Pick the instructor for the badgework</p>
-          {primerAccounts.map((primerAccount) => {
-            return(
-              <div className='account-display'>
-                <input type='radio' name='instructor' id={primerAccount.id} onChange={selectInstructor}></input>
-                <label> {primerAccount.rank} {primerAccount.account_name}</label>
-              </div>
-            )
-          })}
-          {officerAccounts.map((officerAccount) => {
-            return(
-              <div className='account-display'>
-                <input type='radio' name='instructor' id={officerAccount.id} onChange={selectInstructor}></input>
-                <label> {officerAccount.rank} {officerAccount.account_name}</label>
-              </div>
-            )
-          })}
+          <select onChange={selectInstructor}>
+            {primerAccounts.map((primerAccount) => {
+              return(
+                <option value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>
+              )
+            })}
+            {officerAccounts.map((officerAccount) => {
+              return(
+                <option value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>
+              )
+            })}
+          </select>
+          <br/>
           <br/>
           <p>Pick the Boys to include in the results</p>
           {boyAccounts.map((boyAccount) => {
