@@ -159,6 +159,10 @@ module Api
 			masteries = Mastery.where(award_id: award['id'])
 			masteries.destroy_all
 			quizzes = Quiz.where(award_id: award['id'])
+			assignments = Assignment.where(quiz_id: quizzes['id'])
+			assigned_accounts = AssignedAccount.where(assignment_id: assignments['id'])
+			assigned_accounts.destroy_all
+			assignments.destroy_all
 			quizzes.destroy_all
 			questions = Question.where(award_id: award['id'])
 			questions.destroy_all
