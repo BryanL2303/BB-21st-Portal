@@ -1,4 +1,4 @@
-@media screen and (min-width: 800px){
+@media screen and (max-width: 800px){
 	.uniform-inspection-page .page-container{
 		margin-top: 3vh;
 		height: 85vh;
@@ -6,9 +6,9 @@
 		flex-direction: column;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		padding-left: 5vw;
+		padding-right: 5vw;
+		width: 90vw;
 	}
 
 	.uniform-inspection-page .page-container button{
@@ -17,7 +17,7 @@
 
 	.uniform-inspection-page table{
 		border: solid;
-		width: 80vw;
+		width: 90vw;
 		text-align: left;
 	}
 
@@ -35,9 +35,9 @@
 		flex-direction: column;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		padding-left: 5vw;
+		padding-right: 5vw;
+		width: 90vw;
 	}
 
 	.uniform-inspection-form .page-container{
@@ -46,9 +46,9 @@
 		flex-direction: column;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		padding-left: 5vw;
+		padding-right: 5vw;
+		width: 90vw;
 	}
 
 	.uniform-inspection-result-page .page-container{
@@ -58,9 +58,9 @@
 		flex-direction: column;
 		overflow-x: hidden;
 		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		padding-left: 5vw;
+		padding-right: 5vw;
+		width: 90vw;
 	}
 
 	.uniform-inspection-result-page .page-container button{

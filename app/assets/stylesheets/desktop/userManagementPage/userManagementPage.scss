@@ -11,7 +11,7 @@
 		padding: 2%;
 		background-color: white;
 		border: none;
-		height: 4vh;
+		min-height: 4vh;
 		width: 80%;
 	}
 
@@ -37,6 +37,7 @@
 		margin-left: 2.5%;
 		width: 95%;
 		text-align: left;
+		overflow: hidden;
 	}
 
 	.user-management-page .page-container .main-block{

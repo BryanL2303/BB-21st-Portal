@@ -1,4 +1,4 @@
-@media screen and (min-width: 800px){
+@media screen and (max-width: 800px){
 	.log-in-page{
 		position: relative;
 		height: 100vh;
@@ -9,39 +9,39 @@
 
 	.log-in-form{
 		height: 50%;
-		width: 50%;
+		width: 80%;
 		position: absolute;
-		top: 25%;
-		left: 25%;
+		top: 30%;
+		left: 10%;
 		border: solid;
 		border-radius: 3%;
 	}
 
 	.log-in-form{
-		font-size: 30px;
+		font-size: 40px;
 	}
 
 	.log-in-form__name{
 		position: absolute;
-		top: 30%;
-		left: 25%;
-		width: 50%;
-		font-size: 20px;
+		top: 20%;
+		left: 15%;
+		width: 70%;
+		font-size: 30px;
 	}
 
 	.log-in-form__password{
 		position: absolute;
-		top: 40%;
-		left: 25%;
-		width: 50%;	
-		font-size: 20px;
+		top: 50%;
+		left: 15%;
+		width: 70%;	
+		font-size: 30px;
 	}
 
 	.log-in-form button{
 		position: absolute;
-		top: 50%;
+		top: 70%;
 		left: 25%;
 		width: 50%;	
-		font-size: 20px;
+		font-size: 30px;
 	}
 }

@@ -163,6 +163,7 @@ const UniformInspectionForm = () => {
                     </div>
                   )
                 })}
+                <br/>
               </div>
             )
           })}

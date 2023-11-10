@@ -1,24 +1,55 @@
-# README
+BB 21st Portal
+This website helps to facilitate administrative tasks such as creating 32A results and conducting quizzes.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Build Status: 
+This website is running with the following link:
+https://bb-21-5a1d0159cf81.herokuapp.com/
 
-Things you may want to cover:
+Usage:
+The website is used by the Boys' Brigade 21st Singapore Company
 
-* Ruby version
+Installation and Configuration:
+Methods to configure this website will not be discussed as it was created for a specific user base
 
-* System dependencies
+Author:
+Bryan Lee bryanlee0033@gmail.com
 
-* Configuration
+Changelog:
+Version: 1.0
+25 July 2023
+First commit, website uploaded with functions for creating quizzes and attempting quizzes, fixed dependencies and website is up
 
-* Database creation
+26 July 2023
+Bug fix for Form submissions
 
-* Database initialization
+27 - 29 July 2023
+Updated CSS for visual bugs
 
-* How to run the test suite
+6 August 2023
+Results generation function added to view cumulative results from quiz attempts as well as grading quizzes
 
-* Services (job queues, cache servers, search engines, etc.)
+Version 1.1
+11 August 2023
+Awards system recreated and results generation functions added to the website, functional but not fully complete.
+Requires more frontend work to edit backend for awards informations
 
-* Deployment instructions
+19 August 2023
+Bug fix - text wrap not working for pdf documents
 
-* ...
+22 August 2023
+Uniform Inspection form added to the website
+Seed added with Uniform Inspection Components
+Bug fixs:
+ - Officers cannot create new officer accounts
+ - Officers/Primers will no longer see Quiz Page meant for Boys'
+
+26 August 2023
+Updated UI for Uniform Inspection form to easily switch between a group of Boys' when conducting uniform inspection
+
+3 October 2023
+Testing to remove unnecessary components from the folder
+
+10 November 2023
+Updating UI for mobile use, created CSS for mobile devices
+Increased sizes for certain components for ease of users.
+Changed website title from Quiz Website to BB 21st Portal

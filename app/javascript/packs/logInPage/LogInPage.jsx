@@ -38,10 +38,16 @@ const LogInPage = () => {
 
   return(
     <div className='log-in-page'>
+      <div className='navigation-bar'>
+        <img className="crest" src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></img>
+      </div>
+      
       <form className='log-in-form' onSubmit={ submitForm }>
-        <label>Quiz Portal</label>
+        <label>BB 21st Portal</label>
         <input className='log-in-form__name' placeholder='username'></input>
         <input className='log-in-form__password' type='password' placeholder='password'></input>
+        <br/>
+        <br/>
         <button>Log In</button>
       </form>
     </div>
