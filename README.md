@@ -1,3 +1,5 @@
+# README
+
 BB 21st Portal
 This website helps to facilitate administrative tasks such as creating 32A results and conducting quizzes.
 
