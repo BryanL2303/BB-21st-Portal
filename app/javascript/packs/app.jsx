@@ -52,4 +52,5 @@ root.render(
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
       </Routes>
     </Router>
-  </AwardProvider>);
+  </AwardProvider>
+);

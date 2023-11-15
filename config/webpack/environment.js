@@ -7,6 +7,7 @@ const customConfig = {
       fs: false,
       net: false,
       tls: false,
+      zlib: false,
       child_process: false
     }
   },
