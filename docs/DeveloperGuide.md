@@ -22,7 +22,7 @@ title: Developer Guide
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" />
+<img src="images/ArchitectureDiagram.png" width="280" alt="To be added..." />
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
@@ -44,18 +44,19 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **UI** of this website is composed of jsx files in [`app/javascript/packs`](https://github.com/se-edu/TaskMasterPro-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **UI** of this website is composed of jsx files in [`app/javascript/packs`](https://github.com/BryanL2303/BB-21st-Portal/tree/main/app/javascript/packs)
 **Provide Description**
-The CSS files can be found in app/assets/stylesheets
+The CSS files can be found in [`app/assets/stylesheets`](https://github.com/BryanL2303/BB-21st-Portal/tree/main/app/assets/stylesheets)
 
 ### API component
 
-**API** : [`app/controllers/api`](https://github.com/se-edu/TaskMasterPro-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`app/controllers/api`](https://github.com/BryanL2303/BB-21st-Portal/tree/main/app/controllers/api)
 **Provide Description**
+The API for the UI to communicate with the database.
 
 ### Database component
 
-**API** : [`db`](https://github.com/se-edu/TaskMasterPro-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`db`](https://github.com/BryanL2303/BB-21st-Portal/tree/main/db)
 **Provide Description**
 Update the database through migrations specified in db/migrations. Update/create seed data using seed file.
 
@@ -75,35 +76,7 @@ Given below is an example usage scenario and how the add/delete quiz / question 
 
 Step 1. The user enters the quizzes / question bank. Assume that there are no existing quizzes and questions.
 
-![AddTask0](images/AddTask0.png)
-
-Step 2. 
-
-![AddTask1](images/AddTask1.png)
-
-Step 3. 
-
-![AddTask2](images/AddTask2.png)
-
-Step 4. 
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** If an invalid `TaskId` is entered instead, an error will appear informing the user and nothing else will happen.
-
-![AddTask3](images/AddTask3.png)
-
-
-The following sequence diagram shows how an add question operation goes through the `API` component:
-
-![AddTaskSequence](images/AddTaskSequence.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `AddTaskCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<img src="images/AddTaskActivityDiagram.png" width="250" />
-<img src="images/DeleteTaskActivityDiagram.png" width="250" />
+**To be completed...**
 
 #### Design considerations:
 
@@ -112,23 +85,6 @@ This however introduces problems due to the coupling issues.
 2. What should happen to the new questions should a quiz be deleted?
 3. Should the deletion of an award cascade to all quizzes and questions?
 4. How to simply display all the information? This means that users have multiple ways of creating quizzes, creating questions, deciding what to do upon deletion of a quiz, ability to view both quizzes and questions.
-
-**Aspect: How to uniquely identify `Task`:**
-
-* **Alternative 1 (current choice):** Using of `taskId`.
-    * Pros: Easy to implement. `TaskMasterPro` automatically assigns this value.
-    * Cons: May be hard for users to keep track of.
-
-* **Alternative 2:** Using of `taskName`.
-    * Pros: An existing field, no additional implementations needed.
-    * Cons: Impossible to uniquely identify tasks as there could be tasks with the same name.
-
---------------------------------------------------------------------------------------------------------------------
-
-## **Documentation, dev-ops**
-
-* [Documentation guide](Documentation.md)
-* [DevOps guide](DevOps.md)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -186,27 +142,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  
-
-    Use case ends.
+1. Click on the menu at the top right
+2. Click on `results generation`
+3. Select the award to generate results for
+4. Select the instructor for the badgework
+5. Select the boys to pass
+6. Click on generate
 
 **Extensions**
 
-* 2a. The list is empty.
+* 3a. The awards list is empty.
 
   Use case ends.
 
-* 3a. The given id is invalid.
+* 4a. The instructors list is empty.
 
-    * 3a1. TaskMasterPro shows an error message.
-
-      Use case resumes at step 2.
+  Use case ends.
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream web browsers_.
 2.  Should be able to operate without a noticeable sluggishness in performance for typical usage.
 3.  Should be able to handle a disconnected database without crashing.
+4.  Should not contain any _private contact detail_.
 
 ### Glossary
 
@@ -216,3 +174,5 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
+
+1. Awards Tracker for individual Boys to track progress towards IPA/SPA/Founders
