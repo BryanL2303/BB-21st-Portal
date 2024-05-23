@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::Base
 	def encode_token(payload)
-		JWT.encode(payload, 'quiz')
+		JWT.encode(payload, 'secretkey')
 	end
 
 	def decode_token(token)
 		begin
-			JWT.decode(token, 'quiz', true, algorithm: 'HS256')[0]["user_id"]
+			JWT.decode(token, 'secretkey', true, algorithm: 'HS256')[0]["user_id"]
 		rescue JWT::DecodeError
 			nil
 		end

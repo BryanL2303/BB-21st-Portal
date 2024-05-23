@@ -39,3 +39,5 @@ yarn-debug.log*
 
 #Testing to ensure that it doesnt break the website
 /test
+
+secret.md

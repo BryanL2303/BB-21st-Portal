@@ -55,3 +55,16 @@ Testing to remove unnecessary components from the folder
 Updating UI for mobile use, created CSS for mobile devices
 Increased sizes for certain components for ease of users.
 Changed website title from Quiz Website to BB 21st Portal
+
+9 May 2024
+1. Added files to the docs folder
+    1. DeveloperGuide.md
+    2. index.md
+    3. UserGuide.md
+    4. DevOps.md
+2. DeveloperGuide.md has been updated
+    1. Includes target users and user stories.
+    2. Design considerations for quizzes and questions.
+    3. PUML diagrams have not been added yet.
+    4. Have not updated use cases.
+3. The other files added to docs has not been updated.
