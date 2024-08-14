@@ -40,7 +40,7 @@ award.save
 
 award = Award.new(badge_name: "Total Defence", has_mastery: true)
 award.save
-mastery = Mastery.new(award_id: award.id, mastery_name: "Basic", recommended_level: "1", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
+mastery = Mastery.new(award_id: award.id, mastery_name: "Bronze", recommended_level: "1", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
 	mastery_requirements: 
 "Awarded to Boys who have:
 
@@ -52,9 +52,9 @@ mastery = Mastery.new(award_id: award.id, mastery_name: "Basic", recommended_lev
 Officers may download the latest TD Lesson Plans from Officers Portal > Resources > Seniors > New SP Curriculum > Total Defence.", 
 	results_description: "Boys have completed SLS lessons, played GOTC II, designed and shared a new \"Action\" card for the game and also completed an introduction to CPR-AED as part of school's PE curriculum.")
 mastery.save
-mastery = Mastery.new(award_id: award.id, mastery_name: "Advanced", recommended_level: "2", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
+mastery = Mastery.new(award_id: award.id, mastery_name: "Silver", recommended_level: "2", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
 	mastery_requirements: 
-"Awarded to Boys who have attained TD (Basic) and:
+"Awarded to Boys who have attained TD (Bronze) and:
 
 1. Submitted a storyboard for N.E.mation! on one of the 6 TD pillars. (90 mins)
 2. Taught at least a pair of peers how to play the GOTC II card game or assisted in the facilitation of gameplay of at least a pair of peers at a GOTC II gameplay session and completed a reflection. (90 mins)
@@ -62,9 +62,9 @@ mastery = Mastery.new(award_id: award.id, mastery_name: "Advanced", recommended_
 Officers may download the latest TD Lesson Plans from Officers Portal > Resources > Seniors > New SP Curriculum > Total Defence.", 
 	results_description: "Boys have submitted storyboard for N.E.mation! on one of the 6 TF pillers and also facilitated a pair of peers in GOTC II gameplay.")
 mastery.save
-mastery = Mastery.new(award_id: award.id, mastery_name: "Master", recommended_level: "3", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
+mastery = Mastery.new(award_id: award.id, mastery_name: "Gold", recommended_level: "3", custom_description: false, has_custom_columns: false, has_results: true, has_pass: false, 
 	mastery_requirements: 
-"Awarded to Boys who have attained TD (Advanced) and:
+"Awarded to Boys who have attained TD (Silver) and:
 
 1. Initiated, planned, and executed a TD-related VIA project that benefits the  community at large (individually or in groups) and completed a reflection or joined a volunteer scheme approved by Nexus.
 2. Completed CPR-AED certification. (4 hours) In addition, Boys may choose to complete an optional Psychological First Aid certification. (8 hours)
@@ -98,7 +98,7 @@ custom_column = CustomColumn.new(mastery_id: mastery.id, column_title: "SGB hrs"
 custom_column.save
 custom_column = CustomColumn.new(mastery_id: mastery.id, column_title: "Role in stakeholder event")
 custom_column.save
-mastery = Mastery.new(award_id: award.id, mastery_name: "Advanced", recommended_level: "2", custom_description: true, has_custom_columns: true, has_results: true, has_pass: false, description_cue: "Title and date of the stakeholder event, also provide a brief description of the stakeholderevent as well as which stakeholder was engaged",
+mastery = Mastery.new(award_id: award.id, mastery_name: "Advanced", recommended_level: "2", custom_description: true, has_custom_columns: true, has_results: true, has_pass: false, description_cue: "Title and date of the stakeholder event, also provide a brief description of the stakeholder event as well as which stakeholder was engaged",
 	mastery_requirements: 
 "Awarded to Boys who attained CS (Basic) and
 

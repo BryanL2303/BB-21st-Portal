@@ -97,9 +97,9 @@ const UniformInspectionForm = () => {
   function setForm(e) {
     setCurrentForm(e.target.value)
     for (let component in components) {
-      let fieldSelector = document.getElementsByClassName(component + '-field-selector')
+      let fieldSelector = document.getElementsByClassName(components[component].id + '-field-selector')
       for (let field of fieldSelector) {
-        field.checked = selectedContents[e.target.value][component][field.id]
+        field.checked = selectedContents[e.target.value][components[component].id][field.id]
       }
     }
   }
@@ -129,7 +129,7 @@ const UniformInspectionForm = () => {
       <NavigationBar/>
       <div className='header'>
         <label>Currently Inspecting: </label>
-        <select onChange={setForm} defaultValue={null}>
+        <select onChange={e => setForm(e)} defaultValue={null}>
           {boys.map((boy) => {
             return(
               <option value={boy.id}>{boy.rank} {boy.account_name}</option>
@@ -156,6 +156,7 @@ const UniformInspectionForm = () => {
               <div>
                 <h3>{component.component_name}</h3>
                 {componentFields[component.component_name].map((field) => {
+                  console.log(component.id)
                   return(
                     <div>
                       <input type='checkbox' className={component.id + '-field-selector'} id={field.id} name={component.id} onChange={selectField} defaultChecked={selectedContents[currentForm][component.id][field.id]}></input>

@@ -68,3 +68,17 @@ Changed website title from Quiz Website to BB 21st Portal
     3. PUML diagrams have not been added yet.
     4. Have not updated use cases.
 3. The other files added to docs has not been updated.
+
+7 August 2024
+1. Updated from Ruby version 3.1.2 to 3.3.4
+2. Updated Browserslist: caniuse-lite with npx update-browserslist-db@latest
+
+13 August 2024
+1. Updated seedRecords to change Total Defense mastery names from basic ... mastery to bronze ... gold
+2. Fixed bug where the delete account button does nothing. But interaction after button press needs to be reconsidered
+3. Fixed bug where the custom fields header will appear for awards that does not have any custom fields
+4. Fixed bug where the results generation form will be stuck in an infinite loop for certain awards
+5. Fixed bug where the user creation form will show a default selected value for rank and level but it does not register when form is submitted
+6. Fixed bug where the uniform inspection form will not update itself when switching between boys
+7. Fixed bug where the custom description and fields on the frontend remains when switching between awards
+8. Updated known issues section to reflect fixed bugs

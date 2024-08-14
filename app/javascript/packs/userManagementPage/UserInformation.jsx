@@ -5,7 +5,7 @@ import axios from 'axios'
 
 /*To view users information and delete user accounts
 */
-const UserInformation = ({userId}) => {
+const UserInformation = ({userId, showForm}) => {
   const cookies = new Cookies()
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
@@ -97,14 +97,18 @@ const UserInformation = ({userId}) => {
   function deleteAccount(e) {
     e.preventDefault()
     axios.post('/api/account/0/delete_account', {
-      account_name: userName
+      account_name: account.account_name
     })
     .then(resp => {
       if (resp.data != false) {
+        // This means that the deletion failed
         //Reload the users list on the side and reset back to account creation form
+        showForm()
       }
       else{
+        // Deletion success
         alert("Please refresh the page")
+        showForm()
       }
     })
     .catch(resp => errorMessage(resp.response.statusText))

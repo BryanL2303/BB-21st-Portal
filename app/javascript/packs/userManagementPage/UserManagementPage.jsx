@@ -37,7 +37,7 @@ const UserManagementPage = () => {
         </div>
         <div className='main-block'>
           {pageState == "form" && <AccountCreationForm/>}
-          {pageState != "form" && <UserInformation userId={pageState}/>}
+          {pageState != "form" && <UserInformation userId={pageState} showForm={showForm}/>}
         </div>
       </div>
     </div>

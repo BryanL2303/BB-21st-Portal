@@ -8,8 +8,8 @@ import axios from 'axios'
 const AccountCreationForm = () => {
   const cookies = new Cookies()
   const [accountType, setAccountType] = useState('Boy');
-  const [accountRank, setAccountRank] = useState();
-  const [accountLevel, setAccountLevel] = useState();
+  const [accountRank, setAccountRank] = useState('REC');
+  const [accountLevel, setAccountLevel] = useState('1');
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -20,6 +20,12 @@ const AccountCreationForm = () => {
     e.preventDefault()
     setAccountType(e.target.className)
     document.getElementsByClassName('create-account-form__type')[0].innerHTML = e.target.className
+    if (e.target.className == "Primer") {
+      setAccountRank('CLT')
+    }
+    else if (e.target.className == 'Officer') {
+      setAccountRank('2LT')
+    }
   }
 
   function setRank(e) {

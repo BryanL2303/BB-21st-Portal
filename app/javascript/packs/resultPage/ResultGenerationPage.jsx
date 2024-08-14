@@ -79,13 +79,26 @@ const ResultGenerationPage = () => {
       'id': data[0]
     })
     .then(resp => {
+      console.log(resp.data)
       setAward(resp.data)
+      setCustomDescription(resp.data.results_description)
       if (resp.data.has_mastery) {
         axios.post('/api/award/' + data[0] + '/get_masteries', {
           'award_id': data[0]
         })
         .then(resp => {
+          console.log(resp.data)
           setMastery(resp.data[parseInt(data[1]) - 1])
+          let descriptionBoxes = document.getElementsByClassName('result-description')
+          console.log("Found the description box")
+          console.log(descriptionBoxes)
+          for (let descriptionBox of descriptionBoxes) {
+            console.log(descriptionBox)
+            descriptionBox.value = resp.data[parseInt(data[1]) - 1].results_description
+          }
+          console.log("About to set custom description")
+          setCustomDescription(resp.data[parseInt(data[1]) - 1].results_description)
+          console.log("Set custom description")
           axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns', {
             'id': resp.data[parseInt(data[1]) - 1].id
           })
@@ -94,10 +107,14 @@ const ResultGenerationPage = () => {
           })
           .catch(resp => console.log(resp.response.statusText))
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(resp => console.log(resp.response))
       }
       else {
         setMastery()
+        let descriptionBox = document.getElementsByClassName('result-description')
+        descriptionBox.map((descriptionBox) => {
+          descriptionBox.value = resp.data.results_description
+        })
         axios.post('/api/award/' + resp.data.id + '/get_columns', {
           'id': resp.data.id
         })
@@ -145,14 +162,17 @@ const ResultGenerationPage = () => {
     columns.map((column) => {
       data[column.column_title] = []
     })
-    while(e.target[i] != null) {
+    // edit the form such that when a new award is selected reset the entire form
+    boys.map((boy) => {
       columns.map((column) => {
+        console.log(column)
         if (e.target[i] != null && e.target[i].value != '') {
+          console.log(e.target[i].value)
           data[column.column_title].push(e.target[i].value)
         }
         i += 1
       })
-    }
+    })
     setColumnContents(data)
 
     document.getElementsByClassName('fields')[0].hidden = true
@@ -230,8 +250,10 @@ const ResultGenerationPage = () => {
               <br/>
               <label>{award.description_cue}</label>
               <br/>
-              <textarea onBlur={updateCustomDescription} defaultValue='Give a description for the results form'></textarea>
+              <textarea className='result-description' onBlur={updateCustomDescription} defaultValue={award.results_description}></textarea>
               <br/>
+            </div>}
+            {award != null && mastery == null && award.has_custom_columns && <div>
               <label>Fields of custom columns:</label>
               <br/>
               <table>
@@ -267,8 +289,10 @@ const ResultGenerationPage = () => {
               <br/>
               <label>{mastery.description_cue}</label>
               <br/>
-              <textarea onBlur={updateCustomDescription} defaultValue='Give a description for the results form'></textarea>
+              <textarea className='result-description' onBlur={updateCustomDescription} defaultValue={mastery.results_description}></textarea>
               <br/>
+            </div>}
+            {award != null && mastery != null && mastery.has_custom_columns && <div>
               <label>Fields of custom columns:</label>
               <br/>
               <table>

@@ -13,6 +13,11 @@ UniformComponent.all.each do |component|
 	component.destroy
 end
 
+# Creating administrator account for instantiation of website
+#administratorAccount = Account.new(password: "manager", account_name: "Administrator",
+#	account_type: "Admin")
+#administratorAccount.save
+
 uniformComponent = UniformComponent.new(component_name: "Haircut", total_score: 3)
 uniformComponent.save
 componentField = ComponentField.new(uniform_component_id: uniformComponent.id, score: 1,

@@ -59,5 +59,5 @@ Create and conduct tests / forms for Boys to fill in
 
 ## Known Issues
 
-1. **When trying to delete existing accounts**, you are unable to do so and there is no existing solution.
-2. **When trying to generate results for certain awards such as sportsman**, the website will crash and you would need to close the window.
+**There are currently no known issues!**
+[example]: 1. **When trying to delete existing accounts**, you are unable to do so and there is no existing solution.
