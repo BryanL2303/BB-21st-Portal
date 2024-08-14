@@ -10,7 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "webpack ./src/app/javascript/application.js --output ./build/app.bundle.js --mode production"
+    "build": "webpack ./app/javascript/application.js --output ./build/app.bundle.js --mode production"
   },
   "repository": {
     "type": "git",
