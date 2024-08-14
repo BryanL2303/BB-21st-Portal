@@ -82,3 +82,9 @@ Changed website title from Quiz Website to BB 21st Portal
 6. Fixed bug where the uniform inspection form will not update itself when switching between boys
 7. Fixed bug where the custom description and fields on the frontend remains when switching between awards
 8. Updated known issues section to reflect fixed bugs
+
+14 August 2024
+1. Fixed issue with package.json script/build not pointing to the correct path
+2. Resolved missing npm modules @hotwired/turbo-rails and @hotwired/stimulus
+3. Missing npm module @hotwired/stimulus-loading which does not exist, commented out the line and the build is working
+4. Fixed wrong path to controller files in application.js and controller/index.js
