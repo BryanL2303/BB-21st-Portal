@@ -63,6 +63,6 @@
     "yarn": "^1.22.22"
   },
   "devDependencies": {
-    "html-webpack-plugin": "^5.6.0"
+    "html-webpack-plugin": "5.0.0-alpha.3"
   }
 }
