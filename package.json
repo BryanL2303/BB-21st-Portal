@@ -2,15 +2,16 @@
   "name": "quiz-website",
   "version": "1.0.0",
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
-  "main": "babel.config.js",
+  "main": "./babel.config.js",
   "directories": {
-    "lib": "lib",
-    "test": "test"
+    "lib": "./lib",
+    "test": "./test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "react-scripts --openssl-legacy-provider start",
-    "build": "webpack ./app/javascript/application.js -o ./build/app.bundle.js --mode production"
+    "build": "react-scripts --openssl-legacy-provider build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
@@ -43,7 +44,6 @@
     "css-what": "^6.1.0",
     "file-loader": "^6.2.0",
     "glob-parent": "6.0.2",
-    "html-webpack-plugin": "^5.6.0",
     "latest": "^0.2.0",
     "nth-check": "2.1.1",
     "postcss": "8.4",
@@ -61,5 +61,8 @@
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "yarn": "^1.22.22"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.6.0"
   }
 }

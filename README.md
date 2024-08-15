@@ -89,3 +89,5 @@ Changed website title from Quiz Website to BB 21st Portal
 3. Missing npm module @hotwired/stimulus-loading which does not exist, commented out the line and the build is working
 4. Fixed wrong path to controller files in application.js and controller/index.js
 5. removed from package.json '"build": "webpack ./app/javascript/application.js -o ./build/app.bundle.js --mode production"'
+6. Removed '--openssl-legacy-provider' from scripts start
+7. Removed package-lock.json file
