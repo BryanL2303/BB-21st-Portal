@@ -68,5 +68,8 @@
     "webpack": "^5.93.0",
     "webpack-cli": "^5.1.4",
     "yarn": "^1.22.22"
+  },
+  "browser": {
+    "app": "./app/javascript/packs/application.js"
   }
 }
