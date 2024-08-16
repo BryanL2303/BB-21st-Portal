@@ -58,12 +58,18 @@ const ResultGenerationPage = () => {
       setPrimerAccounts(resp.data)
       setInstructorId(resp.data[0].id)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(resp => {
+      //Not complete fix, setInstructorId has to be set for all cases
+      setPrimerAccounts([])
+    })
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Officer'
     })
     .then(resp => {
       setOfficerAccounts(resp.data)
+      if (instructorId == null) {
+        setInstructorId(resp.data[0].id)
+      }
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])

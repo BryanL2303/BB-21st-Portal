@@ -46,10 +46,10 @@ const UserInformation = ({userId, showForm}) => {
     let level = null
     let credentials = null
     let submit = true
-    let extra = 4
+    let extra = 2
     let password = null
     if (cookies.get('Type') == 'Admin') {
-      extra = 2
+      extra = 3
       password = e.target[2].value
       if (password == '') {
         submit = false

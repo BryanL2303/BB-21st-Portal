@@ -88,6 +88,11 @@ Changed website title from Quiz Website to BB 21st Portal
 2. Resolved missing npm modules @hotwired/turbo-rails and @hotwired/stimulus
 3. Missing npm module @hotwired/stimulus-loading which does not exist, commented out the line and the build is working
 4. Fixed wrong path to controller files in application.js and controller/index.js
-5. removed from package.json '"build": "webpack ./app/javascript/application.js -o ./build/app.bundle.js --mode production"'
-6. Update scripts in package.json
-7. Removed package-lock.json file
+5. Update scripts in package.json
+6. Removed package-lock.json file
+7. Uodate dependencies using yarn
+
+16 August 2024
+1. Fixed bug where non-Administrators are unable to update the credentials of Officers/Primers
+2. Updated known issues
+3. Updated ResultsGenerationPage to partially work with no existing primers, bugs are not fully fixed and cannot be redeployed
