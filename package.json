@@ -8,8 +8,8 @@
     "test": "./test"
   },
   "scripts": {
-    "start": "NODE_OPTIONS=--openssl-legacy-provider webpack serve",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "bin/rails server"
   },
   "engines": {
     "node": "22.6.0"
