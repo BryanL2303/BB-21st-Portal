@@ -11,6 +11,9 @@
     "start": "NODE_OPTIONS=--openssl-legacy-provider webpack serve",
     "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production"
   },
+  "engines": {
+    "node": "22.6.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BryanL2303/quiz-website.git"
