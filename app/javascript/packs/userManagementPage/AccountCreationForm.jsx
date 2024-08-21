@@ -5,7 +5,7 @@ import axios from 'axios'
 
 /*To create new accounts
 */
-const AccountCreationForm = () => {
+const AccountCreationForm = ({reLoad}) => {
   const cookies = new Cookies()
   const [accountType, setAccountType] = useState('Boy');
   const [accountRank, setAccountRank] = useState('REC');
@@ -73,9 +73,10 @@ const AccountCreationForm = () => {
       })
       .then(resp => {
         if (resp.data != false) {
-          alert("Account has been created, please refresh the page to update user list")
+          alert("Account has been created. If the user does not show up on the list to the left please refresh the page!")
           e.target[0].value = ''
           e.target[1].value = ''
+          reLoad()
         }
         else{
           alert("Username has been taken, please try another name.")

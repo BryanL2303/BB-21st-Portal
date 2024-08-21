@@ -96,3 +96,7 @@ Changed website title from Quiz Website to BB 21st Portal
 1. Fixed bug where non-Administrators are unable to update the credentials of Officers/Primers
 2. Updated known issues
 3. Updated ResultsGenerationPage to partially work with no existing primers, bugs are not fully fixed and cannot be redeployed
+
+21 August 2024
+1. Fixed bug where ResultsGenerationPage does not account for case where there are no Primers and/or Officers
+2. Added improvements for the UserManagementPage to reload the userlist whenever there are any writes to the database.

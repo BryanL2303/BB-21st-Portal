@@ -12,6 +12,7 @@ import {BoyAccountsList} from './BoyAccountsList'
 */
 const UserManagementPage = () => {
   const cookies = new Cookies()
+  const [loading, setLoading] = useState(false);
   const [pageState, setPageState] = useState("form");
 
   //If there is no ongoing session go to login page
@@ -24,6 +25,13 @@ const UserManagementPage = () => {
     setPageState("form");
   }
 
+  function reLoad () {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 1000)
+  }
+
   return(
     <div className='user-management-page'>
       <NavigationBar/>
@@ -31,13 +39,14 @@ const UserManagementPage = () => {
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>
           <p>Current Users</p>
-          {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") && <OfficerAccountsList setPageState = {setPageState}/>}
-          {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState}/>}
-          {cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState}/>}
+          {!loading && (cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") && <OfficerAccountsList setPageState = {setPageState}/>}
+          {!loading && cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState}/>}
+          {!loading && cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState}/>}
+          {loading && <label>LOADING...</label>}
         </div>
         <div className='main-block'>
-          {pageState == "form" && <AccountCreationForm/>}
-          {pageState != "form" && <UserInformation userId={pageState} showForm={showForm}/>}
+          {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}
+          {pageState != "form" && <UserInformation userId={pageState} showForm={showForm} reLoad={reLoad}/>}
         </div>
       </div>
     </div>

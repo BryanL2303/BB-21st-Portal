@@ -71,7 +71,9 @@ const ResultGenerationPage = () => {
         setInstructorId(resp.data[0].id)
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(resp => {
+      setOfficerAccounts([])
+    })
   }, [])
 
   function selectAward(e) {
@@ -85,7 +87,6 @@ const ResultGenerationPage = () => {
       'id': data[0]
     })
     .then(resp => {
-      console.log(resp.data)
       setAward(resp.data)
       setCustomDescription(resp.data.results_description)
       if (resp.data.has_mastery) {
@@ -96,15 +97,11 @@ const ResultGenerationPage = () => {
           console.log(resp.data)
           setMastery(resp.data[parseInt(data[1]) - 1])
           let descriptionBoxes = document.getElementsByClassName('result-description')
-          console.log("Found the description box")
-          console.log(descriptionBoxes)
           for (let descriptionBox of descriptionBoxes) {
             console.log(descriptionBox)
             descriptionBox.value = resp.data[parseInt(data[1]) - 1].results_description
           }
-          console.log("About to set custom description")
           setCustomDescription(resp.data[parseInt(data[1]) - 1].results_description)
-          console.log("Set custom description")
           axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns', {
             'id': resp.data[parseInt(data[1]) - 1].id
           })
@@ -163,28 +160,31 @@ const ResultGenerationPage = () => {
   //If the form is not fully filled returns an alert to the user
   function generateResult(e) {
     e.preventDefault()
-    let i = 1
-    let data = {}
-    columns.map((column) => {
-      data[column.column_title] = []
-    })
-    // edit the form such that when a new award is selected reset the entire form
-    boys.map((boy) => {
+    // Check for any  invalid inputs and warns users
+    if (instructorId == null) {
+      alert("Results cannot be generated without any Primers or Officers.")
+    }
+    else {
+      let i = 1
+      let data = {}
       columns.map((column) => {
-        console.log(column)
-        if (e.target[i] != null && e.target[i].value != '') {
-          console.log(e.target[i].value)
-          data[column.column_title].push(e.target[i].value)
-        }
-        i += 1
+        data[column.column_title] = []
       })
-    })
-    setColumnContents(data)
+      // edit the form such that when a new award is selected reset the entire form
+      boys.map((boy) => {
+        columns.map((column) => {
+          if (e.target[i] != null && e.target[i].value != '') {
+            data[column.column_title].push(e.target[i].value)
+          }
+          i += 1
+        })
+      })
+      setColumnContents(data)
 
-    document.getElementsByClassName('fields')[0].hidden = true
-    document.getElementsByClassName('fields')[1].hidden = true
-
-    setPdf(true)
+      document.getElementsByClassName('fields')[0].hidden = true
+      document.getElementsByClassName('fields')[1].hidden = true
+      setPdf(true)
+    }
   }
 
   function undoPdf(e) {

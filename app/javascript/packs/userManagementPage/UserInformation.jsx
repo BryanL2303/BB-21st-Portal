@@ -5,7 +5,7 @@ import axios from 'axios'
 
 /*To view users information and delete user accounts
 */
-const UserInformation = ({userId, showForm}) => {
+const UserInformation = ({userId, showForm, reLoad}) => {
   const cookies = new Cookies()
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
@@ -81,7 +81,8 @@ const UserInformation = ({userId, showForm}) => {
       })
       .then(resp => {
         if (resp.data != false) {
-          alert("Account has been updated, please refresh the page to update user list")
+          alert("Account has been updated. If the change does not register please refresh the page to update user list")
+          reLoad()
         }
         else{
           alert("Failed to update")
@@ -107,8 +108,9 @@ const UserInformation = ({userId, showForm}) => {
       }
       else{
         // Deletion success
-        alert("Please refresh the page")
+        alert("Account has been deleted. If you still see the user in the list on the left, please refresh the page!")
         showForm()
+        reLoad()
       }
     })
     .catch(resp => errorMessage(resp.response.statusText))
