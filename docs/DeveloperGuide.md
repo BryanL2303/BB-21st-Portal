@@ -22,15 +22,9 @@ title: Developer Guide
 
 ### Architecture
 
-<img src="images/ArchitectureDiagram.png" width="280" alt="To be added..." />
-
-The ***Architecture Diagram*** given above explains the high-level design of the App.
-
 Given below is a quick overview of main components and how they interact with each other.
 
 **Main components of the architecture**
-
-**`App`** (accessible [`here`](https://github.com/se-edu/TaskMasterPro-level3/tree/master/src/main/java/seedu/address/Main.java)) contains the top level view of the page.
 
 The bulk of the website's work is done by the following three components:
 
@@ -113,26 +107,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | Priority | As a …​                                    | I want to …​                                 | So that I can…​                                                   |
 |---------| ------------------------------------------ |----------------------------------------------|-------------------------------------------------------------------|
 | `* * *` | new user                                   | see usage instructions                       | refer to instructions and examples to use the website            |
-| `* * *` | user                                       | add a new account                           | keep someone on record                                         |
-| `* * *` | user                                       | update an existing account                    | keep details updated                                     |
-| `* * *` | user                                       | delete an account                            | remove accounts that are no longer needed                              |
-| `* * *` | user                                       | list all accounts                  | locate details of all accounts in a list                         |
-| `* * *` | user                                       | add a new award                               | keep an award on record                                     |
-| `* * *` | user                                       | update an existing award                               | keep award details updated                                     |
-| `* * *` | user                                       | delete an award                                | remove awards that are phased out                              |
+| `* * *` | Administrator/Officer/Primer                                       | add a new account                           | keep someone on record                                         |
+| `* * *` | Administrator/Officer/Primer                                       | update an existing account                    | keep details updated                                     |
+| `* * *` | Administrator/Officer/Primer                                       | delete an account                            | remove accounts that are no longer needed                              |
+| `* * *` | Administrator/Officer/Primer                                       | list all accounts                  | locate details of all accounts in a list                         |
+| `* * *` | Administrator                                       | add a new award                               | keep an award on record                                     |
+| `* * *` | Administrator                                       | update an existing award                               | keep award details updated                                     |
+| `* * *` | Administrator                                       | delete an award                                | remove awards that are phased out                              |
 | `* * *` | user                                       | list all awards                      | locate details of all awards in a list                             |
-| `* * *` | user                                       | create 32a results for relevant awards                 |              |
-| `* * *`  | user                                      | indicate Boys attainment of award  | keep track of what awards each Boy has attained  |
-| `* * *`  | user                                      | unindicate Boys attainment of award  | undo wrong indication  |
-| `* * *`  | user                                      | list all Boys and their attainment of awards  | view progression towards IPA/SPA and Founders Award |
-| `* * *` | user                                       | conduct uniform inspection for Boys            |                              |
-| `* * *` | user                                       | view results of uniform inspections             |                             |
-| `* * *`  | user                                      | delete results of uniform inspections                 |                      |
-| `* * *` | user                                       | create forms/assessments like Google Forms | conduct quizzes or gather feedback |
-| `* * *` | user                                       | fill in forms/assessments              |                                      |
-| `* * *` | user                                       | view results of forms/assessments      |                                      |
-| `* * *` | user                                       | delete forms/assessments                            |            |
-| `* *`  | user                                        | upload award tracker and update attainment of awards  | avoid reading the awards tracker and clicking manually |
+| `* * *` | Officer/Primer                                       | create 32a results for relevant awards                 |              |
+| `* * *`  | Officer/Primer                                      | indicate Boys attainment of award  | keep track of what awards each Boy has attained  |
+| `* * *`  | Officer/Primer                                      | unindicate Boys attainment of award  | undo wrong indication  |
+| `* * *`  | Officer/Primer                                      | list all Boys and their attainment of awards  | view progression towards IPA/SPA and Founders Award |
+| `* * *` | Officer/Primer                                       | conduct uniform inspection for Boys            |                              |
+| `* * *` | Officer/Primer/Boy                                       | view results of uniform inspections             |                             |
+| `* * *`  | Administrator/Officer/Primer                                      | delete results of uniform inspections                 |                      |
+| `* * *` | Administrator/Officer/Primer                                       | create forms/assessments like Google Forms | conduct quizzes or gather feedback |
+| `* * *` | Boy                                       | fill in forms/assessments              |                                      |
+| `* * *` | Administrator/Officer/Primer                                       | view results of forms/assessments      |                                      |
+| `* * *` | Administrator/Officer/Primer                                       | delete forms/assessments                            |            |
+| `* * *` | Administrator                                       | update uniform inspection list                            | control dataabase without seeds           |
+| `* *`  | Officer/Primer                                        | upload award tracker and update attainment of awards  | avoid reading the awards tracker and clicking manually |
 
 ### Use cases
 

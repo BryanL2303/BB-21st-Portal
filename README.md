@@ -99,4 +99,11 @@ Changed website title from Quiz Website to BB 21st Portal
 
 21 August 2024
 1. Fixed bug where ResultsGenerationPage does not account for case where there are no Primers and/or Officers
-2. Added improvements for the UserManagementPage to reload the userlist whenever there are any writes to the database.
+2. Added improvements for the UserManagementPage to reload the userlist whenever there are any writes to the database
+
+28 August 2024
+1. Added image files in docs/image folder for User Guide
+2. Updated UserGuide.md to provide clear step by step guide for each existing feature
+3. Removed template paragraph from DeveloperGuide.md
+4. Removed the quiz and question tabs from the navigation bar
+5. Updated libraries used in index.md

@@ -78,9 +78,9 @@ const NavigationBar = () => {
   const UserMenu = () => {
     return(
       <div className='user-menu'>
-        {cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
-        {cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
-        {cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}
+        {False && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
+        {False && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
+        {False && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}
         {cookies.get("Type") != "Boy" && <button className="user-management--button" onClick={userManagementPage}>Users Management</button>}
         {cookies.get("Type") != "Boy" && <button className="award-management--button" onClick={awardManagementPage}>Awards</button>}
         {cookies.get("Type") != "Boy" && <button className="result-generation--button" onClick={resultGenerationPage}>Result Generation</button>}

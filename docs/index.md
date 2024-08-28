@@ -3,8 +3,6 @@ layout: page
 title: BB 21st Portal
 ---
 
-**COVER IMAGE**
-
 **For Officers and Primers of the BB 21st Singapore Company to perform administrative tasks** 
 
 * Head over to the [**User Guide**](UserGuide.html).
@@ -14,4 +12,4 @@ title: BB 21st Portal
 **Acknowledgements**
 
 * Authored by : Bryan Lee
-* Libraries used: 
+* Libraries used: React, Ruby on Rails
