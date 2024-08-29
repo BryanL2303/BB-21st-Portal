@@ -10,7 +10,10 @@ It currently supports the following features: <br>
 1. generating 32a results in PDF format through a simplified form <br>
 2. conducting uniform inspections <br>
 3. creating feedback forms/quizzes (functions like Google Forms) <br>
-[example]: 4. tracking of key awards for Boys <br>
+
+[example]: 4. tracking of key awards for Boys 
+
+<br>
 
 Refer to the `Features` section on the features that are available for use and how to use them. <br>
 
