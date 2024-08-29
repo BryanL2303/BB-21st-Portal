@@ -107,3 +107,8 @@ Changed website title from Quiz Website to BB 21st Portal
 3. Removed template paragraph from DeveloperGuide.md
 4. Removed the quiz and question tabs from the navigation bar
 5. Updated libraries used in index.md
+
+29 August 2024
+1. Created help page with link to user guide and scss for help page in desktop view
+2. Fixed incorrect comments in user guide
+3. Added route to help page from main app

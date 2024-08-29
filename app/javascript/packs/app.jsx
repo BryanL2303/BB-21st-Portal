@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {AwardProvider} from './context/AwardContext'
 import { LogInPage } from './logInPage/LogInPage'
+import { HelpPage } from './helpPage/HelpPage'
 import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPage'
 import { QuizListPage } from './quizPage/QuizListPage'
 import { QuizPage } from './quizPage/QuizPage'
@@ -49,6 +50,7 @@ root.render(
         <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
         <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
+        <Route path='/help' element={<HelpPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
       </Routes>
     </Router>
