@@ -31,7 +31,6 @@ const AdminPage = () => {
   }, [])
 
   function toggleTableVisibility(table_name) {
-    console.log(table_name)
     let currentTable = {...tableVisible}
     currentTable[table_name] = !currentTable[table_name]
     setTableVisible(currentTable)
