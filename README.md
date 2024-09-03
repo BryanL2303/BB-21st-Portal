@@ -113,3 +113,11 @@ Changed website title from Quiz Website to BB 21st Portal
 2. Fixed incorrect comments in user guide
 3. Added route to help page from main app
 4. Resized images in user guide
+
+3 September 2024
+1. Create AdminPage to view all tables and data
+2. Create css for desktop version of administrator page
+3. Create controller for administrator page with CRUD functions
+4. Add route to administrator controller api
+5. Add link to administrator page from navigation menu
+6. Create DatabaseTable to display in AdminPage with functions to CRUD database entries

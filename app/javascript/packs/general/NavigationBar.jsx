@@ -78,10 +78,15 @@ const NavigationBar = () => {
     }
   }
 
+  function toUrl(url) {
+    window.location.href = url
+  }
+
   //The functions within the usermenu
   const UserMenu = () => {
     return(
       <div className='user-menu'>
+        {cookies.get("Type") == "Admin" && <button className="admin--button" onClick={() => {toUrl('/admin')}}>Admin Page</button>}
         {false && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
         {false && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
         {false && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}

@@ -2,6 +2,17 @@ Rails.application.routes.draw do
   root "pages#index"
 
   namespace :api do
+    resources :admin do
+      member do
+        post '/get_tables' => 'admin#getTables'
+        post '/get_table_names' => 'admin#getTableNames'
+        post '/get_table' => 'admin#getTable'
+        post '/add_data' => 'admin#addData'
+        post '/update_data' => 'admin#updateData'
+        post '/delete_data' => 'admin#deleteData'
+      end
+    end
+
     resources :account do 
       member do
         post '/create_account' => 'account#createAccount'

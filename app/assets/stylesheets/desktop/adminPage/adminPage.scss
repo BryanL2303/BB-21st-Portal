@@ -1,5 +1,5 @@
-@media screen{
-	.create-account-page{
+@media screen and (min-width: 800px){
+	.admin-page{
 		position: relative;
 		height: 100vh;
 		width: 100vw;
@@ -7,49 +7,39 @@
 		text-align: center;
 	}
 
-	.create-account-page .create-account-form{
-		height: 50%;
-		width: 50%;
-		position: absolute;
-		top: 25%;
-		left: 25%;
-		border: solid;
-		border-radius: 3%;
+	.admin-page .page-container{
+		padding-left: 3vw;
+		padding-right: 3vw;
+		padding-top: 3vh;
+		padding-bottom: 3vh;
+		height: 93vh;
+		width: 90vw;
+		text-align: center;
+		overflow-x: auto;
+		overflow-y: auto;
 	}
 
-	.create-account-page .create-account-form label{
-		font-size: 30px;
-	}
+	.admin-page .page-container table {
+		width: 100%;
+		border-collapse: collapse; /* Ensures borders do not have space between them */
+	  }
+	  
+	  .admin-page .page-container thead th {
+		font-weight: bold; /* Bold headers */
+		border: 1px solid #ddd; /* Border for header cells */
+		padding: 1px; /* Small padding for header cells */
+	  }
 
-	.create-account-page .create-account-form__name{
-		position: absolute;
-		top: 30%;
-		left: 25%;
-		width: 50%;
-		font-size: 20px;
-	}
-
-	.create-account-page .create-account-form__password{
-		position: absolute;
-		top: 40%;
-		left: 25%;
-		width: 50%;
-		font-size: 20px;
-	}
-
-	.create-account-page .create-account-form__type{
-		position: absolute;
-		top: 50%;
-		left: 25%;
-		width: 50%;
-		font-size: 20px;
-	}
-
-	.create-account-page .create-account-form button{
-		position: absolute;
-		top: 60%;
-		left: 25%;
-		width: 50%;
-		font-size: 20px;
-	}
+	  .admin-page .page-container tbody tr {
+		border: 1px solid #ddd; /* Border for each row */
+	  }
+	  
+	  .admin-page .page-container td {
+		padding: 1px; /* Small padding for body cells */
+		border: 1px solid #ddd; /* Border for body cells */
+	  }
+	  
+	  .admin-page .page-container tbody tr:hover {
+		background-color: #f1f1f1; /* Light gray background on hover */
+	  }
 }
