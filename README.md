@@ -130,3 +130,4 @@ Changed website title from Quiz Website to BB 21st Portal
 5. Create model for new migrated table
 6. Added way to view AwardTracker in AwardsManagementPage
 7. Create css file for AwardTracker
+8. Updated seedRecords to include remaining elective awards
