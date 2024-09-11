@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202308200000001) do
+ActiveRecord::Schema[7.0].define(version: 202409100000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,17 @@ ActiveRecord::Schema[7.0].define(version: 202308200000001) do
     t.index ["award_id"], name: "index_assignments_on_award_id"
     t.index ["mastery_id"], name: "index_assignments_on_mastery_id"
     t.index ["quiz_id"], name: "index_assignments_on_quiz_id"
+  end
+
+  create_table "attained_awards", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "award_id"
+    t.bigint "mastery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_attained_awards_on_account_id"
+    t.index ["award_id"], name: "index_attained_awards_on_award_id"
+    t.index ["mastery_id"], name: "index_attained_awards_on_mastery_id"
   end
 
   create_table "attempt_scores", force: :cascade do |t|

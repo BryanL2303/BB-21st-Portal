@@ -43,6 +43,14 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :award_tracker do
+      member do
+        post '/add_attainment' => 'award_tracker#addAttainment'
+        post '/get_attainments' => 'award_tracker#getAttainments'
+        post '/delete_attainment' => 'award_tracker#deleteAttainment'
+      end
+    end
+
     resources :mastery do
       member do
         post '/get_columns' => 'mastery#getColumns'

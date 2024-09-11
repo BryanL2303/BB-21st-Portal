@@ -121,3 +121,12 @@ Changed website title from Quiz Website to BB 21st Portal
 4. Add route to administrator controller api
 5. Add link to administrator page from navigation menu
 6. Create DatabaseTable to display in AdminPage with functions to CRUD database entries
+
+11 September 2024
+1. Create AwardTracker in awardsManagementPage with CRUD functions for boys awards attainment
+2. Create migrations for new table attained_awards
+3. Create AwardTrackerController in api to provide CRUD functions for attained_awards
+4. Create route to backend api
+5. Create model for new migrated table
+6. Added way to view AwardTracker in AwardsManagementPage
+7. Create css file for AwardTracker
