@@ -8,8 +8,10 @@ import axios from 'axios'
 const AwardTracker = ({awardId}) => {
   const cookies = new Cookies()
   const [boys, setBoys] = useState([])
-  const electiveAwards = ["Arts & Crafts", "Athletics", "First Aid", "Hobbies", "Kayaking", "Musketry", "Sailing", "Sportsman", "Swimming"]
-  const electiveMasteries = {"Arts & Crafts": ["Basic", "Advanced"], "Athletics": ["Basic", "Advanced"], "First Aid": ["Basic", "Advanced"], "Hobbies": ["Basic", "Advanced"], "Kayaking": ["Basic", "Advanced"], "Musketry": ["Basic", "Advanced"], "Sailing": ["Basic", "Advanced"], "Sportsman": ["Basic", "Advanced"], "Swimming": ["Basic", "Advanced"]}
+  const electiveAwards = ["Adventure", "Drill", "Arts & Crafts", "Athletics", "First Aid", "Hobbies", "Kayaking", "Musketry", "Sailing", "Sportsman", "Swimming"]
+  const electiveMasteries = {"Adventure": ["Advanced"], "Drill": ["Advanced"], "Arts & Crafts": ["Basic", "Advanced"], "Athletics": ["Basic", "Advanced"], "First Aid": ["Basic", "Advanced"], "Hobbies": ["Basic", "Advanced"], "Kayaking": ["Basic", "Advanced"], "Musketry": ["Basic", "Advanced"], "Sailing": ["Basic", "Advanced"], "Sportsman": ["Basic", "Advanced"], "Swimming": ["Basic", "Advanced"]}
+  // Only for elective badges that gives more than 1 point
+  const electiveSpecialPoints = {"Adventure Advanced": 2, 'Drill Advanced': 2}
   const ipaAwards = ["Target", "Adventure", "Drill", "Community Spiritedness", "Global Awareness", "Leadership"]
   const ipaMasteries = {"Adventure": ["Basic"], "Drill": ["Basic"], "Community Spiritedness": ["Advanced"], "Global Awareness": ["Basic"], "Leadership": ["Basic"]}
   const ipaFixedRequirements = [{'name': "1 Elective Points", 'requirements': (boy) => {return (electivePoints[boy.id] >= 1)}}]
@@ -96,7 +98,11 @@ const AwardTracker = ({awardId}) => {
             if (boy.id in attained) {
               if (elective in attained[boy.id]) {
                 if (mastery in attained[boy.id][elective]) {
-                  electivePoint += 1
+                  if (elective + " " + mastery in electiveSpecialPoints) {
+                    electivePoint += electiveSpecialPoints[elective + " " + mastery]
+                  } else {
+                    electivePoint += 1
+                  }
                   console.log(boy.account_name)
                   console.log(elective)
                   console.log(mastery)
@@ -107,7 +113,11 @@ const AwardTracker = ({awardId}) => {
         } else {
           if (boy.id in attained) {
             if (elective in attained[boy.id]) {
-              electivePoint += 1
+              if (elective + " " + mastery in electiveSpecialPoints) {
+                electivePoint += electiveSpecialPoints[elective + " " + mastery]
+              } else {
+                electivePoint += 1
+              }
             }
           }
         }

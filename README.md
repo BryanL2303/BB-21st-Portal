@@ -131,3 +131,6 @@ Changed website title from Quiz Website to BB 21st Portal
 6. Added way to view AwardTracker in AwardsManagementPage
 7. Create css file for AwardTracker
 8. Updated seedRecords to include remaining elective awards
+
+16 September 2024
+1. Added Adventure and Drill Advanced into electives table for AwardsTracker with 2 elective points each instead of 1
