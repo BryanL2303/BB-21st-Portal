@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
@@ -8,6 +7,7 @@ import axios from 'axios'
 const AwardTracker = ({awardId}) => {
   const cookies = new Cookies()
   const [boys, setBoys] = useState([])
+  const [boyNames, setBoyNames] = useState({})
   const electiveAwards = ["Adventure", "Drill", "Arts & Crafts", "Athletics", "First Aid", "Hobbies", "Kayaking", "Musketry", "Sailing", "Sportsman", "Swimming"]
   const electiveMasteries = {"Adventure": ["Advanced"], "Drill": ["Advanced"], "Arts & Crafts": ["Basic", "Advanced"], "Athletics": ["Basic", "Advanced"], "First Aid": ["Basic", "Advanced"], "Hobbies": ["Basic", "Advanced"], "Kayaking": ["Basic", "Advanced"], "Musketry": ["Basic", "Advanced"], "Sailing": ["Basic", "Advanced"], "Sportsman": ["Basic", "Advanced"], "Swimming": ["Basic", "Advanced"]}
   // Only for elective badges that gives more than 1 point
@@ -32,6 +32,8 @@ const AwardTracker = ({awardId}) => {
   const [checkingMilestone, setCheckingMilestone] = useState(false)
   const milestones = ["IPA", "SPA", "Founders"]
   const milestonesAttained = {"IPA": ipaAttained, "SPA": spaAttained, "Founders": foundersAttained}
+  const [changeLog, setChangeLog] = useState({})
+  const [checked, setChecked] = useState({})
 
   //If there is no ongoing session go to login page
   if (cookies.get('Token') == null) {
@@ -47,10 +49,13 @@ const AwardTracker = ({awardId}) => {
         setBoys(resp.data)
         let initialElectives = {}
         let initialAttained = {}
+        let tempBoyNames = {}
         resp.data.map((boy) => {
           initialElectives[boy.id] = 0
           initialAttained[boy.id] = false
+          tempBoyNames[boy.id] = boy.account_name
         })
+        setBoyNames(tempBoyNames)
         setElectivePoints(initialElectives)
         setIpaAttained(initialAttained)
         setSpaAttained(initialAttained)
@@ -58,6 +63,7 @@ const AwardTracker = ({awardId}) => {
         axios.post('/api/award_tracker/0/get_attainments', {})
         .then(resp => {
           setAttained(resp.data)
+          setChangeLog({})
         })
         .catch(resp => console.log(resp.response.statusText))
       })
@@ -66,6 +72,7 @@ const AwardTracker = ({awardId}) => {
 
   useEffect(() => {
     checkMilestones()
+    setChangeLog({})
   }, [boys, attained])
 
   useEffect(() => {
@@ -79,7 +86,7 @@ const AwardTracker = ({awardId}) => {
         })
       })
     }
-  }, [checkingMilestone])
+  }, [checkingMilestone, checked])
 
   function checkMilestones() {
     setCheckingMilestone(true)
@@ -90,6 +97,7 @@ const AwardTracker = ({awardId}) => {
     let specialAwards = [ipaAwards, spaAwards, foundersAwards]
     let specialMasteries = [ipaMasteries, spaMasteries, foundersMasteries]
     let newAttained = [newIpaAttained, newSpaAttained, newFoundersAttained]
+    let defaultChecked = {}
     boys.map((boy) => {
       let electivePoint = 0
       electiveAwards.map((elective) => {
@@ -98,14 +106,14 @@ const AwardTracker = ({awardId}) => {
             if (boy.id in attained) {
               if (elective in attained[boy.id]) {
                 if (mastery in attained[boy.id][elective]) {
+                  defaultChecked[boy.id + "-" + elective + '-' + mastery] = true
                   if (elective + " " + mastery in electiveSpecialPoints) {
                     electivePoint += electiveSpecialPoints[elective + " " + mastery]
                   } else {
                     electivePoint += 1
                   }
-                  console.log(boy.account_name)
-                  console.log(elective)
-                  console.log(mastery)
+                } else {
+                  defaultChecked[boy.id + "-" + elective + '-' + mastery] = false
                 }
               }
             }
@@ -113,11 +121,14 @@ const AwardTracker = ({awardId}) => {
         } else {
           if (boy.id in attained) {
             if (elective in attained[boy.id]) {
+              defaultChecked[boy.id + "-" + elective + '-' + mastery] = true
               if (elective + " " + mastery in electiveSpecialPoints) {
                 electivePoint += electiveSpecialPoints[elective + " " + mastery]
               } else {
                 electivePoint += 1
               }
+            } else {
+              defaultChecked[boy.id + "-" + elective + '-' + mastery] = false
             }
           }
         }
@@ -134,7 +145,10 @@ const AwardTracker = ({awardId}) => {
               if (boy.id in attained) {
                 if (award in attained[boy.id]) {
                   if (mastery in attained[boy.id][award]) {
+                    defaultChecked[boy.id + "-" + award + '-' + mastery] = true
                     awardAttained = true
+                  } else {
+                    defaultChecked[boy.id + "-" + award + '-' + mastery] = false
                   }
                 }
               }
@@ -142,7 +156,10 @@ const AwardTracker = ({awardId}) => {
           } else {
             if (boy.id in attained) {
               if (award in attained[boy.id]) {
+                defaultChecked[boy.id + "-" + award] = true
                 awardAttained = true
+              } else {
+                defaultChecked[boy.id + "-" + award] = false
               }
             }
           } 
@@ -154,6 +171,7 @@ const AwardTracker = ({awardId}) => {
         newAttained[count][boy.id] = specialAttained
       })
     })
+    setChecked(defaultChecked)
     setElectivePoints(newElectivePoints)
     setIpaAttained(newAttained[0])
     setSpaAttained(newAttained[1])
@@ -163,61 +181,69 @@ const AwardTracker = ({awardId}) => {
     }, 1000)
   }
 
+  function saveChanges() {
+    if (confirm("This will save the following changes:" + Object.entries(changeLog).map(([target, change]) => {
+      target = target.split("-")
+      return("\n" + boyNames[target[0]] + ": " +  change + " " + (target.length === 2 ? target[1] : target[1] + " " + target[2]))
+    }))) {
+      let addList = []
+      let deleteList = []
+      Object.entries(changeLog).map(([target, change]) => {
+        target = target.split('-')
+        if (target.length == 3) {
+          let info = {account_id: target[0], award_name: target[1], mastery_name: target[2]}
+          if (change == 'add') {
+            addList = [...addList, info]
+          } else if (change == 'delete') {
+            deleteList = [...deleteList, info]
+          }
+        } else if (target.length == 2) {
+          let info = {account_id: target[0], award_name: target[1]}
+          if (change == 'add') {
+            addList = [...addList, info]
+          } else if (change == 'delete') {
+            deleteList = [...deleteList, info]
+          }
+        }
+      })
+      axios.post('/api/award_tracker/0/process_changes', {
+        add: addList,
+        delete: deleteList
+      })
+      .then(resp => {
+        setAttained(resp.data)
+        checkMilestones()
+      })
+      .catch(resp => console.log(resp))
+    }
+  }
+
   function addAttainedAward(e) {
     let target = e.target.className
-    target = target.split('-')
-    if (target.length == 3) {
-        axios.post('/api/award_tracker/0/add_attainment', {
-            account_id: target[0],
-            award_name: target[1],
-            mastery_name: target[2]
-        })
-        .then(resp => {
-          setAttained(resp.data)
-          checkMilestones()
-        })
-        .catch(resp => console.log(resp))
-    } else if (target.length == 2) {
-        axios.post('/api/award_tracker/0/add_attainment', {
-            account_id: target[0],
-            award_name: target[1]
-        })
-        .then(resp => {
-          setAttained(resp.data)
-          checkMilestones()
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
+    let currentLog = {...changeLog}
+    if (target in currentLog) {
+      delete currentLog[target]
+    } else {
+      currentLog[target] = "add"
     }
+    setChangeLog(currentLog)
   }
 
   function deleteAttainedAward(e) {
     let target = e.target.className
-    target = target.split('-')
-    if (target.length == 3) {
-        axios.post('/api/award_tracker/0/delete_attainment', {
-            account_id: target[0],
-            award_name: target[1],
-            mastery_name: target[2]
-        })
-        .then(resp => {
-          setAttained(resp.data)
-          checkMilestones()
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
-    } else if (target.length == 2) {
-        axios.post('/api/award_tracker/0/delete_attainment', {
-            account_id: target[0],
-            award_name: target[1]
-        })
-        .then(resp => {
-          setAttained(resp.data)
-          checkMilestones()
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
+    let currentLog = {...changeLog}
+    if (target in currentLog) {
+      delete currentLog[target]
+    } else {
+      currentLog[target] = "delete"
     }
+    setChangeLog(currentLog)
   }
 
   function toggleAttainment(e) {
+    let newChecked = {...checked}
+    newChecked[e.target.className] = !newChecked[e.target.className]
+    setChecked(newChecked)
     if (e.target.checked == true) {
         addAttainedAward(e)
     } else {
@@ -274,11 +300,11 @@ const AwardTracker = ({awardId}) => {
                           {awards[award_name].map(award => {
                               if (award in masteries[award_name]) {
                                 return masteries[award_name][award].map((mastery) => (
-                                  <td><input className={boy.id + "-" + award + '-' + mastery} type='checkbox' defaultChecked={boy.id in attained && award in attained[boy.id] && mastery in attained[boy.id][award]} onChange={toggleAttainment}></input></td>
+                                  <td><input className={boy.id + "-" + award + '-' + mastery} type='checkbox' checked={checked[boy.id + "-" + award + '-' + mastery]} onChange={toggleAttainment}></input></td>
                                 ))
                               } else {
                                   return (
-                                      <td><input className={boy.id + "-" + award} type='checkbox' defaultChecked={boy.id in attained && award in attained[boy.id]} onChange={toggleAttainment}></input></td>
+                                      <td><input className={boy.id + "-" + award} type='checkbox' checked={checked[boy.id + "-" + award]} onChange={toggleAttainment}></input></td>
                                   )
                               }
                           })}
@@ -293,6 +319,15 @@ const AwardTracker = ({awardId}) => {
 
   return(
     <div className='award-tracker'>
+      <div>
+        {Object.entries(changeLog).map(([award, change]) => {
+          let target = award.split("-")
+          return(
+            <p>{boyNames[target[0]]}: {change} {target.length === 2 ? target[1] : target[1] + " " + target[2]}</p>
+          )
+        })}
+        {Object.keys(changeLog).length != 0 && <button onClick={saveChanges}>Save Changes</button>}
+      </div>
       {["Electives", "IPA", "SPA", "Founders"].map((special_award) => {
         return (
           <div style={{width: "100%"}}>{!checkingMilestone && <AwardAttainmentTable award_name={special_award}/>}</div>

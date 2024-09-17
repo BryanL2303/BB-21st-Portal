@@ -45,9 +45,8 @@ Rails.application.routes.draw do
 
     resources :award_tracker do
       member do
-        post '/add_attainment' => 'award_tracker#addAttainment'
         post '/get_attainments' => 'award_tracker#getAttainments'
-        post '/delete_attainment' => 'award_tracker#deleteAttainment'
+        post '/process_changes' => 'award_tracker#processChanges'
       end
     end
 

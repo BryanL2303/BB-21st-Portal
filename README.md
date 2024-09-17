@@ -134,3 +134,8 @@ Changed website title from Quiz Website to BB 21st Portal
 
 16 September 2024
 1. Added Adventure and Drill Advanced into electives table for AwardsTracker with 2 elective points each instead of 1
+
+18 September 2024
+1. Edited awards tracker controller to combine add and delete functions into one function which processes more than one change at once
+2. Edited awards tracker tables to only rerender when the user saves the changes made, users can now check/uncheck multiple checkboxes at once before saving all changes at once
+3. Updated the routes due to the function changes in awards tracker controller
