@@ -104,7 +104,7 @@ const NavigationBar = () => {
   return(
     <div className='navigation-bar'>
       <img className="crest" src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></img>
-      <button className="account-dropdown" onClick={showUserMenu}><img src="/packs/media/packs/general/sidebar-icon-d04f396ba76b9667ee34744d3127b961.jpg"></img></button>
+      <button className="account-dropdown" onClick={showUserMenu}><img src="/packs/media/packs/general/sidebar-icon-d04f396ba76b9667ee34744d3127b961.jpg" alt='Side bar'></img></button>
       <UserMenu/>
     </div>
   )

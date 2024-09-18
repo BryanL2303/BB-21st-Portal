@@ -33,18 +33,20 @@ module Api
 			inspections = {}
 			boys = []
 			for account in accounts
-				accountInspections = UniformInspection.where(account_id: account.id).order('id')
+				accountInspections = UniformInspection.where(account_id: account.id).order('id').reverse_order
 				if accountInspections != []
 					boys.push(account)
 					inspections[account.id] = {'inspections': accountInspections}
+					inspections[account.id]['keys'] = []
 					for accountInspection in accountInspections
 						selectedComponents = SelectedComponent.where(uniform_inspection_id: accountInspection.id)
 						componentIds = {}
 						for selectedComponent in selectedComponents
-							componentIds[selectedComponent.id] = true
+							componentIds[selectedComponent.component_field_id] = true
 						end
 						assessor = Account.find_by(id: accountInspection.assessor_id)
 						inspections[account.id][accountInspection.id] = {selectedComponents: componentIds, inspection: accountInspection, assessor: assessor}
+						inspections[account.id]['keys'].append(accountInspection.id)
 					end
 				end
 			end

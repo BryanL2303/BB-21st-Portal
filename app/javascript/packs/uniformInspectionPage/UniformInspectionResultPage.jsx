@@ -35,12 +35,10 @@ const UniformInspectionResultPage = () => {
       'id': id
     })
     .then(resp => {
-      console.log(resp.data)
       setCurrentBoy(resp.data['boy'])
       setAllInspections(resp.data['inspections'])
       setInspections(resp.data['inspections'][resp.data['boy']['id']])
       setCurrentInspection(resp.data['inspections'][resp.data['boy']['id']][id])
-      console.log(resp.data['inspections'][resp.data['boy']['id']][id])
       setBoys(resp.data['boys'])
     })
     .catch(resp => errorMessage(resp.response.statusText))
@@ -52,8 +50,10 @@ const UniformInspectionResultPage = () => {
 
   function selectBoy(e) {
     setCurrentBoy(boys[e.target.value])
-    setInspections(allInspections[e.target.value])
-    setCurrentInspection(allInspections[e.target.value][-1])
+    let relevantInspections = allInspections[e.target.value]
+    let defaultInspection =  relevantInspections['inspections'][0]
+    setInspections(relevantInspections)
+    setCurrentInspection(relevantInspections[defaultInspection['id']])
   }
 
   return(
@@ -71,7 +71,7 @@ const UniformInspectionResultPage = () => {
           }
         </select>}
         <label>Viewing inspection from: </label>
-        {inspections != null && inspections['inspections'].length != 0 && <select onChange={selectInspection}>
+        {inspections != null && inspections['inspections'].length != 0 && <select className='date-select' onChange={selectInspection}>
           {inspections['inspections'].map((inspection) => {
             return(
               <option value={inspection.id}>{inspection['date']}</option>
@@ -88,7 +88,7 @@ const UniformInspectionResultPage = () => {
               {componentFields[component.component_name].map((field) => {
                 return(
                   <div>
-                    <input type='checkbox' disabled defaultChecked={currentInspection['selectedComponents'][field.id] != null}></input>
+                    <input type='checkbox' disabled checked={currentInspection['selectedComponents'][field.id] != null}></input>
                     <label>{field.description}</label>
                   </div>
                 )

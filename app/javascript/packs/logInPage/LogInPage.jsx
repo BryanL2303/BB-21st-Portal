@@ -39,7 +39,7 @@ const LogInPage = () => {
   return(
     <div className='log-in-page'>
       <div className='navigation-bar'>
-        <img className="crest" src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></img>
+        <img className="crest" src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png" alt="BB Crest"></img>
       </div>
       
       <form className='log-in-form' onSubmit={ submitForm }>
