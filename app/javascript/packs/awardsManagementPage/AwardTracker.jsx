@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import * as xlsx from 'xlsx';
 
 /*To show boys progression towards IPA/SPA/Founders
 */
@@ -8,6 +9,9 @@ const AwardTracker = ({awardId}) => {
   const cookies = new Cookies()
   const [boys, setBoys] = useState([])
   const [boyNames, setBoyNames] = useState({})
+  const [boyIds, setBoyIds] = useState({})
+  const regularMasteries = {1: "Basic", 2: "Advanced", 3: "Master"}
+  const specialMasteries = {"Total Defence": {1: "Bronze", 2: "Silver", 3: "Gold"}}
   const electiveAwards = ["Adventure", "Drill", "Arts & Crafts", "Athletics", "First Aid", "Hobbies", "Kayaking", "Musketry", "Sailing", "Sportsman", "Swimming"]
   const electiveMasteries = {"Adventure": ["Advanced"], "Drill": ["Advanced"], "Arts & Crafts": ["Basic", "Advanced"], "Athletics": ["Basic", "Advanced"], "First Aid": ["Basic", "Advanced"], "Hobbies": ["Basic", "Advanced"], "Kayaking": ["Basic", "Advanced"], "Musketry": ["Basic", "Advanced"], "Sailing": ["Basic", "Advanced"], "Sportsman": ["Basic", "Advanced"], "Swimming": ["Basic", "Advanced"]}
   // Only for elective badges that gives more than 1 point
@@ -50,12 +54,15 @@ const AwardTracker = ({awardId}) => {
         let initialElectives = {}
         let initialAttained = {}
         let tempBoyNames = {}
+        let tempBoyIds = {}
         resp.data.map((boy) => {
           initialElectives[boy.id] = 0
           initialAttained[boy.id] = false
           tempBoyNames[boy.id] = boy.account_name
+          tempBoyIds[boy.account_name] = boy.id
         })
         setBoyNames(tempBoyNames)
+        setBoyIds(tempBoyIds)
         setElectivePoints(initialElectives)
         setIpaAttained(initialAttained)
         setSpaAttained(initialAttained)
@@ -97,6 +104,7 @@ const AwardTracker = ({awardId}) => {
     let specialAwards = [ipaAwards, spaAwards, foundersAwards]
     let specialMasteries = [ipaMasteries, spaMasteries, foundersMasteries]
     let newAttained = [newIpaAttained, newSpaAttained, newFoundersAttained]
+    let milestones = ["IPA", "SPA", "Founders"]
     let defaultChecked = {}
     boys.map((boy) => {
       let electivePoint = 0
@@ -137,6 +145,13 @@ const AwardTracker = ({awardId}) => {
 
       specialAwards.forEach((specialAward, count) => {
         let specialAttained = true
+        if (milestones[count] in fixedRequirements) {
+          fixedRequirements[milestones[count]].map((requirementDict) => {
+            if (!requirementDict["requirements"](boy)) {
+              specialAttained = false
+            }
+          })
+        }
         for (let i = 0; i < specialAward.length; i++) {
           let award = specialAward[i]
           let awardAttained = false
@@ -165,7 +180,7 @@ const AwardTracker = ({awardId}) => {
           } 
           if (awardAttained == false) {
             specialAttained = false
-            break
+            //break
           }
         }
         newAttained[count][boy.id] = specialAttained
@@ -179,6 +194,86 @@ const AwardTracker = ({awardId}) => {
     setTimeout(() => {
       setCheckingMilestone(false)
     }, 1000)
+  }
+
+  function readUploadFile(e) {
+    let boyToAttained = {}
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = e.target.result;
+      const workbook = xlsx.read(data, {type: "array"})
+      const sheetNames = workbook.SheetNames;
+      sheetNames.map((sheetName) => {
+        let sheetOfInterest = workbook["Sheets"][sheetName]
+        delete sheetOfInterest['C1']
+        const json = xlsx.utils.sheet_to_json(workbook["Sheets"][sheetName]);
+        let colToAward = {}
+        Object.entries(json[0]).map(([key, award]) => {
+          if (electiveAwards.includes(award) || ipaAwards.includes(award) || spaAwards.includes(award) || foundersAwards.includes(award)) {
+            colToAward[key.split("_")[3]] = award
+          }
+        })
+        json.map((boyData, index) => {
+          if (index != 0 && index != 1) {
+            let boyName = boyData["__EMPTY_1"]
+            if (Object.values(boyNames).includes(boyName)) {
+              if (!(boyIds[boyName] in boyToAttained)) {
+                boyToAttained[boyIds[boyName]] = {}
+              }
+              let currentAward = ""
+              let currentMastery = 1
+              Object.entries(boyData).map(([key, attainment], index) => {
+                if (index != 0 && index != 1) {
+                  let col = key.split("_")[3]
+                  if (col in colToAward) {
+                    currentAward = colToAward[col]
+                    currentMastery = 1
+                    boyToAttained[boyIds[boyName]][currentAward] = {}
+                  }
+                  if (currentAward != "" && currentMastery <=3) {
+                    if (currentAward in specialMasteries) {
+                      boyToAttained[boyIds[boyName]][currentAward][specialMasteries[currentAward][currentMastery]] = (attainment == "Attained")
+                    } else {
+                      boyToAttained[boyIds[boyName]][currentAward][regularMasteries[currentMastery]] = (attainment == "Attained")
+                    }
+                    currentMastery += 1
+                  }
+                }
+              })
+            }
+          }
+        })
+        console.log(boyToAttained)
+      })
+      // Process boyToAttained
+      Object.entries(boyToAttained).map(([id, awardDict]) => {
+        Object.entries(awardDict).map(([awardName, masteryDict]) => {
+          Object.entries(masteryDict).map(([masteryName, attainment]) => {
+            let element = document.getElementsByClassName(id + "-" + awardName + "-" + masteryName)
+            if (element.length != 0) {
+              element = element[0]
+              if (element.checked != attainment) {
+                console.log("Toggle " + awardName + " " + masteryName)
+                element.checked = attainment
+                console.log(element.checked)
+                toggleAttainment({target: element})
+              }
+            } else if (masteryName == "Basic") {
+              try {
+                element = document.getElementsByClassName(id + "-" + awardName)[0]
+                if (element.checked != attainment) {
+                  console.log("Toggle " + awardName)
+                  element.checked = attainment
+                  console.log(element.checked)
+                  toggleAttainment({target: element})
+                }                
+              } catch (error) {console.log(awardName)}
+            }
+          })
+        })
+      })
+    }
+    reader.readAsArrayBuffer(e.target.files[0]);
   }
 
   function saveChanges() {
@@ -220,30 +315,36 @@ const AwardTracker = ({awardId}) => {
 
   function addAttainedAward(e) {
     let target = e.target.className
-    let currentLog = {...changeLog}
-    if (target in currentLog) {
-      delete currentLog[target]
-    } else {
-      currentLog[target] = "add"
-    }
-    setChangeLog(currentLog)
+    setChangeLog((prevLog) => {
+      let currentLog = { ...prevLog };
+      if (target in currentLog) {
+        delete currentLog[target];
+      } else {
+        currentLog[target] = "add";
+      }
+      return currentLog;
+    });
   }
 
   function deleteAttainedAward(e) {
     let target = e.target.className
-    let currentLog = {...changeLog}
-    if (target in currentLog) {
-      delete currentLog[target]
-    } else {
-      currentLog[target] = "delete"
-    }
-    setChangeLog(currentLog)
+    setChangeLog((prevLog) => {
+      let currentLog = { ...prevLog };
+      if (target in currentLog) {
+        delete currentLog[target];
+      } else {
+        currentLog[target] = "delete";
+      }
+      return currentLog;
+    });
   }
 
   function toggleAttainment(e) {
-    let newChecked = {...checked}
-    newChecked[e.target.className] = !newChecked[e.target.className]
-    setChecked(newChecked)
+    setChecked((prevChecked) => {
+      let newChecked = { ...prevChecked };
+      newChecked[e.target.className] = !newChecked[e.target.className];
+      return newChecked;
+    });
     if (e.target.checked == true) {
         addAttainedAward(e)
     } else {
@@ -319,6 +420,8 @@ const AwardTracker = ({awardId}) => {
 
   return(
     <div className='award-tracker'>
+      <label>Upload award trackers from BB Members Portal here:</label>
+      <input type="file" onChange={readUploadFile}></input>
       <div>
         {Object.entries(changeLog).map(([award, change]) => {
           let target = award.split("-")

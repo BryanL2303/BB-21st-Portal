@@ -139,3 +139,8 @@ Changed website title from Quiz Website to BB 21st Portal
 1. Edited awards tracker controller to combine add and delete functions into one function which processes more than one change at once
 2. Edited awards tracker tables to only rerender when the user saves the changes made, users can now check/uncheck multiple checkboxes at once before saving all changes at once
 3. Updated the routes due to the function changes in awards tracker controller
+
+19 September 2024
+1. Created function for users to upload award tracker
+2. Installed xlsx with yarn to read excel files
+3. Added functions in AwardsTracker to process data from excel file and toggle the attainments.
