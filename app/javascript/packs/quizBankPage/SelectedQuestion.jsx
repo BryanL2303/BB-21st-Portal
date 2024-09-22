@@ -14,6 +14,8 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
   useEffect(() => {
     axios.post('/api/question/0/get_question', {
       question_id: questionId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setQuestion(resp.data)
@@ -21,6 +23,8 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       if (resp.data.question_type == 'Open-ended') {
         axios.post('/api/question/0/get_rubric', {
           question_id: questionId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setRubric(resp.data.rubric)
@@ -29,6 +33,8 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       } else {
         axios.post('/api/question/0/get_options', {
           question_id: questionId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setOptions(resp.data)

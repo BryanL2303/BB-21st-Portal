@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   root "pages#index"
 
+  resources :application do
+    member do
+      post '/check_session' => 'application#check_session'
+      post '/log_out' => 'application#log_out'
+    end
+  end
+
   namespace :api do
     resources :admin do
       member do

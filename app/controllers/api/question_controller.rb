@@ -1,6 +1,7 @@
 module Api
 	class QuestionController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createQuestion
 			if params[:award][:masteryId] == '0'

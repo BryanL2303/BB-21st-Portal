@@ -11,11 +11,6 @@ const AccountCreationForm = ({reLoad}) => {
   const [accountRank, setAccountRank] = useState('REC');
   const [accountLevel, setAccountLevel] = useState('1');
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   function setType(e) {
     e.preventDefault()
     setAccountType(e.target.className)
@@ -70,6 +65,8 @@ const AccountCreationForm = ({reLoad}) => {
         rank: accountRank,
         level: level,
         credentials: credential
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         if (resp.data != false) {

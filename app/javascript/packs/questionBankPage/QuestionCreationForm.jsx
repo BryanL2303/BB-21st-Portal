@@ -14,10 +14,14 @@ const QuestionCreationForm = () => {
   const [award, setAward] = useContext(AwardContext)
   const [type, setType] = new useState("")
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   function setFormType(e) {
     e.preventDefault()
@@ -50,6 +54,8 @@ const QuestionCreationForm = () => {
         marks: e.target[2].value,
         award: award,
         answer: answer
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         //Reset all the input fields

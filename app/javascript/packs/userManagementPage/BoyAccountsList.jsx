@@ -10,11 +10,7 @@ const BoyAccountsList = ({setPageState}) => {
 
   //If there is no ongoing session go to login page
   useEffect(() => {
-    if (cookies.get('Token') == null) {
-      window.location.href = '/'
-    } else {
-      loadList()
-    }
+    loadList()
   }, [])
 
   //Sends the information from the form to the backend to try and create an account
@@ -22,6 +18,8 @@ const BoyAccountsList = ({setPageState}) => {
   function loadList() {
     axios.post('/api/account/0/get_accounts', {
       account_type: "Boy"
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setBoyList(resp.data)

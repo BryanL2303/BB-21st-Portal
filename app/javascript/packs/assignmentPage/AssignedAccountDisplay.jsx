@@ -12,6 +12,8 @@ const AssignedAccountDisplay = ({assignedAccount, passees, setPassees}) => {
   useEffect(() => {
     axios.post('/api/account/' + assignedAccount.account_id + '/get_account_information', {
       'id': assignedAccount.account_id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAccount(resp.data)

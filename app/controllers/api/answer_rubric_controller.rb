@@ -1,6 +1,7 @@
 module Api
 	class AnswerRubricController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createRubric
 			rubric = AnswerRubric.new(rubric: params[:rubric], question_id: params[:question_id])

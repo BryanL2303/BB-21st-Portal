@@ -1,6 +1,7 @@
 module Api
 	class QuestionOptionController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createOption
 			questionOption = QuestionOption.new(question: params[:question], answer: params[:answer], correct: params[:correct], question_id: params[:question_id])

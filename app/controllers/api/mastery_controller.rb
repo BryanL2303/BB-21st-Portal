@@ -1,6 +1,7 @@
 module Api
 	class MasteryController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createMastery
 			mastery = Mastery.new(mastery_name: params[:mastery_name], mastery_requirements: params[:mastery_requirements], results_description: params[:results_description], recommended_level: params[:recommended_level])

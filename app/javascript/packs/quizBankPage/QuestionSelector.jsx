@@ -18,6 +18,8 @@ const QuestionSelector = ({type, marks, setMarks}) => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: type
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setQuestions(resp.data)

@@ -17,15 +17,21 @@ const QuizAssignmentPage = () => {
   const { id } = useParams()
   const [limiter, setLimiter] = useState(false)
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set Quiz and accounts
     axios.post('/api/quiz/' + id + '/get_quiz', {
       'id': id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setQuiz(resp.data)
@@ -33,6 +39,8 @@ const QuizAssignmentPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAccounts(resp.data)
@@ -63,13 +71,14 @@ const QuizAssignmentPage = () => {
       i++
     }
     axios.post('/api/assignment/0/create_assignment', {
-      'token': cookies.get('Token'),
       'quiz_id': id,
       'award': award,
       'accounts': accounts,
       'assignment_name': e.target[0].value,
       'show_answer': showAnswer,
       'attempt_limit': attemptLimit
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       window.location.href = '/quiz_bank'

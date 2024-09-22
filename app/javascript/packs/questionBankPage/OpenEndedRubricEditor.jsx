@@ -14,6 +14,8 @@ const OpenEndedRubricEditor = ({ question }) => {
   useEffect(() => {
     axios.post('/api/question/0/get_rubric', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setRubric(resp.data.rubric)
@@ -35,6 +37,8 @@ const OpenEndedRubricEditor = ({ question }) => {
       question: e.target[0].value,
       marks: e.target[1].value,
       rubric: e.target[2].value
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       //Reset all the input fields
@@ -46,6 +50,8 @@ const OpenEndedRubricEditor = ({ question }) => {
     e.preventDefault()
     axios.post('/api/question/0/set_permanent', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       question = resp.data
@@ -60,6 +66,8 @@ const OpenEndedRubricEditor = ({ question }) => {
     e.preventDefault()
     axios.post('/api/question/0/delete_question', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setEdit('deleted')

@@ -13,13 +13,19 @@ const AwardsManagementPage = () => {
   const [pageState, setPageState] = useState("tracker");
   const [awards, setAwards] = useState([])
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     axios.post('/api/award/0/get_awards', {
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAwards(resp.data['awards'])

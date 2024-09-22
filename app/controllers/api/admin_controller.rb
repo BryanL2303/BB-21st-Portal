@@ -1,6 +1,7 @@
 module Api
 	class AdminController < ApplicationController
         protect_from_forgery with: :null_session
+        before_action :authenticate_request
 
         def getTableNames
             table_names = ActiveRecord::Base.connection.tables

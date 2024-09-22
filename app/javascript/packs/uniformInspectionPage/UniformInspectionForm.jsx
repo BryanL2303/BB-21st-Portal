@@ -18,13 +18,18 @@ const UniformInspectionForm = () => {
   const [currentForm, setCurrentForm] = useState();
   const { id } = useParams()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
-    axios.post('/api/uniform_inspection/0/get_component_fields', {
+    axios.post('/api/uniform_inspection/0/get_component_fields', {}, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setComponents(resp.data['components'])
@@ -33,6 +38,8 @@ const UniformInspectionForm = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setBoyAccounts(resp.data)
@@ -65,6 +72,8 @@ const UniformInspectionForm = () => {
     }
     axios.post('/api/account/0/get_accounts_by_ids', {
       'boy_ids': accounts
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setBoys(resp.data)
@@ -113,10 +122,11 @@ const UniformInspectionForm = () => {
       data[boy.id] = (selectedContents[boy.id])
     })
     axios.post('/api/uniform_inspection/0/create_uniform_inspection', {
-      'token': cookies.get('Token'),
       'selectedContents': data,
       'date': formattedDate,
       'boys': boys
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       window.location.href = '/uniform_inspection_results'

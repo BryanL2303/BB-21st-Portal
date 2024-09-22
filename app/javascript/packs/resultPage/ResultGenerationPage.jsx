@@ -25,14 +25,20 @@ const ResultGenerationPage = () => {
   const [customDescription, setCustomDescription] = useState()
   const [columnContents, setColumnContents] = useState({})
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set awards and accounts
     axios.post('/api/award/0/get_awards', {
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAwards(resp.data['awards'])
@@ -44,6 +50,8 @@ const ResultGenerationPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setBoyAccounts(resp.data)
@@ -51,6 +59,8 @@ const ResultGenerationPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Primer'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setPrimerAccounts(resp.data)
@@ -61,6 +71,8 @@ const ResultGenerationPage = () => {
       }
       axios.post('/api/account/0/get_accounts', {
         'account_type': 'Officer'
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         setOfficerAccounts(resp.data)
@@ -84,6 +96,8 @@ const ResultGenerationPage = () => {
     //make axios call and set states
     axios.post('/api/award/' + data[0] + '/get_award', {
       'id': data[0]
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAward(resp.data)
@@ -91,6 +105,8 @@ const ResultGenerationPage = () => {
       if (resp.data.has_mastery) {
         axios.post('/api/award/' + data[0] + '/get_masteries', {
           'award_id': data[0]
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then(resp => {
           console.log(resp.data)
@@ -102,6 +118,8 @@ const ResultGenerationPage = () => {
           setCustomDescription(resp.data[parseInt(data[1]) - 1].results_description)
           axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns', {
             'id': resp.data[parseInt(data[1]) - 1].id
+          }, {
+            withCredentials: true  // Include credentials (cookies)
           })
           .then(resp => {
             setColumns(resp.data)
@@ -118,6 +136,8 @@ const ResultGenerationPage = () => {
         })
         axios.post('/api/award/' + resp.data.id + '/get_columns', {
           'id': resp.data.id
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then(resp => {
           setColumns(resp.data)
@@ -142,6 +162,8 @@ const ResultGenerationPage = () => {
     }
     axios.post('/api/account/0/get_accounts_by_ids', {
       'boy_ids': accounts
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setBoys(resp.data)

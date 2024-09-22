@@ -23,12 +23,16 @@ const QuestionList = () => {
   useEffect(() => {
     axios.post('/api/award/' + award.awardId + '/get_award', {
       id: award.awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setCurrentAward(resp.data)
       if (resp.data.has_mastery) {
         axios.post('/api/award/0/get_masteries', {
           award_id: award.awardId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setMasteries(resp.data)
@@ -46,6 +50,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setMcqQuestions(resp.data)
@@ -54,6 +60,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setMrqQuestions(resp.data)
@@ -62,6 +70,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setOpenEndQuestions(resp.data)
@@ -72,12 +82,16 @@ const QuestionList = () => {
   useEffect(() => {
     axios.post('/api/award/' + award.awardId + '/get_award', {
       id: award.awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setCurrentAward(resp.data)
       if (resp.data.has_mastery && award.masteryId == '0') {
         axios.post('/api/award/0/get_masteries', {
           award_id: award.awardId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setMasteries(resp.data)
@@ -94,6 +108,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setMcqQuestions(resp.data)
@@ -102,6 +118,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setMrqQuestions(resp.data)
@@ -110,6 +128,8 @@ const QuestionList = () => {
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setOpenEndQuestions(resp.data)

@@ -14,6 +14,8 @@ const MrqOptionsEditor = ({ question }) => {
   useEffect(() => {
     axios.post('/api/question/0/get_options', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setOptions(resp.data)
@@ -53,6 +55,8 @@ const MrqOptionsEditor = ({ question }) => {
       question: e.target[0].value,
       marks: e.target[1].value,
       answer: answer
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       //Reset all the input fields
@@ -64,6 +68,8 @@ const MrqOptionsEditor = ({ question }) => {
     e.preventDefault()
     axios.post('/api/question/0/set_permanent', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       question = resp.data
@@ -78,6 +84,8 @@ const MrqOptionsEditor = ({ question }) => {
     e.preventDefault()
     axios.post('/api/question/0/delete_question', {
       question_id: question.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setEdit('deleted')

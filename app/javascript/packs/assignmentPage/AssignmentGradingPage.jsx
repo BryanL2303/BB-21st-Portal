@@ -19,16 +19,22 @@ const AssignmentGradingPage = () => {
   const [totalMarks, setTotalMarks] = useState(0)
   const { id } = useParams();
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
     axios.post('/api/assigned_account/' + id + '/get_assignment_answers', {
       'id': id,
       'attempt': attempt
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAccount(resp.data['account'])
@@ -51,6 +57,8 @@ const AssignmentGradingPage = () => {
     e.preventDefault()
     axios.post('/api/assigned_account/' + id + '/set_graded', {
       'attempt_score_id': totalMarks.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setTotalMarks(resp.data)

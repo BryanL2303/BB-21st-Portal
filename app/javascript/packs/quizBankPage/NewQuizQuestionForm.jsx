@@ -12,10 +12,14 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
   const cookies = new Cookies()
   const [localMark, setLocalMark] = useState(0)
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   function changeLocalMarks(e) {
     e.preventDefault()

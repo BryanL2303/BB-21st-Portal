@@ -1,6 +1,7 @@
 module Api
 	class TopicController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createTopic
 			findTopic = Topic.find_by(topic_name: params[:topic_name])

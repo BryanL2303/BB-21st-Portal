@@ -11,6 +11,8 @@ const DatabaseTable = ({table_name}) => {
   useEffect(() => {
     axios.post('/api/admin/0/get_table', {
         table_name: table_name
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setData(resp.data['data'])
@@ -40,6 +42,8 @@ const DatabaseTable = ({table_name}) => {
         table_name: table_name,
         columns: changed_columns,
         data: new_data
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setData(resp.data['data'])
@@ -75,6 +79,8 @@ const DatabaseTable = ({table_name}) => {
         table_name: table_name,
         columns: changed_columns,
         data: new_data
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setData(resp.data['data'])
@@ -90,7 +96,9 @@ const DatabaseTable = ({table_name}) => {
 
   function deleteRow(id) {
     axios.post('/api/admin/' + id + '/delete_data', {
-        table_name: table_name
+      table_name: table_name
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setData(resp.data['data'])

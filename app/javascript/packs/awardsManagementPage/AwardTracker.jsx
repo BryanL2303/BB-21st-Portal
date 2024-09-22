@@ -39,15 +39,12 @@ const AwardTracker = ({awardId}) => {
   const [changeLog, setChangeLog] = useState({})
   const [checked, setChecked] = useState({})
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   useEffect(() => {
     // Get information to load page
     axios.post('/api/account/0/get_accounts', {
         account_type: "Boy"
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         setBoys(resp.data)
@@ -67,7 +64,9 @@ const AwardTracker = ({awardId}) => {
         setIpaAttained(initialAttained)
         setSpaAttained(initialAttained)
         setFoundersAttained(initialAttained)
-        axios.post('/api/award_tracker/0/get_attainments', {})
+        axios.post('/api/award_tracker/0/get_attainments', {}, {
+          withCredentials: true  // Include credentials (cookies)
+        })
         .then(resp => {
           setAttained(resp.data)
           setChangeLog({})
@@ -243,7 +242,6 @@ const AwardTracker = ({awardId}) => {
             }
           }
         })
-        console.log(boyToAttained)
       })
       // Process boyToAttained
       Object.entries(boyToAttained).map(([id, awardDict]) => {
@@ -253,9 +251,7 @@ const AwardTracker = ({awardId}) => {
             if (element.length != 0) {
               element = element[0]
               if (element.checked != attainment) {
-                console.log("Toggle " + awardName + " " + masteryName)
                 element.checked = attainment
-                console.log(element.checked)
                 toggleAttainment({target: element})
               }
             } else if (masteryName == "Basic") {
@@ -304,6 +300,8 @@ const AwardTracker = ({awardId}) => {
       axios.post('/api/award_tracker/0/process_changes', {
         add: addList,
         delete: deleteList
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         setAttained(resp.data)

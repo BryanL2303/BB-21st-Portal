@@ -18,12 +18,16 @@ const QuizList = () => {
   useEffect(() => {
     axios.post('/api/award/' + award.awardId + '/get_award', {
       id: award.awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setCurrentAward(resp.data)
       if (resp.data.has_mastery) {
         axios.post('/api/award/0/get_masteries', {
           award_id: award.awardId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setMasteries(resp.data)
@@ -40,6 +44,8 @@ const QuizList = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/assignment/0/get_assignments', {
       award: award
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setAssignments(resp.data)
@@ -47,6 +53,8 @@ const QuizList = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setQuizzes(resp.data)
@@ -57,12 +65,16 @@ const QuizList = () => {
   useEffect(() => {
     axios.post('/api/award/' + award.awardId + '/get_award', {
       id: award.awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setCurrentAward(resp.data)
       if (resp.data.has_mastery && award.masteryId == '0') {
         axios.post('/api/award/0/get_masteries', {
           award_id: award.awardId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then( resp => {
           setMasteries(resp.data)
@@ -78,6 +90,8 @@ const QuizList = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/assignment/0/get_assignments', {
       award: award
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setAssignments(resp.data)
@@ -85,6 +99,8 @@ const QuizList = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then( resp => {
       setQuizzes(resp.data)

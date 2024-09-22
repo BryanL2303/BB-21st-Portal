@@ -16,15 +16,21 @@ const QuizPage = () => {
   const [attemptScore, setAttemptScore] = useState();
   const { id } = useParams()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
     axios.post('/api/quiz/' + id + '/get_quiz', {
       'id': id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setQuiz(resp.data)
@@ -32,6 +38,8 @@ const QuizPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       console.log(resp.data)
@@ -39,9 +47,10 @@ const QuizPage = () => {
     })
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/assignment/0/get_assignment', {
-      'token': cookies.get('Token'),
       'quiz_id': id,
       'id': '0'
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAssignedAccount(resp.data['assigned_account'])
@@ -83,9 +92,10 @@ const QuizPage = () => {
       i++
     }
     axios.post('/api/assignment/0/submit_assignment', {
-      'token': cookies.get('Token'),
       'quiz_id': id,
       'answers': answers
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       window.location.href = '/quiz_result/' + id

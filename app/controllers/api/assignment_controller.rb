@@ -1,13 +1,13 @@
 module Api
 	class AssignmentController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createAssignment
-			account = decode_token(params[:token])
 			if params[:award][:masteryId] == '0'
-				assignment = Assignment.new(account_id: account, quiz_id: params[:quiz_id], award_id: params[:award][:awardId], assignment_name: params[:assignment_name], attempt_limit: params[:attempt_limit], show_answer: params[:show_answer])
+				assignment = Assignment.new(account_id: @current_user.id, quiz_id: params[:quiz_id], award_id: params[:award][:awardId], assignment_name: params[:assignment_name], attempt_limit: params[:attempt_limit], show_answer: params[:show_answer])
 			else
-				assignment = Assignment.new(account_id: account, quiz_id: params[:quiz_id], mastery_id: params[:award][:masteryId], assignment_name: params[:assignment_name], attempt_limit: params[:attempt_limit], show_answer: params[:show_answer])
+				assignment = Assignment.new(account_id: @current_user.id, quiz_id: params[:quiz_id], mastery_id: params[:award][:masteryId], assignment_name: params[:assignment_name], attempt_limit: params[:attempt_limit], show_answer: params[:show_answer])
 			end
 
 			if assignment.save
@@ -26,7 +26,7 @@ module Api
 
 		def getAssignment
 			if params[:id] == '0'
-				accountId = decode_token(params[:token])
+				accountId = @current_user.id
 				assignments = Assignment.where(quiz_id: params[:quiz_id])
 				data = {}
 				for assignment in assignments
@@ -55,7 +55,7 @@ module Api
 		end
 
 		def submitAssignment
-			accountId = decode_token(params[:token])
+			accountId = @current_user.id
 			assignments = Assignment.where(quiz_id: params[:quiz_id])
 			graded = true
 			for assignment in assignments
@@ -160,8 +160,8 @@ module Api
 
 		def getResultsInformation
 			data = {}
-			accountId = decode_token(params[:token])
-			account = Account.find_by(id: accountId)
+			accountId = @current_user.id
+			account = @current_user
 			data['account'] = account
 			assignment = Assignment.find_by(id: params[:id])
 			data['assignment'] = assignment

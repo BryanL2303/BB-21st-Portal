@@ -11,15 +11,12 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [accountRank, setAccountRank] = useState();
   const [accountLevel, setAccountLevel] = useState();
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   useEffect(() => {
     setAccount()
     axios.post('/api/account/' + userId + '/get_account_information', {
       'id': userId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAccount(resp.data)
@@ -78,6 +75,8 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         rank: accountRank,
         level: level,
         credentials: credentials
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         if (resp.data != false) {
@@ -99,6 +98,8 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     e.preventDefault()
     axios.post('/api/account/0/delete_account', {
       account_name: account.account_name
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       if (resp.data != false) {

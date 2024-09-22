@@ -10,10 +10,14 @@ import {QuestionList} from './QuestionList'
 const QuestionBankPage = () => {
   const cookies = new Cookies()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   //Show the form to create new accounts
   function showForm () {

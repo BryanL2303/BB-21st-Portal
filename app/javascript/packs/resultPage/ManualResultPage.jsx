@@ -16,15 +16,21 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
   let date = new Date();
   const formattedDate = date.toLocaleDateString('en-GB');
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set states
     axios.post('/api/account/' + instructorId + '/get_account', {
       'id': instructorId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setInstructor(resp.data)

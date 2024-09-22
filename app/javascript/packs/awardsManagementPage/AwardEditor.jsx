@@ -14,16 +14,13 @@ const AwardEditor = ({awardId}) => {
   const [level2, setRecommendedLevel2] = useState()
   const [level3, setRecommendedLevel3] = useState()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   useEffect(() => {
     setAward()
     setMasteries([])
     axios.post('/api/award/' + awardId + '/get_award', {
       'id': awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAward(resp.data)
@@ -31,6 +28,8 @@ const AwardEditor = ({awardId}) => {
       if (resp.data.has_mastery) {
         axios.post('/api/award/0/get_masteries', {
           'award_id': awardId
+        }, {
+          withCredentials: true  // Include credentials (cookies)
         })
         .then(resp => {
           setMasteries(resp.data)
@@ -108,6 +107,8 @@ const AwardEditor = ({awardId}) => {
         badge_name: e.target[0].value,
         has_mastery: e.target[1].checked,
         details: details
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         if (resp.data != false) {
@@ -128,6 +129,8 @@ const AwardEditor = ({awardId}) => {
     e.preventDefault()
     axios.post('/api/award/' + awardId + '/delete_award', {
       id: awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       if (resp.data != false) {

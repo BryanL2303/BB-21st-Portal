@@ -12,13 +12,19 @@ const AdminPage = () => {
   const [tableNames, setTableNames] = useState([]);
   const [tableVisible, setTableVisible] = useState({});
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
-    axios.post('/api/admin/0/get_table_names', {})
+    axios.post('/api/admin/0/get_table_names', {}, {
+      withCredentials: true  // Include credentials (cookies)
+    })
     .then(resp => {
       setTableNames(resp.data)
       let initialVisbility = {}

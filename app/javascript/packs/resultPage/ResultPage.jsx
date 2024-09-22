@@ -21,18 +21,23 @@ const ResultPage = () => {
   let date = new Date();
   const formattedDate = date.toLocaleDateString('en-GB');
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set Quiz
     if (id != 0) {
       //make axios call and set Quiz and Questions
       axios.post('/api/assignment/' + id + '/get_results_information', {
-        'id': id,
-        'token': cookies.get('Token')
+        'id': id
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         setAccount(resp.data['account'])

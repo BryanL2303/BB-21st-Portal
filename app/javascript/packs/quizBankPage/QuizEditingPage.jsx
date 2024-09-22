@@ -16,15 +16,21 @@ const QuizEditingPage = () => {
   const [questions, setQuestions] = useState([]);
   const { id } = useParams()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
     axios.post('/api/quiz/' + id + '/get_quiz', {
       'id': id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setQuiz(resp.data)
@@ -32,6 +38,8 @@ const QuizEditingPage = () => {
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setQuestions(resp.data)
@@ -113,6 +121,8 @@ const QuizEditingPage = () => {
       award: award,
       existing_questions: existingQuestions,
       new_questions: newQuestions
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       //Reset all the input fields
@@ -138,6 +148,8 @@ const QuizEditingPage = () => {
     e.preventDefault()
     axios.post('/api/quiz/' + quiz.id + '/delete_quiz', {
       'id': quiz.id
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       window.location.href = '/quiz_bank'

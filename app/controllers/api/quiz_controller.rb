@@ -1,6 +1,7 @@
 module Api
 	class QuizController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createQuiz
 			#Check that there are no quizes with the same name within the same topic

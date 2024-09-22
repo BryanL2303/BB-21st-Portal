@@ -62,9 +62,16 @@ const NavigationBar = () => {
   //Logout the user by removing the token issued to the user
   function logOut () {
     cookies.remove('Name',{path:'/'});
-    cookies.remove('Token',{path:'/'});
     cookies.remove('Type',{path:'/'});
-    window.location.href = '/'
+    axios.post("/application/0/log_out", {}, {
+      withCredentials: true
+    })
+    .then(resp => {
+      window.location.href = '/'
+    })
+    .catch(resp => {
+      console.log(resp)
+    })
   }
 
   //Lets the user access the user menu

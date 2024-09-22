@@ -18,14 +18,20 @@ const QuizCreationPage = () => {
   const [marks, setMarks] = useState(0);
   const [questions, setQuestions] = useState([1]);
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     axios.post('/api/award/' + awardId.awardId + '/get_award', {
       'id': awardId.awardId
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAward(resp.data)

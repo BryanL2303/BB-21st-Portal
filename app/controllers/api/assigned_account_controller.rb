@@ -1,6 +1,7 @@
 module Api
 	class AssignedAccountController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createAssignedAccount
 			account = Account.new(account_name: params[:account_name], password: params[:password], account_type: params[:account_type])
@@ -19,7 +20,7 @@ module Api
 		end
 
 		def getAssignedAccount
-			accountId = decode_token(params[:token])
+			accountId = @current_user.id
 			assigned_accounts = AssignedAccount.where(account_id: accountId)
 			assignments = Assignment.where(quiz_id: params[:quiz_id])
 			for assignment in assignments

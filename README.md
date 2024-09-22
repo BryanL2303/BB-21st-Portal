@@ -144,3 +144,17 @@ Changed website title from Quiz Website to BB 21st Portal
 1. Created function for users to upload award tracker
 2. Installed xlsx with yarn to read excel files
 3. Added functions in AwardsTracker to process data from excel file and toggle the attainments.
+
+22 September 2024
+1. Update ApplicationController JWT to implement secret key hidden in ENV as well as tokens that will expire
+2. New function and action added to relevant controllers to authenticate JWT before any action
+3. Using HTTP-Only Cookies when user logs in
+4. Added new function to authorize cookies from backend
+5. Updated config development and application file to allow cookie transfer
+6. Updated all axios post request to be sent with credentials and removed all tokens
+7. Removed the used of params[:token] from all controller functions
+8. Added new function in application controller with route to check for existing session
+9. Update all pages redirect to change token to jwt
+10. Added new function in application controller with route to log out and delete jwt
+11. Update function in NavigationBar for logging out to call controller function
+12. Create new session store file in config/initializers to manage cookie transfers

@@ -1,6 +1,7 @@
 module Api
 	class AccountController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request, only: [:createAccount, :getAccount, :getAccounts, :getOwnAccount, :toggleType, :editAccount, :deleteAccount, :getAssignments]
 
 		def createAccount
 			account = Account.new(account_name: params[:account_name], password: params[:password], account_type: params[:account_type], rank: params[:rank], credentials: params[:credentials])
@@ -12,7 +13,7 @@ module Api
 			if findAccount == nil
 				if account.save
 					token = encode_token({user_id: account.id})
-					render json: {account_name: account.account_name, type: account.account_type, token: token}
+					render json: {account_name: account.account_name, type: account.account_type}
 				else
 					render json: {error: account.errors.messages}, status: 422
 				end
@@ -29,7 +30,9 @@ module Api
 			else
 				if account.password == params[:password]
 					token = encode_token({user_id: account.id})
-					render json: {account_name: account.account_name, token: token, account_type: account.account_type}
+					cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
+
+					render json: {account_name: account.account_name, account_type: account.account_type}
 				else
 					render json: false
 				end
@@ -49,10 +52,7 @@ module Api
 		end
 
 		def getOwnAccount
-			accountId = decode_token(params[:token])
-			account = Account.find_by(id: accountId)
-
-			render json: account
+			render json: @current_user
 		end
 
 		def getAccountsByIds
@@ -102,7 +102,7 @@ module Api
 		end
 
 		def getAssignments
-			account = decode_token(params[:token])
+			accountId = @current_user.id
 
 			if params[:award]['masteryId'] == '0'
 				assignments = Assignment.where(award_id: params[:award]['awardId']).order('id')
@@ -111,7 +111,7 @@ module Api
 			end
 			quizzes = []
 			for assignment in assignments
-				assignedAssignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id: account)
+				assignedAssignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id: accountId)
 				if assignedAssignments != []
 					quiz = Quiz.find_by(id: assignment.quiz_id)
 					quizzes.append(quiz)

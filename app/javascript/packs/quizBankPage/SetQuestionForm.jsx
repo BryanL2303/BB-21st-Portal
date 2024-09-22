@@ -13,10 +13,14 @@ const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
   const [type, setType] = new useState('');
   const [source, setSource] = new useState('');
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   function setQuestionType(e) {
     e.preventDefault()

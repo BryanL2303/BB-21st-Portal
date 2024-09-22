@@ -1,9 +1,10 @@
 module Api
 	class UniformInspectionController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createUniformInspection
-			assessorId = decode_token(params[:token])
+			assessorId = @current_user.id
 			for boy in params[:boys]
 				uniformInspection = UniformInspection.new(account_id: boy['id'], assessor_id: assessorId, date: params[:date])
 				uniformInspection.save

@@ -6,12 +6,16 @@ import { errorMessage } from '../general/functions';
 /*To log in, accounts can only be created by existing users
 */
 const LogInPage = () => {
-  const cookies = new Cookies()
-
   //If there is an ongoing session go to home page
-  if (cookies.get('Token') != null) {
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {
     window.location.href = '/home'
-  }
+  })
+  .catch(resp => {
+    console.log(resp)
+  })
 
   //Handle submit form event to authenticate account with backend
   function submitForm(e) {
@@ -19,13 +23,13 @@ const LogInPage = () => {
     axios.post('/api/account/0/authenticate_account', {
       account_name: e.target[0].value,
       password: e.target[1].value,
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
-      console.log(resp)
       if (resp.data != false) {
         //If account is authenticated save JWT in cookies
         cookies.set('Name', resp.data.account_name, { path: '/' });
-        cookies.set('Token', resp.data.token, { path: '/' });
         cookies.set('Type', resp.data.account_type, { path: '/' });
         window.location.href = '/home'
       }

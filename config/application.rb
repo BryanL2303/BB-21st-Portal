@@ -18,5 +18,18 @@ module QuizWebsite
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # For development JWT testing
+    # config.middleware.delete ActionDispatch::Cookies
+    config.middleware.delete ActionDispatch::Session::CookieStore
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins 'localhost:3000'  # Adjust if you're running locally
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :put, :delete, :options],
+          credentials: true  # Allow cookies
+      end
+    end
   end
 end

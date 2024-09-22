@@ -12,11 +12,6 @@ const AwardCreationForm = () => {
   const [level2, setRecommendedLevel2] = useState('1')
   const [level3, setRecommendedLevel3] = useState('1')
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-award-form__level')[0].innerHTML = e.target.className
@@ -75,6 +70,8 @@ const AwardCreationForm = () => {
         badge_name: e.target[0].value,
         has_mastery: hasMastery,
         details: details
+      }, {
+        withCredentials: true  // Include credentials (cookies)
       })
       .then(resp => {
         if (resp.data != false) {

@@ -17,9 +17,10 @@ const QuestionGradingDisplay = ({question}) => {
       'id': e.target[0].id,
       'score': e.target[0].value,
       'comments': e.target[1].value
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
-      console.log(resp.data)
       setAccount(resp.data['account'])
       setAssignedAccount(resp.data['assigned_account'])
       setAssignment(resp.data['assignment'])

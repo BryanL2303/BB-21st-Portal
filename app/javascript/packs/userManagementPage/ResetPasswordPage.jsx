@@ -10,15 +10,19 @@ const ResetPasswordPage = () => {
   const cookies = new Cookies()
   const [account, setAccount] = useState();
   
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
     setAccount()
-    axios.post('/api/account/0/get_own_account', {
-      'token': cookies.get('Token')
+    axios.post('/api/account/0/get_own_account', {}, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setAccount(resp.data)
@@ -36,6 +40,8 @@ const ResetPasswordPage = () => {
       rank: account.rank,
       level: account.level,
       credentials: account.credentials
+    }, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       if (resp.data != false) {

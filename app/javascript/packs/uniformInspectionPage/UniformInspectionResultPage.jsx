@@ -18,13 +18,18 @@ const UniformInspectionResultPage = () => {
   const [boys, setBoys] = useState([]);
   const { id } = useParams()
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
+  //If there is no ongoing session go back to log in page
+  axios.post("/application/0/check_session", {}, {
+    withCredentials: true
+  })
+  .then(resp => {})
+  .catch(resp => {
     window.location.href = '/'
-  }
+  })
 
   useEffect(() => {
-    axios.post('/api/uniform_inspection/0/get_component_fields', {
+    axios.post('/api/uniform_inspection/0/get_component_fields', {}, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       setComponents(resp.data['components'])

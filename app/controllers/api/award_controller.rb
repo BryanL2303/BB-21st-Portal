@@ -1,6 +1,7 @@
 module Api
 	class AwardController < ApplicationController
 		protect_from_forgery with: :null_session
+		before_action :authenticate_request
 
 		def createAward
 			findAward = Award.find_by(badge_name: params[:badge_name])

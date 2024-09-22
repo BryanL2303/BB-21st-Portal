@@ -12,7 +12,8 @@ const AwardList = () => {
   const [awards, setAwards] = useState([])
 
   useEffect(() => {
-    axios.post('/api/award/0/get_awards', {
+    axios.post('/api/award/0/get_awards', {}, {
+      withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
       console.log(resp.data)
