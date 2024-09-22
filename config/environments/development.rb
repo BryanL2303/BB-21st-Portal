@@ -69,7 +69,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # The lines below are for JWT testing in development
-  config.action_dispatch.cookies_same_site_protection = :lax
+  config.action_dispatch.cookies_same_site_protection = :strict
   config.session_store :cookie_store, key: '_your_app_session', httponly: true, secure: false
   config.force_ssl = false
 end

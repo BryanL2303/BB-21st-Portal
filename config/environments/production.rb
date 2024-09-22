@@ -90,4 +90,9 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Sending cookies
+  config.action_dispatch.cookies_same_site_protection = :strict
+  config.session_store :cookie_store, key: '_your_app_session', httponly: true, secure: Rails.env.production?
+  config.force_ssl = false
 end
