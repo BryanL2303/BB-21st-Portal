@@ -6,6 +6,8 @@ import { errorMessage } from '../general/functions';
 /*To log in, accounts can only be created by existing users
 */
 const LogInPage = () => {
+  const cookies = new Cookies()
+
   //If there is an ongoing session go to home page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
