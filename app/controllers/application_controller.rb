@@ -46,7 +46,6 @@ class ApplicationController < ActionController::Base
 	end
 
 	def log_out
-		authenticate_request()
 		cookies.delete(:jwt, domain: :all)
 		render json: true
 	end
