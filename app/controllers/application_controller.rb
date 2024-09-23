@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 	
 	def authenticate_request
 		token = cookies[:jwt]  # Retrieving the token from the signed cookie
+		Rails.logger.info("Token: #{token}")
 		if token.present?
 		  account_id = decode_token(token)
 		  if account_id
@@ -37,6 +38,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def check_session
+		Rails.logger.info("Authenticating request")
 		authenticate_request()
 		if @current_user
 			render json: true
