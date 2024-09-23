@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
 	end
 
 	def log_out
-		cookies.delete(:jwt, domain: :all)
+		cookies.delete(:jwt, secure: Rails.env.production?, same_site: :strict, domain: :ENV['domain'])
 		render json: true
 	end
 end
