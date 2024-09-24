@@ -71,6 +71,7 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
   gem 'rspec-rails'
+  gem 'rubocop', require: false
 end
 
 gem "webpacker", "~> 5.4"

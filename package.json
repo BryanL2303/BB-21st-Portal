@@ -75,6 +75,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "5",
     "@testing-library/react": "11.2.7",
+    "eslint": "^9.11.1",
     "jest-cli": "26",
     "jest-environment-jsdom": "^26.0.0",
     "jsdom": "16.5.3"
