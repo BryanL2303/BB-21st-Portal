@@ -6,15 +6,18 @@ import pluginReact from "eslint-plugin-react";
 export default [
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    languageOptions: { globals: globals.browser },
+    languageOptions: { 
+      globals: { 
+        ...globals.browser, // Browser globals
+        ...globals.node    // Node.js globals
+      },
+      ecmaVersion: "latest", // Set ECMAScript version
+      sourceType: "module",  // Use ES Modules
+    },
     settings: {
       react: {
         version: 'detect', // Automatically picks the version you have installed
       },
-    },
-    env: {
-      node: true,
-      browser: true
     },
   },
   pluginJs.configs.recommended,
