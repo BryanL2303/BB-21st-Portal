@@ -13,4 +13,7 @@ export default [
       version: 'detect', // Automatically picks the version you have installed
     },
   }},
+  {env: {
+    node: true
+  }},
 ];
