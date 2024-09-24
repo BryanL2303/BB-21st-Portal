@@ -56,6 +56,7 @@ jobs:
       env:
         RAILS_ENV: test
         DATABASE_URL: postgres://postgres:password@localhost:5432/bb_21_test
+        dev_db_pw: password
       run: |
         bundle exec rails db:create db:migrate RAILS_ENV=test
         RAILS_ENV=test bundle exec rspec
