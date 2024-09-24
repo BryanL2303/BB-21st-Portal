@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: myapp_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        ruby-version: [3.1]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install Ruby dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Install Node.js dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Run RoR tests
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
+      run: |
+        cd backend
+        bundle exec rails db:create db:migrate
+        bundle exec rspec
+
+    - name: Run React tests
+      run: |
+        cd frontend
+        npm test -- --ci --coverage
