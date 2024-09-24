@@ -50,7 +50,6 @@ jobs:
 
     - name: Install Node.js dependencies
       run: |
-        cd frontend
         npm install
 
     - name: Run RoR tests
@@ -58,11 +57,9 @@ jobs:
         RAILS_ENV: test
         DATABASE_URL: postgres://postgres:password@localhost:5432/myapp_test
       run: |
-        cd backend
         bundle exec rails db:create db:migrate
         bundle exec rspec
 
     - name: Run React tests
       run: |
-        cd frontend
         npm test -- --ci --coverage
