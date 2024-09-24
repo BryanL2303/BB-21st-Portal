@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import Cookies from 'universal-cookie'
 import axios from 'axios'

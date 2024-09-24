@@ -1,14 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react'
-import Cookies from 'universal-cookie';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { AwardContext } from '../context/AwardContext'
 import { errorMessage } from '../general/functions'
 
 /*To access quizes and create new ones
 */
 const AwardList = () => {
-  const cookies = new Cookies();
-  const [Award, setAward] = useContext(AwardContext)
   const [awards, setAwards] = useState([])
 
   useEffect(() => {
@@ -16,7 +12,6 @@ const AwardList = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
-      console.log(resp.data)
       setAwards(resp.data['awards'])
     })
     .catch(resp => errorMessage(resp.response.statusText))

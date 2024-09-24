@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 /*Display list of all primer Accounts
 */
 const PrimerAccountsList = ({setPageState}) => {
-  const cookies = new Cookies()
   const [primerList, setPrimerList] = useState([])
 
   //If there is no ongoing session go to login page

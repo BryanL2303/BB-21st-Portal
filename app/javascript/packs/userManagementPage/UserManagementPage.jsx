@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
@@ -19,10 +19,8 @@ const UserManagementPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   //Show the form to create new accounts
   function showForm () {

@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
@@ -8,10 +7,8 @@ import {NavigationBar} from '../general/NavigationBar'
 /*To facilitate uniform inspection by officers / primers
 */
 const UniformInspectionResultPage = () => {
-  const cookies = new Cookies()
   const [components, setComponents] = useState([]);
   const [componentFields, setComponentFields] = useState({})
-  const [currentBoy, setCurrentBoy] = useState();
   const [currentInspection, setCurrentInspection] = useState()
   const [inspections, setInspections] = useState();
   const [allInspections, setAllInspections] = useState();
@@ -22,10 +19,8 @@ const UniformInspectionResultPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/uniform_inspection/0/get_component_fields', {}, {

@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {QuestionDisplay} from './QuestionDisplay'
@@ -9,21 +7,16 @@ import {QuestionDisplay} from './QuestionDisplay'
 /*For boys to attempt quizzes
 */
 const QuizPage = () => {
-  const cookies = new Cookies()
   const [quiz, setQuiz] = useState();
   const [questions, setQuestions] = useState([]);
-  const [assignedAccount, setAssignedAccount] = useState();
-  const [attemptScore, setAttemptScore] = useState();
   const { id } = useParams()
 
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set Quiz and Questions

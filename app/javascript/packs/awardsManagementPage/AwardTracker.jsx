@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import * as xlsx from 'xlsx';
 
 /*To show boys progression towards IPA/SPA/Founders
 */
-const AwardTracker = ({awardId}) => {
-  const cookies = new Cookies()
+const AwardTracker = () => {
   const [boys, setBoys] = useState([])
   const [boyNames, setBoyNames] = useState({})
   const [boyIds, setBoyIds] = useState({})

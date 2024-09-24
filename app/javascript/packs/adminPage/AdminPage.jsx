@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Cookies from 'universal-cookie';
 import axios from 'axios'
 import { NavigationBar } from '../general/NavigationBar'
 import { DatabaseTable } from './DatabaseTable';
@@ -8,7 +7,6 @@ import { errorMessage } from '../general/functions';
 /*Only meant for admin to initialise the page
 */
 const AdminPage = () => {
-  const cookies = new Cookies()
   const [tableNames, setTableNames] = useState([]);
   const [tableVisible, setTableVisible] = useState({});
 
@@ -16,10 +14,8 @@ const AdminPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/admin/0/get_table_names', {}, {

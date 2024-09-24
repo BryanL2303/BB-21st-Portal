@@ -1,12 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 
 /*To display the currently selected question for the test
 */
 const QuestionDisplay = ({questionId}) => {
-  const cookies = new Cookies();
   const [question, setQuestion] = useState()
   const [options, setOptions] = useState([])
   const [rubric, setRubric] = useState("")

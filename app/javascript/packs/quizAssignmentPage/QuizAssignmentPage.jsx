@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import {NavigationBar} from '../general/NavigationBar'
@@ -10,7 +8,6 @@ import {AccountSelector} from './AccountSelector'
 /*To assign quiz to boys
 */
 const QuizAssignmentPage = () => {
-  const cookies = new Cookies()
   const [award, setAward] = useContext(AwardContext)
   const [quiz, setQuiz] = useState()
   const [accounts, setAccounts] = useState([])
@@ -21,10 +18,8 @@ const QuizAssignmentPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set Quiz and accounts
@@ -80,9 +75,7 @@ const QuizAssignmentPage = () => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      window.location.href = '/quiz_bank'
-    })
+    .then(window.location.href = '/quiz_bank')
     .catch(resp => errorMessage(resp.response.statusText))
   }
 

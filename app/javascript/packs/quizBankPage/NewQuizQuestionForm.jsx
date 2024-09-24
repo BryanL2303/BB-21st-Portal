@@ -1,6 +1,4 @@
-import React, { useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
+import React, { useState } from 'react'
 import axios from 'axios'
 import { McqOptionsForm } from '../questionBankPage/McqOptionsForm'
 import { MrqOptionsForm } from '../questionBankPage/MrqOptionsForm'
@@ -9,17 +7,14 @@ import { OpenEndedForm } from '../questionBankPage/OpenEndedForm'
 /*To create new questions and add them into the question bank
 */
 const NewQuizQuestionForm = ({type, marks, setMarks}) => {
-  const cookies = new Cookies()
   const [localMark, setLocalMark] = useState(0)
 
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   function changeLocalMarks(e) {
     e.preventDefault()

@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To create new awards
 */
 const AwardCreationForm = () => {
-  const cookies = new Cookies()
   const [hasMastery, setHasMastery] = useState(true);
   const [level1, setRecommendedLevel1] = useState('1')
   const [level2, setRecommendedLevel2] = useState('1')

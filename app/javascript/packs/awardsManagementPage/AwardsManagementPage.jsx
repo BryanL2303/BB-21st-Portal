@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { NavigationBar } from '../general/NavigationBar'
@@ -17,10 +17,8 @@ const AwardsManagementPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/award/0/get_awards', {

@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To edit awards information and delete award only accessible by the Administrator
 */
 const AwardEditor = ({awardId}) => {
-  const cookies = new Cookies()
   const [award, setAward] = useState();
   const [masteries, setMasteries] = useState([]);
   const [hasMastery, setHasMastery] = useState(false);

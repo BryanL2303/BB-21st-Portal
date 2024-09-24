@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Popup from 'reactjs-popup';
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
@@ -9,12 +8,9 @@ import {SetQuestionForm} from './SetQuestionForm'
 /*To create new quizzes and add them into the quiz bank
 */
 const QuizCreationPage = () => {
-  const cookies = new Cookies()
   const [awardId, setAwardId] = useContext(AwardContext)
   const [award, setAward] = useState();
-  const [mastery, setMastery] = useState();
   const [number, setNumber] = useState(1);
-  const [quizName, setQuizName] = useState("");
   const [marks, setMarks] = useState(0);
   const [questions, setQuestions] = useState([1]);
 
@@ -22,10 +18,8 @@ const QuizCreationPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/award/' + awardId.awardId + '/get_award', {

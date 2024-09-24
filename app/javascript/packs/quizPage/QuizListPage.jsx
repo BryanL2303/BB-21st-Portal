@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
@@ -14,10 +14,8 @@ const QuizListPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   if (cookies.get('Type') != 'Boy') {
     window.location.href = '/user_management'

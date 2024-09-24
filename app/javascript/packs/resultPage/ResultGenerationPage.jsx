@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
@@ -7,21 +7,17 @@ import {ManualResultPage} from './ManualResultPage'
 /*To manually create 32A results
 */
 const ResultGenerationPage = () => {
-  const cookies = new Cookies()
   const [awards, setAwards] = useState([])
   const [masteries, setMasteries] = useState([])
   const [award, setAward] = useState();
   const [mastery, setMastery] = useState();
-  const [masteryLevel, setMasteryLevel] = useState()
   const [boyAccounts, setBoyAccounts] = useState([])
   const [primerAccounts, setPrimerAccounts] = useState([])
   const [officerAccounts, setOfficerAccounts] = useState([])
   const [pdf, setPdf] = useState(false)
-  const [awardId, setAwardId] = useState()
   const [instructorId, setInstructorId] = useState()
   const [boys, setBoys] = useState([])
   const [columns, setColumns] = useState([])
-  const [limiter, setLimiter] = useState(false)
   const [customDescription, setCustomDescription] = useState()
   const [columnContents, setColumnContents] = useState({})
 
@@ -29,10 +25,8 @@ const ResultGenerationPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set awards and accounts
@@ -44,8 +38,6 @@ const ResultGenerationPage = () => {
       setAwards(resp.data['awards'])
       setMasteries(resp.data['masteries'])
       setAward(resp.data['awards'][0])
-      setAwardId(resp.data['awards'][0].id)
-      setMasteryLevel('0')
     })
     .catch(resp => errorMessage(resp.response.statusText))
     axios.post('/api/account/0/get_accounts', {

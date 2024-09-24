@@ -1,17 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
-import {AccountResultDisplay} from './AccountResultDisplay'
 
 /*For officers/primers to generate results
 */
 const ResultPage = () => {
-  const cookies = new Cookies()
   const [account, setAccount] = useState();
   const [assignment, setAssignment] = useState();
   const [assignedAccounts, setAssignedAccounts] = useState([]);
@@ -25,10 +21,8 @@ const ResultPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set Quiz

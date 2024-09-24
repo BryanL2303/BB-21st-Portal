@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react'
 import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import { McqOptionsForm } from './McqOptionsForm'
@@ -10,7 +9,6 @@ import { OpenEndedForm } from './OpenEndedForm'
 /*To create new questions and add them into the question bank
 */
 const QuestionCreationForm = () => {
-  const cookies = new Cookies()
   const [award, setAward] = useContext(AwardContext)
   const [type, setType] = new useState("")
 
@@ -18,10 +16,8 @@ const QuestionCreationForm = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   function setFormType(e) {
     e.preventDefault()

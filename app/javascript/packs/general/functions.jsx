@@ -1,5 +1,3 @@
-import React from 'react'
-
 /*General functions for the website
 */
 

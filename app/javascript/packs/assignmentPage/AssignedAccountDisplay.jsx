@@ -1,12 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 
 /*To display the currently selected question for the test
 */
-const AssignedAccountDisplay = ({assignedAccount, passees, setPassees}) => {
-  const cookies = new Cookies();
+const AssignedAccountDisplay = ({ assignedAccount }) => {
   const [account, setAccount] = useState()
 
   useEffect(() => {

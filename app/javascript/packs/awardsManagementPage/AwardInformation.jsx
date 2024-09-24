@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To view awards information and delete award accounts
 */
 const AwardInformation = ({awardId}) => {
-  const cookies = new Cookies()
   const [award, setAward] = useState();
   const [masteries, setMasteries] = useState([{mastery_name: 'Basic', mastery_requirements: '', results_description: '', recommended_level: ''},
    {mastery_name: 'Advanced', mastery_requirements: '', results_description: '', recommended_level: ''},
@@ -43,36 +41,6 @@ const AwardInformation = ({awardId}) => {
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [awardId])
-
-  function setLevel(e) {
-    e.preventDefault()
-    document.getElementsByClassName('create-award-form__level')[0].innerHTML = e.target.className
-    setRecommendedLevel1(e.target.className)
-  }
-
-  function setLevel2(e) {
-    e.preventDefault()
-    let m = 0
-    if (e.target.id == "Advanced") {
-      m = 1
-      setRecommendedLevel2(e.target.className)
-    }
-    if (e.target.id == "Master") {
-      m = 2
-      setRecommendedLevel3(e.target.className)
-    }
-    document.getElementsByClassName('create-award-form__level')[m].value = e.target.className
-  }
-
-  function toggleHasMastery(e) {
-    setHasMastery(e.target.checked)
-  }
-
-  function updateHeight(e) {
-    let descriptionBox = e.target
-    descriptionBox.style['height'] = '0px'
-    descriptionBox.style['height'] = `${descriptionBox.scrollHeight}px`
-  }
 
   function editAward(e) {
     e.preventDefault()
@@ -122,25 +90,6 @@ const AwardInformation = ({awardId}) => {
     else {
       alert("Please fill in all fields first")
     }
-  }
-
-  function deleteAward(e) {
-    e.preventDefault()
-    axios.post('/api/award/' + awardId + '/delete_award', {
-      id: awardId
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
-    .then(resp => {
-      if (resp.data != false) {
-        //Reload the awards list on the side and reset back to award creation form
-        alert("Please refresh the page")
-      }
-      else{
-        alert("Please refresh the page")
-      }
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
   }
 
   return(

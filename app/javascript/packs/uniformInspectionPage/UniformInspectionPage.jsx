@@ -1,24 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
-import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 
 /*To facilitate uniform inspection by officers / primers
 */
 const UniformInspectionPage = () => {
-  const cookies = new Cookies()
   const [inspections, setInspections] = useState();
 
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/uniform_inspection/0/get_inspections', {}, {

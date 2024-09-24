@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {QuestionGradingDisplay} from './QuestionGradingDisplay'
@@ -9,10 +7,8 @@ import {QuestionGradingDisplay} from './QuestionGradingDisplay'
 /*For officers/primers to grade assignments
 */
 const AssignmentGradingPage = () => {
-  const cookies = new Cookies()
   const [attempt, setAttempt] = useState('1');
   const [account, setAccount] = useState();
-  const [assignment, setAssignment] = useState();
   const [assignedAccount, setAssignedAccount] = useState();
   const [quiz, setQuiz] = useState();
   const [questions, setQuestions] = useState([]);
@@ -23,10 +19,8 @@ const AssignmentGradingPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
@@ -39,7 +33,6 @@ const AssignmentGradingPage = () => {
     .then(resp => {
       setAccount(resp.data['account'])
       setAssignedAccount(resp.data['assigned_account'])
-      setAssignment(resp.data['assignment'])
       setQuiz(resp.data['quiz'])
       setQuestions(resp.data['questions'])
       setTotalMarks(resp.data['attempt_score'])

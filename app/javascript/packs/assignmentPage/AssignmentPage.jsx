@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {AssignedAccountDisplay} from './AssignedAccountDisplay'
@@ -9,11 +7,9 @@ import {AssignedAccountDisplay} from './AssignedAccountDisplay'
 /*For officers/primers to view assignment progress
 */
 const AssignmentPage = () => {
-  const cookies = new Cookies()
   const [quiz, setQuiz] = useState();
   const [assignment, setAssignment] = useState();
   const [assignedAccounts, setAssignedAccounts] = useState([]);
-  const [assignees, setAssignees] = useState(0);
   const [passees, setPassees] = useState(0);
   const { id } = useParams()
 
@@ -21,10 +17,8 @@ const AssignmentPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
@@ -51,7 +45,6 @@ const AssignmentPage = () => {
       })
       .then(resp => {
         setAssignedAccounts(resp.data)
-        setAssignees(resp.data.length)
       })
       .catch(resp => errorMessage(resp.response.statusText))
       })
@@ -64,9 +57,7 @@ const AssignmentPage = () => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      window.location.href = '/quiz_bank'
-    })
+    .then(window.location.href = '/quiz_bank')
     .catch(resp => errorMessage(resp.response.statusText))
   }
 

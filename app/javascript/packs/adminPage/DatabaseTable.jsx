@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Cookies from 'universal-cookie';
 import axios from 'axios'
 import { errorMessage } from '../general/functions';
 

@@ -1,23 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 
 /*To allow boys to reset their password
 */
 const ResetPasswordPage = () => {
-  const cookies = new Cookies()
   const [account, setAccount] = useState();
   
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     setAccount()

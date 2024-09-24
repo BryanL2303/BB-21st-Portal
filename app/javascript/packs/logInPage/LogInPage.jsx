@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { errorMessage } from '../general/functions';
@@ -12,9 +12,7 @@ const LogInPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {
-    window.location.href = '/home'
-  })
+  .then(window.location.href = '/home')
   .catch(resp => {
     console.log(resp)
   })

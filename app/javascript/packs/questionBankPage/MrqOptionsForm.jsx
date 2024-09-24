@@ -1,22 +1,18 @@
-import React, { useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To create new questions and add them into the question bank
 */
 const MrqOptionsForm = () => {
-  const cookies = new Cookies()
   const [number, setNumber] = new useState(2)
 
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   function increaseOptionsNumber(e) {
     e.preventDefault()

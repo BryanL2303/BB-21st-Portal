@@ -1,14 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Popup from 'reactjs-popup';
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 import { AwardContext } from '../context/AwardContext'
 import { SelectedQuestion } from './SelectedQuestion.jsx'
 
 /*To access questions from question bank and add them into the quiz
 */
 const QuestionSelector = ({type, marks, setMarks}) => {
-  const cookies = new Cookies();
   const [award, setAward] = useContext(AwardContext)
   const [selected, setSelected] = useState(false)
   const [questions, setQuestions] = useState([])
@@ -26,12 +23,6 @@ const QuestionSelector = ({type, marks, setMarks}) => {
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [type])
-
-  //View a question
-  function viewQuestion(e) {
-    e.preventDefault()
-    window.href('/question/' + e.target.className)
-  }
 
   function select(e) {
     e.preventDefault()

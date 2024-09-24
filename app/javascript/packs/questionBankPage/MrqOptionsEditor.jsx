@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState, useEffect } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
@@ -58,9 +57,9 @@ const MrqOptionsEditor = ({ question }) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
+    .then(
       //Reset all the input fields
-    })
+    )
     .catch(resp => errorMessage(resp.response.statusText))
   }
 
@@ -87,9 +86,7 @@ const MrqOptionsEditor = ({ question }) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      setEdit('deleted')
-    })
+    .then(setEdit('deleted'))
     .catch(resp => errorMessage(resp.response.statusText))
   }
 

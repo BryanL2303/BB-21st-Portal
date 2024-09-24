@@ -1,7 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Popup from 'reactjs-popup';
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 import { AwardContext } from '../context/AwardContext'
 import { QuestionCreationForm } from './QuestionCreationForm'
 import { McqOptionsEditor } from './McqOptionsEditor'
@@ -11,7 +9,6 @@ import { OpenEndedRubricEditor } from './OpenEndedRubricEditor'
 /*To access questions and create new ones
 */
 const QuestionList = () => {
-  const cookies = new Cookies();
   const [award, setAward] = useContext(AwardContext)
   const [currentAward, setCurrentAward] = useState()
   const [masteries, setMasteries] = useState()

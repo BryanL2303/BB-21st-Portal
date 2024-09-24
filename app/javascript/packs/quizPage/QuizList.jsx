@@ -1,12 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 import { AwardContext } from '../context/AwardContext'
 
 /*To access quizes and create new ones
 */
 const QuizList = () => {
-  const cookies = new Cookies();
   const [award, setAward] = useContext(AwardContext)
   const [currentAward, setCurrentAward] = useState()
   const [masteries, setMasteries] = useState()

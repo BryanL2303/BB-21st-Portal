@@ -1,13 +1,9 @@
-import React, {useState, useEffect, useContext} from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState } from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 
 /*To display the currently selected question for the test
 */
 const QuestionGradingDisplay = ({question}) => {
-  const cookies = new Cookies();
-  const [account, setAccount] = useState();
   const [mark, setMark] = useState(0);
   const [markFound, setMarkFound] = useState(false);
 
@@ -21,7 +17,6 @@ const QuestionGradingDisplay = ({question}) => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
-      setAccount(resp.data['account'])
       setAssignedAccount(resp.data['assigned_account'])
       setAssignment(resp.data['assignment'])
       setQuiz(resp.data['quiz'])

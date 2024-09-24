@@ -1,13 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
-import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 /*To edit existing questions and update the database
 */
 const OpenEndedRubricEditor = ({ question }) => {
-  const cookies = new Cookies()
-  const [number, setNumber] = new useState(2)
   const [rubric, setRubric] = useState([])
   const [edit, setEdit] = useState('false')
 
@@ -23,11 +19,6 @@ const OpenEndedRubricEditor = ({ question }) => {
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
 
-  //If there is no ongoing session go to login page
-  if (cookies.get('Token') == null) {
-    window.location.href = '/'
-  }
-
   //Sends the information from the form to the backend to edit the options
   //Also delete the options deleted
   function submitForm(e) {
@@ -40,9 +31,9 @@ const OpenEndedRubricEditor = ({ question }) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
+    .then(
       //Reset all the input fields
-    })
+    )
     .catch(resp => errorMessage(resp.response.statusText))
   }
 
@@ -69,9 +60,7 @@ const OpenEndedRubricEditor = ({ question }) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      setEdit('deleted')
-    })
+    .then(setEdit('deleted'))
     .catch(resp => errorMessage(resp.response.statusText))
   }
 

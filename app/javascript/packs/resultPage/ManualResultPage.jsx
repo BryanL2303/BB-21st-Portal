@@ -1,17 +1,12 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
-import { useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
 import Cookies from 'universal-cookie'
 import axios from 'axios'
-import {NavigationBar} from '../general/NavigationBar'
-import {AccountResultDisplay} from './AccountResultDisplay'
 
 /*For officers/primers to generate results
 */
 const ManualResultPage = ({award, mastery, instructorId, boys, customDescription, columns, columnContents}) => {
-  const cookies = new Cookies()
   const [instructor, setInstructor] = useState();
   let date = new Date();
   const formattedDate = date.toLocaleDateString('en-GB');
@@ -20,10 +15,8 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     //make axios call and set states

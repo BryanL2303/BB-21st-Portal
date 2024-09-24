@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import Cookies from 'universal-cookie'
 import axios from 'axios'
@@ -8,7 +8,6 @@ import { NewQuizQuestionForm } from './NewQuizQuestionForm'
 /*To set questions and add them into the quiz
 */
 const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
-  const cookies = new Cookies()
   const [exist, setExist] = new useState('true');
   const [type, setType] = new useState('');
   const [source, setSource] = new useState('');
@@ -17,10 +16,8 @@ const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   function setQuestionType(e) {
     e.preventDefault()

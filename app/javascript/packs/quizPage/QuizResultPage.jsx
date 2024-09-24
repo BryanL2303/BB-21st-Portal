@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {AnswerDisplay} from './AnswerDisplay'
@@ -9,7 +7,6 @@ import {AnswerDisplay} from './AnswerDisplay'
 /*For Boys to see the results of their quiz
 */
 const QuizResultPage = () => {
-  const cookies = new Cookies()
   const [quiz, setQuiz] = useState();
   const [attempt, setAttempt] = useState(1);
   const [totalMarks, setTotalMarks] = useState(0);
@@ -23,10 +20,8 @@ const QuizResultPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(resp => {})
-  .catch(resp => {
-    window.location.href = '/'
-  })
+  .then()
+  .catch(window.location.href = '/')
 
   useEffect(() => {
     axios.post('/api/assigned_account/0/get_assigned_account', {
@@ -56,12 +51,6 @@ const QuizResultPage = () => {
     })
     .catch(resp => errorMessage(resp.response.statusText))
   }, [])
-
-  useEffect(() => {
-    if (accountAssignment != null) {
-              
-    }
-  }, [attempt])
 
   //Go to QuizPage
   function quizPage () {
