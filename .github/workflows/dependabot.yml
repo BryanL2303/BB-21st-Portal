@@ -8,3 +8,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+  - name: Run ESLint
+      run: |
+        cd frontend
+        npm run lint
+  - name: Run RuboCop
+      run: |
+        cd backend
+        bundle exec rubocop
