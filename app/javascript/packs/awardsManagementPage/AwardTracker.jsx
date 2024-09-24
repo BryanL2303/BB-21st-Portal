@@ -419,6 +419,7 @@ const AwardTracker = ({awardId}) => {
   return(
     <div className='award-tracker'>
       <label>Upload award trackers from BB Members Portal here:</label>
+      <br/>
       <input type="file" onChange={readUploadFile}></input>
       <div>
         {Object.entries(changeLog).map(([award, change]) => {
