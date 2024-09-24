@@ -9,10 +9,8 @@ updates:
     schedule:
       interval: "weekly"
   - name: Run ESLint
-      run: |
-        cd frontend
-        npm run lint
+    run: |
+      yarn run lint
   - name: Run RuboCop
-      run: |
-        cd backend
-        bundle exec rubocop
+    run: |
+      bundle exec rubocop
