@@ -16,7 +16,7 @@ const OpenEndedRubricEditor = ({ question }) => {
     .then(resp => {
       setRubric(resp.data.rubric)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //Sends the information from the form to the backend to edit the options
@@ -34,7 +34,7 @@ const OpenEndedRubricEditor = ({ question }) => {
     .then(
       //Reset all the input fields
     )
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function setPermanent(e) {
@@ -48,7 +48,7 @@ const OpenEndedRubricEditor = ({ question }) => {
       question = resp.data
       alert("Refresh the page")
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
  
   //Sends the information from the form to the backend to edit the options
@@ -61,7 +61,7 @@ const OpenEndedRubricEditor = ({ question }) => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(setEdit('deleted'))
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function showEdit(e) {

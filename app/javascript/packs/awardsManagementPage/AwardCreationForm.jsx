@@ -28,7 +28,7 @@ const AwardCreationForm = () => {
     setRecommendedLevel3(e.target.className)
   }
 
-  function setMastery(e) {
+  function setMastery() {
     setHasMastery(!hasMastery)
   }
 
@@ -88,7 +88,7 @@ const AwardCreationForm = () => {
           alert("Badge with same name already exists, please check existing awards")
         }
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => console.log(error))
     }
     else {
       alert("Please fill in all fields first")

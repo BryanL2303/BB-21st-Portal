@@ -71,7 +71,7 @@ const AwardTracker = () => {
         })
         .catch(resp => console.log(resp.response.statusText))
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => console.log(error))
   }, [])
 
   useEffect(() => {
@@ -126,14 +126,14 @@ const AwardTracker = () => {
         } else {
           if (boy.id in attained) {
             if (elective in attained[boy.id]) {
-              defaultChecked[boy.id + "-" + elective + '-' + mastery] = true
-              if (elective + " " + mastery in electiveSpecialPoints) {
-                electivePoint += electiveSpecialPoints[elective + " " + mastery]
+              defaultChecked[boy.id + "-" + elective] = true
+              if (elective in electiveSpecialPoints) {
+                electivePoint += electiveSpecialPoints[elective]
               } else {
                 electivePoint += 1
               }
             } else {
-              defaultChecked[boy.id + "-" + elective + '-' + mastery] = false
+              defaultChecked[boy.id + "-" + elective] = false
             }
           }
         }
@@ -261,7 +261,7 @@ const AwardTracker = () => {
                   console.log(element.checked)
                   toggleAttainment({target: element})
                 }                
-              } catch (error) {console.log(awardName)}
+              } catch (error) {console.log(awardName + ": " + error)}
             }
           })
         })

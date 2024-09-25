@@ -19,7 +19,7 @@ const McqOptionsEditor = ({ question }) => {
     .then(resp => {
       setOptions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //If there is no ongoing session go to login page
@@ -27,10 +27,10 @@ const McqOptionsEditor = ({ question }) => {
     window.location.href = '/'
   }
 
-  function increaseOptionsNumber(e) {
-    e.preventDefault()
-    setNumber(number + 1)
-  }
+  // function increaseOptionsNumber(e) {
+  //   e.preventDefault()
+  //   setNumber(number + 1)
+  // }
 
   function decreaseOptionsNumber(e) {
     e.preventDefault()
@@ -60,7 +60,7 @@ const McqOptionsEditor = ({ question }) => {
     .then(
       //Reset all the input fields
     )
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function setPermanent(e) {
@@ -74,7 +74,7 @@ const McqOptionsEditor = ({ question }) => {
       question = resp.data
       alert("Refresh the page")
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
  
   //Sends the information from the form to the backend to edit the options
@@ -86,10 +86,10 @@ const McqOptionsEditor = ({ question }) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
+    .then(() => {
       setEdit('deleted')
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function showEdit(e) {
@@ -115,7 +115,7 @@ const McqOptionsEditor = ({ question }) => {
         <p>Options:</p>
         {options.map((option) => {
           return(
-            <div>
+            <div key={option.id}>
               <input type='radio' value={option.id} name='option' defaultChecked={option.correct}></input>
               <input className='create-question-form__option' defaultValue={option.answer}></input>
               {number >= 3 && <button onClick={decreaseOptionsNumber}>Delete Option</button>}

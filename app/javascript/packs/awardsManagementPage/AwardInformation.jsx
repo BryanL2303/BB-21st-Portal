@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To view awards information and delete award accounts
@@ -34,12 +33,12 @@ const AwardInformation = ({awardId}) => {
           setRecommendedLevel2(resp.data[1].recommended_level)
           setRecommendedLevel3(resp.data[2].recommended_level)
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => console.log(error))
       } else {
         setRecommendedLevel1(resp.data.recommended_level)
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [awardId])
 
   function editAward(e) {
@@ -106,7 +105,7 @@ const AwardInformation = ({awardId}) => {
         </div>}
         {award != null && hasMastery && masteries.map((mastery) => {
           return (
-            <div>
+            <div key={awardId + "-" + mastery.mastery_name}>
               <br/>
               <h1>{mastery.mastery_name}</h1>
               <br/>

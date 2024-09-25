@@ -12,7 +12,7 @@ const LogInPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(_resp => {window.location.href = '/home'})
+  .then(() => window.location.href = '/home')
   .catch()
 
   //Handle submit form event to authenticate account with backend

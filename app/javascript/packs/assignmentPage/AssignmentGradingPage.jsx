@@ -20,7 +20,7 @@ const AssignmentGradingPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     //make axios call and set Quiz and Questions
@@ -37,7 +37,7 @@ const AssignmentGradingPage = () => {
       setQuestions(resp.data['questions'])
       setTotalMarks(resp.data['attempt_score'])
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [attempt])
 
   function loadAttempt(e) {
@@ -56,7 +56,7 @@ const AssignmentGradingPage = () => {
     .then(resp => {
       setTotalMarks(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }
 
   return(
@@ -74,19 +74,19 @@ const AssignmentGradingPage = () => {
           {[...Array(parseInt(assignedAccount.attempts)).keys()].map((iteration) => {
             if (attempt == (iteration + 1)) {
               return(
-                <button className='selected' disabled onClick={loadAttempt}>{iteration + 1}</button>
-              )                  
+                <button key={iteration} className='selected' disabled onClick={loadAttempt}>{iteration + 1}</button>
+              )
             }
             else {
               return(
-                <button onClick={loadAttempt}>{iteration + 1}</button>
+                <button key={iteration} onClick={loadAttempt}>{iteration + 1}</button>
               )
             }
           })}
         </div>}
         {questions.map((question) => {
           return(
-            <QuestionGradingDisplay question={question}/>
+            <QuestionGradingDisplay key={"question-"+question.id} question={question}/>
           )
         })}
         {!totalMarks.graded && <button onClick={setGraded}>Mark attempt as graded</button>}

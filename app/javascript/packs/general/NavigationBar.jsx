@@ -66,16 +66,14 @@ const NavigationBar = () => {
     axios.post("/application/0/log_out", {}, {
       withCredentials: true
     })
-    .then(resp => {
-      window.location.href = '/'
-    })
+    .then(window.location.href = '/')
     .catch(resp => {
       console.log(resp)
     })
   }
 
   //Lets the user access the user menu
-  function showUserMenu(e) {
+  function showUserMenu() {
     let userMenu = document.getElementsByClassName('user-menu')[0]
     if (userMenu.style['visibility'] == 'hidden') {
       userMenu.style['visibility'] = 'visible'
@@ -94,9 +92,6 @@ const NavigationBar = () => {
     return(
       <div className='user-menu'>
         {cookies.get("Type") == "Admin" && <button className="admin--button" onClick={() => {toUrl('/admin')}}>Admin Page</button>}
-        {false && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
-        {false && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
-        {false && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}
         {cookies.get("Type") != "Boy" && <button className="user-management--button" onClick={userManagementPage}>Users Management</button>}
         {cookies.get("Type") != "Boy" && <button className="award-management--button" onClick={awardManagementPage}>Awards</button>}
         {cookies.get("Type") != "Boy" && <button className="result-generation--button" onClick={resultGenerationPage}>Result Generation</button>}
@@ -118,3 +113,7 @@ const NavigationBar = () => {
 }
 
 export { NavigationBar }
+// Removed until further decision is made
+// {false && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
+// {false && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
+// {false && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}

@@ -36,7 +36,7 @@ const AssignmentPage = () => {
       .then(resp => {
         setQuiz(resp.data)
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => console.log(error))
       setAssignment(resp.data)
       axios.post('/api/assigned_account/0/get_assigned_accounts', {
         'assignment_id': resp.data.id
@@ -46,9 +46,9 @@ const AssignmentPage = () => {
       .then(resp => {
         setAssignedAccounts(resp.data)
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => console.log(error))
       })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [])
 
   function deleteAssignment(e) {
@@ -58,7 +58,7 @@ const AssignmentPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(window.location.href = '/quiz_bank')
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }
 
   return(
@@ -80,7 +80,7 @@ const AssignmentPage = () => {
         <tbody>
           {quiz != null && assignedAccounts.map((assignedAccount) => {
             return(
-              <AssignedAccountDisplay assignedAccount={assignedAccount} passees={passees} setPassees={setPassees}/>
+              <AssignedAccountDisplay key={assignedAccount.id} assignedAccount={assignedAccount} passees={passees} setPassees={setPassees}/>
             )
           })}
         </tbody>

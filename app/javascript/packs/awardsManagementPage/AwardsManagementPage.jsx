@@ -28,7 +28,7 @@ const AwardsManagementPage = () => {
     .then(resp => {
       setAwards(resp.data['awards'])
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [])
 
   function showTracker(e) {

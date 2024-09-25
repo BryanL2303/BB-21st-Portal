@@ -135,11 +135,11 @@ const DatabaseTable = ({table_name}) => {
                   {columns.map((column) => {
                     if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
                       if (column['name'] == 'id') {
-                        return (<td>{row[column['name']]}</td>)
+                        return (<td key={column['name']}>{row[column['name']]}</td>)
                       }
                       else {
                         return(
-                            <td>
+                            <td key={column['name']}>
                               <input className={row['id'] + '-' + column['name'] + '-edit'} defaultValue={row[column['name']]}></input>
                             </td>
                         )

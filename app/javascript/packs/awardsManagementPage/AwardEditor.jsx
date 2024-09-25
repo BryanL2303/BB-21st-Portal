@@ -35,12 +35,12 @@ const AwardEditor = ({awardId}) => {
           setRecommendedLevel2(resp.data[1].recommended_level)
           setRecommendedLevel3(resp.data[2].recommended_level)
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => console.log(error))
       } else {
         setRecommendedLevel1(resp.data.recommended_level)
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [awardId])
 
   function setLevel(e) {
@@ -116,30 +116,11 @@ const AwardEditor = ({awardId}) => {
           alert("Failed to update")
         }
       })
-      .catch(resp => console.log(resp.response.statusText))
+      .catch(error => console.log(error))
     }
     else {
       alert("Please fill in all fields first")
     }
-  }
-
-  function deleteAward(e) {
-    e.preventDefault()
-    axios.post('/api/award/' + awardId + '/delete_award', {
-      id: awardId
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
-    .then(resp => {
-      if (resp.data != false) {
-        //Reload the awards list on the side and reset back to award creation form
-        alert("Please refresh the page")
-      }
-      else{
-        alert("Please refresh the page")
-      }
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
   }
 
   return(
@@ -186,9 +167,9 @@ const AwardEditor = ({awardId}) => {
           <input className='create-award-form__certification' type='checkbox' defaultChecked={award.has_custom_columns}></input>
           <br/>
         </div>}
-        {award != null && hasMastery && masteries.map((mastery, index) => {
+        {award != null && hasMastery && masteries.map((mastery) => {
           return (
-            <div>
+            <div key={mastery.id}>
               <br/>
               <label style={{fontSize: '20px'}}>{mastery.mastery_name}</label>
               <br/>
@@ -228,9 +209,7 @@ const AwardEditor = ({awardId}) => {
             </div>
           )
         })}
-        {false && <button className="edit-button">Save Changes</button>}
       </form>}
-      {false && <button className="delete-button" onClick={deleteAward}>Delete Award</button>}
     </div>
   )
 }

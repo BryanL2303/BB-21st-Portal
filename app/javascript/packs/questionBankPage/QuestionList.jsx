@@ -36,14 +36,14 @@ const QuestionList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else {
         setMasteries()
         setCurrentMastery()
         setAward({awardId: award.awardId, masteryId: '0'})
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
@@ -53,7 +53,7 @@ const QuestionList = () => {
     .then( resp => {
       setMcqQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
@@ -63,7 +63,7 @@ const QuestionList = () => {
     .then( resp => {
       setMrqQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
@@ -73,7 +73,7 @@ const QuestionList = () => {
     .then( resp => {
       setOpenEndQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   useEffect(() => {
@@ -95,13 +95,13 @@ const QuestionList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else if (!resp.data.has_mastery) {
         setMasteries()
         setCurrentMastery()
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
@@ -111,7 +111,7 @@ const QuestionList = () => {
     .then( resp => {
       setMcqQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
@@ -121,7 +121,7 @@ const QuestionList = () => {
     .then( resp => {
       setMrqQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
@@ -131,7 +131,7 @@ const QuestionList = () => {
     .then( resp => {
       setOpenEndQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [award])
 
   function showMastery(e) {
@@ -145,7 +145,7 @@ const QuestionList = () => {
       {masteries != null && <div className='mastery-selector'>
           {masteries.map((mastery, index) => {
             return(
-              <button id={index} onClick={showMastery}>{mastery.mastery_name}</button>
+              <button key={index} id={index} onClick={showMastery}>{mastery.mastery_name}</button>
             )
           })}
         </div>}
@@ -159,19 +159,19 @@ const QuestionList = () => {
         <h2>MCQ Questions</h2>
         {mcqQuestions.map((question) => {
           return (
-            <McqOptionsEditor question={question}/>
+            <McqOptionsEditor key={question.id} question={question}/>
           )
         })}
         <h2>MRQ Questions</h2>
         {mrqQuestions.map((question) => {
           return (
-            <MrqOptionsEditor question={question}/>
+            <MrqOptionsEditor key={question.id} question={question}/>
           )
         })}
         <h2>Open-ended Questions</h2>
         {openEndQuestions.map((question) => {
           return (
-            <OpenEndedRubricEditor question={question}/>
+            <OpenEndedRubricEditor key={question.id} question={question}/>
           )
         })}
       </div>

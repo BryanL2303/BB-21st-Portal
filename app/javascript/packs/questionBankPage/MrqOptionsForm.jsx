@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*To create new questions and add them into the question bank

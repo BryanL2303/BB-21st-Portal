@@ -8,7 +8,7 @@ import {AccountSelector} from './AccountSelector'
 /*To assign quiz to boys
 */
 const QuizAssignmentPage = () => {
-  const [award, setAward] = useContext(AwardContext)
+  const [award, _] = useContext(AwardContext)
   const [quiz, setQuiz] = useState()
   const [accounts, setAccounts] = useState([])
   const { id } = useParams()
@@ -31,7 +31,7 @@ const QuizAssignmentPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
     }, {
@@ -40,7 +40,7 @@ const QuizAssignmentPage = () => {
     .then(resp => {
       setAccounts(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //Sends the information from the form to the backend to create assignment
@@ -75,8 +75,8 @@ const QuizAssignmentPage = () => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(window.location.href = '/quiz_bank')
-    .catch(resp => errorMessage(resp.response.statusText))
+    .then(() => window.location.href = '/quiz_bank')
+    .catch(error => {console.log(error)})
   }
 
   function quizBankPage(e) {
@@ -84,7 +84,7 @@ const QuizAssignmentPage = () => {
     window.location.href = '/quiz_bank'
   }
 
-  function limitAttempts(e) {
+  function limitAttempts() {
     if (limiter) {
       setLimiter(false)
     } else {
@@ -117,7 +117,7 @@ const QuizAssignmentPage = () => {
           <p>Pick the Boys to assign this quiz to</p>
           {accounts.map((account) => {
             return(
-              <AccountSelector account={account}/>
+              <AccountSelector key={account.id} account={account}/>
             )
           })}
           <button>Assign quiz</button>

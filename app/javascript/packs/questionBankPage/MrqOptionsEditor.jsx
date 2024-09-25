@@ -19,7 +19,7 @@ const MrqOptionsEditor = ({ question }) => {
     .then(resp => {
       setOptions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //If there is no ongoing session go to login page
@@ -27,10 +27,10 @@ const MrqOptionsEditor = ({ question }) => {
     window.location.href = '/'
   }
 
-  function increaseOptionsNumber(e) {
-    e.preventDefault()
-    setNumber(number + 1)
-  }
+  // function increaseOptionsNumber(e) {
+  //   e.preventDefault()
+  //   setNumber(number + 1)
+  // }
 
   function decreaseOptionsNumber(e) {
     e.preventDefault()
@@ -60,7 +60,7 @@ const MrqOptionsEditor = ({ question }) => {
     .then(
       //Reset all the input fields
     )
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function setPermanent(e) {
@@ -74,7 +74,7 @@ const MrqOptionsEditor = ({ question }) => {
       question = resp.data
       alert("Refresh the page")
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
  
   //Sends the information from the form to the backend to edit the options
@@ -87,7 +87,7 @@ const MrqOptionsEditor = ({ question }) => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(setEdit('deleted'))
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function showEdit(e) {
@@ -112,7 +112,7 @@ const MrqOptionsEditor = ({ question }) => {
         <input defaultValue={question.marks}></input>
         {options.map((option) => {
           return(
-            <div>
+            <div key={option.id}>
               <input type='checkbox' defaultChecked={option.correct}></input>
               <input className='create-question-form__option' defaultValue={option.answer}></input>
               {number >= 3 && <button onClick={decreaseOptionsNumber}>Delete Option</button>}

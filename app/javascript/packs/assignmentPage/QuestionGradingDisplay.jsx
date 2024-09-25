@@ -16,13 +16,8 @@ const QuestionGradingDisplay = ({question}) => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      setAssignedAccount(resp.data['assigned_account'])
-      setAssignment(resp.data['assignment'])
-      setQuiz(resp.data['quiz'])
-      setQuestions(resp.data['questions'])
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .then()
+    .catch(error => console.log(error))
   }
 
   return(
@@ -35,7 +30,7 @@ const QuestionGradingDisplay = ({question}) => {
         }
 
         return(
-          <div>
+          <div key={option.id}>
             <input type='checkbox' disabled defaultChecked={option.answer != null}></input>
             <label>{option.rubric.answer}</label>
           </div>

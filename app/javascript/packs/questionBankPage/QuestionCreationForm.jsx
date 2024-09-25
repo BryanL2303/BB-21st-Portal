@@ -9,7 +9,7 @@ import { OpenEndedForm } from './OpenEndedForm'
 /*To create new questions and add them into the question bank
 */
 const QuestionCreationForm = () => {
-  const [award, setAward] = useContext(AwardContext)
+  const [award, _] = useContext(AwardContext)
   const [type, setType] = new useState("")
 
   //If there is no ongoing session go back to log in page
@@ -53,7 +53,7 @@ const QuestionCreationForm = () => {
       }, {
         withCredentials: true  // Include credentials (cookies)
       })
-      .then(resp => {
+      .then(() => {
         //Reset all the input fields
         e.target[1].value = ''
         e.target[2].value = ''
