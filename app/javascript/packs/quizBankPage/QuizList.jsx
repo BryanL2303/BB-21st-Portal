@@ -31,14 +31,14 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else {
         setMasteries()
         setCurrentMastery()
         setAward({awardId: award.awardId, masteryId: '0'})
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/assignment/0/get_assignments', {
       award: award
     }, {
@@ -47,7 +47,7 @@ const QuizList = () => {
     .then( resp => {
       setAssignments(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
     }, {
@@ -56,7 +56,7 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   useEffect(() => {
@@ -78,13 +78,13 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else if (!resp.data.has_mastery) {
         setMasteries()
         setCurrentMastery()
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/assignment/0/get_assignments', {
       award: award
     }, {
@@ -93,7 +93,7 @@ const QuizList = () => {
     .then( resp => {
       setAssignments(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
     }, {
@@ -102,11 +102,11 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [award])
 
   //Go to QuizCreationPage
-  function quizCreationPage(e) {
+  function quizCreationPage() {
     window.location.href = '/quiz_creation'
   }
 
@@ -133,7 +133,7 @@ const QuizList = () => {
       {masteries != null && <div className='mastery-selector'>
           {masteries.map((mastery, index) => {
             return(
-              <button id={index} onClick={showMastery}>{mastery.mastery_name}</button>
+              <button key={index} id={index} onClick={showMastery}>{mastery.mastery_name}</button>
             )
           })}
         </div>}
@@ -144,13 +144,13 @@ const QuizList = () => {
         <h2>Assigned Tests</h2>
         {assignments.map((assignment) => {
           return (
-            <button className={assignment.id} onClick={editAssignmentPage}>{assignment.assignment_name}</button>
+            <button key={assignment.id + "-assignment-button"} className={assignment.id} onClick={editAssignmentPage}>{assignment.assignment_name}</button>
           )
         })}
         <h2>Quizzes</h2>
         {quizzes.map((quiz) => {
           return (
-            <button className={quiz.id} onClick={editQuizPage}>{quiz.quiz_name} [- / {quiz.marks}]</button>
+            <button key={quiz.id + "-quiz-button"} className={quiz.id} onClick={editQuizPage}>{quiz.quiz_name} [- / {quiz.marks}]</button>
           )
         })}
         <button onClick={quizCreationPage}>Create a new quiz</button>

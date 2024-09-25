@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import {NavigationBar} from '../general/NavigationBar'
@@ -8,7 +7,7 @@ import {SetQuestionForm} from './SetQuestionForm'
 /*To create new quizzes and add them into the quiz bank
 */
 const QuizCreationPage = () => {
-  const [awardId, setAwardId] = useContext(AwardContext)
+  const [awardId, _] = useContext(AwardContext)
   const [award, setAward] = useState();
   const [number, setNumber] = useState(1);
   const [marks, setMarks] = useState(0);
@@ -30,7 +29,7 @@ const QuizCreationPage = () => {
     .then(resp => {
       setAward(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [awardId.awardId])
 
   function addQuestion(e) {
@@ -114,12 +113,12 @@ const QuizCreationPage = () => {
       existing_questions: existingQuestions,
       new_questions: newQuestions
     })
-    .then(resp => {
+    .then(() => {
       //Reset all the input fields
       alert("Quiz has been created!")
       window.location.href = '/quiz_bank'
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(
@@ -136,9 +135,9 @@ const QuizCreationPage = () => {
         <form className='create-quiz-form' onSubmit={ submitForm }>
           <label>Quiz name: </label>
           <input placeholder="Name of the quiz"></input>
-          {questions.map((num) => {
+          {questions.map((_, index) => {
             return (
-              <SetQuestionForm number={number} setNumber={setNumber} marks={marks} setMarks={setMarks}/>
+              <SetQuestionForm key={index} number={number} setNumber={setNumber} marks={marks} setMarks={setMarks}/>
             )
           })}
 

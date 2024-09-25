@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie';
 
 /*To display the currently selected question from the question bank
 */
@@ -27,7 +26,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
         .then( resp => {
           setRubric(resp.data.rubric)
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else {
         axios.post('/api/question/0/get_options', {
           question_id: questionId
@@ -37,10 +36,10 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
         .then( resp => {
           setOptions(resp.data)
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [questionId])
 
   function reSelect(e) {
@@ -56,7 +55,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       {question != null && <p>{question.mark}</p>}
       {question != null && question.question_type == "MCQ" && options.map((option) => {
         return (
-          <div>
+          <div key={option.id + "-mcq-option"}>
             <input id={question.id} type='radio' value={option.id} name='option' disabled={true} checked={option.correct}></input>
             <input id={question.id} className='create-question-form__option' disabled={true} value={option.answer}></input>
           </div>
@@ -64,7 +63,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
       })}
       {question != null && question.question_type == "MRQ" && options.map((option) => {
         return (
-          <div>
+          <div key={option.id + "-mrq-option"}>
             <input id={question.id} type='checkbox' value={option.id} name='option' disabled={true} checked={option.correct}></input>
             <input id={question.id} className='create-question-form__option' disabled={true} value={option.answer}></input>
           </div>

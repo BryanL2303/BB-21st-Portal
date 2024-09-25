@@ -16,7 +16,7 @@ const AnswerDisplay = ({question}) => {
         }
 
         return(
-          <div>
+          <div key={option.id}>
             <input type='checkbox' disabled defaultChecked={option.answer != null}></input>
             <label>{option.rubric.answer}</label>
           </div>

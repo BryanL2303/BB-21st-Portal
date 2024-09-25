@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 
 /*For officers/primers to generate results
@@ -28,7 +27,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
     .then(resp => {
       setInstructor(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   const styles = StyleSheet.create({
@@ -321,7 +320,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
               </TableLevelColumn>
               {columns.map((column) => {
                 return (
-                  <TableLevelColumn>
+                  <TableLevelColumn key={column.id + "-column"}>
                     <Text>{column.column_title}</Text>
                   </TableLevelColumn>
                 )
@@ -332,7 +331,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
             </TableHeaderRow>
             {boys.map((boy, index) => {
               return(
-                <TableRow>
+                <TableRow key={boy.id}>
                   <TableNumberColumn>
                     <Text>{index + 1}</Text>
                   </TableNumberColumn>
@@ -344,7 +343,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
                   </TableLevelColumn>
                   {columns.map((column) => {
                     return (
-                      <TableLevelColumn>
+                      <TableLevelColumn key={column.id + "-row-column"}>
                         <Text>{columnContents[column.column_title][index]}</Text>
                       </TableLevelColumn>
                     )

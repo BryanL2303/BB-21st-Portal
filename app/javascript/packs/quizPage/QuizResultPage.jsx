@@ -47,9 +47,9 @@ const QuizResultPage = () => {
         setTotalMarks(resp.data['attempt_score'])
         setAllowAttempt(resp.data['attempt_score']['graded'])
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => {console.log(error)})
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //Go to QuizPage
@@ -79,7 +79,7 @@ const QuizResultPage = () => {
       setQuestions(resp.data['questions'])
       setTotalMarks(resp.data['attempt_score'])
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(
@@ -97,12 +97,12 @@ const QuizResultPage = () => {
               {[...Array(parseInt(accountAssignment.attempts)).keys()].map((iteration) => {
                 if (attempt == (iteration + 1)) {
                   return(
-                    <button className='selected' disabled onClick={loadAttempt}>{iteration + 1}</button>
+                    <button key={iteration} className='selected' disabled onClick={loadAttempt}>{iteration + 1}</button>
                   )                  
                 }
                 else {
                   return(
-                    <button onClick={loadAttempt}>{iteration + 1}</button>
+                    <button key={iteration} onClick={loadAttempt}>{iteration + 1}</button>
                   )
                 }
               })}
@@ -121,7 +121,7 @@ const QuizResultPage = () => {
           {assignment != null && assignment.show_answer && 
             questions.map((question) => {
               return(
-                <AnswerDisplay question={question}/>
+                <AnswerDisplay key={question.id + "-answer-display"} question={question}/>
               )
           })}
         </div>}

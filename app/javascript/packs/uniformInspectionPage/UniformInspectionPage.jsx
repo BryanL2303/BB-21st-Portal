@@ -21,7 +21,7 @@ const UniformInspectionPage = () => {
     .then(resp => {
       setInspections(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   function uniformInspectionForm(e) {

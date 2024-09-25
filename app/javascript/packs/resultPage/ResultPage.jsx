@@ -40,7 +40,7 @@ const ResultPage = () => {
         setAward(resp.data['award'])
         setMastery(resp.data['mastery'])
       })
-      .catch(resp => errorMessage(resp.response.statusText))
+      .catch(error => {console.log(error)})
     }
   }, [])
 
@@ -273,10 +273,10 @@ const ResultPage = () => {
                 <HeaderText>
                   <HeaderLogoColumn>
                     <HeaderLogoRow>
-                      <Text style={{fontFamily: 'Times-Bold'}}>THE BOYS'BRIGADE</Text>
+                      <Text style={{fontFamily: "Times-Bold"}}>THE BOYS' BRIGADE</Text>
                     </HeaderLogoRow>
                     <HeaderLogoRow>
-                      <Text style={{fontFamily: 'Times-Bold'}}>21st SINGAPORE COMPANY</Text>
+                      <Text style={{fontFamily: "Times-Bold"}}>21st SINGAPORE COMPANY</Text>
                     </HeaderLogoRow>
                     <HeaderLogoRow>
                       <Text>GEYLANG METHODIST SCHOOL</Text>
@@ -336,7 +336,7 @@ const ResultPage = () => {
               </TableHeaderRow>
               {assignedAccounts.map((assignedAccount, index) => {
                 return(
-                  <TableRow>
+                  <TableRow key={index}>
                     <TableNumberColumn>
                       <Text>{index + 1}</Text>
                     </TableNumberColumn>

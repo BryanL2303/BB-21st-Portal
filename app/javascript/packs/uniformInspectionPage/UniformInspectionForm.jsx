@@ -27,7 +27,7 @@ const UniformInspectionForm = () => {
       setComponents(resp.data['components'])
       setComponentFields(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
     }, {
@@ -36,14 +36,10 @@ const UniformInspectionForm = () => {
     .then(resp => {
       setBoyAccounts(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
-  function viewInspection(e) {
-    window.location.href = '/uniform_inspection_results'
-  }
-
-  function selectBoy(e) {
+  function selectBoy() {
     let boyAccountSelector = document.getElementsByClassName('boy-account-selector')
     let accounts = []
     for (let account of boyAccountSelector) {
@@ -77,7 +73,7 @@ const UniformInspectionForm = () => {
         }
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function selectField(e) {
@@ -120,10 +116,10 @@ const UniformInspectionForm = () => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
+    .then(() => {
       window.location.href = '/uniform_inspection_results'
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(
@@ -134,7 +130,7 @@ const UniformInspectionForm = () => {
         <select onChange={e => setForm(e)} defaultValue={null}>
           {boys.map((boy) => {
             return(
-              <option value={boy.id}>{boy.rank} {boy.account_name}</option>
+              <option key={boy.id} value={boy.id}>{boy.rank} {boy.account_name}</option>
             )
           })}
         </select>
@@ -145,7 +141,7 @@ const UniformInspectionForm = () => {
         <label>Pick the boys to inspect: </label>
         {boyAccounts.map((boyAccount) => {
           return(
-            <div className='account-display'>
+            <div key={boyAccount.id + "-checkbox"} className='account-display'>
               <input type='checkbox' className='boy-account-selector' id={boyAccount.id} onChange={selectBoy}></input>
               <label> Sec {boyAccount.level} {boyAccount.rank} {boyAccount.account_name}</label>
             </div>
@@ -155,12 +151,12 @@ const UniformInspectionForm = () => {
         <form onSubmit={submitInspection}>
           {currentForm != null && components.map((component) => {
             return(
-              <div>
+              <div key={component.id}>
                 <h3>{component.component_name}</h3>
                 {componentFields[component.component_name].map((field) => {
                   console.log(component.id)
                   return(
-                    <div>
+                    <div key={field.id}>
                       <input type='checkbox' className={component.id + '-field-selector'} id={field.id} name={component.id} onChange={selectField} defaultChecked={selectedContents[currentForm][component.id][field.id]}></input>
                       <label>{field.description}</label>
                     </div>

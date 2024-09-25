@@ -15,7 +15,7 @@ const AccountResultDisplay = ({assignedAccount}) => {
     .then(resp => {
       setAccount(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   return(

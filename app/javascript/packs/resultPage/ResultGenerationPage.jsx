@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 import {ManualResultPage} from './ManualResultPage'
@@ -39,7 +38,7 @@ const ResultGenerationPage = () => {
       setMasteries(resp.data['masteries'])
       setAward(resp.data['awards'][0])
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
     }, {
@@ -48,7 +47,7 @@ const ResultGenerationPage = () => {
     .then(resp => {
       setBoyAccounts(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Primer'
     }, {
@@ -72,7 +71,7 @@ const ResultGenerationPage = () => {
           setInstructorId(resp.data[0].id)
         }
       })
-      .catch(resp => {
+      .catch(() => {
         setOfficerAccounts([])
       })
     })
@@ -81,8 +80,6 @@ const ResultGenerationPage = () => {
 
   function selectAward(e) {
     let data = e.target.value.split(" ")
-    setAwardId(data[0])
-    setMasteryLevel(data[1])
     setCustomDescription()
     setColumnContents({})
     //make axios call and set states
@@ -137,14 +134,14 @@ const ResultGenerationPage = () => {
         .catch(resp => console.log(resp.response.statusText))
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function selectInstructor(e) {
     setInstructorId(e.target.value)
   }
 
-  function selectBoy(e) {
+  function selectBoy() {
     let boyAccountSelector = document.getElementsByClassName('boy-account-selector')
     let accounts = []
     for (let account of boyAccountSelector) {
@@ -160,7 +157,7 @@ const ResultGenerationPage = () => {
     .then(resp => {
       setBoys(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function updateCustomDescription(e) {
@@ -183,7 +180,7 @@ const ResultGenerationPage = () => {
         data[column.column_title] = []
       })
       // edit the form such that when a new award is selected reset the entire form
-      boys.map((boy) => {
+      boys.map(() => {
         columns.map((column) => {
           if (e.target[i] != null && e.target[i].value != '') {
             data[column.column_title].push(e.target[i].value)
@@ -219,7 +216,7 @@ const ResultGenerationPage = () => {
             {awards.map((award, index) => {
               if (!award.has_mastery && award.has_results) {
                 return(
-                  <option value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>
+                  <option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>
                 )
               } 
               else {
@@ -239,12 +236,12 @@ const ResultGenerationPage = () => {
           <select onChange={selectInstructor}>
             {primerAccounts.map((primerAccount) => {
               return(
-                <option value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>
+                <option key={primerAccount.id + "-primer-instructor"} value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>
               )
             })}
             {officerAccounts.map((officerAccount) => {
               return(
-                <option value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>
+                <option key={officerAccount.id + "-officer-instructor"} value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>
               )
             })}
           </select>
@@ -253,7 +250,7 @@ const ResultGenerationPage = () => {
           <p>Pick the Boys to include in the results</p>
           {boyAccounts.map((boyAccount) => {
             return(
-              <div className='account-display'>
+              <div key={boyAccount.id + "-display"} className='account-display'>
                 <input type='checkbox' className='boy-account-selector' id={boyAccount.id} onChange={selectBoy}></input>
                 <label> Sec {boyAccount.level} {boyAccount.rank} {boyAccount.account_name}</label>
               </div>
@@ -280,7 +277,7 @@ const ResultGenerationPage = () => {
                     <th>Name</th>
                     {columns.map((column) =>{
                       return(
-                        <th>{column.column_title}</th>
+                        <th key={column.id + "-column"}>{column.column_title}</th>
                       )
                     })}
                   </tr>
@@ -288,11 +285,11 @@ const ResultGenerationPage = () => {
                 <tbody>
                   {boys.map((boy) => {
                     return(
-                      <tr>
+                      <tr key={boy.id + "-row"}>
                         <th>Sec {boy.level} {boy.rank} {boy.account_name}</th>
                         {columns.map((column) =>{
                           return(
-                            <th><input id={column.column_title}></input></th>
+                            <th key={column.id + "-row-column"}><input id={column.column_title}></input></th>
                           )
                         })}
                       </tr>
@@ -319,7 +316,7 @@ const ResultGenerationPage = () => {
                     <th>Name</th>
                     {columns.map((column) =>{
                       return(
-                        <th>{column.column_title}</th>
+                        <th key={column.id + "-column"}>{column.column_title}</th>
                       )
                     })}
                   </tr>
@@ -327,11 +324,11 @@ const ResultGenerationPage = () => {
                 <tbody>
                   {boys.map((boy) => {
                     return(
-                      <tr>
+                      <tr key={boy.id + "-row"}>
                         <th>Sec {boy.level} {boy.rank} {boy.account_name}</th>
                         {columns.map((column) =>{
                           return(
-                            <th><input id={column.column_title}></input></th>
+                            <th key={column.id + "-row-column"}><input id={column.column_title}></input></th>
                           )
                         })}
                       </tr>

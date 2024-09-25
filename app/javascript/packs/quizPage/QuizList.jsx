@@ -30,14 +30,14 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else {
         setMasteries()
         setCurrentMastery()
         setAward({awardId: award.awardId, masteryId: '0'})
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_assignments', {
       'award': award
     }, {
@@ -46,7 +46,7 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   useEffect(() => {
@@ -66,13 +66,13 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       } else if (!resp.data.has_mastery) {
         setMasteries()
         setCurrentMastery()
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/account/0/get_assignments', {
       'award': award
     }, {
@@ -81,7 +81,7 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [award])
 
   //View a quiz
@@ -111,7 +111,7 @@ const QuizList = () => {
         <h2>Complete these tests assigned to you!</h2>
         {quizzes.map((quiz) => {
           return(
-            <button className={quiz.id} onClick={viewQuiz}>{quiz.quiz_name}</button>
+            <button key={quiz.id} className={quiz.id} onClick={viewQuiz}>{quiz.quiz_name}</button>
           )
         })}
         <h2>Test Yourself!</h2>

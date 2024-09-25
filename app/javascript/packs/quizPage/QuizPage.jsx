@@ -28,28 +28,24 @@ const QuizPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(resp => {
-      console.log(resp.data)
       setQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/assignment/0/get_assignment', {
       'quiz_id': id,
       'id': '0'
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
-      setAssignedAccount(resp.data['assigned_account'])
-      setAttemptScore(resp.data['attemptScore'])
-    })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .then()
+    .catch(error => {console.log(error)})
   }, [])
 
   function submitQuiz(e) {
@@ -90,10 +86,10 @@ const QuizPage = () => {
     }, {
       withCredentials: true  // Include credentials (cookies)
     })
-    .then(resp => {
+    .then(() => {
       window.location.href = '/quiz_result/' + id
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(
@@ -108,7 +104,7 @@ const QuizPage = () => {
         <form onSubmit={submitQuiz}>
           {questions.map((question) => {
             return(
-              <div className="question">
+              <div key={question.id} className="question">
                 <QuestionDisplay questionId={question.id}/>
               </div>
             )

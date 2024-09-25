@@ -15,21 +15,6 @@ const NavigationBar = () => {
     }
   }, [cookies.get('Name')])
 
-  //Go to QuizPage
-  function quizPage () {
-    window.location.href = '/quiz'
-  }
-
-  //Go to QuestionBankPage
-  function questionBankPage () {
-    window.location.href = '/question_bank'
-  }
-
-  //Go to QuizBankPage
-  function quizBankPage () {
-    window.location.href = '/quiz_bank'
-  }
-
   //Go to UserManagementPage
   function userManagementPage () {
     window.location.href = '/user_management'

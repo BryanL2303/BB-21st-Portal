@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { QuestionSelector } from './QuestionSelector'
 import { NewQuizQuestionForm } from './NewQuizQuestionForm'

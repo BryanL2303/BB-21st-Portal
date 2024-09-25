@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
 
@@ -30,7 +29,7 @@ const UniformInspectionResultPage = () => {
       setComponents(resp.data['components'])
       setComponentFields(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/uniform_inspection/' + id + '/get_inspection', {
       'id': id
     })
@@ -81,7 +80,7 @@ const UniformInspectionResultPage = () => {
         {currentInspection != null && <label>Score: {currentInspection['inspection']['total_score']}</label>}
         {currentInspection != null && components.map((component) => {
           return(
-            <div>
+            <div key={component.id}>
               <h3>{component.component_name}</h3>
               {componentFields[component.component_name].map((field) => {
                 return(

@@ -23,7 +23,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       setAccountRank(resp.data.rank)
       setAccountLevel(resp.data.level)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [userId])
 
   function setRank(e) {
@@ -87,7 +87,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           alert("Failed to update")
         }
       })
-      .catch(resp => errorMessage(resp.response.statusText))      
+      .catch(error => {console.log(error)})      
     }
     else {
       alert("Please fill in all fields first")
@@ -114,7 +114,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         reLoad()
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(

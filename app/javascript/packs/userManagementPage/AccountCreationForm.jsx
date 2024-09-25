@@ -75,7 +75,7 @@ const AccountCreationForm = ({reLoad}) => {
           alert("Username has been taken, please try another name.")
         }
       })
-      .catch(resp => errorMessage(resp.response.statusText))      
+      .catch(error => {console.log(error)})      
     }
     else {
       alert("Please fill in all fields first")

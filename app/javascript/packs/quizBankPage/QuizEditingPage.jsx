@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { AwardContext } from '../context/AwardContext'
 import {NavigationBar} from '../general/NavigationBar'
 import {SelectedQuestion} from './SelectedQuestion'
 
 /*To view existing quiz and edit them
 */
 const QuizEditingPage = () => {
-  const [award, setAward] = useContext(AwardContext)
   const [quiz, setQuiz] = useState();
   const [questions, setQuestions] = useState([]);
   const { id } = useParams()
@@ -30,7 +28,7 @@ const QuizEditingPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
     }, {
@@ -39,7 +37,7 @@ const QuizEditingPage = () => {
     .then(resp => {
       setQuestions(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [])
 
   //Sends the information from the form to the backend to try and edit a quiz
@@ -122,7 +120,7 @@ const QuizEditingPage = () => {
   //   .then(resp => {
   //     //Reset all the input fields
   //   })
-  //   .catch(resp => errorMessage(resp.response.statusText))
+  //   .catch(error => {console.log(error)})
   // }
 
   function quizAssignmentPage(e) {
@@ -143,7 +141,7 @@ const QuizEditingPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(window.location.href = '/quiz_bank')
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   return(
@@ -157,8 +155,8 @@ const QuizEditingPage = () => {
         {quiz == null && <p>Some how quiz is null</p>}
         {questions.map((question) => {
           return(
-            <div className="question-editor">
-              <SelectedQuestion questionId={question.id} setQuestionId={() => {}} marks={-100} setMarks={doNothing}/>
+            <div key={question.id + "-editor"} className="question-editor">
+              <SelectedQuestion questionId={question.id} setQuestionId={() => {}} marks={-100} setMarks={() => {}}/>
             </div>
           )
         })}

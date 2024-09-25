@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
+import { AwardContext } from '../context/AwardContext'
 import { errorMessage } from '../general/functions'
 
 /*To access quizes and create new ones
 */
 const AwardList = () => {
+  const [_, setAward] = useContext(AwardContext)
   const [awards, setAwards] = useState([])
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const AwardList = () => {
       <h1>Awards</h1>
       {awards.map((award) => {
         return(
-          <button className={award.id} onClick = {viewAward}>{award.badge_name}</button>
+          <button key={award.id} className={award.id} onClick = {viewAward}>{award.badge_name}</button>
         )
       })}
     </div>

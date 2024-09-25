@@ -22,7 +22,7 @@ const BoyAccountsList = ({setPageState}) => {
     .then(resp => {
       setBoyList(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function showUser(e) {
@@ -34,7 +34,7 @@ const BoyAccountsList = ({setPageState}) => {
     <div className='boy-accounts-list'>
       {boyList.map((boy) => {
         return(
-          <button onClick={showUser} className={boy.id}>{boy.account_type} Sec {boy.level} {boy.rank} {boy.account_name}</button>
+          <button key={boy.id} onClick={showUser} className={boy.id}>{boy.account_type} Sec {boy.level} {boy.rank} {boy.account_name}</button>
         )
       })}
     </div>

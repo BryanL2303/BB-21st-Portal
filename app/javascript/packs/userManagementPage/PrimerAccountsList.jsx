@@ -22,7 +22,7 @@ const PrimerAccountsList = ({setPageState}) => {
     .then(resp => {
       setPrimerList(resp.data)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }
 
   function showUser(e) {
@@ -34,7 +34,7 @@ const PrimerAccountsList = ({setPageState}) => {
     <div className='primer-accounts-list'>
       {primerList.map((primer) => {
         return(
-          <button onClick={showUser} className={primer.id}>{primer.account_type} {primer.rank} {primer.account_name}</button>
+          <button key={primer.id} onClick={showUser} className={primer.id}>{primer.account_type} {primer.rank} {primer.account_name}</button>
         )
       })}
     </div>

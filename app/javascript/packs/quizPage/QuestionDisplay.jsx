@@ -6,7 +6,6 @@ import axios from 'axios'
 const QuestionDisplay = ({questionId}) => {
   const [question, setQuestion] = useState()
   const [options, setOptions] = useState([])
-  const [rubric, setRubric] = useState("")
 
   useEffect(() => {
     axios.post('/api/question/0/get_question', {
@@ -22,10 +21,8 @@ const QuestionDisplay = ({questionId}) => {
         }, {
           withCredentials: true  // Include credentials (cookies)
         })
-        .then( resp => {
-          setRubric(resp.data)
-        })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .then()
+        .catch(error => {console.log(error)})
       } else {
         axios.post('/api/question/0/get_options', {
           question_id: questionId
@@ -35,10 +32,10 @@ const QuestionDisplay = ({questionId}) => {
         .then( resp => {
           setOptions(resp.data)
         })
-        .catch(resp => errorMessage(resp.response.statusText))
+        .catch(error => {console.log(error)})
       }
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => {console.log(error)})
   }, [questionId])
 
   return(
@@ -47,7 +44,7 @@ const QuestionDisplay = ({questionId}) => {
       {question != null && <p>{question.marks}</p>}
       {question != null && question.question_type == "MCQ" && options.map((option) => {
         return (
-          <div>
+          <div key={option.id + "-mcq-option"}>
             <input id={question.id} type='radio' value={option.id} name={question.id}></input>
             <label id={question.id} className='question__option'>{option.answer}</label>
           </div>
@@ -55,7 +52,7 @@ const QuestionDisplay = ({questionId}) => {
       })}
       {question != null && question.question_type == "MRQ" && options.map((option) => {
         return (
-          <div>
+          <div key={option.id + "-mrq-option"}>
             <input id={question.id} type='checkbox' value={option.id} name={question.id}></input>
             <label id={question.id} className='question__option'>{option.answer}</label>
           </div>
