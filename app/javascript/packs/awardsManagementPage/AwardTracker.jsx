@@ -358,17 +358,17 @@ const AwardTracker = () => {
                   <td rowSpan="2">Boy</td>
                   {award_name in fixedRequirements && fixedRequirements[award_name].map((requirement) => {
                     return(
-                      <td rowSpan="2">{requirement["name"]}</td>
+                      <td key={requirement["name"]} rowSpan="2">{requirement["name"]}</td>
                     )
                   })}
                   {awards[award_name].map((award) => {
                       if (award in masteries[award_name]) {
                           return (
-                              <td colSpan={masteries[award_name][award].length}>{award}</td>
+                              <td key={award + "-label"} colSpan={masteries[award_name][award].length}>{award}</td>
                           )
                       } else {
                           return (
-                              <td rowSpan="2">{award}</td>
+                              <td key={award + "-label"} rowSpan="2">{award}</td>
                           )
                       }
                   })}
@@ -378,7 +378,7 @@ const AwardTracker = () => {
                 {awards[award_name].map((award) => {
                   if (award in masteries[award_name]) {
                     return masteries[award_name][award].map((mastery) => (
-                      <td>{mastery}</td>
+                      <td key={award + " " + mastery}>{mastery}</td>
                     ))
                   }
                 })}
@@ -387,21 +387,21 @@ const AwardTracker = () => {
           <tbody>
               {boys.map((boy) => {
                   return (
-                      <tr>
+                      <tr key={boy.id}>
                           <td className={boy.id + '-' + award_name}>{boy.account_name}</td>
                           {award_name in fixedRequirements && fixedRequirements[award_name].map((requirement) => {
                             return(
-                              <td><input type='checkbox' disabled={true} checked={requirement['requirements'](boy)}></input></td>
+                              <td key={requirement["name"]}><input type='checkbox' disabled={true} checked={requirement['requirements'](boy)}></input></td>
                             )
                           })}
                           {awards[award_name].map(award => {
                               if (award in masteries[award_name]) {
                                 return masteries[award_name][award].map((mastery) => (
-                                  <td><input className={boy.id + "-" + award + '-' + mastery} type='checkbox' checked={checked[boy.id + "-" + award + '-' + mastery]} onChange={toggleAttainment}></input></td>
+                                  <td key={award+"-"+mastery+"-checkbox"}><input className={boy.id + "-" + award + '-' + mastery} type='checkbox' checked={checked[boy.id + "-" + award + '-' + mastery]} onChange={toggleAttainment}></input></td>
                                 ))
                               } else {
                                   return (
-                                      <td><input className={boy.id + "-" + award} type='checkbox' checked={checked[boy.id + "-" + award]} onChange={toggleAttainment}></input></td>
+                                      <td key={award+"-checkbox"}><input className={boy.id + "-" + award} type='checkbox' checked={checked[boy.id + "-" + award]} onChange={toggleAttainment}></input></td>
                                   )
                               }
                           })}
@@ -423,14 +423,14 @@ const AwardTracker = () => {
         {Object.entries(changeLog).map(([award, change]) => {
           let target = award.split("-")
           return(
-            <p>{boyNames[target[0]]}: {change} {target.length === 2 ? target[1] : target[1] + " " + target[2]}</p>
+            <p key={award}>{boyNames[target[0]]}: {change} {target.length === 2 ? target[1] : target[1] + " " + target[2]}</p>
           )
         })}
         {Object.keys(changeLog).length != 0 && <button onClick={saveChanges}>Save Changes</button>}
       </div>
       {["Electives", "IPA", "SPA", "Founders"].map((special_award) => {
         return (
-          <div style={{width: "100%"}}>{!checkingMilestone && <AwardAttainmentTable award_name={special_award}/>}</div>
+          <div key={special_award} style={{width: "100%"}}>{!checkingMilestone && <AwardAttainmentTable award_name={special_award}/>}</div>
         )
       })}
     </div>

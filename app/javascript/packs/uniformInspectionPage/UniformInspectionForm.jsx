@@ -17,7 +17,7 @@ const UniformInspectionForm = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/uniform_inspection/0/get_component_fields', {}, {

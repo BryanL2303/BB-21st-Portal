@@ -140,4 +140,7 @@ Changed website title from Quiz Website to BB 21st Portal
 11. Update function in NavigationBar for logging out to call controller function
 12. Create new session store file in config/initializers to manage cookie transfers
 
+25 September 2024
+1. Fixing eslint caught errors, removing unused variables and adding keys to mapped elements
+
 Version 1.0

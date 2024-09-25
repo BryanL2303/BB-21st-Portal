@@ -21,7 +21,7 @@ const QuizResultPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/assigned_account/0/get_assigned_account', {

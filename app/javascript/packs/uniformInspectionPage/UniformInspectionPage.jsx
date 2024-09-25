@@ -12,7 +12,7 @@ const UniformInspectionPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/uniform_inspection/0/get_inspections', {}, {
@@ -47,7 +47,7 @@ const UniformInspectionPage = () => {
             {inspections['boys'].map((boy) => {
               if (inspections[boy.id] == null) {
                 return (
-                  <tr className='button'>
+                  <tr key={boy.account_name} className='button'>
                     <td>{boy.account_name}</td>
                     <td>-</td>
                     <td>-</td>
@@ -58,7 +58,7 @@ const UniformInspectionPage = () => {
               }
               else {
                 return (
-                  <tr id={inspections[boy.id].id} className='button'>
+                  <tr key={inspections[boy.id].id} id={inspections[boy.id].id} className='button'>
                     <td>{boy.account_name}</td>
                     <td>{inspections[boy.id].total_score}</td>
                     <td>{inspections[boy.id].date}</td>

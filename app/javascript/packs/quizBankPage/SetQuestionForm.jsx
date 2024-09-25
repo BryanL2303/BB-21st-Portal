@@ -17,7 +17,7 @@ const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   function setQuestionType(e) {
     e.preventDefault()

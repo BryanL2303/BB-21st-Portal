@@ -20,7 +20,7 @@ const UserManagementPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   //Show the form to create new accounts
   function showForm () {

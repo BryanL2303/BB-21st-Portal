@@ -17,7 +17,7 @@ const QuestionCreationForm = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   function setFormType(e) {
     e.preventDefault()

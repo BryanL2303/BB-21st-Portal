@@ -19,7 +19,7 @@ const QuizCreationPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/award/' + awardId.awardId + '/get_award', {

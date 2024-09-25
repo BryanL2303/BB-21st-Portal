@@ -15,7 +15,7 @@ const QuizListPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   if (cookies.get('Type') != 'Boy') {
     window.location.href = '/user_management'

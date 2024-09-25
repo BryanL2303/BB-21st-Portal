@@ -15,7 +15,7 @@ const AdminPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/admin/0/get_table_names', {}, {
@@ -44,7 +44,7 @@ const AdminPage = () => {
       <div className='page-container'>
         {tableNames.map((table_name) => {
           return(
-            <div className = "database-table">
+            <div key={table_name} className = "database-table">
               <h1>{table_name}</h1>
               <button onClick={() => {toggleTableVisibility(table_name)}}>Show Table</button>
               {tableVisible[table_name] && <DatabaseTable table_name={table_name}/>}

@@ -35,10 +35,6 @@ const AccountCreationForm = ({reLoad}) => {
     setAccountLevel(e.target.className)
   }
 
-  function doNothing(e) {
-    e.preventDefault()
-  }
-
   //Sends the information from the form to the backend to try and create an account
   //If the username is not unique returns an alert back to the user
   function submitForm(e) {

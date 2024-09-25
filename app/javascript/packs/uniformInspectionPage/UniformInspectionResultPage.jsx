@@ -20,7 +20,7 @@ const UniformInspectionResultPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/uniform_inspection/0/get_component_fields', {}, {
@@ -35,13 +35,12 @@ const UniformInspectionResultPage = () => {
       'id': id
     })
     .then(resp => {
-      setCurrentBoy(resp.data['boy'])
       setAllInspections(resp.data['inspections'])
       setInspections(resp.data['inspections'][resp.data['boy']['id']])
       setCurrentInspection(resp.data['inspections'][resp.data['boy']['id']][id])
       setBoys(resp.data['boys'])
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(error => console.log(error))
   }, [])
 
   function selectInspection(e) {
@@ -49,7 +48,6 @@ const UniformInspectionResultPage = () => {
   }
 
   function selectBoy(e) {
-    setCurrentBoy(boys[e.target.value])
     let relevantInspections = allInspections[e.target.value]
     let defaultInspection =  relevantInspections['inspections'][0]
     setInspections(relevantInspections)
@@ -65,7 +63,7 @@ const UniformInspectionResultPage = () => {
         {boys.length != 0 && <select onChange={selectBoy}>
           {boys.map((boy) => {
             return(
-              <option value={boy.id}>{boy.rank} {boy.account_name}</option>
+              <option key={boy.id} value={boy.id}>{boy.rank} {boy.account_name}</option>
             )
           })
           }
@@ -74,7 +72,7 @@ const UniformInspectionResultPage = () => {
         {inspections != null && inspections['inspections'].length != 0 && <select className='date-select' onChange={selectInspection}>
           {inspections['inspections'].map((inspection) => {
             return(
-              <option value={inspection.id}>{inspection['date']}</option>
+              <option key={inspection.id} value={inspection.id}>{inspection['date']}</option>
             )
           })}
         </select>}
@@ -87,7 +85,7 @@ const UniformInspectionResultPage = () => {
               <h3>{component.component_name}</h3>
               {componentFields[component.component_name].map((field) => {
                 return(
-                  <div>
+                  <div key={field.id}>
                     <input type='checkbox' disabled checked={currentInspection['selectedComponents'][field.id] != null}></input>
                     <label>{field.description}</label>
                   </div>

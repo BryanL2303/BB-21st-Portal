@@ -14,7 +14,7 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   function changeLocalMarks(e) {
     e.preventDefault()

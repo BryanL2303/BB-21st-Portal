@@ -12,7 +12,7 @@ const QuestionBankPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   return(
     <div className='question-bank-page'>

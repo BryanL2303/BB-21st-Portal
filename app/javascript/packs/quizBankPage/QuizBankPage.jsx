@@ -12,7 +12,7 @@ const QuizBankPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   return(
     <div className='quiz-bank-page'>

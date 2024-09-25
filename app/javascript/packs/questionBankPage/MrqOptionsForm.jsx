@@ -12,7 +12,7 @@ const MrqOptionsForm = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   function increaseOptionsNumber(e) {
     e.preventDefault()

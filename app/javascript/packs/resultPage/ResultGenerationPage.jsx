@@ -26,7 +26,7 @@ const ResultGenerationPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     //make axios call and set awards and accounts

@@ -18,7 +18,7 @@ const AwardsManagementPage = () => {
     withCredentials: true
   })
   .then()
-  .catch(window.location.href = '/')
+  .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     axios.post('/api/award/0/get_awards', {
@@ -50,7 +50,7 @@ const AwardsManagementPage = () => {
           <p>Current Awards</p>
           {awards.map((award) => {
             return(
-              <button onClick={showAward} className={award.id}>{award.badge_name}</button>
+              <button key={award.id} onClick={showAward} className={award.id}>{award.badge_name}</button>
             )
           })}
         </div>

@@ -118,7 +118,7 @@ const DatabaseTable = ({table_name}) => {
           {columns.map((column) => {
             if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
               return(
-                <td>
+                <td key={column['name']}>
                   {column['name']}
                 </td>
               )
@@ -131,7 +131,7 @@ const DatabaseTable = ({table_name}) => {
         {data.map((row) => {
           if (editData[row['id']]) {
             return(
-                <tr>
+                <tr key={row['id']}>
                   {columns.map((column) => {
                     if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
                       if (column['name'] == 'id') {
@@ -155,11 +155,11 @@ const DatabaseTable = ({table_name}) => {
           }
           else {
             return(
-                <tr>
+                <tr key={row['id']}>
                   {columns.map((column) => {
                     if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
                       return(
-                        <td>
+                        <td key={column['name']}>
                           {row[column['name']]}
                         </td>
                       )
@@ -177,11 +177,11 @@ const DatabaseTable = ({table_name}) => {
           {columns.map((column) => {
             if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
                 if (column['name'] == 'id') {
-                    return (<td></td>)
+                    return (<td key={column['name']}></td>)
                 }
                 else {
                     return(
-                        <td>
+                        <td key={column['name']}>
                             <input className={table_name+ '-' + column['name'] + '-' + 'form'}></input>
                         </td>
                     )

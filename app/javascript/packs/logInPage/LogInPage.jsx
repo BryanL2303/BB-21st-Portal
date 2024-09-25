@@ -12,10 +12,8 @@ const LogInPage = () => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(window.location.href = '/home')
-  .catch(resp => {
-    console.log(resp)
-  })
+  .then(_resp => {window.location.href = '/home'})
+  .catch()
 
   //Handle submit form event to authenticate account with backend
   function submitForm(e) {
