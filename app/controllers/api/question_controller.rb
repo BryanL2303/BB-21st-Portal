@@ -1,28 +1,34 @@
 # frozen_string_literal: true
 
 module Api
+  # The QuestionController is responsible for handling functions for Question
+  # within the API, such as CRUD functions.
+  #
+  # This api is currently not in use by production
   class QuestionController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createQuestion
+    def create_question
       question = if params[:award][:masteryId] == '0'
-                   Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks],
-                                award_id: params[:award][:awardId], permanent: true, assigned: false)
+                   Question.new(question_type: params[:question_type], question: params[:question],
+                                marks: params[:marks], award_id: params[:award][:awardId], permanent: true,
+                                assigned: false)
                  else
-                   Question.new(question_type: params[:question_type], question: params[:question], marks: params[:marks],
+                   Question.new(question_type: params[:question_type], question: params[:question],
+                                marks: params[:marks],
                                 mastery_id: params[:award][:masteryId], permanent: true, assigned: false)
                  end
       if question.save
         if params[:question_type] == 'MCQ' || params[:question_type] == 'MRQ'
           params[:answer].each do |option|
-            questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct],
-                                                question_id: question.id)
-            render json: { error: questionOption.errors.messages }, status: 422 unless questionOption.save
+            question_option = QuestionOption.new(answer: option[:option], correct: option[:correct],
+                                                 question_id: question.id)
+            render json: { error: question_option.errors.messages }, status: 422 unless question_option.save
           end
         elsif params[:question_type] == 'Open-ended'
-          answerRubric = AnswerRubric.new(rubric: params[:answer][0], question_id: question.id)
-          render json: { error: answerRubric.errors.message }, status: 422 unless answerRubric.save
+          answer_rubric = AnswerRubric.new(rubric: params[:answer][0], question_id: question.id)
+          render json: { error: answer_rubric.errors.message }, status: 422 unless answer_rubric.save
         end
         render json: true
       else
@@ -30,13 +36,13 @@ module Api
       end
     end
 
-    def getQuestion
+    def question
       question = Question.find_by(id: params[:question_id])
 
       render json: question
     end
 
-    def getQuestions
+    def questions
       questions = if params[:award]['masteryId'] == '0'
                     Question.where(award_id: params[:award]['awardId'],
                                    question_type: params[:question_type]).order('permanent')
@@ -48,13 +54,13 @@ module Api
       render json: questions
     end
 
-    def getOptions
-      questionOptions = QuestionOption.where(question_id: params[:question_id])
+    def options
+      question_options = QuestionOption.where(question_id: params[:question_id])
 
-      render json: questionOptions
+      render json: question_options
     end
 
-    def getRubric
+    def rubric
       rubric = AnswerRubric.find_by(question_id: params[:question_id])
 
       if rubric.nil?
@@ -64,7 +70,7 @@ module Api
       end
     end
 
-    def editQuestion
+    def edit_question
       question = Question.find_by(id: params[:question_id])
       question['question'] = params[:question]
       question['marks'] = params[:marks]
@@ -73,15 +79,15 @@ module Api
         options = QuestionOption.where(question_id: question.id)
         options.destroy_all
         params[:answer].each do |option|
-          questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct],
-                                              question_id: question.id)
-          render json: { error: questionOption.errors.messages }, status: 422 unless questionOption.save
+          question_option = QuestionOption.new(answer: option[:option], correct: option[:correct],
+                                               question_id: question.id)
+          render json: { error: question_option.errors.messages }, status: 422 unless question_option.save
         end
       elsif question.question_type == 'Open-ended'
         rubric = AnswerRubric.find_by(question_id: question.id)
         rubric.destroy
-        answerRubric = AnswerRubric.new(rubric: params[:rubric], question_id: question.id)
-        render json: { error: answerRubric.errors.message }, status: 422 unless answerRubric.save
+        answer_rubric = AnswerRubric.new(rubric: params[:rubric], question_id: question.id)
+        render json: { error: answer_rubric.errors.message }, status: 422 unless answer_rubric.save
       end
 
       if question.save
@@ -92,7 +98,7 @@ module Api
       end
     end
 
-    def setPermanent
+    def set_permanent
       question = Question.find_by(id: params[:question_id])
       question['permanent'] = true
       question.save
@@ -100,19 +106,19 @@ module Api
       render json: question
     end
 
-    def deleteQuestion
+    def delete_question
       question = Question.find_by(id: params[:question_id])
 
       if question.question_type == 'MCQ'
-        questionOptions = QuestionOption.where(question_id: params[:question_id])
-        questionOptions.destroy_all
+        question_options = QuestionOption.where(question_id: params[:question_id])
+        question_options.destroy_all
       else
         rubric = AnswerRubric.find_by(question_id: params[:question_id])
         rubric.destroy
       end
 
-      quizQuestions = QuizQuestion.where(question_id: params[:question_id])
-      quizQuestions.destroy_all
+      quiz_questions = QuizQuestion.where(question_id: params[:question_id])
+      quiz_questions.destroy_all
 
       if question.destroy
         render json: true

@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 module Api
+  # The AssignedAccountController is responsible for handling functions for assigning quizzes to Boys
+  # within the API, such as CRUD functions for AssignedAccount.
+  #
+  # This controller should include functions for the table AssignedAccount
+  # This api is currently not in use by production
   class AssignedAccountController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createAssignedAccount
+    def create_assigned_account
       account = Account.new(account_name: params[:account_name], password: params[:password],
                             account_type: params[:account_type])
-      findAccount = Account.find_by(account_name: params[:account_name])
+      find_account = Account.find_by(account_name: params[:account_name])
 
-      if findAccount.nil?
+      if find_account.nil?
         if account.save
           token = encode_token({ user_id: account.id })
           render json: { account_name: account.account_name, type: account.account_type, token: }
@@ -22,9 +27,9 @@ module Api
       end
     end
 
-    def getAssignedAccount
-      accountId = @current_user.id
-      assigned_accounts = AssignedAccount.where(account_id: accountId)
+    def assigned_account
+      account_id = @current_user.id
+      assigned_accounts = AssignedAccount.where(account_id:)
       assignments = Assignment.where(quiz_id: params[:quiz_id])
       assignments.each do |assignment|
         assigned_account = assigned_accounts.find_by(assignment_id: assignment.id)
@@ -35,13 +40,13 @@ module Api
       end
     end
 
-    def getAssignedAccounts
+    def assigned_accounts
       assigned_accounts = AssignedAccount.where(assignment_id: params[:assignment_id]).order('account_id')
 
       render json: assigned_accounts
     end
 
-    def updateAccountAssigment
+    def update_account_assigment
       assigned_account = AssignedAccount.find_by(id: params[:id])
       assigned_account.score = params[:new_score]
       assigned_account.attempts = params[:new_attempts]
@@ -52,7 +57,7 @@ module Api
       end
     end
 
-    def getAssignmentAnswers
+    def assignment_answers
       data = {}
       assigned_account = AssignedAccount.find_by(id: params[:id])
       data['assigned_account'] = assigned_account
@@ -62,28 +67,31 @@ module Api
       quiz = Quiz.find_by(id: assignment.quiz_id)
       data['quiz'] = quiz
 
-      attemptScore = AttemptScore.where(assigned_account_id: assigned_account.id).find_by(attempt: params[:attempt])
-      data['attempt_score'] = attemptScore
+      attempt_score = AttemptScore.where(assigned_account_id: assigned_account.id).find_by(attempt: params[:attempt])
+      data['attempt_score'] = attempt_score
 
-      quizQuestions = QuizQuestion.where(quiz_id: quiz.id).order('question_id')
+      quiz_questions = QuizQuestion.where(quiz_id: quiz.id).order('question_id')
 
       data['questions'] = []
-      assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id).where(attempt: params[:attempt])
-      quizQuestions.each do |quizQuestion|
+      assignment_answers = AssignmentAnswer.where(account_id: assigned_account.account_id)
+                                           .where(assignment_id: assigned_account.assignment_id)
+                                           .where(attempt: params[:attempt])
+      quiz_questions.each do |quiz_question|
         answer = {}
-        question = Question.find_by(id: quizQuestion.question_id)
+        question = Question.find_by(id: quiz_question.question_id)
         if question.question_type != 'Open-ended'
           rubric = QuestionOption.where(question_id: question.id).order('id')
           answer = []
           rubric.each do |option|
-            assignmentAnswer = assignmentAnswers.where(question_id: question.id).find_by(question_option_id: option.id)
-            answer.push({ "rubric": option, "answer": assignmentAnswer })
+            assignment_answer = assignment_answers.where(question_id: question.id)
+                                                  .find_by(question_option_id: option.id)
+            answer.push({ "rubric": option, "answer": assignment_answer })
           end
         else
           rubric = AnswerRubric.where(question_id: question.id)
           answer['rubric'] = rubric
-          assignmentAnswer = assignmentAnswers.where(question_id: question.id)
-          answer['answer'] = assignmentAnswer
+          assignment_answer = assignment_answers.where(question_id: question.id)
+          answer['answer'] = assignment_answer
         end
 
         data['questions'].append({ 'question': question, 'answer': answer })
@@ -92,15 +100,15 @@ module Api
       render json: data
     end
 
-    def setGraded
-      attemptScore = AttemptScore.find_by(id: params[:attempt_score_id])
-      attemptScore.graded = true
-      attemptScore.save
+    def set_graded
+      attempt_score = AttemptScore.find_by(id: params[:attempt_score_id])
+      attempt_score.graded = true
+      attempt_score.save
 
-      render json: attemptScore
+      render json: attempt_score
     end
 
-    def deleteAssignedAccount
+    def delete_assigned_account
       assigned_account = AssignedAccount.find_by(id: params[:id])
 
       if assigned_account.destroy

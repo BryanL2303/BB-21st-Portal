@@ -1,13 +1,16 @@
 # frozen_string_literal: true
 
 module Api
+  # The MasteryController is responsible for handling functions for Mastery
+  # within the API, such as CRUD functions.
   class MasteryController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createMastery
+    def create_mastery
       mastery = Mastery.new(mastery_name: params[:mastery_name], mastery_requirements: params[:mastery_requirements],
-                            results_description: params[:results_description], recommended_level: params[:recommended_level])
+                            results_description: params[:results_description],
+                            recommended_level: params[:recommended_level])
       if mastery.save
         render json: mastery
       else
@@ -15,21 +18,21 @@ module Api
       end
     end
 
-    def getMastery
+    def mastery
       mastery = Mastery.find_by(id: params[:id])
 
       render json: mastery
     end
 
-    def getColumns
+    def columns
       columns = CustomColumn.where(mastery_id: params[:id])
 
       render json: columns
     end
 
-    def getQuestions; end
+    def questions; end
 
-    def deleteAward
+    def delete_award
       if topic.destroy
         head :no_content
       else

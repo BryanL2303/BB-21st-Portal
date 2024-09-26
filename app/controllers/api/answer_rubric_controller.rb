@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 module Api
+  # The AnswerRubricController is responsible for handling functions for AnswerRubric
+  # within the API, such as CRUD functions for AnswerRubric.
+  #
+  # This controller should include functions for the table AnswerRubric
+  # This api is currently not in use by production
   class AnswerRubricController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createRubric
+    def create_rubric
       rubric = AnswerRubric.new(rubric: params[:rubric], question_id: params[:question_id])
 
       if rubric.save
@@ -15,7 +20,7 @@ module Api
       end
     end
 
-    def editRubric
+    def edit_rubric
       rubric = AnswerRubric.find_by(id: params[:answer_rubric_id])
       rubric.rubric = params[:rubric]
 
@@ -26,7 +31,7 @@ module Api
       end
     end
 
-    def deleteRubric
+    def delete_rubric
       rubric = AnswerRubric.find_by(id: params[:answer_rubric_id])
 
       if rubric.destroy

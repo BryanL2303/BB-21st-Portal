@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
 module Api
+  # The QuizController is responsible for handling functions for Quiz
+  # within the API which includes QuizQuestion, such as CRUD functions.
+  #
+  # This api is currently not in use by production
   class QuizController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createQuiz
+    def create_quiz
       # Check that there are no quizes with the same name within the same topic
-      findQuiz = if params[:award]['masteryId'] == '0'
-                   Quiz.where(award_id: params[:award]['awardId']).find_by(quiz_name: params[:quiz_name])
-                 else
-                   Quiz.where(mastery_id: params[:award]['masteryId']).find_by(quiz_name: params[:quiz_name])
-                 end
+      find_quiz = if params[:award]['masteryId'] == '0'
+                    Quiz.where(award_id: params[:award]['awardId']).find_by(quiz_name: params[:quiz_name])
+                  else
+                    Quiz.where(mastery_id: params[:award]['masteryId']).find_by(quiz_name: params[:quiz_name])
+                  end
 
-      if findQuiz.nil?
+      if find_quiz.nil?
         quiz = if params[:award]['masteryId'] == '0'
                  Quiz.new(quiz_name: params[:quiz_name], marks: params[:marks], award_id: params[:award]['awardId'],
                           assigned: false)
@@ -22,40 +26,7 @@ module Api
                           assigned: false)
                end
         if quiz.save
-          # Create joint table associations with questions
-          params[:existing_questions].each do |id|
-            quizQuestion = QuizQuestion.new(quiz_id: quiz.id, question_id: id)
-            question = Question.find_by(id:)
-            question['assigned'] = true
-            question.save
-            render json: { error: quizQuestion.errors.messages }, status: 422 unless quizQuestion.save
-          end
-          params[:new_questions].each do |question|
-            if params[:award]['masteryId'] == '0'
-              newQuestion = Question.new(question_type: question['question_type'], question: question['question'],
-                                         marks: question['marks'], award_id: params[:award]['awardId'], permanent: false, assigned: true)
-            else
-              newQuestion = Question.new(question_type: question['question_type'], question: question['question'],
-                                         marks: question['marks'], mastery_id: params[:award]['masteryId'], permanent: false, assigned: true)
-            end
-            if newQuestion.save
-              if question['question_type'] == 'MCQ' || question['question_type'] == 'MRQ'
-                (question['answer']).each do |option|
-                  questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct],
-                                                      question_id: newQuestion.id)
-                  render json: { error: questionOption.errors.messages }, status: 422 unless questionOption.save
-                end
-              elsif question['question_type'] == 'Open-ended'
-                answerRubric = AnswerRubric.new(rubric: question.answer, question_id: newQuestion.id)
-                render json: { error: answerRubric.errors.message }, status: 422 unless answerRubric.save
-              end
-              quizQuestion = QuizQuestion.new(quiz_id: quiz.id, question_id: newQuestion.id)
-              render json: { error: quizQuestion.errors.messages }, status: 422 unless quizQuestion.save
-            else
-              render json: { error: newQuestion.errors.messages }, status: 422
-            end
-          end
-          render json: { quiz: }
+          associate_existing_qeustions(quiz)
         else
           render json: { error: quiz.errors.messages }, status: 422
         end
@@ -64,13 +35,52 @@ module Api
       end
     end
 
-    def getQuiz
+    def associate_existing_qeustions(quiz)
+      # Create joint table associations with questions
+      params[:existing_questions].each do |id|
+        quiz_question = QuizQuestion.new(quiz_id: quiz.id, question_id: id)
+        question = Question.find_by(id:)
+        question['assigned'] = true
+        question.save
+        render json: { error: quiz_question.errors.messages }, status: 422 unless quiz_question.save
+      end
+      params[:new_questions].each do |question|
+        new_question = if params[:award]['masteryId'] == '0'
+                         Question.new(question_type: question['question_type'], question: question['question'],
+                                      marks: question['marks'], award_id: params[:award]['awardId'],
+                                      permanent: false, assigned: true)
+                       else
+                         Question.new(question_type: question['question_type'], question: question['question'],
+                                      marks: question['marks'], mastery_id: params[:award]['masteryId'],
+                                      permanent: false, assigned: true)
+                       end
+        if new_question.save
+          if question['question_type'] == 'MCQ' || question['question_type'] == 'MRQ'
+            (question['answer']).each do |option|
+              question_option = QuestionOption.new(answer: option[:option], correct: option[:correct],
+                                                   question_id: new_question.id)
+              render json: { error: question_option.errors.messages }, status: 422 unless question_option.save
+            end
+          elsif question['question_type'] == 'Open-ended'
+            answer_rubric = AnswerRubric.new(rubric: question.answer, question_id: new_question.id)
+            render json: { error: answer_rubric.errors.message }, status: 422 unless answer_rubric.save
+          end
+          quiz_question = QuizQuestion.new(quiz_id: quiz.id, question_id: new_question.id)
+          render json: { error: quiz_question.errors.messages }, status: 422 unless quiz_question.save
+        else
+          render json: { error: new_question.errors.messages }, status: 422
+        end
+      end
+      render json: { quiz: }
+    end
+
+    def quiz
       quiz = Quiz.find_by(id: params[:id])
 
       render json: quiz
     end
 
-    def getQuizzes
+    def quizzes
       quizzes = if params[:award]['masteryId'] == '0'
                   Quiz.where(award_id: params[:award]['awardId'])
                 else
@@ -80,11 +90,11 @@ module Api
       render json: quizzes
     end
 
-    def getQuestions
-      quizQuestions = QuizQuestion.where(quiz_id: params[:quiz_id]).order('id')
+    def questions
+      quiz_questions = QuizQuestion.where(quiz_id: params[:quiz_id]).order('id')
       questions = []
-      quizQuestions.each do |quizQuestion|
-        question = Question.find_by(id: quizQuestion.question_id)
+      quiz_questions.each do |quiz_question|
+        question = Question.find_by(id: quiz_question.question_id)
         questions.push(question)
       end
 
@@ -92,13 +102,13 @@ module Api
     end
 
     # This is only for submission of random questions from question bank
-    def submitQuiz; end
+    def submit_quiz; end
 
-    def deleteQuiz
+    def delete_quiz
       quiz = Quiz.find_by(id: params[:id])
-      quizQuestions = QuizQuestion.where(quiz_id: quiz.id)
-      quizQuestions.each do |quizQuestion|
-        question = Question.find_by(id: quizQuestion['question_id'])
+      quiz_questions = QuizQuestion.where(quiz_id: quiz.id)
+      quiz_questions.each do |quiz_question|
+        question = Question.find_by(id: quiz_question['question_id'])
         if question['permanent'] == false
           if question['question_type'] == 'Open-ended'
             rubric = AnswerRubric.find_by(question_id: question.id)
@@ -109,7 +119,7 @@ module Api
           end
           question.destroy
         else
-          question = Question.find_by(id: quizQuestion['question_id'])
+          question = Question.find_by(id: quiz_question['question_id'])
           quizzes = QuizQuestion.find_by(['question_id = :questionId and quiz_id != :quizId',
                                           { questionId: question.id, quizId: quiz.id }])
           if quizzes.nil?
@@ -118,7 +128,7 @@ module Api
           end
         end
       end
-      quizQuestions.destroy_all
+      quiz_questions.destroy_all
 
       if quiz.destroy
         head :no_content

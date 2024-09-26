@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 module Api
+  # The AwardTrackerController is responsible for handling functions for AttainedAward
+  # within the API, such as CRUD functions.
   class AwardTrackerController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def getAttainments
-      attainedAwards = AttainedAward.all
+    def attainments
+      attained_awards = AttainedAward.all
 
       attainments = {}
 
-      attainedAwards.each do |award|
+      attained_awards.each do |award|
         account_id = award.account_id
         award_name = Award.find_by(id: award.award_id).badge_name
         if attainments.key?(account_id)
@@ -28,51 +30,43 @@ module Api
       render json: attainments
     end
 
-    def processChanges
+    def process_changes
       params[:add].each do |values|
         award = Award.find_by(badge_name: values[:award_name])
-        if award.nil?
-          render json: 'Award does not exist'
-          return
-        end
-        attainedAward = AttainedAward.new(account_id: values[:account_id], award_id: award.id)
-        checkCopy = AttainedAward.where(account_id: values[:account_id], award_id: award.id)
+        next if award.nil?
+
+        attained_award = AttainedAward.new(account_id: values[:account_id], award_id: award.id)
+        check_copy = AttainedAward.where(account_id: values[:account_id], award_id: award.id)
         unless values[:mastery_name].nil?
           mastery = Mastery.where(award_id: award.id, mastery_name: values[:mastery_name])[0]
-          if mastery.nil?
-            render json: 'Mastery does not exist'
-            return
-          end
-          attainedAward.mastery_id = mastery.id
-          checkCopy = AttainedAward.where(account_id: values[:account_id], award_id: award.id,
-                                          mastery_id: mastery.id)
+          next if mastery.nil?
+
+          attained_award.mastery_id = mastery.id
+          check_copy = AttainedAward.where(account_id: values[:account_id], award_id: award.id,
+                                           mastery_id: mastery.id)
         end
-        attainedAward.save if checkCopy == []
+        attained_award.save if check_copy == []
       end
       params[:delete].each do |values|
         award = Award.find_by(badge_name: values[:award_name])
-        if award.nil?
-          render json: 'Award does not exist'
-          return
-        end
+        next if award.nil?
+
         if !values[:mastery_name].nil?
           mastery = Mastery.where(award_id: award.id, mastery_name: values[:mastery_name])[0]
-          if mastery.nil?
-            render json: 'Mastery does not exist'
-            return
-          end
-          attainedAward = AttainedAward.where(account_id: values[:account_id], award_id: award.id,
-                                              mastery_id: mastery.id)
+          next if mastery.nil?
+
+          attained_award = AttainedAward.where(account_id: values[:account_id], award_id: award.id,
+                                               mastery_id: mastery.id)
         else
-          attainedAward = AttainedAward.where(account_id: values[:account_id], award_id: award.id)
+          attained_award = AttainedAward.where(account_id: values[:account_id], award_id: award.id)
         end
-        attainedAward.destroy_all
+        attained_award.destroy_all
       end
-      attainedAwards = AttainedAward.all
+      attained_awards = AttainedAward.all
 
       attainments = {}
 
-      attainedAwards.each do |award|
+      attained_awards.each do |award|
         account_id = award.account_id
         award_name = Award.find_by(id: award.award_id).badge_name
         if attainments.key?(account_id)

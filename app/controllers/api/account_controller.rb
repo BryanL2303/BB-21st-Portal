@@ -1,19 +1,23 @@
 # frozen_string_literal: true
 
 module Api
+  # The AccountController is responsible for handling account related actions
+  # within the API, such as CRUD functions for users and filtered get functions.
+  #
+  # This controller should include functions that relates to the table Account
   class AccountController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request,
-                  only: %i[createAccount getAccount getAccounts getOwnAccount toggleType editAccount deleteAccount
-                           getAssignments]
+                  only: %i[create_account get_account get_accounts get_own_account toggle_type edit_account
+                           delete_account get_assignments]
 
-    def createAccount
+    def create_account
       account = Account.new(account_name: params[:account_name], password: params[:password],
                             account_type: params[:account_type], rank: params[:rank], credentials: params[:credentials])
       account['level'] = params[:level] unless params[:level].nil?
-      findAccount = Account.find_by(account_name: params[:account_name])
+      find_account = Account.find_by(account_name: params[:account_name])
 
-      if findAccount.nil?
+      if find_account.nil?
         if account.save
           render json: { account_name: account.account_name, type: account.account_type }
         else
@@ -24,7 +28,7 @@ module Api
       end
     end
 
-    def authenticateAccount
+    def authenticate_account
       account = Account.find_by(account_name: params[:account_name])
       if account.nil?
         render json: false
@@ -38,29 +42,29 @@ module Api
       end
     end
 
-    def getAccount
+    def account
       account = Account.find_by(id: params[:id])
 
       render json: account
     end
 
-    def getAccounts
+    def accounts
       accounts = Account.where(account_type: params[:account_type]).order('level').order('account_name')
 
       render json: accounts
     end
 
-    def getOwnAccount
+    def own_account
       render json: @current_user
     end
 
-    def getAccountsByIds
+    def accounts_by_ids
       accounts = Account.where(id: params[:boy_ids]).order('level').order('account_name')
 
       render json: accounts
     end
 
-    def toggleType
+    def toggle_type
       account = Account.find_by(account_type: params[:account_type])
       account.type = params[:new_type]
       if account.save
@@ -70,11 +74,11 @@ module Api
       end
     end
 
-    def editAccount
+    def edit_account
       account = Account.find_by(id: params[:id])
 
-      nameClash = Account.find_by(account_name: params[:account_name])
-      if nameClash.nil? || nameClash['id'] == account.id
+      name_clash = Account.find_by(account_name: params[:account_name])
+      if name_clash.nil? || name_clash['id'] == account.id
         account['account_name'] = params[:account_name]
         account['account_type'] = params[:account_type]
         account['password'] = params[:password] unless params[:password].nil?
@@ -88,7 +92,7 @@ module Api
       end
     end
 
-    def deleteAccount
+    def delete_account
       account = Account.find_by(account_name: params[:account_name])
 
       if account.destroy
@@ -98,8 +102,8 @@ module Api
       end
     end
 
-    def getAssignments
-      accountId = @current_user.id
+    def assignments
+      account_id = @current_user.id
 
       assignments = if params[:award]['masteryId'] == '0'
                       Assignment.where(award_id: params[:award]['awardId']).order('id')
@@ -108,8 +112,8 @@ module Api
                     end
       quizzes = []
       assignments.each do |assignment|
-        assignedAssignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id: accountId)
-        if assignedAssignments != []
+        assigned_assignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id:)
+        if assigned_assignments != []
           quiz = Quiz.find_by(id: assignment.quiz_id)
           quizzes.append(quiz)
         end
@@ -118,7 +122,7 @@ module Api
       render json: quizzes
     end
 
-    def getAccountInformation
+    def account_information
       account = Account.find_by(id: params[:id])
 
       render json: account

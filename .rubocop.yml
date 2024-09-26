@@ -1,0 +1,30 @@
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'config/*.rb'
+    - 'config/environments/*.rb'
+    - 'db/migrate/*.rb'
+    - 'db/schema.rb'
+
+Style/Documentation:
+  Exclude:
+    - 'app/*/*.rb'
+
+# Methods length/complexity is irrelevant since certain 1 off methods are highly complex
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false

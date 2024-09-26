@@ -1,58 +1,60 @@
 # frozen_string_literal: true
 
 module Api
+  # The UniformInspectionController is responsible for handling functions for UniformInspection
+  # within the API which includes SelectedComponent, such as CRUD functions.
   class UniformInspectionController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request
 
-    def createUniformInspection
-      assessorId = @current_user.id
+    def create_uniform_inspection
+      assessor_id = @current_user.id
       params[:boys].each do |boy|
-        uniformInspection = UniformInspection.new(account_id: boy['id'], assessor_id: assessorId, date: params[:date])
-        uniformInspection.save
-        totalScore = 0
+        uniform_inspection = UniformInspection.new(account_id: boy['id'], assessor_id:, date: params[:date])
+        uniform_inspection.save
+        total_score = 0
         components = UniformComponent.all.order('id')
         components.each do |component|
           fields = ComponentField.where(uniform_component_id: component.id)
           fields.each do |field|
             next unless params[:selectedContents][boy['id'].to_s][component.id.to_s][field.id.to_s]
 
-            selectedComponent = SelectedComponent.new(uniform_inspection_id: uniformInspection.id,
-                                                      component_field_id: field.id)
-            selectedComponent.save
-            totalScore += ComponentField.find_by(id: field.id).score
+            selected_component = SelectedComponent.new(uniform_inspection_id: uniform_inspection.id,
+                                                       component_field_id: field.id)
+            selected_component.save
+            total_score += ComponentField.find_by(id: field.id).score
           end
         end
-        uniformInspection.total_score = totalScore
-        uniformInspection.save
+        uniform_inspection.total_score = total_score
+        uniform_inspection.save
       end
 
       render json: true
     end
 
-    def getInspection
+    def inspection
       inspection = UniformInspection.find_by(id: params[:id])
       accounts = Account.where(account_type: 'Boy').order('id')
       boy = Account.find_by(id: inspection.account_id)
       inspections = {}
       boys = []
       accounts.each do |account|
-        accountInspections = UniformInspection.where(account_id: account.id).order('id').reverse_order
-        next unless accountInspections != []
+        account_inspections = UniformInspection.where(account_id: account.id).order('id').reverse_order
+        next unless account_inspections != []
 
         boys.push(account)
-        inspections[account.id] = { 'inspections': accountInspections }
+        inspections[account.id] = { 'inspections': account_inspections }
         inspections[account.id]['keys'] = []
-        accountInspections.each do |accountInspection|
-          selectedComponents = SelectedComponent.where(uniform_inspection_id: accountInspection.id)
-          componentIds = {}
-          selectedComponents.each do |selectedComponent|
-            componentIds[selectedComponent.component_field_id] = true
+        account_inspections.each do |account_inspection|
+          selected_components = SelectedComponent.where(uniform_inspection_id: account_inspection.id)
+          component_ids = {}
+          selected_components.each do |selected_component|
+            component_ids[selected_component.component_field_id] = true
           end
-          assessor = Account.find_by(id: accountInspection.assessor_id)
-          inspections[account.id][accountInspection.id] =
-            { selectedComponents: componentIds, inspection: accountInspection, assessor: }
-          inspections[account.id]['keys'].append(accountInspection.id)
+          assessor = Account.find_by(id: account_inspection.assessor_id)
+          inspections[account.id][account_inspection.id] =
+            { selected_components: component_ids, inspection: account_inspection, assessor: }
+          inspections[account.id]['keys'].append(account_inspection.id)
         end
       end
       data = { 'boy': boy, 'inspections': inspections, 'boys': boys }
@@ -60,7 +62,7 @@ module Api
       render json: data
     end
 
-    def getInspectionsSummary
+    def inspections_summary
       accounts = Account.where(account_type: 'Boy').order('level').order('account_name')
       data = { 'boys': accounts }
       accounts.each do |account|
@@ -72,11 +74,11 @@ module Api
       render json: data
     end
 
-    def getComponentFields
-      uniformComponents = UniformComponent.all.order('id')
+    def component_fields
+      uniform_components = UniformComponent.all.order('id')
       components = []
       data = {}
-      uniformComponents.each do |component|
+      uniform_components.each do |component|
         fields = ComponentField.where('uniform_component_id': component.id)
         components.push(component)
         data[component['component_name']] = fields
@@ -85,15 +87,16 @@ module Api
       render json: data
     end
 
-    def deleteUniformInspection
+    def delete_uniform_inspection
       assignment = Assignment.find_by(id: params[:id])
 
       assigned_accounts = AssignedAccount.where(assignment_id: params[:id])
       assigned_accounts.each do |assigned_account|
-        attemptScores = AttemptScore.where(assigned_account_id: assigned_account.id)
-        attemptScores.destroy_all
-        assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id)
-        assignmentAnswers.destroy_all
+        attempt_scores = AttemptScore.where(assigned_account_id: assigned_account.id)
+        attempt_scores.destroy_all
+        assignment_answers = AssignmentAnswer.where(account_id: assigned_account.account_id)
+                                             .where(assignment_id: assigned_account.assignment_id)
+        assignment_answers.destroy_all
       end
       assigned_accounts.destroy_all
 

@@ -145,5 +145,8 @@ Changed website title from Quiz Website to BB 21st Portal
 
 26 September 2024
 1. Run rubocop safe autocorrect to fix codestyle errors with ruby components
+2. Refactored most codestyle related warnings for backend with rubocop
+3. Added config file for rubocop to ignore set up related files and change certain conditions
+4. Added descriptions for all controller classes
 
 Version 1.0
