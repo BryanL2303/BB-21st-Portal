@@ -402,7 +402,11 @@ ManualResultPage.propTypes = {
     id: PropTypes.number.isRequired,
     account_name: PropTypes.string.isRequired,
     level: PropTypes.number.isRequired
-  }))
+  })),
+  customDescription: PropTypes.string,
+  columnContents: PropTypes.objectOf(
+    PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string))
+  )
 }
 
 export { ManualResultPage }
