@@ -143,4 +143,7 @@ Changed website title from Quiz Website to BB 21st Portal
 25 September 2024
 1. Fixing eslint caught errors, removing unused variables and adding keys to mapped elements
 
+26 September 2024
+1. Run rubocop safe autocorrect to fix codestyle errors with ruby components
+
 Version 1.0

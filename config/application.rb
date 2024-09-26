@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,11 +24,11 @@ module QuizWebsite
     config.middleware.delete ActionDispatch::Session::CookieStore
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'localhost:3000' 
+        origins 'localhost:3000'
         resource '*',
-          headers: :any,
-          methods: [:get, :post, :put, :delete, :options],
-          credentials: true  # Allow cookies
+                 headers: :any,
+                 methods: %i[get post put delete options],
+                 credentials: true # Allow cookies
       end
     end
   end

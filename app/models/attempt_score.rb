@@ -1,3 +1,3 @@
 class AttemptScore < ApplicationRecord
-	belongs_to :assigned_account
+  belongs_to :assigned_account
 end

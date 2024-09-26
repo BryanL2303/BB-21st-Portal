@@ -1,3 +1,3 @@
 class UniformComponent < ApplicationRecord
-	has_many :component_fields
+  has_many :component_fields
 end

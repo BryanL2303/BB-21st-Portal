@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root "pages#index"
+  root 'pages#index'
 
   resources :application do
     member do
@@ -20,7 +20,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :account do 
+    resources :account do
       member do
         post '/create_account' => 'account#createAccount'
         post '/authenticate_account' => 'account#authenticateAccount'
@@ -95,7 +95,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :answer_rubric do 
+    resources :answer_rubric do
       member do
         post '/create_rubric' => 'answer_rubric#createRubric'
         post '/edit_rubric' => 'answer_rubric#editRubric'
@@ -103,12 +103,12 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :quiz_question do 
+    resources :quiz_question do
       member do
       end
     end
 
-    resources :assignment do 
+    resources :assignment do
       member do
         post '/create_assignment' => 'assignment#createAssignment'
         post '/get_assignment' => 'assignment#getAssignment'
@@ -120,7 +120,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :assigned_account do 
+    resources :assigned_account do
       member do
         post '/create_assigned_account' => 'assigned_account#createAssignedAccount'
         post '/get_assigned_account' => 'assigned_account#getAssignedAccount'
@@ -132,7 +132,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :uniform_inspection do 
+    resources :uniform_inspection do
       member do
         post '/create_uniform_inspection' => 'uniform_inspection#createUniformInspection'
         post '/get_inspection' => 'uniform_inspection#getInspection'
