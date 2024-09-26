@@ -2490,7 +2490,7 @@
 
 "@react-pdf/styled-components@^1.4.0":
   version "1.4.0"
-  resolved "https://registry.npmjs.org/@react-pdf/styled-components/-/styled-components-1.4.0.tgz"
+  resolved "https://registry.yarnpkg.com/@react-pdf/styled-components/-/styled-components-1.4.0.tgz#9c31ad2c442a22045dfc4be14fce93b22f9c6311"
   integrity sha512-glOrhtMsReBfUTpBQHIJEiLH0HH287/qzixid/PFl6pWa3whDbW9eVFVAUbLwjka1I8LDoyYXfE7T2u2KhapCg==
   dependencies:
     styled-components "^3.4.10"

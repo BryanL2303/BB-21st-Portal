@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import Popup from 'reactjs-popup';
+import Popup from 'reactjs-popup'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { QuestionSelector } from './QuestionSelector'
 import { NewQuizQuestionForm } from './NewQuizQuestionForm'
@@ -57,6 +58,13 @@ const SetQuestionForm = ({number, setNumber, marks, setMarks}) => {
     </div>}
     </div>
   )
+}
+
+SetQuestionForm.propTypes = {
+  number: PropTypes.number.isRequired,
+  setNumber: PropTypes.func.isRequired,
+  marks: PropTypes.number.isRequired,
+  setMarks: PropTypes.func.isRequired,
 }
 
 export { SetQuestionForm }

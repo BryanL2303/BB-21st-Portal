@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { errorMessage } from '../general/functions';
 
@@ -195,6 +196,10 @@ const DatabaseTable = ({table_name}) => {
       </tbody>
     </table>
   )
+}
+
+DatabaseTable.propTypes = {
+  table_name: PropTypes.string.isRequired
 }
 
 export { DatabaseTable }
