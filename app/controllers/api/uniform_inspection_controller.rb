@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class UniformInspectionController < ApplicationController
     protect_from_forgery with: :null_session
@@ -5,14 +7,14 @@ module Api
 
     def createUniformInspection
       assessorId = @current_user.id
-      for boy in params[:boys]
+      params[:boys].each do |boy|
         uniformInspection = UniformInspection.new(account_id: boy['id'], assessor_id: assessorId, date: params[:date])
         uniformInspection.save
         totalScore = 0
         components = UniformComponent.all.order('id')
-        for component in components
+        components.each do |component|
           fields = ComponentField.where(uniform_component_id: component.id)
-          for field in fields
+          fields.each do |field|
             next unless params[:selectedContents][boy['id'].to_s][component.id.to_s][field.id.to_s]
 
             selectedComponent = SelectedComponent.new(uniform_inspection_id: uniformInspection.id,
@@ -34,17 +36,17 @@ module Api
       boy = Account.find_by(id: inspection.account_id)
       inspections = {}
       boys = []
-      for account in accounts
+      accounts.each do |account|
         accountInspections = UniformInspection.where(account_id: account.id).order('id').reverse_order
         next unless accountInspections != []
 
         boys.push(account)
         inspections[account.id] = { 'inspections': accountInspections }
         inspections[account.id]['keys'] = []
-        for accountInspection in accountInspections
+        accountInspections.each do |accountInspection|
           selectedComponents = SelectedComponent.where(uniform_inspection_id: accountInspection.id)
           componentIds = {}
-          for selectedComponent in selectedComponents
+          selectedComponents.each do |selectedComponent|
             componentIds[selectedComponent.component_field_id] = true
           end
           assessor = Account.find_by(id: accountInspection.assessor_id)
@@ -61,7 +63,7 @@ module Api
     def getInspectionsSummary
       accounts = Account.where(account_type: 'Boy').order('level').order('account_name')
       data = { 'boys': accounts }
-      for account in accounts
+      accounts.each do |account|
         inspection = UniformInspection.where(account_id: account.id).order('created_at')[-1]
         data[account.id] = inspection
         data[inspection.assessor_id] = Account.find_by(id: inspection.assessor_id) unless inspection.nil?
@@ -74,7 +76,7 @@ module Api
       uniformComponents = UniformComponent.all.order('id')
       components = []
       data = {}
-      for component in uniformComponents
+      uniformComponents.each do |component|
         fields = ComponentField.where('uniform_component_id': component.id)
         components.push(component)
         data[component['component_name']] = fields
@@ -87,7 +89,7 @@ module Api
       assignment = Assignment.find_by(id: params[:id])
 
       assigned_accounts = AssignedAccount.where(assignment_id: params[:id])
-      for assigned_account in assigned_accounts
+      assigned_accounts.each do |assigned_account|
         attemptScores = AttemptScore.where(assigned_account_id: assigned_account.id)
         attemptScores.destroy_all
         assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id)

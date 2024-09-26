@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUniformInspectionTables < ActiveRecord::Migration[7.0]
   def change
     create_table :uniform_components do |t|

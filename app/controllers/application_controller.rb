@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   def encode_token(payload)
     payload[:exp] = 24.hours.from_now.to_i

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class AwardTrackerController < ApplicationController
     protect_from_forgery with: :null_session
@@ -61,11 +63,10 @@ module Api
           end
           attainedAward = AttainedAward.where(account_id: values[:account_id], award_id: award.id,
                                               mastery_id: mastery.id)
-          attainedAward.destroy_all
         else
           attainedAward = AttainedAward.where(account_id: values[:account_id], award_id: award.id)
-          attainedAward.destroy_all
         end
+        attainedAward.destroy_all
       end
       attainedAwards = AttainedAward.all
 

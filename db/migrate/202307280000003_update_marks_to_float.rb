@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class UpdateMarksToFloat < ActiveRecord::Migration[7.0]
   def change
     change_table :questions do |t|

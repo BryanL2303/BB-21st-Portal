@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class AssignmentController < ApplicationController
     protect_from_forgery with: :null_session
@@ -16,7 +18,7 @@ module Api
         quiz = Quiz.find_by(id: params[:quiz_id])
         quiz['assigned'] = true
         quiz.save
-        for accountId in params[:accounts]
+        params[:accounts].each do |accountId|
           assigned_account = AssignedAccount.new(account_id: accountId, assignment_id: assignment.id, score: 0,
                                                  attempts: 0)
           assigned_account.save
@@ -32,7 +34,7 @@ module Api
         accountId = @current_user.id
         assignments = Assignment.where(quiz_id: params[:quiz_id])
         data = {}
-        for assignment in assignments
+        assignments.each do |assignment|
           assigned_account = AssignedAccount.find_by(account_id: accountId, assignment_id: assignment.id)
           next if assigned_account.nil?
 
@@ -62,7 +64,7 @@ module Api
       accountId = @current_user.id
       assignments = Assignment.where(quiz_id: params[:quiz_id])
       graded = true
-      for assignment in assignments
+      assignments.each do |assignment|
         assigned_accounts = AssignedAccount.where(assignment_id: assignment.id)
         assigned_account = assigned_accounts.find_by(account_id: accountId)
         next if assigned_account.nil?
@@ -70,7 +72,7 @@ module Api
         _
         assigned_account.attempts += 1
         marks = 0.0
-        for answer in params[:answers]
+        params[:answers].each do |answer|
           question = Question.find_by(id: answer['question_id'])
           if question.question_type == 'MCQ'
             assignmentAnswer = AssignmentAnswer.new(account_id: accountId, assignment_id: assigned_account.assignment_id,
@@ -90,11 +92,11 @@ module Api
             correctAnswers = 0
             temporary = 0.0
             options = QuestionOption.where(question_id: answer['question_id'])
-            for option in options
+            options.each do |option|
               correctAnswers += 1 if option.correct
             end
             partial = question.marks / correctAnswers
-            for optionId in answer['selected']
+            (answer['selected']).each do |optionId|
               option = QuestionOption.find_by(id: optionId)
               assignmentAnswer = AssignmentAnswer.new(account_id: accountId, assignment_id: assigned_account.assignment_id,
                                                       question_id: answer['question_id'], attempt: assigned_account.attempts, question_type: question.question_type)
@@ -110,7 +112,7 @@ module Api
             if temporary >= 0.0
               assignmentAnswers = AssignmentAnswer.where(account_id: accountId, assignment_id: assigned_account.assignment_id,
                                                          question_id: answer['question_id'])
-              for assignmentAnswer in assignmentAnswers
+              assignmentAnswers.each do |assignmentAnswer|
                 assignmentAnswer.score = temporary
                 assignmentAnswer.save
               end
@@ -149,7 +151,7 @@ module Api
 
       attemptScores = AttemptScore.where(assigned_account_id: assigned_account.id)
       highestScore = 0
-      for attemptScore in attemptScores
+      attemptScores.each do |attemptScore|
         highestScore = attemptScore.score if attemptScore.score > highestScore
       end
       assigned_account.score = highestScore
@@ -170,7 +172,7 @@ module Api
       data['assignment'] = assignment
       assigned_accounts_temp = AssignedAccount.where(assignment_id: assignment.id)
       assigned_accounts = []
-      for assigned_account in assigned_accounts_temp
+      assigned_accounts_temp.each do |assigned_account|
         account = Account.find_by(id: assigned_account.account_id)
         assigned_accounts.push(account)
       end
@@ -193,7 +195,7 @@ module Api
       assignment = Assignment.find_by(id: params[:id])
 
       assigned_accounts = AssignedAccount.where(assignment_id: params[:id])
-      for assigned_account in assigned_accounts
+      assigned_accounts.each do |assigned_account|
         attemptScores = AttemptScore.where(assigned_account_id: assigned_account.id)
         attemptScores.destroy_all
         assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id)

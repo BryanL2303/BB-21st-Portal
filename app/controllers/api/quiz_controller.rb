@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class QuizController < ApplicationController
     protect_from_forgery with: :null_session
@@ -21,17 +23,14 @@ module Api
                end
         if quiz.save
           # Create joint table associations with questions
-          for id in params[:existing_questions]
+          params[:existing_questions].each do |id|
             quizQuestion = QuizQuestion.new(quiz_id: quiz.id, question_id: id)
             question = Question.find_by(id:)
             question['assigned'] = true
             question.save
-            if quizQuestion.save
-            else
-              render json: { error: quizQuestion.errors.messages }, status: 422
-            end
+            render json: { error: quizQuestion.errors.messages }, status: 422 unless quizQuestion.save
           end
-          for question in params[:new_questions]
+          params[:new_questions].each do |question|
             if params[:award]['masteryId'] == '0'
               newQuestion = Question.new(question_type: question['question_type'], question: question['question'],
                                          marks: question['marks'], award_id: params[:award]['awardId'], permanent: false, assigned: true)
@@ -41,26 +40,17 @@ module Api
             end
             if newQuestion.save
               if question['question_type'] == 'MCQ' || question['question_type'] == 'MRQ'
-                for option in question['answer']
+                (question['answer']).each do |option|
                   questionOption = QuestionOption.new(answer: option[:option], correct: option[:correct],
                                                       question_id: newQuestion.id)
-                  if questionOption.save
-                  else
-                    render json: { error: questionOption.errors.messages }, status: 422
-                  end
+                  render json: { error: questionOption.errors.messages }, status: 422 unless questionOption.save
                 end
               elsif question['question_type'] == 'Open-ended'
                 answerRubric = AnswerRubric.new(rubric: question.answer, question_id: newQuestion.id)
-                if answerRubric.save
-                else
-                  render json: { error: answerRubric.errors.message }, status: 422
-                end
+                render json: { error: answerRubric.errors.message }, status: 422 unless answerRubric.save
               end
               quizQuestion = QuizQuestion.new(quiz_id: quiz.id, question_id: newQuestion.id)
-              if quizQuestion.save
-              else
-                render json: { error: quizQuestion.errors.messages }, status: 422
-              end
+              render json: { error: quizQuestion.errors.messages }, status: 422 unless quizQuestion.save
             else
               render json: { error: newQuestion.errors.messages }, status: 422
             end
@@ -93,7 +83,7 @@ module Api
     def getQuestions
       quizQuestions = QuizQuestion.where(quiz_id: params[:quiz_id]).order('id')
       questions = []
-      for quizQuestion in quizQuestions
+      quizQuestions.each do |quizQuestion|
         question = Question.find_by(id: quizQuestion.question_id)
         questions.push(question)
       end
@@ -107,7 +97,7 @@ module Api
     def deleteQuiz
       quiz = Quiz.find_by(id: params[:id])
       quizQuestions = QuizQuestion.where(quiz_id: quiz.id)
-      for quizQuestion in quizQuestions
+      quizQuestions.each do |quizQuestion|
         question = Question.find_by(id: quizQuestion['question_id'])
         if question['permanent'] == false
           if question['question_type'] == 'Open-ended'

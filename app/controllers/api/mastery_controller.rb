@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class MasteryController < ApplicationController
     protect_from_forgery with: :null_session

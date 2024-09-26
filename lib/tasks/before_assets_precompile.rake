@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 task before_assets_precompile: :environment do
   system('yarn')
 end

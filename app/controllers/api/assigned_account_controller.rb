@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class AssignedAccountController < ApplicationController
     protect_from_forgery with: :null_session
@@ -24,7 +26,7 @@ module Api
       accountId = @current_user.id
       assigned_accounts = AssignedAccount.where(account_id: accountId)
       assignments = Assignment.where(quiz_id: params[:quiz_id])
-      for assignment in assignments
+      assignments.each do |assignment|
         assigned_account = assigned_accounts.find_by(assignment_id: assignment.id)
         unless assigned_account.nil?
           render json: assigned_account
@@ -67,13 +69,13 @@ module Api
 
       data['questions'] = []
       assignmentAnswers = AssignmentAnswer.where(account_id: assigned_account.account_id).where(assignment_id: assigned_account.assignment_id).where(attempt: params[:attempt])
-      for quizQuestion in quizQuestions
+      quizQuestions.each do |quizQuestion|
         answer = {}
         question = Question.find_by(id: quizQuestion.question_id)
         if question.question_type != 'Open-ended'
           rubric = QuestionOption.where(question_id: question.id).order('id')
           answer = []
-          for option in rubric
+          rubric.each do |option|
             assignmentAnswer = assignmentAnswers.where(question_id: question.id).find_by(question_option_id: option.id)
             answer.push({ "rubric": option, "answer": assignmentAnswer })
           end

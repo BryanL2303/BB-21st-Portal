@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RenameColumns < ActiveRecord::Migration[7.0]
   def change
     change_table :accounts do |t|

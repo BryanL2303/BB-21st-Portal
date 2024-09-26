@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class AwardController < ApplicationController
     protect_from_forgery with: :null_session
@@ -51,7 +53,7 @@ module Api
     def getAwards
       awards = Award.all.order('id')
       masteries = []
-      for award in awards
+      awards.each do |award|
         mastery = Mastery.where(award_id: award.id).order('id')
         masteries.push(mastery)
       end

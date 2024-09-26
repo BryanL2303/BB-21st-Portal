@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Mastery < ApplicationRecord
   belongs_to :award
   has_many :questions

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SwitchTopicToAward < ActiveRecord::Migration[7.0]
   def change
     change_table :quizzes do |t|

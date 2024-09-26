@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   class AccountController < ApplicationController
     protect_from_forgery with: :null_session
@@ -105,7 +107,7 @@ module Api
                       Assignment.where(mastery_id: params[:award]['masteryId']).order('id')
                     end
       quizzes = []
-      for assignment in assignments
+      assignments.each do |assignment|
         assignedAssignments = AssignedAccount.where(assignment_id: assignment.id).where(account_id: accountId)
         if assignedAssignments != []
           quiz = Quiz.find_by(id: assignment.quiz_id)

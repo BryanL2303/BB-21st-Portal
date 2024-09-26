@@ -1,14 +1,10 @@
+# frozen_string_literal: true
+
 # This is a record, cannot be run since it will affect other tables entries
 
-CustomColumn.all.each do |custom_column|
-  custom_column.destroy
-end
-Mastery.all.each do |mastery|
-  mastery.destroy
-end
-Award.all.each do |award|
-  award.destroy
-end
+CustomColumn.all.each(&:destroy)
+Mastery.all.each(&:destroy)
+Award.all.each(&:destroy)
 
 award = Award.new(badge_name: 'Target', recommended_level: '1', has_mastery: 0, custom_description: 0, has_custom_columns: 0, has_results: true, has_pass: 0,
                   badge_requirements:
@@ -471,12 +467,8 @@ mastery = Mastery.new(award_id: award.id, mastery_name: 'Advanced', recommended_
 'Attained at least Swimsafer Gold (Level 6).')
 mastery.save
 
-ComponentField.all.each do |field|
-  field.destroy
-end
-UniformComponent.all.each do |component|
-  component.destroy
-end
+ComponentField.all.each(&:destroy)
+UniformComponent.all.each(&:destroy)
 
 # Creating administrator account for instantiation of website
 # administratorAccount = Account.new(password: "manager", account_name: "Administrator",

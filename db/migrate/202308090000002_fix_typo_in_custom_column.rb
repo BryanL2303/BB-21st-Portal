@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FixTypoInCustomColumn < ActiveRecord::Migration[7.0]
   def change
     change_table :custom_columns do |t|
