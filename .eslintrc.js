@@ -5,7 +5,14 @@ module.exports = {
     },
   },
   env: {
-    jest: true,  // Enables Jest global variables like 'test' and 'expect'
+    browser: true, // If your code runs in a browser
+    es6: true,     // Enable ES6 features
+    jest: true,    // Enables Jest global variables like 'test' and 'expect'
   },
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended', // React plugin
+    'plugin:jest/recommended',   // Recommended rules for Jest
+  ],
   // Other ESLint configuration...
 };
