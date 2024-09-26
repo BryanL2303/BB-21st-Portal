@@ -74,9 +74,11 @@ QuestionGradingDisplay.propTypes = {
       rubric: PropTypes.arrayOf(PropTypes.shape({
         rubric: PropTypes.string.isRequired
       })),
-      answer: PropTypes.arrayOf(propTypes.shape({
+      answer: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number.isRequired,
         answer: PropTypes.string.isRequired,
-        score: PropTypes.number.isRequired
+        score: PropTypes.number.isRequired,
+        comments: PropTypes.string.isRequired
       }))
     })
   })

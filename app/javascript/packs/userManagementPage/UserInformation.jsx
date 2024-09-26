@@ -170,7 +170,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 
 UserInformation.propTypes ={
   userId: PropTypes.number.isRequired,
-  showform: PropTypes.func.isRequired,
+  showForm: PropTypes.func.isRequired,
   reLoad: PropTypes.func.isRequired
 }
 

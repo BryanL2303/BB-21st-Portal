@@ -396,6 +396,12 @@ ManualResultPage.propTypes = {
     id: PropTypes.number.isRequired,
     account_name: PropTypes.string.isRequired,
     level: PropTypes.number.isRequired
+  })),
+  instructorId: PropTypes.number.isRequired,
+  boys: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account_name: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired
   }))
 }
 
