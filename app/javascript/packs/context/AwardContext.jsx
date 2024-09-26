@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import Cookies from 'universal-cookie'
 
 export const AwardContext = createContext([[], function(){}])
@@ -24,3 +25,7 @@ export const AwardProvider = props => {
 		</AwardContext.Provider>
 	)
 }
+
+AwardProvider.propTypes = {
+	children: PropTypes.node.isRequired, // Specify that children is required
+};

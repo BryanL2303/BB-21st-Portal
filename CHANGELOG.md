@@ -148,5 +148,6 @@ Changed website title from Quiz Website to BB 21st Portal
 2. Refactored most codestyle related warnings for backend with rubocop
 3. Added config file for rubocop to ignore set up related files and change certain conditions
 4. Added descriptions for all controller classes
+5. Added PropTypes to all relevant jsx files
 
 Version 1.0

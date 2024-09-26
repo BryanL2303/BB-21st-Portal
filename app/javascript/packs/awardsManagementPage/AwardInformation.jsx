@@ -124,7 +124,7 @@ const AwardInformation = ({awardId}) => {
   )
 }
 
-AwardInformation.propType = {
+AwardInformation.propTypes = {
   awardId: PropTypes.number.isRequired
 }
 

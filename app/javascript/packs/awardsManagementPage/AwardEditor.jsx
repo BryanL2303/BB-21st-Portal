@@ -215,7 +215,7 @@ const AwardEditor = ({awardId}) => {
   )
 }
 
-AwardEditor.propType = {
+AwardEditor.propTypes = {
   awardId: PropTypes.number.isRequired
 }
 
