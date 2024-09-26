@@ -215,8 +215,8 @@ const AwardEditor = ({awardId}) => {
   )
 }
 
-AwardEditor.propType = PropType.shape({
+AwardEditor.propType = {
   awardId: PropType.number.isRequired
-})
+}
 
 export { AwardEditor }

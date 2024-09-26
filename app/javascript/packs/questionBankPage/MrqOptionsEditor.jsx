@@ -130,7 +130,7 @@ const MrqOptionsEditor = ({ question }) => {
   )
 }
 
-MrqOptionsEditor.propTypes = PropTypes.shape({
+MrqOptionsEditor.propTypes = {
   question: PropTypes.shape({
     id: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
@@ -138,6 +138,6 @@ MrqOptionsEditor.propTypes = PropTypes.shape({
     marks: PropTypes.number.isRequired,
     assigned: PropTypes.bool.isRequired
   })
-})
+}
 
 export { MrqOptionsEditor }

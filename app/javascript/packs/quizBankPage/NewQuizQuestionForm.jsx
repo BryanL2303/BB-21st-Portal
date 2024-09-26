@@ -43,10 +43,10 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
   )
 }
 
-NewQuizQuestionForm.propTypes = PropTypes.shape({
+NewQuizQuestionForm.propTypes = {
   type: PropTypes.string.isRequired,
   marks: PropTypes.number.isRequired,
   setMarks: PropTypes.func.isRequired
-})
+}
 
 export { NewQuizQuestionForm }

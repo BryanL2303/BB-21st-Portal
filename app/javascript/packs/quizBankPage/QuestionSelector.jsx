@@ -44,10 +44,10 @@ const QuestionSelector = ({type, marks, setMarks}) => {
   )
 }
 
-QuestionSelector.propTypes = PropTypes.shape({
+QuestionSelector.propTypes = {
   type: PropTypes.string.isRequired,
   marks: PropTypes.number.isRequired,
   setMarks: PropTypes.func.isRequired
-})
+}
 
 export { QuestionSelector }

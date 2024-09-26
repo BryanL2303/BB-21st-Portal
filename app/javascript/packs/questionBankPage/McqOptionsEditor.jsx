@@ -133,7 +133,7 @@ const McqOptionsEditor = ({ question }) => {
   )
 }
 
-McqOptionsEditor.propTypes = PropTypes.shape({
+McqOptionsEditor.propTypes = {
   question: PropTypes.shape({
     id: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
@@ -141,6 +141,6 @@ McqOptionsEditor.propTypes = PropTypes.shape({
     marks: PropTypes.number.isRequired,
     assigned: PropTypes.bool.isRequired
   })
-})
+}
 
 export { McqOptionsEditor }

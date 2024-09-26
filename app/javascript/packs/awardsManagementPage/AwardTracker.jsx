@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import * as xlsx from 'xlsx';
 
@@ -435,6 +436,10 @@ const AwardTracker = () => {
       })}
     </div>
   )
+}
+
+AwardTracker.propTypes = {
+  award_name: PropTypes.string
 }
 
 export { AwardTracker }

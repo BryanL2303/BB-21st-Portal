@@ -64,8 +64,8 @@ const QuestionDisplay = ({questionId}) => {
   )
 }
 
-QuestionDisplay.propTypes = PropTypes.shape({
+QuestionDisplay.propTypes = {
   questionId: PropTypes.number.isRequired
-})
+}
 
 export { QuestionDisplay }

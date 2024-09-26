@@ -379,7 +379,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
   )
 }
 
-ManualResultPage.propTypes = PropTypes.shape({
+ManualResultPage.propTypes = {
   award: PropTypes.shape({
     badge_name: PropTypes.string.isRequired,
     results_description: PropTypes.string.isRequired
@@ -397,6 +397,6 @@ ManualResultPage.propTypes = PropTypes.shape({
     account_name: PropTypes.string.isRequired,
     level: PropTypes.number.isRequired
   }))
-})
+}
 
 export { ManualResultPage }

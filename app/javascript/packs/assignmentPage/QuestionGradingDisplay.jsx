@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*To display the currently selected question for the test

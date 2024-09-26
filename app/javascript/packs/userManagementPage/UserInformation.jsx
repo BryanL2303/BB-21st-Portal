@@ -168,10 +168,10 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   )
 }
 
-UserInformation.propTypes = PropTypes.shape({
+UserInformation.propTypes ={
   userId: PropTypes.number.isRequired,
   showform: PropTypes.func.isRequired,
   reLoad: PropTypes.func.isRequired
-})
+}
 
 export { UserInformation }

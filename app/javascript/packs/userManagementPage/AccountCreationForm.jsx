@@ -136,8 +136,8 @@ const AccountCreationForm = ({reLoad}) => {
   )
 }
 
-AccountCreationForm.propTypes = PropTypes.shape({
+AccountCreationForm.propTypes = {
   reLoad: PropTypes.func.isRequired
-})
+}
 
 export { AccountCreationForm }

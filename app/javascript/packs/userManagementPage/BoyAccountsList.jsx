@@ -42,8 +42,8 @@ const BoyAccountsList = ({setPageState}) => {
   )
 }
 
-BoyAccountsList.propTypes = PropTypes.shape({
+BoyAccountsList.propTypes = {
   setPageState: PropTypes.func.isRequired
-})
+}
 
 export { BoyAccountsList }

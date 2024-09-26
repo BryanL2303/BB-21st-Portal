@@ -97,7 +97,7 @@ const OpenEndedRubricEditor = ({ question }) => {
   )
 }
 
-OpenEndedRubricEditor.propTypes = PropTypes.shape({
+OpenEndedRubricEditor.propTypes = {
   question: PropTypes.shape({
     id: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
@@ -105,6 +105,6 @@ OpenEndedRubricEditor.propTypes = PropTypes.shape({
     marks: PropTypes.number.isRequired,
     assigned: PropTypes.bool.isRequired
   })
-})
+}
 
 export { OpenEndedRubricEditor }

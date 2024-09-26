@@ -42,8 +42,8 @@ const PrimerAccountsList = ({setPageState}) => {
   )
 }
 
-PrimerAccountsList.propTypes = PropTypes.shape({
+PrimerAccountsList.propTypes = {
   setPageState: PropTypes.func.isRequired
-})
+}
 
 export { PrimerAccountsList }

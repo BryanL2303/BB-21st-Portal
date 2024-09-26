@@ -12,11 +12,11 @@ const AccountSelector = ({account}) => {
   )
 }
 
-AccountSelector.propTypes = PropTypes.shape({
+AccountSelector.propTypes = {
   account: PropTypes.shape({
     id: PropTypes.number.isRequired,
     account_name: PropTypes.string.isRequired
   })
-})
+}
 
 export { AccountSelector }

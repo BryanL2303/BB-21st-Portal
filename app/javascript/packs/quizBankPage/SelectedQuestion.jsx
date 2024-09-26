@@ -76,12 +76,12 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
   )
 }
 
-SelectedQuestion.propTypes = PropTypes.shape({
+SelectedQuestion.propTypes = {
   questionId: PropTypes.number.isRequired,
   setQuestionId: PropTypes.func.isRequired,
   setSelected: PropTypes.func.isRequired,
   marks: PropTypes.number.isRequired,
   setMarks: PropTypes.func.isRequired
-})
+}
 
 export { SelectedQuestion }

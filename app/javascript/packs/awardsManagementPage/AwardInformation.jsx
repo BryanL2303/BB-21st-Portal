@@ -124,8 +124,8 @@ const AwardInformation = ({awardId}) => {
   )
 }
 
-AwardInformation.propType = PropType.shape({
+AwardInformation.propType = {
   awardId: PropType.number.isRequired
-})
+}
 
 export { AwardInformation }

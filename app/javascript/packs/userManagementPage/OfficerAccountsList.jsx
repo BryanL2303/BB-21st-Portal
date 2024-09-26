@@ -42,8 +42,8 @@ const OfficerAccountsList = ({setPageState}) => {
   )
 }
 
-OfficerAccountsList.propTypes = PropTypes.shape({
+OfficerAccountsList.propTypes = {
   setPageState: PropTypes.func.isRequired
-})
+}
 
 export { OfficerAccountsList }
