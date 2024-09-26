@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*To display the currently selected question for the test
@@ -24,6 +25,13 @@ const AccountResultDisplay = ({assignedAccount}) => {
       {assignedAccount != null && <td className="score">{assignedAccount.score}</td>}
     </tr>
   )
+}
+
+AccountResultDisplay.propTypes = {
+  assignedAccount: PropTypes.shape({
+    account_id: PropTypes.number.isRequired,
+    score: PropTypes.number.isRequired
+  })
 }
 
 export { AccountResultDisplay }

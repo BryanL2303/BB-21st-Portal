@@ -7,7 +7,7 @@ import {SetQuestionForm} from './SetQuestionForm'
 /*To create new quizzes and add them into the quiz bank
 */
 const QuizCreationPage = () => {
-  const [awardId, _] = useContext(AwardContext)
+  const [awardId] = useContext(AwardContext)
   const [award, setAward] = useState();
   const [number, setNumber] = useState(1);
   const [marks, setMarks] = useState(0);

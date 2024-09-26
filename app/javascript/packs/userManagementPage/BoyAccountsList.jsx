@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*Display list of Boy Accounts
@@ -40,5 +41,9 @@ const BoyAccountsList = ({setPageState}) => {
     </div>
   )
 }
+
+BoyAccountsList.propTypes = PropTypes.shape({
+  setPageState: PropTypes.func.isRequired
+})
 
 export { BoyAccountsList }

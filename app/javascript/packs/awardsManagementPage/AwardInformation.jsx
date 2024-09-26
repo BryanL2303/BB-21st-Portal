@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import PropType from 'prop-types'
 import axios from 'axios'
 
 /*To view awards information and delete award accounts
@@ -122,5 +123,9 @@ const AwardInformation = ({awardId}) => {
     </div>
   )
 }
+
+AwardInformation.propType = PropType.shape({
+  awardId: PropType.number.isRequired
+})
 
 export { AwardInformation }

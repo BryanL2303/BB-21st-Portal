@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*To display the currently selected question for the test
@@ -62,5 +63,9 @@ const QuestionDisplay = ({questionId}) => {
     </div>
   )
 }
+
+QuestionDisplay.propTypes = PropTypes.shape({
+  questionId: PropTypes.number.isRequired
+})
 
 export { QuestionDisplay }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { McqOptionsForm } from '../questionBankPage/McqOptionsForm'
 import { MrqOptionsForm } from '../questionBankPage/MrqOptionsForm'
@@ -41,5 +42,11 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
     </div>
   )
 }
+
+NewQuizQuestionForm.propTypes = PropTypes.shape({
+  type: PropTypes.string.isRequired,
+  marks: PropTypes.number.isRequired,
+  setMarks: PropTypes.func.isRequired
+})
 
 export { NewQuizQuestionForm }

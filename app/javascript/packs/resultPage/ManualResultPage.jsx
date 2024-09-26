@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*For officers/primers to generate results
@@ -260,7 +261,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
               <HeaderText>
                 <HeaderLogoColumn>
                   <HeaderLogoRow>
-                    <Text style={{fontFamily: 'Times-Bold'}}>THE BOYS'BRIGADE</Text>
+                    <Text style={{fontFamily: 'Times-Bold'}}>THE BOYS&apos; BRIGADE</Text>
                   </HeaderLogoRow>
                   <HeaderLogoRow>
                     <Text style={{fontFamily: 'Times-Bold'}}>21st SINGAPORE COMPANY</Text>
@@ -358,7 +359,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
 
           <SignatureBlock></SignatureBlock>
           <CredentialsColumn>
-            <Text>Chief Instructor/Assessor's Signature</Text>
+            <Text>Chief Instructor/Assessor&apos;s Signature</Text>
             <Text>Name: {instructor.account_name}</Text>
             <Text>Credentials: {instructor.credentials}, BB 21st Singapore Company</Text>
           </CredentialsColumn>
@@ -377,5 +378,25 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
   </div>
   )
 }
+
+ManualResultPage.propTypes = PropTypes.shape({
+  award: PropTypes.shape({
+    badge_name: PropTypes.string.isRequired,
+    results_description: PropTypes.string.isRequired
+  }),
+  mastery: PropTypes.shape({
+    mastery_name: PropTypes.string.isRequired,
+    results_description: PropTypes.string.isRequired
+  }),
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    column_title: PropTypes.string.isRequired
+  })),
+  boy: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account_name: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired
+  }))
+})
 
 export { ManualResultPage }

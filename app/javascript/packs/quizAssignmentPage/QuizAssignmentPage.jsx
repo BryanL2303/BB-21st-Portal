@@ -8,7 +8,7 @@ import {AccountSelector} from './AccountSelector'
 /*To assign quiz to boys
 */
 const QuizAssignmentPage = () => {
-  const [award, _] = useContext(AwardContext)
+  const [award] = useContext(AwardContext)
   const [quiz, setQuiz] = useState()
   const [accounts, setAccounts] = useState([])
   const { id } = useParams()

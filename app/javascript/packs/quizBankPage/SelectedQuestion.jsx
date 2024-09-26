@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*To display the currently selected question from the question bank
@@ -74,5 +75,13 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
     </div>
   )
 }
+
+SelectedQuestion.propTypes = PropTypes.shape({
+  questionId: PropTypes.number.isRequired,
+  setQuestionId: PropTypes.func.isRequired,
+  setSelected: PropTypes.func.isRequired,
+  marks: PropTypes.number.isRequired,
+  setMarks: PropTypes.func.isRequired
+})
 
 export { SelectedQuestion }

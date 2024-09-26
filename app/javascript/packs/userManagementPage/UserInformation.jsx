@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
+import PropTypes from 'prop-types'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
@@ -166,5 +167,11 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     </div>
   )
 }
+
+UserInformation.propTypes = PropTypes.shape({
+  userId: PropTypes.number.isRequired,
+  showform: PropTypes.func.isRequired,
+  reLoad: PropTypes.func.isRequired
+})
 
 export { UserInformation }

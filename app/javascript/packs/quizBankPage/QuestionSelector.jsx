@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import { SelectedQuestion } from './SelectedQuestion.jsx'
@@ -6,7 +7,7 @@ import { SelectedQuestion } from './SelectedQuestion.jsx'
 /*To access questions from question bank and add them into the quiz
 */
 const QuestionSelector = ({type, marks, setMarks}) => {
-  const [award, _] = useContext(AwardContext)
+  const [award] = useContext(AwardContext)
   const [selected, setSelected] = useState(false)
   const [questions, setQuestions] = useState([])
   const [questionId, setQuestionId] = useState()
@@ -42,5 +43,11 @@ const QuestionSelector = ({type, marks, setMarks}) => {
     </div>
   )
 }
+
+QuestionSelector.propTypes = PropTypes.shape({
+  type: PropTypes.string.isRequired,
+  marks: PropTypes.number.isRequired,
+  setMarks: PropTypes.func.isRequired
+})
 
 export { QuestionSelector }

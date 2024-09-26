@@ -4,6 +4,6 @@ module.exports = {
       version: 'detect', // Automatically picks the version you have installed
     },
   },
-  ignorePatterns: ['__test__/**'], // This will ignore all files in the __test__ folder
+  ignorePatterns: ['__tests__/**'], // This will ignore all files in the __test__ folder
   // Other ESLint configuration...
 };

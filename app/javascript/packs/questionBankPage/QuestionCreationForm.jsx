@@ -9,7 +9,7 @@ import { OpenEndedForm } from './OpenEndedForm'
 /*To create new questions and add them into the question bank
 */
 const QuestionCreationForm = () => {
-  const [award, _] = useContext(AwardContext)
+  const [award] = useContext(AwardContext)
   const [type, setType] = new useState("")
 
   //If there is no ongoing session go back to log in page

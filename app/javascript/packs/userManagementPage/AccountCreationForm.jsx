@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
+import PropTypes from 'prop-types'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
@@ -134,5 +135,9 @@ const AccountCreationForm = ({reLoad}) => {
     </form>
   )
 }
+
+AccountCreationForm.propTypes = PropTypes.shape({
+  reLoad: PropTypes.func.isRequired
+})
 
 export { AccountCreationForm }

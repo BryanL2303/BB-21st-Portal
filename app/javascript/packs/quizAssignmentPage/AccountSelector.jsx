@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 /*To display the currently selected question for the test
 */
@@ -10,5 +11,12 @@ const AccountSelector = ({account}) => {
     </div>
   )
 }
+
+AccountSelector.propTypes = PropTypes.shape({
+  account: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account_name: PropTypes.string.isRequired
+  })
+})
 
 export { AccountSelector }

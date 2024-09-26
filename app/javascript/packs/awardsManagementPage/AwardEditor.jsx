@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
+import PropType from 'prop-types'
 import axios from 'axios'
 
 /*To edit awards information and delete award only accessible by the Administrator
@@ -213,5 +214,9 @@ const AwardEditor = ({awardId}) => {
     </div>
   )
 }
+
+AwardEditor.propType = PropType.shape({
+  awardId: PropType.number.isRequired
+})
 
 export { AwardEditor }

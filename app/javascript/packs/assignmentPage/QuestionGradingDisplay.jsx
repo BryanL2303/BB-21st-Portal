@@ -62,4 +62,23 @@ const QuestionGradingDisplay = ({question}) => {
   )
 }
 
+QuestionGradingDisplay.propTypes = {
+  question: PropTypes.shape({
+    question: PropTypes.shape({
+      question_type: PropTypes.string.isRequired,
+      question: PropTypes.string.isRequired,
+      marks: PropTypes.number.isRequired
+    }),
+    answer: PropTypes.shape({
+      rubric: PropTypes.arrayOf(PropTypes.shape({
+        rubric: PropTypes.string.isRequired
+      })),
+      answer: PropTypes.arrayOf(propTypes.shape({
+        answer: PropTypes.string.isRequired,
+        score: PropTypes.number.isRequired
+      }))
+    })
+  })
+}
+
 export { QuestionGradingDisplay }

@@ -6,7 +6,7 @@ import { errorMessage } from '../general/functions'
 /*To access quizes and create new ones
 */
 const AwardList = () => {
-  const [_, setAward] = useContext(AwardContext)
+  const [, setAward] = useContext(AwardContext)
   const [awards, setAwards] = useState([])
 
   useEffect(() => {

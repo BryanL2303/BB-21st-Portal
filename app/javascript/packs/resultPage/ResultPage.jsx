@@ -273,7 +273,7 @@ const ResultPage = () => {
                 <HeaderText>
                   <HeaderLogoColumn>
                     <HeaderLogoRow>
-                      <Text style={{fontFamily: "Times-Bold"}}>THE BOYS' BRIGADE</Text>
+                      <Text style={{fontFamily: "Times-Bold"}}>THE BOYS&apos; BRIGADE</Text>
                     </HeaderLogoRow>
                     <HeaderLogoRow>
                       <Text style={{fontFamily: "Times-Bold"}}>21st SINGAPORE COMPANY</Text>
@@ -356,7 +356,7 @@ const ResultPage = () => {
 
             <SignatureBlock></SignatureBlock>
             <CredentialsColumn>
-              <Text>Chief Instructor/Assessor's Signature</Text>
+              <Text>Chief Instructor/Assessor&apos;s Signature</Text>
               <Text>Name: {account.rank} {account.account_name}</Text>
               <Text>Credentials: {account.credentials}, BB 21st Singapore Company</Text>
             </CredentialsColumn>

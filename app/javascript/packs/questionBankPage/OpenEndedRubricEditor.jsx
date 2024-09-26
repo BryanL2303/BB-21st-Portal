@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 
 /*To edit existing questions and update the database
@@ -95,5 +96,15 @@ const OpenEndedRubricEditor = ({ question }) => {
     </div>
   )
 }
+
+OpenEndedRubricEditor.propTypes = PropTypes.shape({
+  question: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    question: PropTypes.string.isRequired,
+    permanent: PropTypes.bool.isRequired,
+    marks: PropTypes.number.isRequired,
+    assigned: PropTypes.bool.isRequired
+  })
+})
 
 export { OpenEndedRubricEditor }
