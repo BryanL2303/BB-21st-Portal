@@ -61,6 +61,6 @@ jobs:
         bundle exec rails db:create db:migrate RAILS_ENV=test
         RAILS_ENV=test bundle exec rspec
 
-    # - name: Run React tests
-    #   run: |
-    #     yarn test -- --ci --coverage
+    - name: Run React tests
+      run: |
+        yarn test --ci

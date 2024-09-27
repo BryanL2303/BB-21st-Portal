@@ -150,4 +150,10 @@ Changed website title from Quiz Website to BB 21st Portal
 4. Added descriptions for all controller classes
 5. Added PropTypes to all relevant jsx files
 
+27 September 2024
+1. Update devDependencies for jest testing
+2. Create unit tests for 2 elements for testing
+3. Enabled CI to run jest tests
+4. Added jest settings file
+
 Version 1.0
