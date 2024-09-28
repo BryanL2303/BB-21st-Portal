@@ -8,7 +8,7 @@ export default [
     files: ["**/*.{js,mjs,cjs,jsx}"],
     ignores: [
       "node_modules/",  // Ignore the node_modules directory
-      "**/*.test.js",      // Ignore test files
+      "**/**/*.test.js",      // Ignore test files
     ],
     languageOptions: { 
       globals: { 
