@@ -6,6 +6,10 @@ import pluginReact from "eslint-plugin-react";
 export default [
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
+    ignores: [
+      "node_modules/",  // Ignore the node_modules directory
+      "*.test.js",      // Ignore test files
+    ],
     languageOptions: { 
       globals: { 
         ...globals.browser, // Browser globals

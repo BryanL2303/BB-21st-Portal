@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import React from 'react'
 import { render, screen } from '@testing-library/react';
 import { LogInPage } from '../../app/javascript/packs/logInPage/LogInPage'
