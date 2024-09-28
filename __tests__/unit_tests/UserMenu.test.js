@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UserMenu } from '../../app/javascript/packs/general/UserMenu';
