@@ -40,7 +40,8 @@ const BoyAccountsList = ({ setPageState, load }) => {
 }
 
 BoyAccountsList.propTypes = {
-  setPageState: PropTypes.func.isRequired
+  setPageState: PropTypes.func.isRequired,
+  load: PropTypes.func.isRequired
 }
 
 export { BoyAccountsList }

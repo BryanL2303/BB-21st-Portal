@@ -40,7 +40,8 @@ const PrimerAccountsList = ({ setPageState, load }) => {
 }
 
 PrimerAccountsList.propTypes = {
-  setPageState: PropTypes.func.isRequired
+  setPageState: PropTypes.func.isRequired,
+  load: PropTypes.func.isRequired
 }
 
 export { PrimerAccountsList }
