@@ -41,7 +41,7 @@ const OfficerAccountsList = ({ setPageState, load }) => {
 
 OfficerAccountsList.propTypes = {
   setPageState: PropTypes.func.isRequired,
-  load: PropTypes.func.isRequired
+  load: PropTypes.bool.isRequired
 }
 
 export { OfficerAccountsList }
