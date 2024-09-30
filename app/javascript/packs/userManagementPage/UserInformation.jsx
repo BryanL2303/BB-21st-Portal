@@ -3,9 +3,9 @@ import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
-/*To view users information and delete user accounts
-*/
+// To view users information and delete user accounts
 const UserInformation = ({userId, showForm, reLoad}) => {
   const cookies = new Cookies()
   const [account, setAccount] = useState();
@@ -13,18 +13,17 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [accountLevel, setAccountLevel] = useState();
 
   useEffect(() => {
-    setAccount()
     axios.post('/api/account/' + userId + '/get_account_information', {
       'id': userId
     }, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       setAccount(resp.data)
       setAccountRank(resp.data.rank)
       setAccountLevel(resp.data.level)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [userId])
 
   function setRank(e) {
@@ -44,55 +43,42 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     let level = null
     let credentials = null
     let submit = true
-    let extra = 2
     let password = null
     if (cookies.get('Type') == 'Admin') {
-      extra = 3
-      password = e.target[2].value
-      if (password == '') {
-        submit = false
-      }
+      password = e.target.elements['password'].value
+      if (password == '') submit = false
     }
     if (account.account_type == "Boy") {
       level = accountLevel
-      if (isNaN(parseInt(level))) {
-        submit = false
-      }
+      if (isNaN(parseInt(level))) submit = false
     } else {
-      credentials = e.target[extra].value
-      if (credentials == '') {
-        submit = false
-      }
+      credentials = e.target.elements['credentials'].value
+      if (credentials == '') submit = false
     }
-    if (e.target[0].value == '' || e.target[1].value == '') {
-      submit = false
-    }
+    if (e.target.elements['account_name'].value == '') submit = false
+    
     if (submit) {
       axios.post('/api/account/' + account.id + '/edit_account', {
         id: account.id,
-        account_name: e.target[0].value,
+        account_name: e.target.elements['account_name'].value,
         password: password,
-        account_type: e.target[1].value,
+        account_type: e.target.elements['account_type'].value,
         rank: accountRank,
         level: level,
         credentials: credentials
       }, {
-        withCredentials: true  // Include credentials (cookies)
+        withCredentials: true
       })
       .then(resp => {
         if (resp.data != false) {
           alert("Account has been updated. If the change does not register please refresh the page to update user list")
           reLoad()
         }
-        else{
-          alert("Failed to update")
-        }
+        else alert("Failed to update")
       })
-      .catch(error => {console.log(error)})      
+      .catch(resp => handleServerError(resp.response.status))      
     }
-    else {
-      alert("Please fill in all fields first")
-    }
+    else alert("Please fill in all fields first")
   }
 
   function deleteAccount(e) {
@@ -100,12 +86,12 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     axios.post('/api/account/0/delete_account', {
       account_name: account.account_name
     }, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       if (resp.data != false) {
         // This means that the deletion failed
-        //Reload the users list on the side and reset back to account creation form
+        // Reload the users list on the side and reset back to account creation form
         showForm()
       }
       else{
@@ -115,7 +101,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         reLoad()
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(
@@ -143,13 +129,13 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         </Popup>}
         <br/>
         <label>Name: </label>
-        <input className='edit-field' defaultValue={account.account_name}></input>
+        <input className='edit-field' name={"account_name"} defaultValue={account.account_name}></input>
         <br/>
         <label>Account Type: </label>
-        <input className='edit-field' defaultValue={account.account_type} disabled></input>
+        <input className='edit-field' name={"account_type"} defaultValue={account.account_type} disabled></input>
         <br/>
         {cookies.get("Type") == 'Admin' && <label>Password: </label>}
-        {cookies.get("Type") == 'Admin' && <input className='edit-field' defaultValue={account.password}></input>}
+        {cookies.get("Type") == 'Admin' && <input name={"password"} className='edit-field' defaultValue={account.password}></input>}
         <br/>
         {account.account_type == "Boy" && <label>Sec </label>}
         {account.account_type == "Boy" && <Popup className='account-level-popup' trigger={<label className='create-account-form__level'>{account.level}</label>} position="bottom">
@@ -160,7 +146,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='1' onClick={setLevel}>1</p>
         </Popup>}
         {account.account_type != "Boy" && <label>Credentials (For 32A results): </label>}
-        {account.account_type != "Boy" && <input defaultValue={account.credentials}></input>}
+        {account.account_type != "Boy" && <input name={"credentials"} defaultValue={account.credentials}></input>}
         <button className="edit-button">Save Changes</button>
       </form>}
       <button className="delete-button" onClick={deleteAccount}>Delete Account</button>

@@ -48,7 +48,7 @@ module Api
       render json: account
     end
 
-    def accounts
+    def accounts_by_type
       accounts = Account.where(account_type: params[:account_type]).order('level').order('account_name')
 
       render json: accounts

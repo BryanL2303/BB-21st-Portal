@@ -27,7 +27,7 @@ Rails.application.routes.draw do
         post '/create_account' => 'account#create_account'
         post '/authenticate_account' => 'account#authenticate_account'
         post '/get_account' => 'account#account'
-        post '/get_accounts' => 'account#accounts'
+        post '/get_accounts_by_type' => 'account#accounts_by_type'
         post '/get_own_account' => 'account#own_account'
         post '/get_accounts_by_ids' => 'account#accounts_by_ids'
         post '/toggle_type' => 'account#toggle_type'

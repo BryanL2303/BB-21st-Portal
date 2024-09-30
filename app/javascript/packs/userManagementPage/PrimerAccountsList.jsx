@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
-/*Display list of all primer Accounts
-*/
-const PrimerAccountsList = ({setPageState}) => {
+// Display list of all primer Accounts
+const PrimerAccountsList = ({ setPageState, load }) => {
   const [primerList, setPrimerList] = useState([])
 
-  //If there is no ongoing session go to login page
   useEffect(() => {
     loadList()
-  }, [])
-
-  //Sends the information from the form to the backend to try and create an account
-  //If the username is not unique returns an alert back to the user
+  }, [load])
+  
   function loadList() {
-    axios.post('/api/account/0/get_accounts', {
+    axios.post('/api/account/0/get_accounts_by_type', {
       account_type: "Primer"
     }, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       setPrimerList(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function showUser(e) {

@@ -10,16 +10,16 @@ import {QuizList} from './QuizList'
 const QuizListPage = () => {
   const cookies = new Cookies()
 
+  if (cookies.get('Type') != 'Boy') {
+    window.location.href = '/user_management'
+  }
+
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
   .then()
   .catch(() => {window.location.href = '/'})
-
-  if (cookies.get('Type') != 'Boy') {
-    window.location.href = '/user_management'
-  }
 
   return(
     <div className='quiz-list-page'>

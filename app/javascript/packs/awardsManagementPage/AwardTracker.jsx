@@ -40,7 +40,7 @@ const AwardTracker = () => {
 
   useEffect(() => {
     // Get information to load page
-    axios.post('/api/account/0/get_accounts', {
+    axios.post('/api/account/0/get_accounts_by_type', {
         account_type: "Boy"
       }, {
         withCredentials: true  // Include credentials (cookies)

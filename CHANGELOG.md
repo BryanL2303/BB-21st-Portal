@@ -155,5 +155,17 @@ Changed website title from Quiz Website to BB 21st Portal
 2. Create unit tests for 2 elements for testing
 3. Enabled CI to run jest tests
 4. Added jest settings file
+5. Refactored code for navigation bar and created test files
+
+30 September 2024
+1. Refactored code for log in page and created test file
+2. Update user management page to not load list with a delay. Use effect to properly rerender
+3. Rename API get_accounts to get_accounts_by_type
+4. Refactored code for boy account list for user management and created test file
+5. Refactored code for primer account list for user management and created test file
+6. Refactored code for officer account list for user management and created test file
+7. Refactored code for reset password page and created test file
+8. Refactored code for user information for user management and created test file
+9. Refactored code for account creation form for user management and created test file
 
 Version 1.0

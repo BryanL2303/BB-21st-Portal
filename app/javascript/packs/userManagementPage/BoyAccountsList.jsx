@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
-/*Display list of Boy Accounts
-*/
-const BoyAccountsList = ({setPageState}) => {
+// Display list of Boy Accounts
+const BoyAccountsList = ({ setPageState, load }) => {
   const [boyList, setBoyList] = useState([])
 
-  //If there is no ongoing session go to login page
   useEffect(() => {
     loadList()
-  }, [])
+  }, [load])
 
-  //Sends the information from the form to the backend to try and create an account
-  //If the username is not unique returns an alert back to the user
   function loadList() {
-    axios.post('/api/account/0/get_accounts', {
+    axios.post('/api/account/0/get_accounts_by_type', {
       account_type: "Boy"
     }, {
       withCredentials: true  // Include credentials (cookies)
@@ -23,7 +20,7 @@ const BoyAccountsList = ({setPageState}) => {
     .then(resp => {
       setBoyList(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function showUser(e) {

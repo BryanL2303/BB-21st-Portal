@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { NavigationBar } from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError';
 import { DatabaseTable } from './DatabaseTable';
-import { errorMessage } from '../general/functions';
 
 /*Only meant for admin to initialise the page
 */
@@ -29,7 +29,7 @@ const AdminPage = () => {
       })
       setTableVisible(initialVisbility)
     })
-    .catch(resp => errorMessage(resp.response.statusText))
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function toggleTableVisibility(table_name) {

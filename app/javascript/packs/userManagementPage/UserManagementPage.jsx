@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
-import {NavigationBar} from '../general/NavigationBar'
-import {AccountCreationForm} from './AccountCreationForm'
-import {UserInformation} from './UserInformation'
-import {OfficerAccountsList} from './OfficerAccountsList'
-import {PrimerAccountsList} from './PrimerAccountsList'
-import {BoyAccountsList} from './BoyAccountsList'
+import { NavigationBar } from '../general/NavigationBar'
+import { AccountCreationForm } from './AccountCreationForm'
+import { UserInformation } from './UserInformation'
+import { OfficerAccountsList } from './OfficerAccountsList'
+import { PrimerAccountsList } from './PrimerAccountsList'
+import { BoyAccountsList } from './BoyAccountsList'
 
 /*To access current users and create new accounts
 */
 const UserManagementPage = () => {
   const cookies = new Cookies()
-  const [loading, setLoading] = useState(false);
+  const [load, setLoad] = useState(false);
   const [pageState, setPageState] = useState("form");
 
   //If there is no ongoing session go back to log in page
@@ -28,10 +28,9 @@ const UserManagementPage = () => {
   }
 
   function reLoad () {
-    setLoading(true)
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
+    setLoad((prevLoad) => {
+      return !prevLoad
+    })
   }
 
   return(
@@ -41,10 +40,10 @@ const UserManagementPage = () => {
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>
           <p>Current Users</p>
-          {!loading && (cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") && <OfficerAccountsList setPageState = {setPageState}/>}
-          {!loading && cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState}/>}
-          {!loading && cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState}/>}
-          {loading && <label>LOADING...</label>}
+          {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin")
+           && <OfficerAccountsList setPageState = {setPageState} load={load} />}
+          {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState} load={load} />}
+          {cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState} load={load} />}
         </div>
         <div className='main-block'>
           {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}

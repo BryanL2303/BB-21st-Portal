@@ -39,7 +39,7 @@ const ResultGenerationPage = () => {
       setAward(resp.data['awards'][0])
     })
     .catch(error => {console.log(error)})
-    axios.post('/api/account/0/get_accounts', {
+    axios.post('/api/account/0/get_accounts_by_type', {
       'account_type': 'Boy'
     }, {
       withCredentials: true  // Include credentials (cookies)
@@ -48,7 +48,7 @@ const ResultGenerationPage = () => {
       setBoyAccounts(resp.data)
     })
     .catch(error => {console.log(error)})
-    axios.post('/api/account/0/get_accounts', {
+    axios.post('/api/account/0/get_accounts_by_type', {
       'account_type': 'Primer'
     }, {
       withCredentials: true  // Include credentials (cookies)
@@ -60,7 +60,7 @@ const ResultGenerationPage = () => {
         setInstructorId(resp.data[0].id)
         blank = false
       }
-      axios.post('/api/account/0/get_accounts', {
+      axios.post('/api/account/0/get_accounts_by_type', {
         'account_type': 'Officer'
       }, {
         withCredentials: true  // Include credentials (cookies)
