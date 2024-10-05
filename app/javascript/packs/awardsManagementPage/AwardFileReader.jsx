@@ -96,4 +96,14 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
   )
 }
 
+AwardFileReader.propTypes = {
+  boyIds: PropTypes.arrayOf(PropTypes.shape({
+    account_name: PropTypes.number.isRequired,
+  })),
+  boyNames: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+  toggleAttainment: PropTypes.func.isRequired,
+}
+
 export { AwardFileReader }

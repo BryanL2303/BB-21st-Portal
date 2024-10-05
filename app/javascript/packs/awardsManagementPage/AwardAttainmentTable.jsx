@@ -73,7 +73,27 @@ const AwardAttainmentTable = ({ award_name, boys, checked, toggleAttainment, ele
 }
 
 AwardAttainmentTable.propTypes = {
-  award_name: PropTypes.string
+  award_name: PropTypes.string,
+  boys: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account_name: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired
+  })),
+  checked: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    account_name: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired
+  }),
+  toggleAttainment: PropTypes.func.isRequired,
+  electivePoints: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+  }),
+  ipaAttained: PropTypes.shape({
+    id: PropTypes.bool.isRequired,
+  }),
+  spaAttained: PropTypes.shape({
+    id: PropTypes.bool.isRequired,
+  })
 }
 
 export { AwardAttainmentTable }

@@ -11,8 +11,8 @@ const foundersMasteries = {"Community Spiritedness": ["Master"], "Global Awarene
 
 function checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked) {
     const ipaFixedRequirements = [{'name': "1 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 1)}}]
-    const spaFixedRequirements = [{'name': "IPA", 'requirements': (boy, falseProp = true, newIpaAttained) => {return(newIpaAttained[boy.id])}}, {'name': "4 Elective Points", 'requirements': (boy, newElectivePoints, falseProp=true) => {return (newElectivePoints[boy.id] >= 4)}}]
-    const foundersFixedRequirements = [{'name': "SPA", 'requirements': (boy, falseProp = true, newSpaAttained) => {return(newSpaAttained[boy.id])}}, {'name': "6 Elective Points", 'requirements': (boy, newElectivePoints, falseProp=true) => {return (newElectivePoints[boy.id] >= 6)}}]
+    const spaFixedRequirements = [{'name': "IPA", 'requirements': (boy, newIpaAttained) => {return(newIpaAttained[boy.id])}}, {'name': "4 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 4)}}]
+    const foundersFixedRequirements = [{'name': "SPA", 'requirements': (boy, newSpaAttained) => {return(newSpaAttained[boy.id])}}, {'name': "6 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 6)}}]
     const fixedRequirements = {"IPA": ipaFixedRequirements, "SPA": spaFixedRequirements, "Founders": foundersFixedRequirements}
 
     setCheckingMilestone(true)
@@ -52,8 +52,8 @@ function checkMilestones(boys, attained, setCheckingMilestone, electivePoints, i
         if (milestones[count] in fixedRequirements) {
           fixedRequirements[milestones[count]].map((requirementDict) => {
             let metRequirements
-            if (count != 0) metRequirements = requirementDict["requirements"](boy, newElectivePoints, newAttained[count - 1])
-            else metRequirements = requirementDict["requirements"](boy, newElectivePoints)
+            if (requirementDict["name"].includes('Elective Points')) metRequirements = requirementDict["requirements"](boy, newElectivePoints)
+            else metRequirements = requirementDict["requirements"](boy, newAttained[count - 1])
             if (!metRequirements) specialAttained = false
           })
         }
