@@ -43,17 +43,16 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse);
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={jest.fn()} reLoad={jest.fn()} />)
+            render(<UserInformation userId={'1'} showForm={jest.fn()} reLoad={jest.fn()} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     
-        // Check if redirection happens
         expect(screen.getByText('REC')).toBeInTheDocument();
         expect(screen.getByDisplayValue('John Doe')).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
@@ -75,17 +74,16 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse).mockResolvedValueOnce({data: true});
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     
-        // Check if redirection happens
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
         const nameInput = screen.getByDisplayValue('John Doe')
@@ -142,17 +140,16 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse);
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     
-        // Check if redirection happens
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
         const nameInput = screen.getByDisplayValue('John Doe')
@@ -194,17 +191,16 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse).mockResolvedValueOnce({data: false});
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     
-        // Check if redirection happens
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
         const nameInput = screen.getByDisplayValue('John Doe')
@@ -246,13 +242,13 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse).mockResolvedValueOnce({data: false});
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     
@@ -300,13 +296,13 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse).mockResolvedValueOnce({data: true});
     
         await act(async () => {
-            render(<UserInformation userId={1} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/get_account_information',
-            {'id': 1},
+            {'id': '1'},
             {withCredentials: true},
         )
     

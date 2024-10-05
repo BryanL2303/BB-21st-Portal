@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import Cookies from 'universal-cookie'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import useCookies from '../general/useCookies'
 import { NavigationBar } from '../general/NavigationBar'
 import { AccountCreationForm } from './AccountCreationForm'
 import { UserInformation } from './UserInformation'
@@ -8,19 +8,24 @@ import { OfficerAccountsList } from './OfficerAccountsList'
 import { PrimerAccountsList } from './PrimerAccountsList'
 import { BoyAccountsList } from './BoyAccountsList'
 
-/*To access current users and create new accounts
-*/
+// To access current users and create new accounts
 const UserManagementPage = () => {
-  const cookies = new Cookies()
+  const cookies = useCookies()
+  const [renderPage, setRenderPage] = useState(false)
   const [load, setLoad] = useState(false);
   const [pageState, setPageState] = useState("form");
 
-  //If there is no ongoing session go back to log in page
-  axios.post("/application/0/check_session", {}, {
-    withCredentials: true
-  })
-  .then()
-  .catch(() => {window.location.href = '/'})
+  useEffect(() => {
+    //If there is no ongoing session go back to log in page
+    axios.post("/application/0/check_session", {},
+    {withCredentials: true})
+    .then(() => {
+      setRenderPage(true)
+    })
+    .catch(() => {
+      window.location.href = '/'
+    })
+  }, [])
 
   //Show the form to create new accounts
   function showForm () {
@@ -32,6 +37,8 @@ const UserManagementPage = () => {
       return !prevLoad
     })
   }
+
+  if (!renderPage) return null
 
   return(
     <div className='user-management-page'>

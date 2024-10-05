@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import axios from 'axios'
 
-/*To create new awards
-*/
+// To create new awards, currently not in use
 const AwardCreationForm = () => {
   const [hasMastery, setHasMastery] = useState(true);
   const [level1, setRecommendedLevel1] = useState('1')

@@ -167,5 +167,15 @@ Changed website title from Quiz Website to BB 21st Portal
 7. Refactored code for reset password page and created test file
 8. Refactored code for user information for user management and created test file
 9. Refactored code for account creation form for user management and created test file
+10. Refactored code for database table for admin page and created test file
+
+1 October 2024
+1. Refactored code for award information for awards management page and created test file
+
+2 October 2024
+1. Refactored code for awards tracker and split functions and components into more files
+
+4 October 2024
+1. Refactored code for user management page and created integrated tests for this page
 
 Version 1.0

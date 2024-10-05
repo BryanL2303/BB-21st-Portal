@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {NavigationBar} from '../general/NavigationBar'
-import {ManualResultPage} from './ManualResultPage'
+import { NavigationBar } from '../general/NavigationBar'
+import { ManualResultPage } from './ManualResultPage'
+import { handleServerError } from '../general/handleServerError'
 
-/*To manually create 32A results
-*/
+// To manually create 32A results
 const ResultGenerationPage = () => {
   const [awards, setAwards] = useState([])
   const [masteries, setMasteries] = useState([])
@@ -21,38 +21,29 @@ const ResultGenerationPage = () => {
   const [columnContents, setColumnContents] = useState({})
 
   //If there is no ongoing session go back to log in page
-  axios.post("/application/0/check_session", {}, {
-    withCredentials: true
-  })
+  axios.post("/application/0/check_session", {},
+  { withCredentials: true })
   .then()
   .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
     //make axios call and set awards and accounts
-    axios.post('/api/award/0/get_awards', {
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
+    axios.post('/api/award/0/get_awards', {},
+    { withCredentials: true })
     .then(resp => {
       setAwards(resp.data['awards'])
       setMasteries(resp.data['masteries'])
       setAward(resp.data['awards'][0])
     })
-    .catch(error => {console.log(error)})
-    axios.post('/api/account/0/get_accounts_by_type', {
-      'account_type': 'Boy'
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
-    .then(resp => {
-      setBoyAccounts(resp.data)
-    })
-    .catch(error => {console.log(error)})
-    axios.post('/api/account/0/get_accounts_by_type', {
-      'account_type': 'Primer'
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
+    .catch(resp => handleServerError(resp.response.status))
+    axios.post('/api/account/0/get_accounts_by_type',
+    {'account_type': 'Boy'},
+    {withCredentials: true})
+    .then(resp => {setBoyAccounts(resp.data)})
+    .catch(resp => handleServerError(resp.response.status))
+    axios.post('/api/account/0/get_accounts_by_type',
+    {'account_type': 'Primer'},
+    {withCredentials: true})
     .then(resp => {
       setPrimerAccounts(resp.data)
       let blank = true
@@ -60,22 +51,16 @@ const ResultGenerationPage = () => {
         setInstructorId(resp.data[0].id)
         blank = false
       }
-      axios.post('/api/account/0/get_accounts_by_type', {
-        'account_type': 'Officer'
-      }, {
-        withCredentials: true  // Include credentials (cookies)
-      })
+      axios.post('/api/account/0/get_accounts_by_type',
+      {'account_type': 'Officer'},
+      {withCredentials: true})
       .then(resp => {
         setOfficerAccounts(resp.data)
-        if (blank == true) {
-          setInstructorId(resp.data[0].id)
-        }
+        if (blank == true) setInstructorId(resp.data[0].id)
       })
-      .catch(() => {
-        setOfficerAccounts([])
-      })
+      .catch(() => setOfficerAccounts([]))
     })
-    .catch(resp => {console.log(resp)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function selectAward(e) {
@@ -83,39 +68,30 @@ const ResultGenerationPage = () => {
     setCustomDescription()
     setColumnContents({})
     //make axios call and set states
-    axios.post('/api/award/' + data[0] + '/get_award', {
-      'id': data[0]
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
+    axios.post('/api/award/' + data[0] + '/get_award',
+    {'id': data[0]},
+    {withCredentials: true})
     .then(resp => {
       setAward(resp.data)
       setCustomDescription(resp.data.results_description)
       if (resp.data.has_mastery) {
-        axios.post('/api/award/' + data[0] + '/get_masteries', {
-          'award_id': data[0]
-        }, {
-          withCredentials: true  // Include credentials (cookies)
-        })
+        axios.post('/api/award/' + data[0] + '/get_masteries',
+        {'award_id': data[0]},
+        {withCredentials: true})
         .then(resp => {
-          console.log(resp.data)
           setMastery(resp.data[parseInt(data[1]) - 1])
           let descriptionBoxes = document.getElementsByClassName('result-description')
           for (let descriptionBox of descriptionBoxes) {
             descriptionBox.value = resp.data[parseInt(data[1]) - 1].results_description
           }
           setCustomDescription(resp.data[parseInt(data[1]) - 1].results_description)
-          axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns', {
-            'id': resp.data[parseInt(data[1]) - 1].id
-          }, {
-            withCredentials: true  // Include credentials (cookies)
-          })
-          .then(resp => {
-            setColumns(resp.data)
-          })
-          .catch(resp => console.log(resp.response.statusText))
+          axios.post('/api/mastery/' + resp.data[parseInt(data[1]) - 1].id + '/get_columns',
+          {'id': resp.data[parseInt(data[1]) - 1].id},
+          {withCredentials: true})
+          .then(resp => setColumns(resp.data))
+          .catch(resp => handleServerError(resp.response.status))
         })
-        .catch(resp => console.log(resp.response))
+        .catch(resp => handleServerError(resp.response.status))
       }
       else {
         setMastery()
@@ -123,18 +99,14 @@ const ResultGenerationPage = () => {
         descriptionBox.map((descriptionBox) => {
           descriptionBox.value = resp.data.results_description
         })
-        axios.post('/api/award/' + resp.data.id + '/get_columns', {
-          'id': resp.data.id
-        }, {
-          withCredentials: true  // Include credentials (cookies)
-        })
-        .then(resp => {
-          setColumns(resp.data)
-        })
-        .catch(resp => console.log(resp.response.statusText))
+        axios.post('/api/award/' + resp.data.id + '/get_columns',
+        {'id': resp.data.id},
+        {withCredentials: true})
+        .then(resp => setColumns(resp.data))
+        .catch(resp => handleServerError(resp.response.status))
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function selectInstructor(e) {
@@ -145,19 +117,15 @@ const ResultGenerationPage = () => {
     let boyAccountSelector = document.getElementsByClassName('boy-account-selector')
     let accounts = []
     for (let account of boyAccountSelector) {
-      if (account.checked) {
-        accounts.push(account.id)
-      }
+      if (account.checked) accounts.push(account.id)
     }
-    axios.post('/api/account/0/get_accounts_by_ids', {
-      'boy_ids': accounts
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
+    axios.post('/api/account/0/get_accounts_by_ids',
+    {'boy_ids': accounts},
+    {withCredentials: true})
     .then(resp => {
       setBoys(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function updateCustomDescription(e) {
@@ -182,9 +150,7 @@ const ResultGenerationPage = () => {
       // edit the form such that when a new award is selected reset the entire form
       boys.map(() => {
         columns.map((column) => {
-          if (e.target[i] != null && e.target[i].value != '') {
-            data[column.column_title].push(e.target[i].value)
-          }
+          if (e.target[i] != null && e.target[i].value != '') data[column.column_title].push(e.target[i].value)
           i += 1
         })
       })
@@ -214,17 +180,13 @@ const ResultGenerationPage = () => {
           <p>Pick the badge to generate results for</p>
           <select onChange={selectAward}>
             {awards.map((award, index) => {
-              if (!award.has_mastery && award.has_results) {
-                return(
-                  <option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>
-                )
-              } 
+              if (!award.has_mastery && award.has_results)
+                return (<option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>)
               else {
                 let array = []
                 masteries[index].map((mastery, index) => {
-                  if (mastery.has_results) {
+                  if (mastery.has_results) 
                     array.push(<option value={String(award.id) + ' ' + String(index + 1)}>{award.badge_name} {mastery.mastery_name}</option>)
-                  }
                 })
                 return(array)
               }
@@ -235,14 +197,10 @@ const ResultGenerationPage = () => {
           <p>Pick the instructor for the badgework</p>
           <select onChange={selectInstructor}>
             {primerAccounts.map((primerAccount) => {
-              return(
-                <option key={primerAccount.id + "-primer-instructor"} value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>
-              )
+              return (<option key={primerAccount.id + "-primer-instructor"} value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>)
             })}
             {officerAccounts.map((officerAccount) => {
-              return(
-                <option key={officerAccount.id + "-officer-instructor"} value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>
-              )
+              return (<option key={officerAccount.id + "-officer-instructor"} value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>)
             })}
           </select>
           <br/>
@@ -276,9 +234,7 @@ const ResultGenerationPage = () => {
                   <tr>
                     <th>Name</th>
                     {columns.map((column) =>{
-                      return(
-                        <th key={column.id + "-column"}>{column.column_title}</th>
-                      )
+                      return (<th key={column.id + "-column"}>{column.column_title}</th>)
                     })}
                   </tr>
                 </thead>
@@ -315,9 +271,7 @@ const ResultGenerationPage = () => {
                   <tr>
                     <th>Name</th>
                     {columns.map((column) =>{
-                      return(
-                        <th key={column.id + "-column"}>{column.column_title}</th>
-                      )
+                      return (<th key={column.id + "-column"}>{column.column_title}</th>)
                     })}
                   </tr>
                 </thead>
@@ -327,9 +281,7 @@ const ResultGenerationPage = () => {
                       <tr key={boy.id + "-row"}>
                         <th>Sec {boy.level} {boy.rank} {boy.account_name}</th>
                         {columns.map((column) =>{
-                          return(
-                            <th key={column.id + "-row-column"}><input id={column.column_title}></input></th>
-                          )
+                          return (<th key={column.id + "-row-column"}><input id={column.column_title}></input></th>)
                         })}
                       </tr>
                     )

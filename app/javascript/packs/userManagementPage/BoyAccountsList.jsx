@@ -15,7 +15,7 @@ const BoyAccountsList = ({ setPageState, load }) => {
     axios.post('/api/account/0/get_accounts_by_type', {
       account_type: "Boy"
     }, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       setBoyList(resp.data)

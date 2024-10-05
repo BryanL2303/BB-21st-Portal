@@ -19,7 +19,7 @@ const AdminPage = () => {
 
   useEffect(() => {
     axios.post('/api/admin/0/get_table_names', {}, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       setTableNames(resp.data)

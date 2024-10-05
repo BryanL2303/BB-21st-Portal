@@ -5,30 +5,25 @@ import { NavigationBar } from '../general/NavigationBar'
 import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'
+import { handleServerError } from '../general/handleServerError'
 
-/*To access current users and create new accounts
-*/
+// To access current users and create new accounts
 const AwardsManagementPage = () => {
   const cookies = new Cookies()
   const [pageState, setPageState] = useState("tracker");
   const [awards, setAwards] = useState([])
 
   //If there is no ongoing session go back to log in page
-  axios.post("/application/0/check_session", {}, {
-    withCredentials: true
-  })
+  axios.post("/application/0/check_session", {},
+  { withCredentials: true })
   .then()
   .catch(() => {window.location.href = '/'})
 
   useEffect(() => {
-    axios.post('/api/award/0/get_awards', {
-    }, {
-      withCredentials: true  // Include credentials (cookies)
-    })
-    .then(resp => {
-      setAwards(resp.data['awards'])
-    })
-    .catch(error => console.log(error))
+    axios.post('/api/award/0/get_awards', {},
+    { withCredentials: true })
+    .then(resp => {setAwards(resp.data['awards'])})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function showTracker(e) {

@@ -155,7 +155,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 }
 
 UserInformation.propTypes ={
-  userId: PropTypes.number.isRequired,
+  userId: PropTypes.string.isRequired,
   showForm: PropTypes.func.isRequired,
   reLoad: PropTypes.func.isRequired
 }

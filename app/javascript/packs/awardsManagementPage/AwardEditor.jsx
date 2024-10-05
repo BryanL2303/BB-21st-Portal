@@ -19,7 +19,7 @@ const AwardEditor = ({awardId}) => {
     axios.post('/api/award/' + awardId + '/get_award', {
       'id': awardId
     }, {
-      withCredentials: true  // Include credentials (cookies)
+      withCredentials: true
     })
     .then(resp => {
       setAward(resp.data)
@@ -28,7 +28,7 @@ const AwardEditor = ({awardId}) => {
         axios.post('/api/award/0/get_masteries', {
           'award_id': awardId
         }, {
-          withCredentials: true  // Include credentials (cookies)
+          withCredentials: true
         })
         .then(resp => {
           setMasteries(resp.data)
@@ -107,7 +107,7 @@ const AwardEditor = ({awardId}) => {
         has_mastery: e.target[1].checked,
         details: details
       }, {
-        withCredentials: true  // Include credentials (cookies)
+        withCredentials: true
       })
       .then(resp => {
         if (resp.data != false) {
@@ -216,7 +216,7 @@ const AwardEditor = ({awardId}) => {
 }
 
 AwardEditor.propTypes = {
-  awardId: PropTypes.number.isRequired
+  awardId: PropTypes.string.isRequired
 }
 
 export { AwardEditor }
