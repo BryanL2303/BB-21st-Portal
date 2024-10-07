@@ -12,9 +12,7 @@ jest.mock('../../app/javascript/packs/general/useCookies');
 let cookies;
 
 useCookies.mockReturnValue({
-  get: {
-    Type: 'Admin'
-  }
+    get: jest.fn().mockReturnValue('Admin')
 });
 
 alert = jest.fn()
@@ -54,7 +52,7 @@ describe('UserInformation Component', () => {
         )
     
         expect(screen.getByText('REC')).toBeInTheDocument();
-        expect(screen.getByDisplayValue('John Doe')).toBeInTheDocument();
+        expect(screen.getAllByDisplayValue('John Doe')[0]).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         expect(screen.getByText('1')).toBeInTheDocument();
     })
@@ -86,7 +84,7 @@ describe('UserInformation Component', () => {
     
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getByDisplayValue('John Doe')
+        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');
@@ -109,7 +107,7 @@ describe('UserInformation Component', () => {
             '/api/account/1/edit_account', {
                 id: 1,
                 account_name: 'Joseph Doe',
-                password: null,
+                password: 'John Doe',
                 account_type: 'Boy',
                 rank: 'LCP',
                 level: '2',
@@ -152,7 +150,7 @@ describe('UserInformation Component', () => {
     
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getByDisplayValue('John Doe')
+        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');
@@ -203,7 +201,7 @@ describe('UserInformation Component', () => {
     
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getByDisplayValue('John Doe')
+        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');
@@ -255,7 +253,7 @@ describe('UserInformation Component', () => {
         // Simulate changing input
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getByDisplayValue('John Doe')
+        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');
@@ -309,7 +307,7 @@ describe('UserInformation Component', () => {
         // Simulate changing input
         const rankLabel = screen.getByText('REC')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getByDisplayValue('John Doe')
+        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');

@@ -19,12 +19,8 @@ const UserManagementPage = () => {
     //If there is no ongoing session go back to log in page
     axios.post("/application/0/check_session", {},
     {withCredentials: true})
-    .then(() => {
-      setRenderPage(true)
-    })
-    .catch(() => {
-      window.location.href = '/'
-    })
+    .then(() => setRenderPage(true))
+    .catch(() => window.location.href = '/')
   }, [])
 
   //Show the form to create new accounts

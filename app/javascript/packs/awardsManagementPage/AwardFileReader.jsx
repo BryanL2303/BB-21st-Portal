@@ -97,11 +97,11 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
 }
 
 AwardFileReader.propTypes = {
-  boyIds: PropTypes.arrayOf(PropTypes.shape({
-    account_name: PropTypes.number.isRequired,
-  })),
+  boyIds: PropTypes.shape({
+    account_name: PropTypes.number,
+  }),
   boyNames: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
   }),
   toggleAttainment: PropTypes.func.isRequired,
 }

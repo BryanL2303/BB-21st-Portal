@@ -1,29 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { NavigationBar } from '../general/NavigationBar'
 import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'
 import { handleServerError } from '../general/handleServerError'
+import useCookies from '../general/useCookies'
 
 // To access current users and create new accounts
 const AwardsManagementPage = () => {
-  const cookies = new Cookies()
+  const cookies = useCookies()
+  const [renderPage, setRenderPage] = useState(false)
   const [pageState, setPageState] = useState("tracker");
   const [awards, setAwards] = useState([])
 
-  //If there is no ongoing session go back to log in page
-  axios.post("/application/0/check_session", {},
-  { withCredentials: true })
-  .then()
-  .catch(() => {window.location.href = '/'})
-
   useEffect(() => {
-    axios.post('/api/award/0/get_awards', {},
+    //If there is no ongoing session go back to log in page
+    axios.post("/application/0/check_session", {},
     { withCredentials: true })
-    .then(resp => {setAwards(resp.data['awards'])})
-    .catch(resp => handleServerError(resp.response.status))
+    .then(() => {
+      setRenderPage(true)
+      axios.post('/api/award/0/get_awards', {},
+      { withCredentials: true })
+      .then(resp => {setAwards(resp.data['awards'])})
+      .catch(resp => handleServerError(resp.response.status))
+    })
+    .catch(() => {window.location.href = '/'})
   }, [])
 
   function showTracker(e) {
@@ -35,6 +37,8 @@ const AwardsManagementPage = () => {
     e.preventDefault()
     setPageState(e.target.className)
   }
+
+  if (!renderPage) return null
 
   return(
     <div className='award-management-page'>

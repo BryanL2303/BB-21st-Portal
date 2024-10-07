@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
+import useCookies from '../general/useCookies';
 
 // To view users information and delete user accounts
 const UserInformation = ({userId, showForm, reLoad}) => {
-  const cookies = new Cookies()
+  const cookies = useCookies()
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
   const [accountLevel, setAccountLevel] = useState();
@@ -90,9 +90,10 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     })
     .then(resp => {
       if (resp.data != false) {
-        // This means that the deletion failed
+        // Deletion failed
         // Reload the users list on the side and reset back to account creation form
         showForm()
+        reLoad()
       }
       else{
         // Deletion success
