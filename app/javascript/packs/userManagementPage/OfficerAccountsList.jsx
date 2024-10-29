@@ -31,9 +31,11 @@ const OfficerAccountsList = ({ setPageState, load }) => {
   return(
     <div className='officer-accounts-list'>
       {officerList.map((officer) => {
-        return(
-          <button key={officer.id} onClick={showUser} className={officer.id}>{officer.account_type} {officer.rank} {officer.account_name}</button>
-        )
+        if (officer.account_name != 'John Doe') {
+          return(
+            <button onClick={showUser} className={officer.id}>{officer.account_type} {officer.rank} {officer.account_name}</button>
+          )
+        }
       })}
     </div>
   )

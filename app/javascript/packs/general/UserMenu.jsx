@@ -35,7 +35,7 @@ const UserMenu = () => {
          <button className="uniform-inspection--button" onClick={() => {toUrl('/uniform_inspection_results')}}>Uniform Inspection</button>}
         {cookies.get("Type") != "Boy" &&
          <button className="help--button" onClick={() => {toUrl('/help')}}>Help</button>}
-        <button onClick={() => {toUrl('/reset_password')}}>Reset Password</button>
+        {cookies.get("Name") != "John Doe" && <button onClick={resetPasswordPage}>Reset Password</button>}
         <button className="log-out--button" onClick={logOut}>Log Out</button>
       </div>
     )
