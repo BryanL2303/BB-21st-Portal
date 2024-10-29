@@ -126,6 +126,7 @@ Changed website title from Quiz Website to BB 21st Portal
 2. Installed xlsx with yarn to read excel files
 3. Added functions in AwardsTracker to process data from excel file and toggle the attainments.
 
+Version 1.0
 22 September 2024
 1. Update ApplicationController JWT to implement secret key hidden in ENV as well as tokens that will expire
 2. New function and action added to relevant controllers to authenticate JWT before any action
@@ -181,5 +182,3 @@ Changed website title from Quiz Website to BB 21st Portal
 29 October 2024
 1. Added first playwright test, incomplete
 2. Added status code to all api renders
-
-Version 1.0
