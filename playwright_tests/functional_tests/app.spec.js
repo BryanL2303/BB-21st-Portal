@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 // @playwright/test is imported to use Playwright testing utilities
 const { test, expect } = require('@playwright/test');
 const { spawn } = require('child_process');

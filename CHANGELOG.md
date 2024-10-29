@@ -182,8 +182,6 @@ Version 1.0
 29 October 2024
 1. Added first playwright test, incomplete
 2. Added status code to all api renders
-
-29 October 2024
-1. Converted the backend into a demo version
-2. Split this version from the actual website to create a demo copy
-3. Created officer account 'John Doe' for trial users, removed access to update John Doe account
+3. Converted the backend into a demo version
+4. Split this version from the actual website to create a demo copy
+5. Created officer account 'John Doe' for trial users, removed access to update John Doe account
