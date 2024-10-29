@@ -15,5 +15,6 @@ module.exports = {
     moduleNameMapper: {
       '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     },
+    testMatch: ['**/__tests__/**/*.js?(x)', '**/jest_tests/**/*.js?(x)'],
     testPathIgnorePatterns: ['/node_modules/', '/config/webpack/'], // Ignore Webpack config folder
   };
