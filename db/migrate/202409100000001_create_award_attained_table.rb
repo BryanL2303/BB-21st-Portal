@@ -2,10 +2,10 @@
 
 class CreateAwardAttainedTable < ActiveRecord::Migration[7.0]
   def change
-    create_table :attained_awards do |t|
-      t.belongs_to :account
-      t.belongs_to :award
-      t.belongs_to :mastery
+    create_table :demo_attained_awards do |t|
+      t.belongs_to :demo_account
+      t.belongs_to :demo_award
+      t.belongs_to :demo_mastery
 
       t.timestamps
     end

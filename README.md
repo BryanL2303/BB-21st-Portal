@@ -3,9 +3,10 @@
 BB 21st Portal
 This website helps to facilitate administrative tasks such as creating 32A results and conducting quizzes.
 
+# This version of the website is meant as a demo for showcase.
 Build Status: 
 This website is running with the following link:
-https://bb-21-5a1d0159cf81.herokuapp.com/
+https://bb-21-demo-e026dc5f2bdb.herokuapp.com/
 
 Usage:
 The website is used by the Boys' Brigade 21st Singapore Company

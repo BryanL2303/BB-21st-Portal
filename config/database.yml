@@ -29,7 +29,7 @@ test:
 
 development:
   <<: *default
-  database: quiz_website_development
+  database: demo-BB-21st-Portal
   username: postgres
   password: <%= ENV.fetch("dev_db_pw") %>
 

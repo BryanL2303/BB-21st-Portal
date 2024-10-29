@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 class AddCertificationToAward < ActiveRecord::Migration[7.0]
   def change
-    change_table :awards do |t|
+    change_table :demo_awards do |t|
       t.boolean :require_certification
     end
 
-    change_table :masteries do |t|
+    change_table :demo_masteries do |t|
       t.boolean :require_certification
     end
   end
