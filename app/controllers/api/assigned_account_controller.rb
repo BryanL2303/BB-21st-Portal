@@ -18,12 +18,12 @@ module Api
       if find_account.nil?
         if account.save
           token = encode_token({ user_id: account.id })
-          render json: { account_name: account.account_name, type: account.account_type, token: }
+          render json: { account_name: account.account_name, type: account.account_type, token: }, status: :created
         else
           render json: { error: account.errors.messages }, status: 422
         end
       else
-        render json: false
+        render json: false, status: :reserved
       end
     end
 
@@ -34,7 +34,7 @@ module Api
       assignments.each do |assignment|
         assigned_account = assigned_accounts.find_by(assignment_id: assignment.id)
         unless assigned_account.nil?
-          render json: assigned_account
+          render json: assigned_account, status: :ok
           break
         end
       end
@@ -43,7 +43,7 @@ module Api
     def assigned_accounts
       assigned_accounts = AssignedAccount.where(assignment_id: params[:assignment_id]).order('account_id')
 
-      render json: assigned_accounts
+      render json: assigned_accounts, status: :ok
     end
 
     def update_account_assigment
@@ -51,9 +51,9 @@ module Api
       assigned_account.score = params[:new_score]
       assigned_account.attempts = params[:new_attempts]
       if assigned_account.save
-        render json: true
+        render json: true, status: :accepted
       else
-        render json: false
+        render json: false, status: :not_accepted
       end
     end
 
@@ -97,7 +97,7 @@ module Api
         data['questions'].append({ 'question': question, 'answer': answer })
       end
 
-      render json: data
+      render json: data, status: :ok
     end
 
     def set_graded
@@ -105,7 +105,7 @@ module Api
       attempt_score.graded = true
       attempt_score.save
 
-      render json: attempt_score
+      render json: attempt_score, status: :accepted
     end
 
     def delete_assigned_account

@@ -14,13 +14,13 @@ module Api
       table_names = ActiveRecord::Base.connection.tables
       table_names.delete('schema_migrations')
       table_names.delete('ar_internal_metadata')
-      render json: table_names
+      render json: table_names, status: :ok
     end
 
     def table
       data = ActiveRecord::Base.connection.exec_query("SELECT * FROM #{params[:table_name]} ORDER BY id ASC")
       columns = ActiveRecord::Base.connection.columns(params[:table_name])
-      render json: { data:, columns: }
+      render json: { data:, columns: }, status: :ok
     end
 
     def add_data
@@ -37,7 +37,7 @@ module Api
       data = ActiveRecord::Base.connection.exec_query("SELECT * FROM #{model_class.table_name} ORDER BY id ASC")
       columns = ActiveRecord::Base.connection.columns(model_class.table_name)
 
-      render json: { data:, columns: }
+      render json: { data:, columns: }, status: :created
     end
 
     def update_data
@@ -58,7 +58,7 @@ module Api
 
       data = ActiveRecord::Base.connection.exec_query("SELECT * FROM #{params[:table_name]} ORDER BY id ASC")
       columns = ActiveRecord::Base.connection.columns(params[:table_name])
-      render json: { data:, columns: }
+      render json: { data:, columns: }, status: :accepted
     end
 
     def delete_data
@@ -69,7 +69,7 @@ module Api
 
       data = ActiveRecord::Base.connection.exec_query("SELECT * FROM #{params[:table_name]} ORDER BY id ASC")
       columns = ActiveRecord::Base.connection.columns(params[:table_name])
-      render json: { data:, columns: }
+      render json: { data:, columns: }, status: :ok
     end
 
     def tables
@@ -86,7 +86,7 @@ module Api
       table_names.delete('schema_migrations')
       table_names.delete('ar_internal_metadata')
 
-      render json: { table_names:, tables:, columns: }
+      render json: { table_names:, tables:, columns: }, status: :ok
     end
   end
 end

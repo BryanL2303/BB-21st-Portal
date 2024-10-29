@@ -12,7 +12,7 @@ module Api
                             results_description: params[:results_description],
                             recommended_level: params[:recommended_level])
       if mastery.save
-        render json: mastery
+        render json: mastery, status: :created
       else
         render json: { error: mastery.errors.messages }, status: 422
       end
@@ -21,13 +21,13 @@ module Api
     def mastery
       mastery = Mastery.find_by(id: params[:id])
 
-      render json: mastery
+      render json: mastery, status: :ok
     end
 
     def columns
       columns = CustomColumn.where(mastery_id: params[:id])
 
-      render json: columns
+      render json: columns, status: :ok
     end
 
     def questions; end

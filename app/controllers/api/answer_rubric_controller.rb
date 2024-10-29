@@ -14,7 +14,7 @@ module Api
       rubric = AnswerRubric.new(rubric: params[:rubric], question_id: params[:question_id])
 
       if rubric.save
-        render json: rubric
+        render json: rubric, status: :created
       else
         render json: { error: rubric.errors.messages }, status: 422
       end
@@ -25,7 +25,7 @@ module Api
       rubric.rubric = params[:rubric]
 
       if rubric.save
-        render json: true
+        render json: true, status: :ok
       else
         render json: { error: rubric.errors.messages }, status: 422
       end

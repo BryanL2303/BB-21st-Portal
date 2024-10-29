@@ -18,7 +18,7 @@ module Api
                             recommended_level: details['recommended_level'], has_mastery: params[:has_mastery],
                             require_certification: params[:require_certification])
           if award.save
-            render json: award
+            render json: award, status: :created
           else
             render json: { error: award.errors.messages }, status: 422
           end
@@ -50,20 +50,20 @@ module Api
                                          award_id: award.id)
             master_mastery.save
 
-            render json: award
+            render json: award, status: :created
           else
             render json: { error: award.errors.messages }, status: 422
           end
         end
       else
-        render json: false
+        render json: false, status: :reserved
       end
     end
 
     def award
       award = Award.find_by(id: params[:id])
 
-      render json: award
+      render json: award, status: :ok
     end
 
     def awards
@@ -74,7 +74,7 @@ module Api
         masteries.push(mastery)
       end
 
-      render json: { 'awards': awards, 'masteries': masteries }
+      render json: { 'awards': awards, 'masteries': masteries }, status: :ok
     end
 
     def edit_award
@@ -88,7 +88,7 @@ module Api
         award['recommended_level'] = details['recommended_level']
         award['require_certification'] = details['require_certification']
         if award.save
-          render json: award
+          render json: award, status: :accepted
         else
           render json: { error: award.errors.messages }, status: 422
         end
@@ -117,7 +117,7 @@ module Api
         master_mastery['require_certification'] = master_details['require_certification']
         master_mastery.save
 
-        render json: award
+        render json: award, status: :accepted
       elsif award.has_mastery
         masteries = Mastery.where(award_id: params[:id])
         masteries.destroy_all
@@ -128,7 +128,7 @@ module Api
         award['recommended_level'] = details['recommended_level']
         award['require_certification'] = details['require_certification']
         if award.save
-          render json: award
+          render json: award, status: :accepted
         else
           render json: { error: award.errors.messages }, status: 422
         end
@@ -158,7 +158,7 @@ module Api
                                      award_id: award.id)
         master_mastery.save
         if award.save
-          render json: award
+          render json: award, status: :accepted
         else
           render json: { error: award.errors.messages }, status: 422
         end
@@ -168,13 +168,13 @@ module Api
     def masteries
       masteries = Mastery.where(award_id: params[:award_id]).order('id')
 
-      render json: masteries
+      render json: masteries, status: :ok
     end
 
     def columns
       columns = CustomColumn.where(award_id: params[:id])
 
-      render json: columns
+      render json: columns, status: :ok
     end
 
     def delete_award

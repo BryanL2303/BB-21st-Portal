@@ -30,7 +30,7 @@ module Api
           answer_rubric = AnswerRubric.new(rubric: params[:answer][0], question_id: question.id)
           render json: { error: answer_rubric.errors.message }, status: 422 unless answer_rubric.save
         end
-        render json: true
+        render json: true, status: :created
       else
         render json: { error: question.errors.messages }, status: 422
       end
@@ -39,7 +39,7 @@ module Api
     def question
       question = Question.find_by(id: params[:question_id])
 
-      render json: question
+      render json: question, status: :ok
     end
 
     def questions
@@ -51,22 +51,22 @@ module Api
                                    question_type: params[:question_type]).order('permanent')
                   end
 
-      render json: questions
+      render json: questions, status: :ok
     end
 
     def options
       question_options = QuestionOption.where(question_id: params[:question_id])
 
-      render json: question_options
+      render json: question_options, status: :ok
     end
 
     def rubric
       rubric = AnswerRubric.find_by(question_id: params[:question_id])
 
       if rubric.nil?
-        render json: false
+        render json: false, status: :not_found
       else
-        render json: rubric
+        render json: rubric, status: :ok
       end
     end
 
@@ -91,8 +91,7 @@ module Api
       end
 
       if question.save
-
-        render json: true
+        render json: true, status: :accepted
       else
         render json: { error: question.errors.messages }, status: 422
       end
@@ -103,7 +102,7 @@ module Api
       question['permanent'] = true
       question.save
 
-      render json: question
+      render json: question, status: :accepted
     end
 
     def delete_question
@@ -121,7 +120,7 @@ module Api
       quiz_questions.destroy_all
 
       if question.destroy
-        render json: true
+        render json: true, status: :ok
       else
         render json: { error: question.errors.messages }, status: 422
       end

@@ -29,7 +29,7 @@ module Api
         uniform_inspection.save
       end
 
-      render json: true
+      render json: true, status: :created
     end
 
     def inspection
@@ -59,7 +59,7 @@ module Api
       end
       data = { 'boy': boy, 'inspections': inspections, 'boys': boys }
 
-      render json: data
+      render json: data, status: :ok
     end
 
     def inspections_summary
@@ -71,7 +71,7 @@ module Api
         data[inspection.assessor_id] = Account.find_by(id: inspection.assessor_id) unless inspection.nil?
       end
 
-      render json: data
+      render json: data, status: :ok
     end
 
     def component_fields
@@ -84,7 +84,7 @@ module Api
         data[component['component_name']] = fields
       end
       data['components'] = components
-      render json: data
+      render json: data, status: :ok
     end
 
     def delete_uniform_inspection

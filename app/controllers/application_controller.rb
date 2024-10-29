@@ -36,11 +36,11 @@ class ApplicationController < ActionController::Base
     authenticate_request
     return unless @current_user
 
-    render json: true
+    render json: true, status: :accepted
   end
 
   def log_out
     cookies.delete(:jwt, secure: Rails.env.production?, same_site: :strict, domain: :ENV['domain'])
-    render json: true
+    render json: true, status: :ok
   end
 end

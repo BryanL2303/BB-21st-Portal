@@ -178,4 +178,8 @@ Changed website title from Quiz Website to BB 21st Portal
 4 October 2024
 1. Refactored code for user management page and created integrated tests for this page
 
+29 October 2024
+1. Added first playwright test, incomplete
+2. Added status code to all api renders
+
 Version 1.0

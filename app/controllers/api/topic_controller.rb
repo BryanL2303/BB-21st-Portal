@@ -15,33 +15,33 @@ module Api
       if find_topic.nil?
         topic = Topic.new(topic_name: params[:topic_name])
         if topic.save
-          render json: { topic_name: topic.topic_name }
+          render json: { topic_name: topic.topic_name }, status: :created
         else
           render json: { error: topic.errors.messages }, status: 422
         end
       else
-        render json: false
+        render json: false, status: :reserved
       end
     end
 
     def topics
       topics = Topic.all.order('topic_name')
 
-      render json: topics
+      render json: topics, status: :ok
     end
 
     def quizzes
       topic = Topic.find_by(topic_name: params[:topic_name])
       quizzes = Quiz.where(topic_id: topic.id)
 
-      render json: quizzes
+      render json: quizzes, status: :ok
     end
 
     def questions
       topic = Topic.find_by(topic_name: params[:topic_name])
       questions = Question.where(topic_id: topic.id, question_type: params[:question_type]).order('permanent')
 
-      render json: questions
+      render json: questions, status: :ok
     end
 
     def delete_topic

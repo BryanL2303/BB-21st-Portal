@@ -31,7 +31,7 @@ module Api
           render json: { error: quiz.errors.messages }, status: 422
         end
       else
-        render json: false
+        render json: false, status: :reserved
       end
     end
 
@@ -71,13 +71,13 @@ module Api
           render json: { error: new_question.errors.messages }, status: 422
         end
       end
-      render json: { quiz: }
+      render json: { quiz: }, status: :ok
     end
 
     def quiz
       quiz = Quiz.find_by(id: params[:id])
 
-      render json: quiz
+      render json: quiz, status: :ok
     end
 
     def quizzes
@@ -87,7 +87,7 @@ module Api
                   Quiz.where(mastery_id: params[:award]['masteryId'])
                 end
 
-      render json: quizzes
+      render json: quizzes, status: :ok
     end
 
     def questions
@@ -98,7 +98,7 @@ module Api
         questions.push(question)
       end
 
-      render json: questions
+      render json: questions, status: :ok
     end
 
     # This is only for submission of random questions from question bank

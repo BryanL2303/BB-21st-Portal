@@ -27,7 +27,7 @@ module Api
         end
       end
 
-      render json: attainments
+      render json: attainments, status: :ok
     end
 
     def process_changes
@@ -81,7 +81,7 @@ module Api
         end
       end
 
-      render json: attainments
+      render json: attainments, status: :accepted
     end
   end
 end

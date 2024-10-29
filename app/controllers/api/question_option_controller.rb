@@ -14,7 +14,7 @@ module Api
                                            correct: params[:correct], question_id: params[:question_id])
 
       if question_option.save
-        render json: true
+        render json: true, status: :created
       else
         render json: { error: question_option.errors.messages }, status: 422
       end
@@ -27,7 +27,7 @@ module Api
       question_option.correct = params[:correct]
 
       if question_option.save
-        render json: true
+        render json: true, status: :accepted
       else
         render json: { error: question_option.errors.messages }, status: 422
       end
@@ -37,7 +37,7 @@ module Api
       question_option = QuestionOption.find_by(id: params[:question_option_id])
 
       if question_option.destroy
-        render json: true
+        render json: true, status: :ok
       else
         render json: { error: question_option.errors.messages }, status: 422
       end

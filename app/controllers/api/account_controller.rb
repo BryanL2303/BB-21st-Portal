@@ -19,58 +19,58 @@ module Api
 
       if find_account.nil?
         if account.save
-          render json: { account_name: account.account_name, type: account.account_type }
+          render json: { account_name: account.account_name, type: account.account_type }, status: :created
         else
           render json: { error: account.errors.messages }, status: 422
         end
       else
-        render json: false
+        render json: false, status: :reserved
       end
     end
 
     def authenticate_account
       account = Account.find_by(account_name: params[:account_name])
       if account.nil?
-        render json: false
+        render json: false, status: :not_found
       elsif account.password == params[:password]
         token = encode_token({ user_id: account.id })
         cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
 
-        render json: { account_name: account.account_name, account_type: account.account_type }
+        render json: { account_name: account.account_name, account_type: account.account_type }, status: :accepted
       else
-        render json: false
+        render json: false, status: :not_acceptable
       end
     end
 
     def account
       account = Account.find_by(id: params[:id])
 
-      render json: account
+      render json: account, status: :ok
     end
 
     def accounts_by_type
       accounts = Account.where(account_type: params[:account_type]).order('level').order('account_name')
 
-      render json: accounts
+      render json: accounts, status: :ok
     end
 
     def own_account
-      render json: @current_user
+      render json: @current_user, status: :ok
     end
 
     def accounts_by_ids
       accounts = Account.where(id: params[:boy_ids]).order('level').order('account_name')
 
-      render json: accounts
+      render json: accounts, status: :ok
     end
 
     def toggle_type
       account = Account.find_by(account_type: params[:account_type])
       account.type = params[:new_type]
       if account.save
-        render json: true
+        render json: true, status: :accepted
       else
-        render json: false
+        render json: false, status: :not_acceptable
       end
     end
 
@@ -86,7 +86,7 @@ module Api
         account['level'] = params[:level]
         account['credentials'] = params[:credentials]
         account.save
-        render json: true
+        render json: true, status: :accepted
       else
         render json: { error: account.errors.messages }, status: 422
       end
@@ -119,13 +119,13 @@ module Api
         end
       end
 
-      render json: quizzes
+      render json: quizzes, status: :ok
     end
 
     def account_information
       account = Account.find_by(id: params[:id])
 
-      render json: account
+      render json: account, status: :ok
     end
 
     def destroy

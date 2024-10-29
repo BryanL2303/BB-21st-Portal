@@ -30,7 +30,7 @@ module Api
                                                  attempts: 0)
           assigned_account.save
         end
-        render json: assignment
+        render json: assignment, status: :created
       else
         render json: { error: assignment.errors.messages }, status: 422
       end
@@ -50,10 +50,10 @@ module Api
           data['assigned_account'] = assigned_account
           data['attempt_score'] = attempt_score
         end
-        render json: data
+        render json: data, status: :ok
       else
         assignment = Assignment.find_by(id: params[:id])
-        render json: assignment
+        render json: assignment, status: :ok
       end
     end
 
@@ -64,7 +64,7 @@ module Api
                       Assignment.where(mastery_id: params[:award]['masteryId']).order('id')
                     end
 
-      render json: assignments
+      render json: assignments, status: :ok
     end
 
     def submit_assignment
@@ -146,7 +146,7 @@ module Api
         attempt_score.save
         assigned_account.save
 
-        render json: assigned_account
+        render json: assigned_account, status: :accepted
       end
     end
 
@@ -175,7 +175,7 @@ module Api
       assignment_answer.score = params[:score]
       assignment_answer.save
 
-      render json: assignment_answer
+      render json: assignment_answer, status: :accepted
     end
 
     def results_information
@@ -203,7 +203,7 @@ module Api
         data['mastery'] = mastery
       end
 
-      render json: data
+      render json: data, status: :ok
     end
 
     def delete_assignment
