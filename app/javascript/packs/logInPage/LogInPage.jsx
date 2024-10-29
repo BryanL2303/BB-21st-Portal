@@ -49,6 +49,10 @@ const LogInPage = () => {
       
       <form className='log-in-form' onSubmit={ submitForm }>
         <label>BB 21st Portal</label>
+        <p>This is the demo version of the site!</p>
+        <p>Log in with the following account to try out the website</p>
+        <p>username: 'John Doe'</p>
+        <p>password: 'John Doe'</p>
         <input className='log-in-form__name' name={"username"} placeholder='username'></input>
         <input className='log-in-form__password' type='password' name={"password"} placeholder='password'></input>
         <br/>
