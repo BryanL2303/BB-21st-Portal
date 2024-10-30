@@ -6,7 +6,7 @@
 		height: 85vh;
 	}
 
-	.award-management-page .page-container button{
+	.award-management-page .page-container .menu-button{
 		display: flex;
 		padding: 2%;
 		background-color: white;
@@ -29,6 +29,10 @@
 		overflow-x: hidden;
 		overflow-y: auto;
 		max-height: 100%;
+	}
+
+	.award-management-page .page-container .awards-list img{
+		height: 5vh;
 	}
 
 	.award-management-page .page-container .awards-list button{
@@ -111,5 +115,11 @@
 		border: solid;
 		border-color: black;
 		border-width: 1px;
+	}
+
+	.award-management-page .img-button{
+		padding: 0%;
+		height: 5vh;
+		width: 5vw;
 	}
 }

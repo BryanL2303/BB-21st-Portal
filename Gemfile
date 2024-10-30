@@ -80,3 +80,6 @@ gem 'webpacker', '~> 5.4'
 
 gem 'jwt'
 gem 'rack-cors'
+
+gem 'bigdecimal'
+gem 'mutex_m'

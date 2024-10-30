@@ -182,3 +182,8 @@ Version 1.0
 29 October 2024
 1. Added first playwright test, incomplete
 2. Added status code to all api renders
+
+30 October 2024
+1. Added function to filter names from AwardsTracker
+2. Added function to hide AwardsManagementPage left menu
+3. Added icons for buttons

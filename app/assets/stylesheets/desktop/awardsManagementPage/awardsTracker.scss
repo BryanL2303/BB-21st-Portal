@@ -5,6 +5,10 @@
 		overflow-y: auto;
 	}
 
+    .award-management-page .page-container img {
+        height: 5vh;
+    }
+
     .award-management-page .page-container .award-tracker .award-table {
         border-collapse: collapse; /* Ensures borders don't have gaps */
         max-width: 100%; /* Stretch table to fit within container */
