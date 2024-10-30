@@ -4,7 +4,7 @@ import axios from 'axios'
 import { checkMilestones } from './functions'
 import { AwardFileReader } from './AwardFileReader'
 import { AwardAttainmentTable } from './AwardAttainmentTable'
-import handleServerError from '../general/handleServerError'
+import { handleServerError } from '../general/handleServerError'
 
 // To show boys progression towards IPA/SPA/Founders
 const AwardTracker = () => {
