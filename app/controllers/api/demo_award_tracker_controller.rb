@@ -3,7 +3,7 @@
 module Api
     # The AwardTrackerController is responsible for handling functions for AttainedAward
     # within the API, such as CRUD functions.
-    class AwardTrackerController < ApplicationController
+    class DemoAwardTrackerController < ApplicationController
       protect_from_forgery with: :null_session
       before_action :authenticate_request
   
