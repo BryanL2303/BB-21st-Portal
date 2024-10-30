@@ -1,110 +1,118 @@
+# frozen_string_literal: true
+
 module Api
-	class DemoUniformInspectionController < ApplicationController
-		protect_from_forgery with: :null_session
+  # The UniformInspectionController is responsible for handling functions for UniformInspection
+  # within the API which includes SelectedComponent, such as CRUD functions.
+  class DemoUniformInspectionController < ApplicationController
+    protect_from_forgery with: :null_session
+    before_action :authenticate_request
 
-		def createUniformInspection
-			assessorId = decode_token(params[:token])
-			for boy in params[:boys]
-				uniformInspection = DemoUniformInspection.new(demo_account_id: boy['id'], demo_assessor_id: assessorId, date: params[:date])
-				uniformInspection.save
-				totalScore = 0
-				components = DemoUniformComponent.all.order('id')
-				for component in components
-					fields = DemoComponentField.where(demo_uniform_component_id: component.id)
-					for field in fields
-						if params[:selectedContents][boy['id'].to_s][component.id.to_s][field.id.to_s]
-							selectedComponent = DemoSelectedComponent.new(demo_uniform_inspection_id: uniformInspection.id, demo_component_field_id: field.id)
-							selectedComponent.save
-							totalScore += DemoComponentField.find_by(id: field.id).score
-						end
-					end
-				end
-				uniformInspection.total_score = totalScore
-				uniformInspection.save
-			end
+    def create_uniform_inspection
+      assessor_id = @current_user.id
+      params[:boys].each do |boy|
+        uniform_inspection = DemoUniformInspection.new(demo_account_id: boy['id'], assessor_id:, date: params[:date])
+        uniform_inspection.save
+        total_score = 0
+        components = DemoUniformComponent.all.order('id')
+        components.each do |component|
+          fields = DemoComponentField.where(demo_uniform_component_id: component.id)
+          fields.each do |field|
+            next unless params[:selectedContents][boy['id'].to_s][component.id.to_s][field.id.to_s]
 
-			render json: true
-		end
+            selected_component = DemoSelectedComponent.new(demo_uniform_inspection_id: uniform_inspection.id,
+                                                       demo_component_field_id: field.id)
+            selected_component.save
+            total_score += ComponentField.find_by(id: field.id).score
+          end
+        end
+        uniform_inspection.total_score = total_score
+        uniform_inspection.save
+      end
 
-		def getInspection
-			inspection = DemoUniformInspection.find_by(id: params[:id])
-			accounts = DemoAccount.where(account_type: 'Boy').order('id')
-			boy = DemoAccount.find_by(id: inspection.demo_account_id)
-			inspections = {}
-			boys = []
-			for account in accounts
-				accountInspections = DemoUniformInspection.where(demo_account_id: account.id).order('id')
-				if accountInspections != []
-					boys.push(account)
-					inspections[account.id] = {'inspections': accountInspections}
-					for accountInspection in accountInspections
-						selectedComponents = DemoSelectedComponent.where(demo_uniform_inspection_id: accountInspection.id)
-						componentIds = {}
-						for selectedComponent in selectedComponents
-							componentIds[selectedComponent.id] = true
-						end
-						assessor = DemoAccount.find_by(id: accountInspection.assessor_id)
-						inspections[account.id][accountInspection.id] = {selectedComponents: componentIds, inspection: accountInspection, assessor: assessor}
-					end
-				end
-			end
-			data = {'boy': boy, 'inspections': inspections, 'boys': boys}
+      render json: true, status: :created
+    end
 
-			render json: data
-		end
+    def inspection
+      inspection = DemoUniformInspection.find_by(id: params[:id])
+      accounts = DemoAccount.where(account_type: 'Boy').order('id')
+      boy = DemoAccount.find_by(id: inspection.demo_account_id)
+      inspections = {}
+      boys = []
+      accounts.each do |account|
+        account_inspections = DemoUniformInspection.where(demo_account_id: account.id).order('id').reverse_order
+        next unless account_inspections != []
 
-		def getInspectionsSummary
-			accounts = DemoAccount.where(account_type: 'Boy').order('level').order('account_name')
-			data = {'boys': accounts}
-			for account in accounts
-				inspection = DemoUniformInspection.where(demo_account_id: account.id).order('created_at')[-1]
-				data[account.id] = inspection
-				if inspection != nil
-					data[inspection.assessor_id] = DemoAccount.find_by(id: inspection.assessor_id)
-				end
-			end
+        boys.push(account)
+        inspections[account.id] = { 'inspections': account_inspections }
+        inspections[account.id]['keys'] = []
+        account_inspections.each do |account_inspection|
+          selected_components = DemoSelectedComponent.where(demo_uniform_inspection_id: account_inspection.id)
+          component_ids = {}
+          selected_components.each do |selected_component|
+            component_ids[selected_component.component_field_id] = true
+          end
+          assessor = DemoAccount.find_by(id: account_inspection.demo_assessor_id)
+          inspections[account.id][account_inspection.id] =
+            { selected_components: component_ids, inspection: account_inspection, assessor: }
+          inspections[account.id]['keys'].append(account_inspection.id)
+        end
+      end
+      data = { 'boy': boy, 'inspections': inspections, 'boys': boys }
 
-			render json: data
-		end
+      render json: data, status: :ok
+    end
 
-		def getComponentFields
-			uniformComponents = DemoUniformComponent.all.order('id')
-			components = []
-			data = {}
-			for component in uniformComponents
-				fields = DemoComponentField.where('demo_uniform_component_id': component.id)
-				components.push(component)
-				data[component['component_name']] = fields
-			end
-			data['components'] = components
-			render json: data
-		end
+    def inspections_summary
+      accounts = DemoAccount.where(account_type: 'Boy').order('level').order('account_name')
+      data = { 'boys': accounts }
+      accounts.each do |account|
+        inspection = DemoUniformInspection.where(demo_account_id: account.id).order('created_at')[-1]
+        data[account.id] = inspection
+        data[inspection.demo_assessor_id] = DemoAccount.find_by(id: inspection.demo_assessor_id) unless inspection.nil?
+      end
 
-		def deleteUniformInspection
-			assignment = DemoAssignment.find_by(id: params[:id])
+      render json: data, status: :ok
+    end
 
-			assigned_accounts = DemoAssignedAccount.where(demo_assignment_id: params[:id])
-			for assigned_account in assigned_accounts
-				attemptScores = DemoAttemptScore.where(demo_assigned_account_id: assigned_account.id)
-				attemptScores.destroy_all
-				assignmentAnswers = DemoAssignmentAnswer.where(demo_account_id: assigned_account.account_id).where(demo_assignment_id: assigned_account.demo_assignment_id)
-				assignmentAnswers.destroy_all
-			end
-			assigned_accounts.destroy_all
+    def component_fields
+      uniform_components = DemoUniformComponent.all.order('id')
+      components = []
+      data = {}
+      uniform_components.each do |component|
+        fields = DemoComponentField.where('demo_uniform_component_id': component.id)
+        components.push(component)
+        data[component['component_name']] = fields
+      end
+      data['components'] = components
+      render json: data, status: :ok
+    end
 
-			quiz_id = assignment["demo_quiz_id"]
+    def delete_uniform_inspection
+      assignment = DemoAssignment.find_by(id: params[:id])
 
-			if assignment.destroy
-				assignments = DemoAssignment.where(demo_quiz_id: quiz_id)
-				if assignments == nil
-					quiz = DemoQuiz.find_by(id: quiz_id)
-					quiz["assigned"] = false
-					quiz.save
-				end
-				head :no_content
-			else
-				render json: {error: assignment.errors.messages}, status: 422
-			end
-		end
-	end
+      assigned_accounts = DemoAssignedAccount.where(demo_assignment_id: params[:id])
+      assigned_accounts.each do |assigned_account|
+        attempt_scores = DemoAttemptScore.where(demo_assigned_account_id: assigned_account.id)
+        attempt_scores.destroy_all
+        assignment_answers = DemoAssignmentAnswer.where(demo_account_id: assigned_account.demo_account_id)
+                                             .where(demo_assignment_id: assigned_account.demo_assignment_id)
+        assignment_answers.destroy_all
+      end
+      assigned_accounts.destroy_all
+
+      quiz_id = assignment['quiz_id']
+
+      if assignment.destroy
+        assignments = DemoAssignment.where(demo_quiz_id: quiz_id)
+        if assignments.nil?
+          quiz = DemoQuiz.find_by(id: quiz_id)
+          quiz['assigned'] = false
+          quiz.save
+        end
+        head :no_content
+      else
+        render json: { error: assignment.errors.messages }, status: 422
+      end
+    end
+  end
 end

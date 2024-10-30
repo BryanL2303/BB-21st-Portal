@@ -13,42 +13,40 @@ Rails.application.routes.draw do
   namespace :api do
     resources :admin do
       member do
-        post '/get_tables' => 'demo_admin#getTables'
-        post '/get_table_names' => 'demo_admin#getTableNames'
-        post '/get_table' => 'demo_admin#getTable'
-        post '/add_data' => 'demo_admin#addData'
-        post '/update_data' => 'demo_admin#updateData'
-        post '/delete_data' => 'demo_admin#deleteData'
+        post '/get_tables' => 'demo_admin#tables'
+        post '/get_table_names' => 'demo_admin#table_names'
+        post '/get_table' => 'demo_admin#table'
+        post '/add_data' => 'demo_admin#add_data'
+        post '/update_data' => 'demo_admin#update_data'
+        post '/delete_data' => 'demo_admin#delete_data'
       end
     end
 
-    resources :account do 
+    resources :account do
       member do
-        post '/create_account' => 'demo_account#createAccount'
-        post '/authenticate_account' => 'demo_account#authenticateAccount'
-        post '/get_account' => 'demo_account#getAccount'
-        post '/get_accounts' => 'demo_account#getAccounts'
-        post '/get_own_account' => 'demo_account#getOwnAccount'
-        post '/get_accounts_by_ids' => 'demo_account#getAccountsByIds'
-        post '/toggle_type' => 'demo_account#toggleType'
-        post '/edit_account' => 'demo_account#editAccount'
-        post '/delete_account' => 'demo_account#deleteAccount'
-        post '/get_assignments' => 'demo_account#getAssignments'
-        post '/get_account_information' => 'demo_account#getAccountInformation'
+        post '/create_account' => 'demo_account#create_account'
+        post '/authenticate_account' => 'demo_account#authenticate_account'
+        post '/get_account' => 'demo_account#account'
+        post '/get_accounts_by_type' => 'demo_account#accounts_by_type'
+        post '/get_own_account' => 'demo_account#own_account'
+        post '/get_accounts_by_ids' => 'demo_account#accounts_by_ids'
+        post '/toggle_type' => 'demo_account#toggle_type'
+        post '/edit_account' => 'demo_account#edit_account'
+        post '/delete_account' => 'demo_account#delete_account'
+        post '/get_assignments' => 'demo_account#assignments'
+        post '/get_account_information' => 'demo_account#account_information'
       end
     end
 
     resources :award do
       member do
-        post '/create_award' => 'demo_award#createAward'
-        post '/get_award' => 'demo_award#getAward'
-        post '/edit_award' => 'demo_award#editAward'
-        post '/get_awards' => 'demo_award#getAwards'
-        post '/get_masteries' => 'demo_award#getMasteries'
-        post '/get_quizzes' => 'demo_award#getQuizzes'
-        post '/get_questions' => 'demo_award#getQuestions'
-        post '/get_columns' => 'demo_award#getColumns'
-        post '/delete_award' => 'demo_award#deleteAward'
+        post '/create_award' => 'demo_award#create_award'
+        post '/get_award' => 'demo_award#award'
+        post '/edit_award' => 'demo_award#edit_award'
+        post '/get_awards' => 'demo_award#awards'
+        post '/get_masteries' => 'demo_award#masteries'
+        post '/get_columns' => 'demo_award#columns'
+        post '/delete_award' => 'demo_award#delete_award'
       end
     end
 
@@ -61,86 +59,86 @@ Rails.application.routes.draw do
 
     resources :mastery do
       member do
-        post '/get_columns' => 'demo_mastery#getColumns'
+        post '/get_columns' => 'demo_mastery#columns'
       end
     end
 
     resources :quiz do
       member do
-        post '/create_quiz' => 'demo_quiz#createQuiz'
-        post '/get_quiz' => 'demo_quiz#getQuiz'
-        post '/get_quizzes' => 'demo_quiz#getQuizzes'
-        post '/get_questions' => 'demo_quiz#getQuestions'
-        post '/submit_quiz' => 'demo_quiz#submitQuiz'
-        post '/delete_quiz' => 'demo_quiz#deleteQuiz'
+        post '/create_quiz' => 'demo_quiz#create_quiz'
+        post '/get_quiz' => 'demo_quiz#quiz'
+        post '/get_quizzes' => 'demo_quiz#quizzes'
+        post '/get_questions' => 'demo_quiz#questions'
+        post '/submit_quiz' => 'demo_quiz#submit_quiz'
+        post '/delete_quiz' => 'demo_quiz#delete_quiz'
       end
     end
 
     resources :question do
       member do
-        post '/create_question' => 'demo_question#createQuestion'
-        post '/get_question' => 'demo_question#getQuestion'
-        post '/get_questions' => 'demo_question#getQuestions'
-        post '/get_options' => 'demo_question#getOptions'
-        post '/get_rubric' => 'demo_question#getRubric'
-        post '/edit_question' => 'demo_question#editQuestion'
-        post '/set_permanent' => 'demo_question#setPermanent'
-        post '/delete_question' => 'demo_question#deleteQuestion'
+        post '/create_question' => 'demo_question#create_question'
+        post '/get_question' => 'demo_question#question'
+        post '/get_questions' => 'demo_question#questions'
+        post '/get_options' => 'demo_question#options'
+        post '/get_rubric' => 'demo_question#rubric'
+        post '/edit_question' => 'demo_question#edit_question'
+        post '/set_permanent' => 'demo_question#set_permanent'
+        post '/delete_question' => 'demo_question#delete_question'
       end
     end
 
     resources :question_option do
       member do
-        post '/create_option' => 'demo_question_option#createOption'
-        post '/edit_option' => 'demo_question_option#editOption'
-        post '/delete_option' => 'demo_question_option#deleteOption'
+        post '/create_option' => 'demo_question_option#create_option'
+        post '/edit_option' => 'demo_question_option#edit_option'
+        post '/delete_option' => 'demo_question_option#delete_option'
       end
     end
 
-    resources :answer_rubric do 
+    resources :answer_rubric do
       member do
-        post '/create_rubric' => 'demo_answer_rubric#createRubric'
-        post '/edit_rubric' => 'demo_answer_rubric#editRubric'
-        post '/delete_rubric' => 'demo_answer_rubric#deleteRubric'
+        post '/create_rubric' => 'demo_answer_rubric#create_rubric'
+        post '/edit_rubric' => 'demo_answer_rubric#edit_rubric'
+        post '/delete_rubric' => 'demo_answer_rubric#delete_rubric'
       end
     end
 
-    resources :quiz_question do 
+    resources :quiz_question do
       member do
       end
     end
 
-    resources :assignment do 
+    resources :assignment do
       member do
-        post '/create_assignment' => 'demo_assignment#createAssignment'
-        post '/get_assignment' => 'demo_assignment#getAssignment'
-        post '/get_assignments' => 'demo_assignment#getAssignments'
-        post '/submit_assignment' => 'demo_assignment#submitAssignment'
-        post '/grade_question' => 'demo_assignment#gradeQuestion'
-        post '/get_results_information' => 'demo_assignment#getResultsInformation'
-        post '/delete_assignment' => 'demo_assignment#deleteAssignment'
+        post '/create_assignment' => 'demo_assignment#create_assignment'
+        post '/get_assignment' => 'demo_assignment#assignment'
+        post '/get_assignments' => 'demo_assignment#assignments'
+        post '/submit_assignment' => 'demo_assignment#submit_assignment'
+        post '/grade_question' => 'demo_assignment#grade_question'
+        post '/get_results_information' => 'demo_assignment#results_information'
+        post '/delete_assignment' => 'demo_assignment#delete_assignment'
       end
     end
 
-    resources :assigned_account do 
+    resources :assigned_account do
       member do
-        post '/create_assigned_account' => 'demo_assigned_account#createAssignedAccount'
-        post '/get_assigned_account' => 'demo_assigned_account#getAssignedAccount'
-        post '/get_assigned_accounts' => 'demo_assigned_account#getAssignedAccounts'
-        post '/get_assignment_answers' => 'demo_assigned_account#getAssignmentAnswers'
-        post '/update_assigned_account' => 'demo_assigned_account#updateAssignedAccount'
-        post '/set_graded' => 'demo_assigned_account#setGraded'
-        post '/delete_assigned_account' => 'demo_assigned_account#deleteAssignedAccount'
+        post '/create_assigned_account' => 'demo_assigned_account#create_assigned_account'
+        post '/get_assigned_account' => 'demo_assigned_account#assigned_account'
+        post '/get_assigned_accounts' => 'demo_assigned_account#assigned_accounts'
+        post '/get_assignment_answers' => 'demo_assigned_account#assignment_answers'
+        post '/update_assigned_account' => 'demo_assigned_account#update_assigned_account'
+        post '/set_graded' => 'demo_assigned_account#set_graded'
+        post '/delete_assigned_account' => 'demo_assigned_account#delete_assigned_account'
       end
     end
 
-    resources :uniform_inspection do 
+    resources :uniform_inspection do
       member do
-        post '/create_uniform_inspection' => 'demo_uniform_inspection#createUniformInspection'
-        post '/get_inspection' => 'demo_uniform_inspection#getInspection'
-        post '/get_inspections' => 'demo_uniform_inspection#getInspectionsSummary'
-        post '/get_component_fields' => 'demo_uniform_inspection#getComponentFields'
-        post '/delete_uniform_inspection' => 'demo_uniform_inspection#deleteUniformInspection'
+        post '/create_uniform_inspection' => 'demo_uniform_inspection#create_uniform_inspection'
+        post '/get_inspection' => 'demo_uniform_inspection#inspection'
+        post '/get_inspections' => 'demo_uniform_inspection#inspections_summary'
+        post '/get_component_fields' => 'demo_uniform_inspection#component_fields'
+        post '/delete_uniform_inspection' => 'demo_uniform_inspection#delete_uniform_inspection'
       end
     end
   end

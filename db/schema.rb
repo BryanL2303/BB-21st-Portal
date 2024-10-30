@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202308200000001) do
+ActiveRecord::Schema[7.0].define(version: 202409100000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,7 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 202308200000001) do
   end
 
   create_table "demo_assignments", force: :cascade do |t|
-    t.bigint "demo_account_id"
+    t.bigint "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "quiz_id"
@@ -72,21 +72,21 @@ ActiveRecord::Schema[7.0].define(version: 202308200000001) do
     t.bigint "demo_award_id"
     t.bigint "demo_mastery_id"
     t.string "assignment_name"
-    t.index ["demo_account_id"], name: "index_demo_assignments_on_demo_account_id"
+    t.index ["account_id"], name: "index_demo_assignments_on_account_id"
     t.index ["demo_award_id"], name: "index_demo_assignments_on_demo_award_id"
     t.index ["demo_mastery_id"], name: "index_demo_assignments_on_demo_mastery_id"
     t.index ["quiz_id"], name: "index_demo_assignments_on_quiz_id"
   end
 
-  create_table 'demo_attained_awards', force: :cascade do |t|
-    t.bigint 'demo_account_id'
-    t.bigint 'demo_award_id'
-    t.bigint 'demo_mastery_id'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['demo_account_id'], name: 'index_demo_attained_awards_on_demo_account_id'
-    t.index ['demo_award_id'], name: 'index_demo_attained_awards_on_demo_award_id'
-    t.index ['demo_mastery_id'], name: 'index_demo_attained_awards_on_demo_mastery_id'
+  create_table "demo_attained_awards", force: :cascade do |t|
+    t.bigint "demo_account_id"
+    t.bigint "demo_award_id"
+    t.bigint "demo_mastery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["demo_account_id"], name: "index_demo_attained_awards_on_demo_account_id"
+    t.index ["demo_award_id"], name: "index_demo_attained_awards_on_demo_award_id"
+    t.index ["demo_mastery_id"], name: "index_demo_attained_awards_on_demo_mastery_id"
   end
 
   create_table "demo_attempt_scores", force: :cascade do |t|

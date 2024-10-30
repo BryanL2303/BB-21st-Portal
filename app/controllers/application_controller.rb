@@ -17,14 +17,14 @@ class ApplicationController < ActionController::Base
     account_id = decode_token(token)
     return if account_id.nil?
 
-    Account.find_by(id: account_id)
+    DemoAccount.find_by(id: account_id)
   end
 
   def authenticate_request
     token = cookies[:jwt] # Retrieving the token from the signed cookie
     if token.present?
       account_id = decode_token(token)
-      @current_user = Account.find_by(id: account_id) if account_id
+      @current_user = DemoAccount.find_by(id: account_id) if account_id
     end
 
     return if @current_user
