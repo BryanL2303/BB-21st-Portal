@@ -13,13 +13,18 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [accountLevel, setAccountLevel] = useState();
 
   useEffect(() => {
+    setAccount((prevAccount) => {
+      return null
+    })
     axios.post('/api/account/' + userId + '/get_account_information', {
       'id': userId
     }, {
       withCredentials: true
     })
     .then(resp => {
-      setAccount(resp.data)
+      setAccount((prevAccount) => {
+        return resp.data
+      })
       setAccountRank(resp.data.rank)
       setAccountLevel(resp.data.level)
     })
