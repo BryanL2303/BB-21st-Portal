@@ -65,7 +65,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
     {withCredentials: true})
     .then((resp) => {
         setAppointments(resp.data.appointments)
-        setAppointmentHolders(resp.data.appointmentToAccounts)
+        setAppointmentHolders(resp.data.appointment_to_accounts)
     })
     .catch(resp => handleServerError(resp.response.status))
   }
