@@ -38,6 +38,15 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :appointment do
+      member do
+        post '/create_appointment' => 'appointment#create_appointment'
+        post '/get_appointments' => 'appointment#appointments'
+        post '/update_appointment' => 'appointment#update_appointment'
+        post '/delete_appointment' => 'appointment#delete_appointment'
+      end
+    end
+
     resources :award do
       member do
         post '/create_award' => 'award#create_award'

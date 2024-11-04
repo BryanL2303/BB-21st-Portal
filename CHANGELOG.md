@@ -187,3 +187,16 @@ Version 1.0
 1. Added function to filter names from AwardsTracker
 2. Added function to hide AwardsManagementPage left menu
 3. Added icons for buttons
+
+31 October 2024
+1. Fixed bug with user information not rerendering components when reloading
+
+4 November 2024
+1. Added migration for new table Appointments
+2. Added column appointment to Accounts
+3. Added new segment AppointmentHolders to UserManagementPage
+4. Added new segment AppointmentInformation for AppointmentHolders
+5. Added model and controller for Appointments table
+6. Added CRUD functions for Appointments
+7. When logging in, set cookies for Appointment if it exists
+8. Added more conditionals to rendering in UserManagementPage since Boys have access to it

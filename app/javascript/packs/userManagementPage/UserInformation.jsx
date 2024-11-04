@@ -13,7 +13,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [accountLevel, setAccountLevel] = useState();
 
   useEffect(() => {
-    setAccount((prevAccount) => {
+    setAccount(() => {
       return null
     })
     axios.post('/api/account/' + userId + '/get_account_information', {
@@ -22,7 +22,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       withCredentials: true
     })
     .then(resp => {
-      setAccount((prevAccount) => {
+      setAccount(() => {
         return resp.data
       })
       setAccountRank(resp.data.rank)
@@ -151,6 +151,10 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='2' onClick={setLevel}>2</p>
           <p className='1' onClick={setLevel}>1</p>
         </Popup>}
+        <br/>
+        {account.appointment != null && <label>Appointment: </label>}
+        {account.appointment != null && <label>{account.appointment}</label>}
+        <br/>
         {account.account_type != "Boy" && <label>Credentials (For 32A results): </label>}
         {account.account_type != "Boy" && <input name={"credentials"} defaultValue={account.credentials}></input>}
         <button className="edit-button">Save Changes</button>

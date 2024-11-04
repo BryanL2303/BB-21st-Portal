@@ -18,6 +18,7 @@ const ResetPasswordPage = () => {
         withCredentials: true
       })
       .then(resp => {
+        console.log(resp)
         setAccount(resp.data)
       })
       .catch(resp => {handleServerError(resp.response.status)})

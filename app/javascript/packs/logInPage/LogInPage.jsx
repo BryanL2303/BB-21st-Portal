@@ -32,6 +32,9 @@ const LogInPage = () => {
         //If account is authenticated save account information in cookies
         cookies.set('Name', resp.data.account_name, { path: '/' });
         cookies.set('Type', resp.data.account_type, { path: '/' });
+        if (resp.data.appointment != null) {
+          cookies.set('Appointment', resp.data.appointment, { path: '/' })
+        }
         window.location.href = '/home'
       }
       else {

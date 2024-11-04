@@ -3,6 +3,7 @@ import axios from 'axios'
 import useCookies from '../general/useCookies'
 import { NavigationBar } from '../general/NavigationBar'
 import { AccountCreationForm } from './AccountCreationForm'
+import { AppointmentHoldersList } from './AppointmentHoldersList'
 import { UserInformation } from './UserInformation'
 import { OfficerAccountsList } from './OfficerAccountsList'
 import { PrimerAccountsList } from './PrimerAccountsList'
@@ -28,6 +29,10 @@ const UserManagementPage = () => {
     setPageState("form");
   }
 
+  function showAppointments() {
+    setPageState("appointments")
+  }
+
   function reLoad () {
     setLoad((prevLoad) => {
       return !prevLoad
@@ -42,15 +47,18 @@ const UserManagementPage = () => {
       <div className='page-container'>
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>
+          <button onClick = {showAppointments}>Appointment Holders</button>
           <p>Current Users</p>
           {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin")
            && <OfficerAccountsList setPageState = {setPageState} load={load} />}
           {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState} load={load} />}
-          {cookies.get('Type') != "Boy" && <BoyAccountsList setPageState = {setPageState} load={load} />}
+          <BoyAccountsList setPageState = {setPageState} load={load} />
         </div>
         <div className='main-block'>
           {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}
-          {pageState != "form" && <UserInformation userId={pageState} showForm={showForm} reLoad={reLoad}/>}
+          {pageState == "appointments" && <AppointmentHoldersList load={load} reLoad={reLoad}/>}
+          {pageState != "form" && pageState != "appointments" &&
+           <UserInformation userId={pageState} showForm={showForm} reLoad={reLoad}/>}
         </div>
       </div>
     </div>

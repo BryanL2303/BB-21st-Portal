@@ -8,8 +8,8 @@ module Api
   class AccountController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request,
-                  only: %i[create_account get_account get_accounts get_own_account toggle_type edit_account
-                           delete_account get_assignments]
+                  only: %i[create_account account accounts own_account toggle_type edit_account
+                           delete_account assignments]
 
     def create_account
       account = Account.new(account_name: params[:account_name], password: params[:password],
@@ -36,7 +36,8 @@ module Api
         token = encode_token({ user_id: account.id })
         cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
 
-        render json: { account_name: account.account_name, account_type: account.account_type }, status: :accepted
+        render json: { account_name: account.account_name, account_type: account.account_type,
+         appointment: account.appointment }, status: :accepted
       else
         render json: false, status: :not_acceptable
       end
