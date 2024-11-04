@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
+import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 // To create new accounts
 const AccountCreationForm = ({ reLoad }) => {
-  const cookies = new Cookies()
+  const cookies = useCookies()
   const [accountType, setAccountType] = useState('Boy');
   const [accountRank, setAccountRank] = useState('REC');
   const [accountLevel, setAccountLevel] = useState('1');
