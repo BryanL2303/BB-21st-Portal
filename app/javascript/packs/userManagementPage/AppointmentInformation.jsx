@@ -50,13 +50,13 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
           <label className={'update-' + appointment.appointment_name + '__name'}>
             {appointmentHolders[appointment.id]['account_name']}</label>} position="bottom">
             {appointment.account_type == 'Officer' && officerList.map((officer) => {
-                return(<p id={officer.id} className={officer.account_name} onClick={setAccount}>{officer.account_name}</p>)
+                return(<p key={officer.id} id={officer.id} className={officer.account_name} onClick={setAccount}>{officer.account_name}</p>)
             })}
             {appointment.account_type == 'Primer' && primerList.map((primer) => {
-                return(<p id={primer.id} className={primer.account_name} onClick={setAccount}>{primer.account_name}</p>)
+                return(<p key={primer.id} id={primer.id} className={primer.account_name} onClick={setAccount}>{primer.account_name}</p>)
             })}
             {appointment.account_type == 'Boy' && boyList.map((boy) => {
-                return(<p id={boy.id} className={boy.account_name} onClick={setAccount}>{boy.account_name}</p>)
+                return(<p key={boy.id} id={boy.id} className={boy.account_name} onClick={setAccount}>{boy.account_name}</p>)
             })}
           </Popup>}
         {cookies.get('Type') != "Officer" && cookies.get('Type') != "Admin" &&

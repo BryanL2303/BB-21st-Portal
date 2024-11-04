@@ -37,7 +37,7 @@ module Api
         cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
 
         render json: { account_name: account.account_name, account_type: account.account_type,
-         appointment: account.appointment }, status: :accepted
+                       appointment: account.appointment }, status: :accepted
       else
         render json: false, status: :not_acceptable
       end
