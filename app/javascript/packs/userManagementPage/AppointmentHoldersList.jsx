@@ -106,7 +106,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
       <label style={{fontSize: '30px'}}>Appointment Holders</label>
       <br/>
       {appointments.map((appointment) => 
-        <AppointmentInformation appointment={appointment} appointmentHolders={appointmentHolders}
+        <AppointmentInformation key={appointment.id} appointment={appointment} appointmentHolders={appointmentHolders}
          boyList={boyList} primerList={primerList} officerList={officerList}/>
       )}
       {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
@@ -131,7 +131,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
                 Select Appointment Holder</label>} position="bottom">
                 {officerList.map((officer) => {
                   return(
-                    <p id={officer.id} className={officer.account_name} onClick={setAccount}>{officer.account_name}</p>
+                    <p key={officer.id} id={officer.id} className={officer.account_name} onClick={setAccount}>{officer.account_name}</p>
                   )
                 })}
             </Popup>}
@@ -140,7 +140,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
                 Select Appointment Holder</label>} position="bottom">
                 {primerList.map((primer) => {
                   return(
-                    <p id={primer.id} className={primer.account_name} onClick={setAccount}>{primer.account_name}</p>
+                    <p key={primer.id} id={primer.id} className={primer.account_name} onClick={setAccount}>{primer.account_name}</p>
                   )
                 })}
             </Popup>}
@@ -148,7 +148,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
             <Popup className='account-name-popup' trigger={<label className='create-appointment__account'>
                 Select Appointment Holder</label>} position="bottom">
                 {boyList.map((boy) => {
-                    return(<p id={boy.id} className={boy.account_name} onClick={setAccount}>{boy.account_name}</p>)
+                    return(<p key={boy.id} id={boy.id} className={boy.account_name} onClick={setAccount}>{boy.account_name}</p>)
                 })}
             </Popup>}
         <button>Add New Appointment</button>

@@ -75,9 +75,37 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
   )
 }
 
-// AppointmentInformation.propTypes = {
-//   load: PropTypes.bool.isRequired,
-//   reLoad: PropTypes.func.isRequired
-// }
+AppointmentInformation.propTypes = {
+  appointment: PropTypes.shape({
+    id: PropTypes.number,
+    appointment_name: PropTypes.string,
+    account_type: PropTypes.string,
+    account_id: PropTypes.number
+  }),
+  appointmentHolders: PropTypes.shape({
+    account: PropTypes.shape({
+        id: PropTypes.number,
+        account_name: PropTypes.string
+    })
+  }),
+  boyList: PropTypes.arrayOf(
+    PropTypes.shape({
+        id: PropTypes.number,
+        account_name: PropTypes.string
+    })
+  ),
+  primerList: PropTypes.arrayOf(
+    PropTypes.shape({
+        id: PropTypes.number,
+        account_name: PropTypes.string
+    })
+  ),
+  officerList: PropTypes.arrayOf(
+    PropTypes.shape({
+        id: PropTypes.number,
+        account_name: PropTypes.string
+    })
+  )
+}
 
 export { AppointmentInformation }
