@@ -16,6 +16,10 @@ const UserManagementPage = () => {
   const [load, setLoad] = useState(false);
   const [pageState, setPageState] = useState("form");
 
+  if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
+    window.location.href = '/reset_password'
+  }
+
   useEffect(() => {
     //If there is no ongoing session go back to log in page
     axios.post("/application/0/check_session", {},

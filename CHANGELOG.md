@@ -206,3 +206,5 @@ Version 1.0
 2. Added css to limit height for account-name-popup-content
 3. Update frontend to replace console logs from axios catches with handleServerError
 4. Added more status codes to catch with handleServerError
+5. Update home link for logging in to not show QuizListPage
+6. Updated admin page table to use textarea instead of input for more space
