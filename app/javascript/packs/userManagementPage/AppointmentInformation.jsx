@@ -46,7 +46,7 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
     <div className='appointment-holder-information'>
         <label>{appointment.appointment_name}: </label>
         {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
-          <Popup className='account-name-popup' trigger={
+          <Popup currentStyle={{maxHeight: '5vh', overscrollY: 'auto'}} className='account-name-popup' trigger={
           <label className={'update-' + appointment.appointment_name + '__name'}>
             {appointmentHolders[appointment.id]['account_name']}</label>} position="bottom">
             {appointment.account_type == 'Officer' && officerList.map((officer) => {

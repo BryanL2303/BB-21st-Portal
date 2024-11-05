@@ -200,3 +200,7 @@ Version 1.0
 6. Added CRUD functions for Appointments
 7. When logging in, set cookies for Appointment if it exists
 8. Added more conditionals to rendering in UserManagementPage since Boys have access to it
+
+5 November 2024
+1. Added css to manage overflow for AppointmentHoldersList
+2. Added css to limit height for account-name-popup-content
