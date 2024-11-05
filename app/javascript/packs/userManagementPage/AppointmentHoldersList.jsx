@@ -97,7 +97,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
         },
         {withCredentials: true})
         .then(() => reLoad())
-        .catch(() => window.location.href = '/')
+        .catch(resp => handleServerError(resp.response.status))
     } else {
         alert("Please fill in all fields first.")
     }

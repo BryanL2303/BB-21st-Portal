@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 import {AnswerDisplay} from './AnswerDisplay'
 
 /*For Boys to see the results of their quiz
@@ -47,9 +48,9 @@ const QuizResultPage = () => {
         setTotalMarks(resp.data['attempt_score'])
         setAllowAttempt(resp.data['attempt_score']['graded'])
       })
-      .catch(error => {console.log(error)})
+      .catch(resp => handleServerError(resp.response.status))
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   //Go to QuizPage
@@ -79,7 +80,7 @@ const QuizResultPage = () => {
       setQuestions(resp.data['questions'])
       setTotalMarks(resp.data['attempt_score'])
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

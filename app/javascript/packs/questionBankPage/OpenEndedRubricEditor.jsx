@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
 /*To edit existing questions and update the database
 */
@@ -17,7 +18,7 @@ const OpenEndedRubricEditor = ({ question }) => {
     .then(resp => {
       setRubric(resp.data.rubric)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   //Sends the information from the form to the backend to edit the options

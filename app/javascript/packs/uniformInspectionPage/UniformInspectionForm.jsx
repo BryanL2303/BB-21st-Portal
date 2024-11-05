@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 
 /*To facilitate uniform inspection by officers / primers
 */
@@ -36,7 +37,7 @@ const UniformInspectionForm = () => {
     .then(resp => {
       setBoyAccounts(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function selectBoy() {
@@ -73,7 +74,7 @@ const UniformInspectionForm = () => {
         }
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function selectField(e) {
@@ -119,7 +120,7 @@ const UniformInspectionForm = () => {
     .then(() => {
       window.location.href = '/uniform_inspection_results'
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(
@@ -154,7 +155,6 @@ const UniformInspectionForm = () => {
               <div key={component.id}>
                 <h3>{component.component_name}</h3>
                 {componentFields[component.component_name].map((field) => {
-                  console.log(component.id)
                   return(
                     <div key={field.id}>
                       <input type='checkbox' className={component.id + '-field-selector'} id={field.id} name={component.id} onChange={selectField} defaultChecked={selectedContents[currentForm][component.id][field.id]}></input>

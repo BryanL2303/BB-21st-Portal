@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
 /*To display the currently selected question for the test
 */
@@ -18,7 +19,7 @@ const QuestionGradingDisplay = ({question}) => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then()
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

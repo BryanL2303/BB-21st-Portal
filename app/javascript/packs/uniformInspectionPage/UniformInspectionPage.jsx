@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 
 /*To facilitate uniform inspection by officers / primers
 */
@@ -21,7 +22,7 @@ const UniformInspectionPage = () => {
     .then(resp => {
       setInspections(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function uniformInspectionForm(e) {

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import Popup from 'reactjs-popup';
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
+import { handleServerError } from '../general/handleServerError';
 import { McqOptionsForm } from './McqOptionsForm'
 import { MrqOptionsForm } from './MrqOptionsForm'
 import { OpenEndedForm } from './OpenEndedForm'
@@ -61,7 +62,7 @@ const QuestionCreationForm = () => {
         e.target[0].value = ''
         alert("Question has been created, please refresh the page.")
       })
-      .catch(resp => console.log(resp.response.statusText))
+      .catch(resp => handleServerError(resp.response.status))
     }
     else {
       alert("Please fill in all fields first")

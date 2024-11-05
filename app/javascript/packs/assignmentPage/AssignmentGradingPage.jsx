@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 import {QuestionGradingDisplay} from './QuestionGradingDisplay'
 
 /*For officers/primers to grade assignments
@@ -37,7 +38,7 @@ const AssignmentGradingPage = () => {
       setQuestions(resp.data['questions'])
       setTotalMarks(resp.data['attempt_score'])
     })
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }, [attempt])
 
   function loadAttempt(e) {
@@ -56,7 +57,7 @@ const AssignmentGradingPage = () => {
     .then(resp => {
       setTotalMarks(resp.data)
     })
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

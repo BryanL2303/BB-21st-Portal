@@ -73,9 +73,7 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
               try {
                 element = document.getElementsByClassName(id + "-" + awardName)[0]
                 if (element.checked != attainment) {
-                  console.log("Toggle " + awardName)
                   element.checked = attainment
-                  console.log(element.checked)
                   toggleAttainment({target: element})
                 }                
               } catch (error) {console.log(awardName + ": " + error)}

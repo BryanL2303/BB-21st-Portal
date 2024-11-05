@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
+import { handleServerError } from '../general/handleServerError.jsx'
 import { SelectedQuestion } from './SelectedQuestion.jsx'
 
 /*To access questions from question bank and add them into the quiz
@@ -22,7 +23,7 @@ const QuestionSelector = ({type, marks, setMarks}) => {
     .then( resp => {
       setQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [type])
 
   function select(e) {

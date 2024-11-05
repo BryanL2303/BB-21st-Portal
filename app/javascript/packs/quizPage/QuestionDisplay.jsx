@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import {handleServerError} from '../general/handleServerError'
 
 /*To display the currently selected question for the test
 */
@@ -23,7 +24,7 @@ const QuestionDisplay = ({questionId}) => {
           withCredentials: true  // Include credentials (cookies)
         })
         .then()
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else {
         axios.post('/api/question/0/get_options', {
           question_id: questionId
@@ -33,10 +34,10 @@ const QuestionDisplay = ({questionId}) => {
         .then( resp => {
           setOptions(resp.data)
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [questionId])
 
   return(

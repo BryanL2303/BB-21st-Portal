@@ -204,3 +204,5 @@ Version 1.0
 5 November 2024
 1. Added css to manage overflow for AppointmentHoldersList
 2. Added css to limit height for account-name-popup-content
+3. Update frontend to replace console logs from axios catches with handleServerError
+4. Added more status codes to catch with handleServerError

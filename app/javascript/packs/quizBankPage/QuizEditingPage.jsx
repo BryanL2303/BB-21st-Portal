@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 import {SelectedQuestion} from './SelectedQuestion'
 
 /*To view existing quiz and edit them
@@ -28,7 +29,7 @@ const QuizEditingPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
     }, {
@@ -37,7 +38,7 @@ const QuizEditingPage = () => {
     .then(resp => {
       setQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   //Sends the information from the form to the backend to try and edit a quiz
@@ -141,7 +142,7 @@ const QuizEditingPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(window.location.href = '/quiz_bank')
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(
