@@ -14,7 +14,6 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then()
   .catch(() => {window.location.href = '/'})
 
   function changeLocalMarks(e) {
@@ -24,7 +23,6 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
       let disparity = e.target.value - localMark
       setMarks(marks + disparity)
       setLocalMark(e.target.value)
-    } else {
     }
   }
 
