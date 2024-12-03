@@ -1,0 +1,36 @@
+name: Weekly Database Backup
+
+on:
+  schedule:
+    - cron: '0 0 * * 6' # Every Saturday at midnight UTC
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Login to Heroku
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku auth:token
+
+      - name: Capture Database Backup
+        run: heroku pg:backups:capture --app bb-21
+
+      - name: Download Backup
+        run: |
+          mkdir -p backups
+          heroku pg:backups:download --app bb-21 -o backups/backup_$(date +%Y-%m-%d).dump
+
+      - name: Upload Backup to Repository
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add backups/
+          git commit -m "Add weekly backup: $(date +%Y-%m-%d)"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

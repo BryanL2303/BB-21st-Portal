@@ -28,6 +28,7 @@ const UserMenu = () => {
          <button className="admin--button" onClick={() => {toUrl('/admin')}}>Admin Page</button>}
         {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
          <button className="user-management--button" onClick={() => {toUrl('/user_management')}}>Users Management</button>}
+        <button className="attendance-management--button" onClick={() => {toUrl('/attendance_management')}}>Parades & Attendance</button>
         {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
          <button className="award-management--button" onClick={() => {toUrl('/awards')}}>Awards</button>}
         {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
@@ -36,7 +37,7 @@ const UserMenu = () => {
          <button className="uniform-inspection--button" onClick={() => {toUrl('/uniform_inspection_results')}}>Uniform Inspection</button>}
         {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
          <button className="help--button" onClick={() => {toUrl('/help')}}>Help</button>}
-        <button onClick={() => {toUrl('/reset_password')}}>Reset Password</button>
+        <button onClick={() => {toUrl('/reset_password')}}>Reset Log In Information</button>
         <button className="log-out--button" onClick={logOut}>Log Out</button>
       </div>
     )

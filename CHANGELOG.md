@@ -208,3 +208,37 @@ Version 1.0
 4. Added more status codes to catch with handleServerError
 5. Update home link for logging in to not show QuizListPage
 6. Updated admin page table to use textarea instead of input for more space
+
+6 November 2024
+1. Added migration for new tables Parades, ParadeCompanyAnnouncements, ParadePlatoonPrograms, ParadePlatoonAnnouncements, ParadeAttendances
+2. Added models for all new tables
+3. Added new page AttendanceManagementPage
+4. Added new segment NewParadeForm, ParadeList, ParadeInformation for AttendanceManagementPage
+5. Added CRUD functions for all new tables in new controllers ParadeController
+
+19 November 2024
+1. Added new segment ParadeEditor, ParadeNoticePDF, ParadeAttendance for ParadeInformation
+2. Completed editParade function in ParadeController
+3. Updated css for attendanceManagementPage to include new components
+
+20 November 2024
+1. Added migration to add columns user_name, abbrieviated_name, honorifics to Accounts
+2. Updated logInPage to use user_name rather than account_name
+3. Added new rank to Officer account type 'Teacher'
+4. Updated ParadeNoticePDF to use honorifics and abbreviated_name for Teachers and VALs
+5. Updated AccountController to incorporate use of new columns
+6. Updated new account form and account information editor to incorporate new columns
+7. Added css for parade list and annual attendance list
+
+2 December 2024
+1. Added backup yaml file to github workflow for testing to backup database weekly
+2. Added function to update attendance to parade controller and route
+3. Added popup to table in frontend to modify attendance
+4. Added migration to add column roll_call to Accounts
+5. Updated AccountController to incorporate use of new columns
+6. Updated new account form and account information editor to incorporate new column
+
+3 December 2024
+1. Added migration to add columns to Parades for attendance finalization by cos, csm, do and captain
+2. Added frontend for each appointment holder to finalize the attendance
+3. Updated controllers for updating attendance finalization and updating attendance to check if user still has permission

@@ -1,0 +1,87 @@
+@media screen{
+    .attendance-management-page .page-container{
+		overflow: hidden;
+		display: flex;
+		margin-top: 3vh;
+		height: 85vh;
+	}
+
+    .attendance-management-page .page-container .annual-attendance-list{
+        position: absolute;
+        top: 10vh;
+		height: 10vh;
+        left: 5vw;
+        width: 90vw;
+        overflow-x: auto;
+	}
+
+    .attendance-management-page .page-container .annual-attendance-list .year-button{
+        border: solid;
+        height: 35%;
+        width: 20%;
+	}
+
+    .attendance-management-page .page-container .annual-attendance-list button{
+        border: solid;
+        border-width: thin;
+        margin: 1%;
+        padding: 5px;
+	}
+
+    .attendance-management-page .page-container .parade-list{
+        position: absolute;
+        top: 20vh;
+        left: 5vw;
+        height: 75vh;
+		width: 90vw;
+        overflow-x: auto;
+	}
+
+    .attendance-management-page .page-container .parade-list button{
+        border: solid;
+        border-width: thin;
+        margin: 1%;
+        padding: 5px;
+	}
+
+    .attendance-management-page .page-container .main-block{
+        position: absolute;
+        top: 20vh;
+        left: 25vw;
+        height: 75vh;
+        overflow-x: auto;
+	}
+
+	.parade-form-popup-content{
+		position: absolute;
+        width: 90vw;
+        height: 90vh;
+        overflow-y: auto;
+        overflow-x: auto;
+	}
+
+    .attendance-management-page .page-container .parade-editor button{
+        border: solid;
+        border-width: thin;
+        margin: 1%;
+        padding: 5px;
+	}
+
+    .attendance-management-page .page-container .main-block .flex-block{
+        display: flex;
+        flex-wrap: wrap;
+	}
+
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block{
+        width: 50%;
+	}
+
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td{
+        border: solid, black;
+        border-width: thin;
+	}
+
+    .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
+        width: 98%;
+    }
+}

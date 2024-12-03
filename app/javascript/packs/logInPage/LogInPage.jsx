@@ -22,7 +22,7 @@ const LogInPage = () => {
   function submitForm(e) {
     e.preventDefault()
     axios.post('/api/account/0/authenticate_account', {
-      account_name: e.target.elements["username"].value,
+      user_name: e.target.elements["username"].value,
       password: e.target.elements["password"].value,
     }, {
       withCredentials: true

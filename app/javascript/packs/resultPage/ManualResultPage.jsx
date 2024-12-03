@@ -244,7 +244,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
     font-size: 7px;
   `;
 
-    const FooterVersionColumn = styled.View`
+  const FooterVersionColumn = styled.View`
     display: flex;
     flex-direction: column;
     /* border: 1px solid #a8026f; */

@@ -150,6 +150,18 @@ Rails.application.routes.draw do
         post '/delete_uniform_inspection' => 'uniform_inspection#delete_uniform_inspection'
       end
     end
+
+    resources :parade do
+      member do
+        post '/create_parade' => 'parade#create_parade'
+        post '/get_parade' => 'parade#parade'
+        post '/get_parades_by_year' => 'parade#parades_by_year'
+        post '/edit_parade' => 'parade#edit_parade'
+        post '/update_attendance' => 'parade#update_attendance'
+        post '/update_finalize' => 'parade#update_finalize'
+        post '/delete_parade' => 'parade#delete_parade'
+      end
+    end
   end
 
   get '*path', to: 'pages#index', via: :all

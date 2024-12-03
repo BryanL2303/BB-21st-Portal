@@ -11,6 +11,8 @@ const AccountCreationForm = ({ reLoad }) => {
   const [accountType, setAccountType] = useState('Boy');
   const [accountRank, setAccountRank] = useState('REC');
   const [accountLevel, setAccountLevel] = useState('1');
+  const [accountHonorific, setAccountHonorific] = useState();
+  const [accountRollCall, setAccountRollCall] = useState(true);
 
   function setType(e) {
     e.preventDefault()
@@ -24,12 +26,27 @@ const AccountCreationForm = ({ reLoad }) => {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className
     setAccountRank(e.target.className)
+    if (e.target.className == 'VAL' || e.target.className == 'Teacher') {
+      setAccountHonorific('Mr')
+    }
   }
 
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__level')[0].innerHTML = e.target.className
     setAccountLevel(e.target.className)
+  }
+
+  function setHonorific(e) {
+    e.preventDefault()
+    document.getElementsByClassName('create-account-form__honorific')[0].innerHTML = e.target.className
+    setAccountHonorific(e.target.className)
+  }
+
+  function setRollCall(e) {
+    e.preventDefault()
+    document.getElementsByClassName('create-account-form__roll-call')[0].innerHTML = e.target.className
+    setAccountRollCall(e.target.className == 'Yes')
   }
 
   //Sends the information from the form to the backend to try and create an account
@@ -44,22 +61,28 @@ const AccountCreationForm = ({ reLoad }) => {
       credential = e.target.elements['credentials'].value
       if (credential == '') submit = false
     }
-    if (e.target.elements['username'].value == '' || e.target.elements['password'].value == '') submit = false
+    if (e.target.elements['user_name'].value == '' || e.target.elements['password'].value == '') submit = false
     if (submit) {
       axios.post('/api/account/0/create_account', {
-        account_name: e.target.elements['username'].value,
+        account_name: e.target.elements['account_name'].value,
+        user_name: e.target.elements['user_name'].value,
+        abbreviated_name: e.target.elements['abbreviated_name'].value,
         password: e.target.elements['password'].value,
         account_type: accountType,
         rank: accountRank,
         level: level,
-        credentials: credential
+        credentials: credential,
+        honorifics: accountHonorific,
+        roll_call: accountRollCall
       }, {
         withCredentials: true
       })
       .then(resp => {
         if (resp.data != false) {
           alert("Account has been created. If the user does not show up on the list to the left please refresh the page!")
-          e.target.elements['username'].value = ''
+          e.target.elements['account_name'].value = ''
+          e.target.elements['user_name'].value = ''
+          e.target.elements['abbreviated_name'].value = ''
           e.target.elements['password'].value = ''
           reLoad()
         }
@@ -74,8 +97,14 @@ const AccountCreationForm = ({ reLoad }) => {
     <form className='create-account-form' onSubmit={ submitForm }>
       <label style={{fontSize: '30px'}}>Account Creation</label>
       <br/>
+      <label>Full Name: </label>
+      <input className='create-account-form__name' name={'account_name'} placeholder='full name'></input>
+      <br/>
       <label>User Name: </label>
-      <input className='create-account-form__name' name={'username'} placeholder='username'></input>
+      <input className='edit-field' name={"user_name"} placeholder='user name'></input>
+      <br/>
+      <label>Abbreviated Name: </label>
+      <input className='edit-field' name={"abbreviated_name"} placeholder='abbreviated name'></input>
       <br/>
       <label>Password: </label>
       <input className='create-account-form__password' name={'password'} placeholder='password'></input>
@@ -96,6 +125,7 @@ const AccountCreationForm = ({ reLoad }) => {
         <p className='2LT' onClick={setRank}>2LT</p>
         <p className='OCT' onClick={setRank}>OCT</p>
         <p className='VAL' onClick={setRank}>VAL</p>
+        <p className='Teacher' onClick={setRank}>Teacher</p>
       </Popup>}
       {accountType == "Primer" &&
        <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>CLT</label>} position="bottom">
@@ -111,6 +141,21 @@ const AccountCreationForm = ({ reLoad }) => {
         <p className='LCP' onClick={setRank}>LCP</p>
         <p className='PTE' onClick={setRank}>PTE</p>
         <p className='REC' onClick={setRank}>REC</p>
+      </Popup>}
+      <br/>
+      {(accountRank == "Teacher" || accountRank == 'VAL') && <label>Honorifics: </label>}
+      {(accountRank == "Teacher" || accountRank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>Mr</label>} position="bottom">
+        <p className='Mr' onClick={setHonorific}>Mr</p>
+        <p className='Ms' onClick={setHonorific}>Ms</p>
+        <p className='Mrs' onClick={setHonorific}>Mrs</p>
+      </Popup>}
+      <br/>
+      {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
+        <label>Should this user appear in the attendance nominal roll? : </label>}
+      {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
+        <Popup className='account-roll-call-popup' trigger={<label className='create-account-form__roll-call'>Yes</label>} position="bottom">
+        <p className='Yes' onClick={setRollCall}>Yes</p>
+        <p className='No' onClick={setRollCall}>No</p>
       </Popup>}
       <br/>
       {accountType == "Boy" && <label>Level: Secondary </label>}

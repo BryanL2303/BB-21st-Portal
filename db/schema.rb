@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202411040000002) do
+ActiveRecord::Schema[7.0].define(version: 202412030000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,10 @@ ActiveRecord::Schema[7.0].define(version: 202411040000002) do
     t.string "rank"
     t.string "credentials"
     t.string "appointment"
+    t.string "honorifics"
+    t.string "abbreviated_name"
+    t.string "user_name"
+    t.boolean "roll_call"
   end
 
   create_table "answer_rubrics", force: :cascade do |t|
@@ -157,6 +161,67 @@ ActiveRecord::Schema[7.0].define(version: 202411040000002) do
     t.boolean "has_pass"
     t.boolean "has_custom_columns"
     t.index ["award_id"], name: "index_masteries_on_award_id"
+  end
+
+  create_table "parade_attendances", force: :cascade do |t|
+    t.bigint "parade_id"
+    t.bigint "account_id"
+    t.string "attendance"
+    t.index ["account_id"], name: "index_parade_attendances_on_account_id"
+    t.index ["parade_id"], name: "index_parade_attendances_on_parade_id"
+  end
+
+  create_table "parade_company_announcements", force: :cascade do |t|
+    t.bigint "parade_id"
+    t.text "announcement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parade_id"], name: "index_parade_company_announcements_on_parade_id"
+  end
+
+  create_table "parade_platoon_announcements", force: :cascade do |t|
+    t.bigint "parade_id"
+    t.string "level"
+    t.text "announcement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parade_id"], name: "index_parade_platoon_announcements_on_parade_id"
+  end
+
+  create_table "parade_platoon_programs", force: :cascade do |t|
+    t.bigint "parade_id"
+    t.string "level"
+    t.string "program"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parade_id"], name: "index_parade_platoon_programs_on_parade_id"
+  end
+
+  create_table "parades", force: :cascade do |t|
+    t.string "parade_type"
+    t.datetime "date"
+    t.string "venue"
+    t.string "sec_1_attire"
+    t.string "sec_2_attire"
+    t.string "sec_3_attire"
+    t.string "sec_4_5_attire"
+    t.datetime "reporting_time"
+    t.datetime "dismissal_time"
+    t.integer "dt_id"
+    t.integer "do_id"
+    t.integer "cos_id"
+    t.integer "flag_bearer_id"
+    t.integer "csm_id"
+    t.integer "ce_id"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "cos_finalized"
+    t.boolean "csm_finalized"
+    t.boolean "do_finalized"
+    t.boolean "captain_finalized"
   end
 
   create_table "question_options", force: :cascade do |t|

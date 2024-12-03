@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import {AwardProvider} from './context/AwardContext'
 import { LogInPage } from './logInPage/LogInPage'
 import { HelpPage } from './helpPage/HelpPage'
+import { AttendanceManagementPage } from './attendanceManagementPage/AttendanceManagementPage'
 import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPage'
 import { QuizListPage } from './quizPage/QuizListPage'
 import { QuizPage } from './quizPage/QuizPage'
@@ -34,6 +35,7 @@ root.render(
         <Route path='/' element={<LogInPage/>}/>
         <Route path='/home' element={<UserManagementPage/>}/>
         <Route path='/quiz' element={<QuizListPage/>}/>
+        <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>
         <Route path='/quiz/:id' element={<QuizPage/>}/>

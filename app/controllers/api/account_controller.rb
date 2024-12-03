@@ -12,7 +12,9 @@ module Api
                            delete_account assignments]
 
     def create_account
-      account = Account.new(account_name: params[:account_name], password: params[:password],
+      account = Account.new(account_name: params[:account_name], user_name: params[:account_name],
+                            password: params[:password], honorifics: params[:honorifics], roll_call: params[:roll_call],
+                            abbreviated_name: params[:abbreviated_name],
                             account_type: params[:account_type], rank: params[:rank], credentials: params[:credentials])
       account['level'] = params[:level] unless params[:level].nil?
       find_account = Account.find_by(account_name: params[:account_name])
@@ -29,7 +31,7 @@ module Api
     end
 
     def authenticate_account
-      account = Account.find_by(account_name: params[:account_name])
+      account = Account.find_by(user_name: params[:user_name])
       if account.nil?
         render json: false, status: :not_found
       elsif account.password == params[:password]
@@ -82,8 +84,12 @@ module Api
       if name_clash.nil? || name_clash['id'] == account.id
         account['account_name'] = params[:account_name]
         account['account_type'] = params[:account_type]
+        account['user_name'] = params[:user_name] unless params[:user_name].nil?
         account['password'] = params[:password] unless params[:password].nil?
         account['rank'] = params[:rank]
+        account['roll_call'] = params[:roll_call]
+        account['honorifics'] = params[:honorifics]
+        account['abbreviated_name'] = params[:abbreviated_name]
         account['level'] = params[:level]
         account['credentials'] = params[:credentials]
         account.save
