@@ -1,5 +1,5 @@
 {
-  "name": "BB 21st Portal",
+  "name": "bb-21st-portal",
   "version": "1.0.0",
   "description": "This README would normally document whatever steps are necessary to get the application up and running.",
   "main": "./babel.config.js",
@@ -21,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/BryanL2303/BB-21st-Portal.git"
   },
-  "author": "",
+  "author": "Bryan Lee",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/BryanL2303/BB-21st-Portal/issues"
