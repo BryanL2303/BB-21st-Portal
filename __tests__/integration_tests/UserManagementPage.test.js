@@ -141,7 +141,7 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
             expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
@@ -253,7 +253,7 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
             expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
@@ -334,10 +334,12 @@ describe('UserManagementPage with all of its components', () => {
                     data: {
                         id: 1,
                         account_name: 'John Doe',
+                        user_name: 'John Doe',
                         password: 'John Doe',
                         account_type: 'Primer',
                         rank: 'CLT',
-                        credentials: 'Platoon Primer'
+                        credentials: 'Platoon Primer',
+                        roll_call: true
                     }
                 })
             }
@@ -387,7 +389,7 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('username')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
             expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
@@ -407,8 +409,8 @@ describe('UserManagementPage with all of its components', () => {
 
         await waitFor(() => {
             // This should check if account information is on the screen
-            expect(screen.getAllByDisplayValue('John Doe')[0]).toBeInTheDocument();
-            const usernameInput = screen.getAllByDisplayValue('John Doe')[0]
+            expect(screen.getAllByDisplayValue('John Doe')[1]).toBeInTheDocument();
+            const usernameInput = screen.getAllByDisplayValue('John Doe')[1]
             fireEvent.change(usernameInput, { target: { value: 'Name Change' } })
             const saveButton = screen.getByText('Save Changes')
             fireEvent.click(saveButton)
@@ -418,12 +420,16 @@ describe('UserManagementPage with all of its components', () => {
             expect(mockAxios.post).toHaveBeenCalledWith(
                 '/api/account/1/edit_account', {
                     id: 1,
-                    account_name: 'Name Change',
+                    user_name: 'Name Change',
                     password: 'John Doe',
                     account_type: 'Primer',
                     rank: 'CLT',
                     level: null,
-                    credentials: 'Platoon Primer'
+                    credentials: 'Platoon Primer',
+                    abbreviated_name: '',
+                    honorifics: undefined,
+                    roll_call: true,
+                    account_name: 'John Doe'
                 },
                 {withCredentials: true}
             )

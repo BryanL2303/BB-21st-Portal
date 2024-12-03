@@ -10,6 +10,7 @@ jest.mock('axios');
 jest.mock('../../app/javascript/packs/general/useCookies');
 
 let cookies;
+alert = jest.fn()
 confirm = jest.fn().mockReturnValue(true)
 
 useCookies.mockReturnValue({

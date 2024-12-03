@@ -105,7 +105,7 @@ describe('LogInPage Component', () => {
       expect(mockAxios.post).toHaveBeenCalledWith(
         '/api/account/0/authenticate_account',
         {
-          account_name: 'testuser',
+          user_name: 'testuser',
           password: 'password123',
         },
         { withCredentials: true }

@@ -84,7 +84,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       axios.post('/api/account/' + account.id + '/edit_account', {
         id: account.id,
         account_name: e.target.elements['account_name'].value,
-        user_name: e.target.elements['user_name'].value,
+        user_name: e.target.elements['user_name']?.value || null,
         abbreviated_name: e.target.elements['abbreviated_name'].value,
         password: password,
         account_type: e.target.elements['account_type'].value,
@@ -173,7 +173,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         {cookies.get("Type") == 'Admin' && <input name={"password"} className='edit-field' defaultValue={account.password}></input>}
         <br/>
         {(account.rank == "Teacher" || account.rank == 'VAL') && <label>Honorifics: </label>}
-        {(account.rank == "Teacher" || account.rank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics}</label>} position="bottom">
+        {(account.rank == "Teacher" || account.rank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
           <p className='Mr' onClick={setHonorific}>Mr</p>
           <p className='Ms' onClick={setHonorific}>Ms</p>
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
