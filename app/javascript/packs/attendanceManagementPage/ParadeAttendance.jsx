@@ -39,6 +39,8 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
       account_id, account_id,
       old_attendance: parade.parade_attendance[account_id]?.attendance || null,
       new_attendance: attendance
+    }, {
+      withCredentials: true
     })
     .then((resp) => {
       if (resp.status == 401) {
@@ -56,6 +58,8 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
     axios.post('/api/parade/' + parade.info.id + '/update_finalize', {
       parade_appointment: paradeAppointment,
       finalized: finalized
+    }, {
+      withCredentials: true
     })
     .then(() => {
       setReload((prev) => {

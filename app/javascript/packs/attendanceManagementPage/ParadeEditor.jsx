@@ -162,6 +162,8 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
             company_announcements: companyAnnouncements,
             platoon_programs: platoonPrograms,
             platoon_announcements: platoonAnnouncements
+        }, {
+          withCredentials: true
         })
         .then(() => {
           alert("Changes has been saved!")
