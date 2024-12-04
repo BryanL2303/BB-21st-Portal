@@ -28,7 +28,7 @@ const AttendanceManagementPage = () => {
     <div className='attendance-management-page'>
       <NavigationBar/>
       <div className='page-container'>
-        <div className='annual-attendance-list'>
+        {/* <div className='annual-attendance-list'>
           <h1>Download Attendance File</h1>
           <div className='year-button'>
             <label>2024: </label>
@@ -36,7 +36,7 @@ const AttendanceManagementPage = () => {
             <button>download excel</button>
           </div>
         </div>
-        <br/>
+        <br/> */}
         <ParadeList reload={reload} setPageState={setPageState}/>
         <div className='main-block'>
           {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
