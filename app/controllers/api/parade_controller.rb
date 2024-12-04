@@ -22,6 +22,26 @@ module Api
   
         if find_parade.nil?
           if parade.save
+            params[:company_announcements].each do |company_announcement|
+              announcement = ParadeCompanyAnnouncement.new(parade_id: parade.id, announcement: company_announcement['announcement'])
+              announcement.save
+            end
+  
+            ['1', '2', '3', '4/5'].each do |level|
+              params[:platoon_programs][level].each do |platoon_program|
+                program = ParadePlatoonProgram.new(parade_id: parade.id, level: level, start_time: DateTime.parse(platoon_program['start_time']),
+                 end_time: DateTime.parse(platoon_program['end_time']), program: platoon_program['program'])
+                program.save
+              end
+            end
+  
+            ['1', '2', '3', '4/5'].each do |level|
+              params[:platoon_announcements][level].each do |platoon_announncement|
+                announcement = ParadePlatoonAnnouncement.new(parade_id: parade.id, level: level, announcement: platoon_announcement['announcement'])
+                announcement.save
+              end
+            end
+
             render json: true, status: :created
           else
             render json: { error: parade.errors.messages }, status: 422

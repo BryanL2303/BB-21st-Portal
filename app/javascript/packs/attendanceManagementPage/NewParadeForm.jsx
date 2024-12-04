@@ -14,8 +14,8 @@ const NewParadeForm = ({setReload}) => {
   const [companyAnnouncements, setCompanyAnnouncements] = useState([])
   const [platoonAnnouncements, setPlatoonAnnouncements] = useState({'1': [], '2': [], '3': [], '4/5': []})
   const [platoonPrograms, setPlatoonPrograms] = useState({'1': [], '2': [], '3': [], '4/5': []})
-  let paradeType = "Parade"
-  let appointmentHolders = {'dt': null, 'do': null, 'cos': null, 'flag_bearer': null, 'csm': null, 'ce': null}
+  const [paradeType, setParadeType] = useState("Parade")
+  const [appointmentHolders, setAppointmentHolders] = useState({'dt': null, 'do': null, 'cos': null, 'flag_bearer': null, 'csm': null, 'ce': null})
 
   useEffect(() => {
     loadList()
@@ -32,11 +32,17 @@ const NewParadeForm = ({setReload}) => {
       resp.data.map((boy) => {
         if (boy.appointment == 'CSM') {
           document.getElementsByClassName('csm__name')[0].innerHTML = boy.account_name
-          appointmentHolders['csm'] = boy.id
+          setAppointmentHolders((prev) => {
+            prev['csm'] = boy.id
+            return {...prev}
+          })
         }
         if (boy.appointment == 'CE Sergeant') {
           document.getElementsByClassName('ce__name')[0].innerHTML = boy.account_name
-          appointmentHolders['ce'] = boy.id
+          setAppointmentHolders((prev) => {
+            prev['ce'] = boy.id
+            return {...prev}
+          })
         }
       })
     })
@@ -95,7 +101,7 @@ const NewParadeForm = ({setReload}) => {
 
   function setParadeType(e) {
     document.getElementsByClassName('parade__type')[0].innerHTML = e.target.className
-    paradeType = e.target.className
+    setParadeType(e.target.className)
     if (paradeType != 'Parade') {
       setCompanyAnnouncements([])
       setPlatoonPrograms({'1': [], '2': [], '3': [], '4/5': []})
@@ -105,7 +111,10 @@ const NewParadeForm = ({setReload}) => {
 
   function setAccount(e, appointment) {
     document.getElementsByClassName(appointment + '__name')[0].innerHTML = e.target.className
-    appointmentHolders[appointment] = e.target.id
+    setAppointmentHolders((prev) => {
+      prev[appointment] = e.target.id
+      return {...prev}
+    })
   }
 
   function addCompanyAnnouncement() {
@@ -194,6 +203,7 @@ const NewParadeForm = ({setReload}) => {
         submit = false
     }
     if (submit) {
+      console.log(appointmentHolders)
         axios.post('/api/parade/0/create_parade', {
             parade_type: paradeType,
             date: e.target.elements['date'].value,
