@@ -242,3 +242,9 @@ Version 1.0
 1. Added migration to add columns to Parades for attendance finalization by cos, csm, do and captain
 2. Added frontend for each appointment holder to finalize the attendance
 3. Updated controllers for updating attendance finalization and updating attendance to check if user still has permission
+
+4 December 2024
+1. Added announcements and programs portion to create_parade function in parade_controller
+2. Swapped to using state with global variables to prevent rerendering from affecting them
+3. Added VAL to Officers table title in attendance taking
+4. Fix logical error with authorisation when attendance is finalized

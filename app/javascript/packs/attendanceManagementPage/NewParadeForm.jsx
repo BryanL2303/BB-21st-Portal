@@ -99,7 +99,7 @@ const NewParadeForm = ({setReload}) => {
     }
   }
 
-  function setParadeType(e) {
+  function setParade(e) {
     document.getElementsByClassName('parade__type')[0].innerHTML = e.target.className
     setParadeType(e.target.className)
     if (paradeType != 'Parade') {
@@ -238,9 +238,9 @@ const NewParadeForm = ({setReload}) => {
         <label>Parade Type: </label>
         <Popup className='parade-type-popup' trigger={
             <label className={'parade__type'}>Parade</label>} position="bottom">
-            <p className='Parade' onClick={setParadeType}>Parade</p>
-            <p className='Camp' onClick={setParadeType}>Camp</p>
-            <p className='Others' onClick={setParadeType}>Others</p>
+            <p className='Parade' onClick={setParade}>Parade</p>
+            <p className='Camp' onClick={setParade}>Camp</p>
+            <p className='Others' onClick={setParade}>Others</p>
         </Popup>
         <br/>
 
