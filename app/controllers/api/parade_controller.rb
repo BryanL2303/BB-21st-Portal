@@ -144,10 +144,10 @@ module Api
 
         parade = Parade.find_by(id: params[:id])
 
-        if (params[:parade_appointment] == 'cos' && !parade.csm_finalized && !parade.do_finalized && !parade.captain_finalized) ||
-          (params[:parade_appointment] == 'csm' && !parade.do_finalized && !parade.captain_finalized) ||
-          (params[:parade_appointment] == 'do' && !parade.captain_finalized)
-          status = :unauthorized
+        if (params[:parade_appointment] == 'cos' && (parade.csm_finalized || parade.do_finalized || parade.captain_finalized)) ||
+          (params[:parade_appointment] == 'csm' && (parade.do_finalized || parade.captain_finalized)) ||
+          (params[:parade_appointment] == 'do' && parade.captain_finalized)
+          status = :permanent_redirect
         else
           if attendance.new_record? || attendance.attendance == params[:old_attendance] || attendance.attendance == params[:new_attendance]
             if params[:new_attendance] == nil

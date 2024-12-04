@@ -43,7 +43,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
       withCredentials: true
     })
     .then((resp) => {
-      if (resp.status == 401) {
+      if (resp.status == 308) {
         alert("It seems that one of the parade appointment holders has already finalized the attendance. Please approach the person who did so if further changes are necessary.")
       } else if (resp.status == 304) {
         alert("It seems that someone else has updated the attendance for this person differently than what you indicated, please check again before retrying!")
