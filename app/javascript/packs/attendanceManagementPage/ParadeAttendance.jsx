@@ -37,7 +37,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
     axios.post('/api/parade/' + parade.info.id + '/update_attendance', {
       parade_appointment: paradeAppointment,
       account_id, account_id,
-      old_attendance: parade.parade_attendance[account_id]?.attendance || null,
+      old_attendance: currentAttendance[account_id]?.attendance || null,
       new_attendance: attendance
     }, {
       withCredentials: true
@@ -139,7 +139,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
         </div>
         
         <div className="half-block">
-          <h3>Officers Attendance:</h3>
+          <h3>Officers / VALs Attendance:</h3>
           <table width='90%'>
             <tbody width='100%'>
               {officers.map((officer) => {
