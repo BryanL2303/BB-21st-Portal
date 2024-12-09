@@ -3,6 +3,7 @@ import axios from 'axios'
 import useCookies from '../general/useCookies'
 import { NavigationBar } from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError'
+import { AnnualAttendanceExcel } from './AnnualAttendanceExcel'
 import { ParadeList } from './ParadeList'
 import { NewParadeForm } from './NewParadeForm'
 import { ParadeInformation } from './ParadeInformation'
@@ -28,19 +29,16 @@ const AttendanceManagementPage = () => {
     <div className='attendance-management-page'>
       <NavigationBar/>
       <div className='page-container'>
-        {/* <div className='annual-attendance-list'>
-          <h1>Download Attendance File</h1>
-          <div className='year-button'>
-            <label>2024: </label>
-            <button>download pdf</button>
-            <button>download excel</button>
-          </div>
+        <div className='annual-attendance-list'>
+          <h1>Yearly Attendance File</h1>
+          <button onClick={() => {setPageState('Y2024')}}>2024</button>
         </div>
-        <br/> */}
+        <br/>
         <ParadeList reload={reload} setPageState={setPageState}/>
         <div className='main-block'>
           {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
-          {pageState != 'list' && pageState != 'form' && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+          {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+          {pageState != 'list' && pageState != 'form' && pageState.includes('Y') && <AnnualAttendanceExcel year={pageState.split('Y')[1]}/>}
         </div>
       </div>
     </div>

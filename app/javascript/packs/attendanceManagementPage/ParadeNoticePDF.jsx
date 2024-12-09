@@ -121,6 +121,16 @@ const FooterVersionColumn = styled.View`
 `;
 
 const ParadeNoticePDF = ({parade}) => {
+  let date = new Date(parade.info.date);
+  let dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)
+  dayOfWeek = dayOfWeek.toUpperCase()
+
+  date = date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
   function formatTime(datetimeStr) {
     const date = new Date(datetimeStr.split('.')[0]);
     return new Intl.DateTimeFormat('en-US', {
@@ -170,7 +180,7 @@ const ParadeNoticePDF = ({parade}) => {
 
           <View style={styles.header}>
             <Text style={{fontFamily: 'Times-Bold', textDecoration: 'underline'}}>PARADE NOTICE</Text>
-            <Text style={{fontFamily: 'Times-Bold'}}>2 November 2024, SATURDAY</Text>
+            <Text style={{fontFamily: 'Times-Bold'}}>{date}, {dayOfWeek}</Text>
           </View>
           
           <View style={styles.section}>

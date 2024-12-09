@@ -101,9 +101,19 @@ module Api
       end
   
       def parades_by_year
-        parades = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
+        data = {}
+        data["parades"] = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
+        data["parade_attendance"] = {}
+
+        data["parades"].each do |parade|
+          data["parade_attendance"][parade.id] = {}
+          parade_attendances = ParadeAttendance.where(parade_id: parade.id).order('account_id')
+          parade_attendances.each do |attendance|
+            data["parade_attendance"][parade.id][attendance.account_id] = attendance.attendance
+          end
+        end
   
-        render json: parades, status: :ok
+        render json: data, status: :ok
       end
   
       def edit_parade

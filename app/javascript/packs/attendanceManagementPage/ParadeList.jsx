@@ -12,7 +12,7 @@ const ParadeList = ({setPageState, reload}) => {
         axios.post("/api/parade/0/get_parades_by_year", {
             year: currentYear
         }, {withCredentials: true})
-        .then((resp) => setParades([...resp.data]))
+        .then((resp) => setParades([...resp.data.parades]))
         .catch(resp => handleServerError(resp.response.status))
     }, [currentYear, reload])
 

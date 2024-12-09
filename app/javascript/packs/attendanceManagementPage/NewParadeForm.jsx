@@ -224,6 +224,8 @@ const NewParadeForm = ({setReload}) => {
             company_announcements: companyAnnouncements,
             platoon_programs: platoonPrograms,
             platoon_announcements: platoonAnnouncements
+        }, {
+          withCredentials: true
         })
         .then(() => {
           alert("Parade has been added!")

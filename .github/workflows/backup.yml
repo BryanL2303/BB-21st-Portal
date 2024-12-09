@@ -2,12 +2,15 @@ name: Weekly Database Backup
 
 on:
   schedule:
-    - cron: '0 0 * * 6' # Every Saturday at midnight UTC
+    - cron: '0 0 * * *' # Every Saturday at midnight UTC
 
 jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
       - name: Set up Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh

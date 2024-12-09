@@ -10,7 +10,6 @@ import { ParadeEditor } from './ParadeEditor'
 const ParadeInformation = ({id, setPageState, reload, setReload}) => {
   const cookies = useCookies()
   const [render, setRender] = useState(false)
-  const [takingAttendance, setTakingAttendance] = useState(false)
   const [showParadeNotice, setShowParadeNotice] = useState(true)
   const [showParadeEditor, setShowParadeEditor] = useState(false)
   const [parade, setParade] = useState({})
@@ -26,11 +25,6 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
       console.log(resp.data)
         setParade(resp.data)
         setRender(true)
-        if (cookies.get("Type") != 'Boy' || cookies.get("Appointment")?.includes("CSM") ||
-         cookies.get("Appointment")?.includes("Platoon Sergeant") ||
-         cookies.get("Name") == resp.data.cos.account_name) {
-          setTakingAttendance(true)
-        }
     })
     .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/account/0/get_accounts_by_type', {
@@ -54,7 +48,7 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
     })
     .then(resp => {setOfficers(resp.data)})
     .catch(resp => handleServerError(resp.response.status))
-  }, [reload])
+  }, [id, reload])
 
   function toggleParadeNotice() {
     setShowParadeNotice((prev) => {

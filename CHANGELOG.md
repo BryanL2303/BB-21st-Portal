@@ -248,3 +248,12 @@ Version 1.0
 2. Swapped to using state with global variables to prevent rerendering from affecting them
 3. Added VAL to Officers table title in attendance taking
 4. Fix logical error with authorisation when attendance is finalized
+
+6 December 2024
+1. Add AnnualAttendanceExcel to generate excel sheet with attendance sheets
+2. Updated ParadeNoticePDF to use date of parade rather than template fixed date
+3. Updated ParadeInformation so that we can load parades by clicking on the ParadeList
+
+9 December 2024
+1. Added repository checkout to database back up script
+2. Made the database backup daily for testing purposes
