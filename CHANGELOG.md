@@ -257,3 +257,11 @@ Version 1.0
 9 December 2024
 1. Added repository checkout to database back up script
 2. Made the database backup daily for testing purposes
+
+10 December 2024
+1. Update node version in CI script
+2. Update database backup script for testing
+
+11 December 2024
+1. Update database backup script for testing
+2. Removed AttendanceExcelSheet which is no longer necessary

@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios'
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-import { AttendanceExcelSheet } from "./AttendanceExcelSheet";
 
 const AnnualAttendanceExcel = ({year}) => {
-	const [boyList, setBoyList] = useState([])
-	const [primerList, setPrimerList] = useState([])
-	const [officerList, setOfficerList] = useState([])
-	const [data, setData] = useState({parades: []})
-	let mockData = {}
+	const [updatedDate, setUpdatedDate] = useState()
 	const [tableData, setTableData] = useState({'Sec 1': {}, 'Sec 2': {}, 'Sec 3': {}, 'Sec 4 and 5': {}, 'Primers': {}, 
 		'Officers and Volunteers': {}});
 	const [idOrder, setIdOrder] = useState({'1': [], '2': [], '3': [], '4/5': [], 'Primer': [], 
 		'Volunteer': []})
+	const [talliedAttendance, setTalliedAttendance] = useState({'1': {}, '2': {}, '3': {}, '4/5': {}, 'Primer': {}, 
+		'Volunteer': {}})
 
 	useEffect(() => {
 		axios.post('/api/account/0/get_accounts_by_type', {
@@ -36,7 +33,7 @@ const AnnualAttendanceExcel = ({year}) => {
 						{ value: boy.account_name, rowSpan: 1 },
 						{ value: "", rowSpan: 1 }, //Class
 						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Total
+						{ value: "", rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['1'].push(boy.id)
 				}
@@ -48,7 +45,7 @@ const AnnualAttendanceExcel = ({year}) => {
 						{ value: boy.account_name, rowSpan: 1 },
 						{ value: "", rowSpan: 1 }, //Class
 						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Total
+						{ value: "", rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['2'].push(boy.id)
 				}
@@ -60,7 +57,7 @@ const AnnualAttendanceExcel = ({year}) => {
 						{ value: boy.account_name, rowSpan: 1 },
 						{ value: "", rowSpan: 1 }, //Class
 						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Total
+						{ value: "", rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['3'].push(boy.id)
 				}
@@ -72,7 +69,7 @@ const AnnualAttendanceExcel = ({year}) => {
 						{ value: boy.account_name, rowSpan: 1 },
 						{ value: "", rowSpan: 1 }, //Class
 						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Total
+						{ value: "", rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['4/5'].push(boy.id)
 				}
@@ -105,7 +102,6 @@ const AnnualAttendanceExcel = ({year}) => {
 					{ value: "", rowSpan: 1 },
 					{ value: "", rowSpan: 1 },
 					{ value: "Total Parades/Meetings:", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
 				])
 				table.push([
 					{ value: "", rowSpan: 1},
@@ -186,7 +182,7 @@ const AnnualAttendanceExcel = ({year}) => {
 					{ value: primer.account_name, rowSpan: 1 },
 					{ value: "POLY", rowSpan: 1 },
 					{ value: primer.rank, rowSpan: 1 },
-					{ value: "", rowSpan: 1 }, //Percentage Total
+					{ value: "", rowSpan: 1 }, //Percentage Attendance
 				])
 				idOrder['Primer'].push(primer.id)
 			})
@@ -215,7 +211,6 @@ const AnnualAttendanceExcel = ({year}) => {
 					{ value: "", rowSpan: 1 },
 					{ value: "", rowSpan: 1 },
 					{ value: "Total Parades/Meetings:", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
 				])
 				table.push([
 					{ value: "", rowSpan: 1 },
@@ -288,7 +283,7 @@ const AnnualAttendanceExcel = ({year}) => {
 					{ value: officer.account_name, rowSpan: 1 },
 					{ value: "VAL", rowSpan: 1 },
 					{ value: officer.rank, rowSpan: 1 },
-					{ value: "", rowSpan: 1 }, //Percentage Total
+					{ value: "", rowSpan: 1 }, //Percentage Attendance
 				])
 				idOrder['Volunteer'].push(officer.id)
 			})
@@ -317,7 +312,6 @@ const AnnualAttendanceExcel = ({year}) => {
 					{ value: "", rowSpan: 1 },
 					{ value: "", rowSpan: 1 },
 					{ value: "Total Parades/Meetings:", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
 				])
 				table.push([
 					{ value: "", rowSpan: 1 },
@@ -382,6 +376,7 @@ const AnnualAttendanceExcel = ({year}) => {
 			})
 			.then((resp) => {
 				let date = new Date(resp.data.parades[resp.data.parades.length - 1]?.date);
+				setUpdatedDate(date)
 				date = date.toLocaleDateString('en-GB', {
 					day: 'numeric',
 					month: 'short',
@@ -397,6 +392,7 @@ const AnnualAttendanceExcel = ({year}) => {
 							{ value: "", colSpan: 1, rowSpan: 1 },
 							{ value: "SEC " + level + " PLATOON ATTENDANCE", colSpan: 6, rowSpan: 1 },
 						],
+						[],
 						[
 							{ value: "", colSpan: 1, rowSpan: 1 },
 							{ value: "", colSpan: 1, rowSpan: 1 },
@@ -442,10 +438,10 @@ const AnnualAttendanceExcel = ({year}) => {
 				headerData['Primer'] = [
 					[
 						{ value: "", colSpan: 1, rowSpan: 1 },
-						{ value: "PRIMERS' ATTENDANCE", colSpan: 6, rowSpan: 1 },
+						{ value: "PRIMERS' ATTENDANCE", colSpan: 5, rowSpan: 1 },
 					],
+					[],
 					[
-						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
@@ -482,10 +478,10 @@ const AnnualAttendanceExcel = ({year}) => {
 				headerData['Volunteer'] = [
 					[
 						{ value: "", colSpan: 1, rowSpan: 1 },
-						{ value: "VOLUNTEERS' ATTENDANCE", colSpan: 6, rowSpan: 1 },
+						{ value: "VOLUNTEERS' ATTENDANCE", colSpan: 5, rowSpan: 1 },
 					],
+					[],
 					[
-						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
 						{ value: "", colSpan: 1, rowSpan: 1 },
@@ -521,6 +517,14 @@ const AnnualAttendanceExcel = ({year}) => {
 
 				let sheets = ['Sec 1', 'Sec 2', 'Sec 3', 'Sec 4 and 5', 'Primers', 'Officers and Volunteers']
 				let newTableData = {...tableData}
+				let newLevelTotalParades = {'1': 0, '2': 0, '3': 0, '4/5': 0, 'Primer': 0, 'Volunteer': 0}
+				let newTalliedAttendance = {...talliedAttendance}
+
+				levels.map((level) => {
+					idOrder[level].map((accountId) => {
+						newTalliedAttendance[level][accountId] = {'1': 0, '0': 0, 'E': 0, 'S': 0}
+					})
+				})
 
 				resp.data.parades.map((parade) => {
 					date = new Date(parade.date);
@@ -530,19 +534,73 @@ const AnnualAttendanceExcel = ({year}) => {
 					const parts = new Intl.DateTimeFormat('en-GB', options).formatToParts(date)
 					
 					date = `${parts[0].value}/${parts[2].value}`
-					
+
+					let relevantLevels = []
 					levels.map((level) => {
+						idOrder[level].map((accountId) => {
+							if (resp.data.parade_attendance[parade.id][accountId] != null) {
+								if (!relevantLevels.includes(level)) {
+									relevantLevels.push(level)
+									newLevelTotalParades[level] += 1
+								}
+							}
+						})
+					})
+				
+					relevantLevels.map((level) => {
 						headerData[level][2].push({ value: dayOfWeek, colSpan: 1, rowspan: 1 })
 						headerData[level][3].push({ value: date, colSpan: 1, rowspan: 1 })
 						headerData[level][4].push({ value: parade.parade_type, colSpan: 1, rowspan: 1 })
 					})
 
-					levels.map((level, index) => {
+					relevantLevels.map((level, index) => {
+						let paradeAttendance = 0
 						idOrder[level].map((accountId, row) => {
 							newTableData[sheets[index]]['rows'][row].push(
 								{ value: resp.data.parade_attendance[parade.id][accountId], colSpan: 1, rowspan: 1 }
 							)
+							if (resp.data.parade_attendance[parade.id][accountId] == '1') {
+								paradeAttendance += 1
+							}
+							newTalliedAttendance[level][accountId][resp.data.parade_attendance[parade.id][accountId]] += 1
 						})
+						newTableData[sheets[index]]['rows'][newTableData[sheets[index]]['rows'].length - 7].push(
+							{ value: paradeAttendance, colSpan: 1, rowspan: 1 }
+						)
+					})
+				})
+				setTalliedAttendance(newTalliedAttendance)
+
+				levels.map((level, index) => {
+					// Add total % attendance and total parade count per boy
+					idOrder[level].map((accountId, row) => {
+						newTableData[sheets[index]]['rows'][row][level.includes('e')?5 : 6].value =
+						 Math.fround(newTalliedAttendance[level][accountId]['1'] * 100 / (newTalliedAttendance[level][accountId]['1'] + newTalliedAttendance[level][accountId]['0']))
+					})
+
+					// Add total parades/meetings for the year
+					newTableData[sheets[index]]['rows'][newTableData[sheets[index]]['rows'].length - 5].push(
+						{ value: newLevelTotalParades[level], colSpan: 1, rowspan: 1 }
+					)
+
+					// Add new column for actual percentage
+					headerData[level][2].push({ value: "ACTUAL TOTAL %", colSpan: 1, rowSpan: 3 })
+					// headerData[level][3].push({ value: "", colSpan: 1, rowSpan: 1 })
+					// headerData[level][4].push({ value: "", colSpan: 1, rowSpan: 1 })
+					idOrder[level].map((accountId, row) => {
+						newTableData[sheets[index]]['rows'][row].push(
+							{ value: Math.fround(newTalliedAttendance[level][accountId]['1'] * 100 / newLevelTotalParades[level]), colSpan: 1, rowspan: 1 }
+						)
+					})
+
+					// Add new column for total number of parades attended
+					headerData[level][2].push({ value: "TOTAL PARADES ATTENDED", colSpan: 1, rowSpan: 3 })
+					// headerData[level][3].push({ value: "", colSpan: 1, rowSpan: 1 })
+					// headerData[level][4].push({ value: "", colSpan: 1, rowSpan: 1 })
+					idOrder[level].map((accountId, row) => {
+						newTableData[sheets[index]]['rows'][row].push(
+							{ value: newTalliedAttendance[level][accountId]['1'], colSpan: 1, rowspan: 1 }
+						)
 					})
 				})
 
@@ -562,7 +620,7 @@ const AnnualAttendanceExcel = ({year}) => {
   const handleDownload = () => {
 	// Create a workbook and append the worksheet
 	const workbook = XLSX.utils.book_new();
-	Object.keys(tableData).map((level) => {
+	Object.keys(tableData).map((level, index) => {
 		const { headers, rows } = tableData[level];
 		// Convert table data to a 2D array for Excel
 		const excelData = [];
@@ -575,36 +633,6 @@ const AnnualAttendanceExcel = ({year}) => {
 			});
 			excelData.push(excelRow);
 		});
-
-		// // Process rows
-		// rows.forEach((row) => {
-		// 	const excelRow = [];
-		// 	row.forEach((cell) => {
-		// 		excelRow.push(cell.value);
-		// 	});
-		// 	excelData.push(excelRow);
-		// });
-
-		// // Convert data to worksheet
-		// const worksheet = XLSX.utils.aoa_to_sheet(excelData);
-
-		// const merges = [];
-		// headers.forEach((row, rowIndex) => {
-		// 	row.forEach((cell, colIndex) => {
-		// 		if (cell.colSpan && cell.colSpan > 1) {
-		// 		merges.push({
-		// 			s: { r: rowIndex, c: colIndex },
-		// 			e: { r: rowIndex, c: colIndex + cell.colSpan - 1 },
-		// 		});
-		// 		}
-		// 		if (cell.rowSpan && cell.rowSpan > 1) {
-		// 		merges.push({
-		// 			s: { r: rowIndex, c: colIndex },
-		// 			e: { r: rowIndex + cell.rowSpan - 1, c: colIndex },
-		// 		});
-		// 		}
-		// 	});
-		// });
 
 		// Track the starting row index for rows (below headers)
 		const startRowIndex = headers.length;
@@ -669,18 +697,65 @@ const AnnualAttendanceExcel = ({year}) => {
 				horizontal: "center",
 			},
 		};
+
+		if (level.includes("Sec")) {
+			worksheet["!cols"] = [
+				{ wch: 4 },
+				{ wch: 6 },
+				{ wch: 13 },
+				{ wch: 40 },
+				{ wch: 10 },
+				{ wch: 10 },
+				{ wch: 20 },
+			];
+			worksheet["!rows"] = [
+				{ hpx: 64 },
+				{ hpx: 16 },
+				{ hpx: 16 },
+				{ hpx: 40 },
+				{ hpx: 22 },
+				{ hpx: 16 },
+			];
+		} else {
+			worksheet["!cols"] = [
+				{ wch: 4 },
+				{ wch: 6 },
+				{ wch: 40 },
+				{ wch: 10 },
+				{ wch: 10 },
+				{ wch: 20 },
+			];
+			worksheet["!rows"] = [
+				{ hpx: 64 },
+				{ hpx: 16 },
+				{ hpx: 16 },
+				{ hpx: 40 },
+				{ hpx: 22 },
+				{ hpx: 16 },
+			];
+		}
+		
+		Object.values(idOrder)[index].map((accountId) => {
+			worksheet["!rows"].push({ hpx: 22 })
+		})
+
 		XLSX.utils.book_append_sheet(workbook, worksheet, level + " (" + year + ")");
 	})    
+
+	let date = updatedDate.toLocaleDateString('en-GB', {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+	});
 
     // Write workbook to a Blob and trigger download
     const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
     const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
-    saveAs(blob, "GeneratedExcel.xlsx");
+    saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
   };
 
   return (
     <div>
-      <AttendanceExcelSheet />
       <button onClick={handleDownload}>Download Excel</button>
     </div>
   );

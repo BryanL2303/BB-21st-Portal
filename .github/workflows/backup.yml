@@ -26,14 +26,21 @@ jobs:
       - name: Download Backup
         run: |
           mkdir -p backups
-          heroku pg:backups:download --app bb-21 -o backups/backup_$(date +%Y-%m-%d).dump
+          heroku pg:backups:download --app bb-21 -o backups/backup_$(date +%Y-%m-%d_%H-%M-%S).dump
 
-      - name: Upload Backup to Repository
+      - name: Verify backup download
+        run: ls -l backups/
+
+      - name: Commit backups if changes exist
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add backups/
-          git commit -m "Add weekly backup: $(date +%Y-%m-%d)"
-          git push origin
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "GitHub Actions"
+            git config user.email "actions@github.com"
+            git add backups/
+            git commit -m "Add weekly backup: $(date +%Y-%m-%d)"
+            git push origin
+          else
+            echo "No changes to commit"
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
