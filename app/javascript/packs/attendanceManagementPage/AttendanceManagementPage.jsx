@@ -32,13 +32,13 @@ const AttendanceManagementPage = () => {
         <div className='annual-attendance-list'>
           <h1>Yearly Attendance File</h1>
           <button onClick={() => {setPageState('Y2024')}}>2024</button>
+          {pageState != 'list' && pageState != 'form' && pageState.includes('Y') && <AnnualAttendanceExcel year={pageState.split('Y')[1]}/>}
         </div>
         <br/>
         <ParadeList reload={reload} setPageState={setPageState}/>
         <div className='main-block'>
           {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
           {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
-          {pageState != 'list' && pageState != 'form' && pageState.includes('Y') && <AnnualAttendanceExcel year={pageState.split('Y')[1]}/>}
         </div>
       </div>
     </div>

@@ -53,6 +53,7 @@
     "css-has-pseudo": "^7.0.0",
     "css-select": "^5.1.0",
     "css-what": "^6.1.0",
+    "exceljs": "^4.4.0",
     "file-loader": "^6.2.0",
     "file-saver": "^2.0.5",
     "glob-parent": "6.0.2",

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios'
+import ExcelJS from 'exceljs'
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
@@ -27,25 +28,25 @@ const AnnualAttendanceExcel = ({year}) => {
 			resp.data.map((boy) => {
 				if (boy.level == 1) {
 					sec1Rows.push([
-						{ value: "", rowSpan: 1},
-						{ value: sec1Rows.length + 1, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Member ID
-						{ value: boy.account_name, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Class
-						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Attendance
+						{ value: "", colSpan: 1, rowSpan: 1},
+						{ value: sec1Rows.length + 1, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+						{ value: boy.account_name, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Class
+						{ value: boy.rank, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['1'].push(boy.id)
 				}
 				if (boy.level == 2) {
 					sec2Rows.push([
-						{ value: "", rowSpan: 1},
-						{ value: sec2Rows.length + 1, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Member ID
-						{ value: boy.account_name, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Class
-						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Attendance
+						{ value: "", colSpan: 1, rowSpan: 1},
+						{ value: sec2Rows.length + 1, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+						{ value: boy.account_name, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Class
+						{ value: boy.rank, colSpan: 1, rowSpan: 1 },
+						{ value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
 					])
 					newIdOrder['2'].push(boy.id)
 				}
@@ -754,9 +755,113 @@ const AnnualAttendanceExcel = ({year}) => {
     saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
   };
 
+  const handleDownloadWithExcelJS = () => {
+	// Create a new workbook
+	const workbook = new ExcelJS.Workbook();
+  
+	// Loop through tableData
+	Object.keys(tableData).forEach((level, index) => {
+	  const { headers, rows } = tableData[level];
+  
+	  // Add a worksheet
+	  const worksheet = workbook.addWorksheet(level + " (" + year + ")", {
+		views: [{ showGridLines: false }], // Disable gridlines
+	  });
+  
+	  // Add headers
+	  headers.forEach((row, rowIndex) => {
+		const headerRow = worksheet.addRow(row.map((cell) => cell.value));
+	  });
+	  headers.forEach((row, rowIndex) => {
+		row.forEach((cell, colIndex) => {
+		  const { colSpan, rowSpan } = cell;
+		  const cellAddress = worksheet.getCell(rowIndex + 1, colIndex + 1);
+  
+		  if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
+			worksheet.mergeCells(
+			  rowIndex + 1,
+			  colIndex + 1,
+			  rowIndex + (rowSpan?rowSpan: 1),
+			  colIndex + (colSpan?colSpan: 1)
+			);
+		  }
+		});
+	  });
+  
+	  // Add rows
+	  rows.forEach((row, rowIndex) => {
+		const dataRow = worksheet.addRow(row.map((cell) => cell.value));
+	  });
+	  rows.forEach((row, rowIndex) => {
+		row.forEach((cell, colIndex) => {
+		  const { colSpan, rowSpan } = cell;
+		  const cellAddress = worksheet.getCell(rowIndex + 1, colIndex + 1);
+  
+		  if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
+			worksheet.mergeCells(
+			  rowIndex + 1,
+			  colIndex + 1,
+			  rowIndex + (rowSpan?rowSpan: 1),
+			  colIndex + (colSpan?colSpan: 1)
+			);
+		  }
+		});
+	  });
+  
+	  // Set column widths
+	  if (level.includes("Sec")) {
+		worksheet.columns = [
+		  { width: 4 },
+		  { width: 6 },
+		  { width: 13 },
+		  { width: 40 },
+		  { width: 10 },
+		  { width: 10 },
+		  { width: 20 },
+		];
+	  } else {
+		worksheet.columns = [
+		  { width: 4 },
+		  { width: 6 },
+		  { width: 40 },
+		  { width: 10 },
+		  { width: 10 },
+		  { width: 20 },
+		];
+	  }
+  
+	  // Set row heights
+	  const defaultRowHeights = [
+		64, // Header row height
+		16,
+		16,
+		40,
+		22,
+		16,
+	  ];
+  
+	  defaultRowHeights.forEach((height, rowIndex) => {
+		const row = worksheet.getRow(rowIndex + 1);
+		row.height = height;
+	  });
+  
+	  // Additional rows based on idOrder
+	  Object.values(idOrder)[index].forEach(() => {
+		const row = worksheet.addRow([]);
+		row.height = 22;
+	  });
+	});
+  
+	// Save the workbook
+	workbook.xlsx.writeBuffer().then((buffer) => {
+	  const blob = new Blob([buffer], { type: "application/octet-stream" });
+	  saveAs(blob, "GeneratedExcel.xlsx");
+	});
+  };
+
   return (
     <div>
-      <button onClick={handleDownload}>Download Excel</button>
+      <button onClick={handleDownloadWithExcelJS}>Download Excel</button>
     </div>
   );
 };

@@ -21,9 +21,13 @@ jobs:
         run: heroku auth:token
 
       - name: Capture Database Backup
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku pg:backups:capture --app bb-21
 
       - name: Download Backup
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
           mkdir -p backups
           heroku pg:backups:download --app bb-21 -o backups/backup_$(date +%Y-%m-%d_%H-%M-%S).dump
