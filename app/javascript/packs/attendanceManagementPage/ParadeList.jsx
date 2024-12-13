@@ -38,7 +38,8 @@ const ParadeList = ({setPageState, reload}) => {
             <button onClick={() => {setCurrentYear(currentYear + 1)}}>next year</button>
             <h1>{currentYear} Parades</h1>
             {(cookies.get('Type') == 'Admin' || cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' ||
-            cookies.get('Appointment') == 'CSM' || cookies.get('Appointment') == 'DY CSM') &&
+            cookies.get('Appointment') == 'CSM' || cookies.get('Appointment') == 'DY CSM') ||
+            cookies.get('Appointment') == 'Admin Sergeant' &&
             <button onClick={showNewParadeForm}>Add Parade</button>
             }
             <br/>

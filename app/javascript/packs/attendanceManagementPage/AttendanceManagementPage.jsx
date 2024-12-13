@@ -3,7 +3,8 @@ import axios from 'axios'
 import useCookies from '../general/useCookies'
 import { NavigationBar } from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError'
-import { AnnualAttendanceExcel } from './AnnualAttendanceExcel'
+import { HandleDownloadWithExcelJS } from './AnnualAttendanceExcel'
+//import { AnnualAttendanceExcel } from './AnnualAttendanceExcel'
 import { ParadeList } from './ParadeList'
 import { NewParadeForm } from './NewParadeForm'
 import { ParadeInformation } from './ParadeInformation'
@@ -14,6 +15,7 @@ const AttendanceManagementPage = () => {
   const [pageState, setPageState] = useState('list')
   const [renderPage, setRenderPage] = useState(false)
   const [reload, setReload] = useState(false)
+  const [years, setYears] = useState([])
 
   useEffect(() => {
     //If there is no ongoing session go back to log in page
@@ -21,6 +23,14 @@ const AttendanceManagementPage = () => {
     {withCredentials: true})
     .then(() => setRenderPage(true))
     .catch(() => window.location.href = '/')
+    setYears((prev) => {
+      const currentYear = new Date().getFullYear();
+      let next = [...prev];
+      for (let year = 2024; year <= currentYear; year++) {
+        next.push(year);
+      }
+      return next
+    })
   }, [])
 
   if (!renderPage) return null
@@ -31,7 +41,9 @@ const AttendanceManagementPage = () => {
       <div className='page-container'>
         <div className='annual-attendance-list'>
           <h1>Yearly Attendance File</h1>
-          <button onClick={() => {setPageState('Y2024')}}>2024</button>
+          {years.map((year) => {
+            return(<HandleDownloadWithExcelJS year={year}/>)
+          })}
           {pageState != 'list' && pageState != 'form' && pageState.includes('Y') && <AnnualAttendanceExcel year={pageState.split('Y')[1]}/>}
         </div>
         <br/>

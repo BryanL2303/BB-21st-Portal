@@ -265,3 +265,8 @@ Version 1.0
 11 December 2024
 1. Update database backup script for testing
 2. Removed AttendanceExcelSheet which is no longer necessary
+
+13 December 2024
+1. Complete formatting for AttendanceExcel Sheet
+2. Give permission for Admin Sergeant to create and edit parades
+3. Update attendance excel component to provide all years starting from 2024
