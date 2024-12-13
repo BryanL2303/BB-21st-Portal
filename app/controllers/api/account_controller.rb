@@ -31,7 +31,7 @@ module Api
     end
 
     def authenticate_account
-      account = Account.find_by(account_name: params[:user_name])
+      account = Account.find_by(user_name: params[:user_name])
       if account.nil?
         render json: false, status: :not_found
       elsif account.password == params[:password]
