@@ -13,6 +13,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [accountLevel, setAccountLevel] = useState();
   const [accountHonorific, setAccountHonorific] = useState();
   const [accountRollCall, setAccountRollCall] = useState(true);
+  const [accountPastRank, setAccountPastRank] = useState({1: null, 2: null, 3: null, 4: null, 5: null})
 
   useEffect(() => {
     setAccount(() => {
@@ -30,6 +31,13 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       setAccountRank(resp.data.rank)
       setAccountLevel(resp.data.level)
       setAccountRollCall(resp.data.roll_call)
+      setAccountPastRank((prev) => {
+        let next = {...prev}
+        for (let i = 1; i <= 5; i ++) {
+          next[i] = resp.data[`rank_${i}`]
+        }
+        return next
+      })
     })
     .catch(resp => handleServerError(resp.response.status))
   }, [userId])
@@ -41,6 +49,16 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     if (e.target.className == 'VAL' || e.target.className == 'Teacher') {
       setAccountHonorific('Mr')
     }
+  }
+
+  function setPastRank(level, e) {
+    e.preventDefault()
+    document.getElementsByClassName(`rank_${level}`)[0].innerHTML = e.target.className
+    setAccountPastRank((prev) => {
+      let next = {...prev}
+      next[level] = e.target.className
+      return next
+    })
   }
 
   function setLevel(e) {
@@ -89,7 +107,17 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         password: password,
         account_type: e.target.elements['account_type'].value,
         rank: accountRank,
+        rank_1: accountPastRank[1],
+        rank_2: accountPastRank[2],
+        rank_3: accountPastRank[3],
+        rank_4: accountPastRank[4],
+        rank_5: accountPastRank[5],
         level: level,
+        class_1: e.target.elements['class_1']?.value,
+        class_2: e.target.elements['class_2']?.value,
+        class_3: e.target.elements['class_3']?.value,
+        class_4: e.target.elements['class_4']?.value,
+        class_5: e.target.elements['class_5']?.value,
         honorifics: accountHonorific,
         roll_call: accountRollCall,
         credentials: credentials
@@ -156,29 +184,34 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='PTE' onClick={setRank}>PTE</p>
           <p className='REC' onClick={setRank}>REC</p>
         </Popup>}
+        
         <br/>
         <label>Name: </label>
         <input className='edit-field' name={"account_name"} defaultValue={account.account_name}></input>
-        <br/>
+        {cookies.get("Type") == 'Admin' && <br/>}
         {cookies.get("Type") == 'Admin' && <label>User Name: </label>}
         {cookies.get("Type") == 'Admin' && <input className='edit-field' name={"user_name"} defaultValue={account.user_name}></input>}
+        
         <br/>
         <label>Abbreviated Name: </label>
         <input className='edit-field' name={"abbreviated_name"} defaultValue={account.abbreviated_name}></input>
+        
         <br/>
         <label>Account Type: </label>
         <input className='edit-field' name={"account_type"} defaultValue={account.account_type} disabled></input>
-        <br/>
+        {cookies.get("Type") == 'Admin' && <br/>}
         {cookies.get("Type") == 'Admin' && <label>Password: </label>}
         {cookies.get("Type") == 'Admin' && <input name={"password"} className='edit-field' defaultValue={account.password}></input>}
-        <br/>
+        
+        {(account.rank == "Teacher" || account.rank == 'VAL') && <br/>}
         {(account.rank == "Teacher" || account.rank == 'VAL') && <label>Honorifics: </label>}
         {(account.rank == "Teacher" || account.rank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
           <p className='Mr' onClick={setHonorific}>Mr</p>
           <p className='Ms' onClick={setHonorific}>Ms</p>
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
         </Popup>}
-        <br/>
+
+        {account.account_type == "Boy" && <br/>}
         {account.account_type == "Boy" && <label>Sec </label>}
         {account.account_type == "Boy" && <Popup className='account-level-popup' trigger={<label className='create-account-form__level'>{account.level}</label>} position="bottom">
           <p className='5' onClick={setLevel}>5</p>
@@ -187,7 +220,43 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='2' onClick={setLevel}>2</p>
           <p className='1' onClick={setLevel}>1</p>
         </Popup>}
-        <br/>
+
+        {account.account_type == "Boy" && (() => {
+          const level = parseInt(accountLevel);
+          if (!isNaN(level)) {
+            return Array.from({ length: level }, (level, i) => (
+              <div key={i}>
+                {<br/>}
+                {<label>Sec {i + 1} Class: </label>}
+                {<input name={"class_" + (i + 1)} defaultValue={account[`class_${i + 1}`] || ""}></input>}
+              </div>
+            ))
+          }
+        })()}
+
+        {account.account_type == "Boy" && (() => {
+          const level = parseInt(accountLevel);
+          if (!isNaN(level)) {
+            return Array.from({ length: level - 1 }, (level, i) => (
+              <div key={i}>
+                {<br/>}
+                {<label>What was this Boys rank at the end of Sec {i + 1}: </label>}
+                {<Popup className='account-rank-popup' trigger={<label className={`rank_${i + 1}`}>{account[`rank_${i + 1}`] || "-"}</label>} position="bottom">
+                  <p className='WO' onClick={(e) => {setPastRank(i + 1, e)}}>WO</p>
+                  <p className='SSG' onClick={(e) => {setPastRank(i + 1, e)}}>SSG</p>
+                  <p className='SGT' onClick={(e) => {setPastRank(i + 1, e)}}>SGT</p>
+                  <p className='CPL' onClick={(e) => {setPastRank(i + 1, e)}}>CPL</p>
+                  <p className='LCP' onClick={(e) => {setPastRank(i + 1, e)}}>LCP</p>
+                  <p className='PTE' onClick={(e) => {setPastRank(i + 1, e)}}>PTE</p>
+                  <p className='REC' onClick={(e) => {setPastRank(i + 1, e)}}>REC</p>
+                </Popup>}
+              </div>
+            ))
+          }
+        })()}
+
+        {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
+         <br/>}
         {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
          <label>Should this user appear in the attendance nominal roll? : </label>}
         {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
@@ -195,10 +264,12 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='Yes' onClick={setRollCall}>Yes</p>
           <p className='No' onClick={setRollCall}>No</p>
         </Popup>}
-        <br/>
+        
+        {account.appointment != null && <br/>}
         {account.appointment != null && <label>Appointment: </label>}
         {account.appointment != null && <label>{account.appointment}</label>}
-        <br/>
+        
+        {account.account_type != "Boy" && <br/>}
         {account.account_type != "Boy" && <label>Credentials (For 32A results): </label>}
         {account.account_type != "Boy" && <input name={"credentials"} defaultValue={account.credentials}></input>}
         <button className="edit-button">Save Changes</button>

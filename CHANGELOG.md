@@ -270,3 +270,9 @@ Version 1.0
 1. Complete formatting for AttendanceExcel Sheet
 2. Give permission for Admin Sergeant to create and edit parades
 3. Update attendance excel component to provide all years starting from 2024
+
+15 December 2024
+1. Add migration to record past year ranks and classes for past year attendance excel, add levels to parade attendance to order Boys levels for past year excels
+2. Update frontend of userInformation to include past level classes and ranks for Boys
+3. Updated account_controller to incorporate new columns with edit_account
+4. Completed testing for backend, revert back to weekly backups

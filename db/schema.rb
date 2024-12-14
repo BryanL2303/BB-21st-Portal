@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202412030000001) do
+ActiveRecord::Schema[7.0].define(version: 202412150000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,6 +28,16 @@ ActiveRecord::Schema[7.0].define(version: 202412030000001) do
     t.string "abbreviated_name"
     t.string "user_name"
     t.boolean "roll_call"
+    t.string "class_1"
+    t.string "class_2"
+    t.string "class_3"
+    t.string "class_4"
+    t.string "class_5"
+    t.string "rank_1"
+    t.string "rank_2"
+    t.string "rank_3"
+    t.string "rank_4"
+    t.string "rank_5"
   end
 
   create_table "answer_rubrics", force: :cascade do |t|
@@ -167,6 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 202412030000001) do
     t.bigint "parade_id"
     t.bigint "account_id"
     t.string "attendance"
+    t.integer "level"
     t.index ["account_id"], name: "index_parade_attendances_on_account_id"
     t.index ["parade_id"], name: "index_parade_attendances_on_parade_id"
   end

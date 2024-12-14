@@ -392,6 +392,7 @@ import { saveAs } from "file-saver";
 			withCredentials: true
 			})
 			.then((resp) => {
+				console.log(resp.data)
 				let updateDate = new Date(resp.data.parades[resp.data.parades.length - 1]?.date);
 				let date = updateDate.toLocaleDateString('en-GB', {
 					day: 'numeric',
@@ -972,10 +973,10 @@ import { saveAs } from "file-saver";
 		});
 
 		// Save the workbook
-		workbook.xlsx.writeBuffer().then((buffer) => {
-		const blob = new Blob([buffer], { type: "application/octet-stream" });
-		saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
-		});
+		// workbook.xlsx.writeBuffer().then((buffer) => {
+		// const blob = new Blob([buffer], { type: "application/octet-stream" });
+		// saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
+		// });
 	}
 	return (
 		<div>

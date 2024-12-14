@@ -105,6 +105,32 @@ module Api
         data["parades"] = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
         data["parade_attendance"] = {}
 
+        # Next 2 lines are for testing
+        account_ids = ParadeAttendance.where(parade_id: data["parades"].pluck(:id)).pluck(:account_id)
+        boy_accounts = Account.where(id: account_ids).order('id')
+        data["boy_accounts"] = boy_accounts
+
+
+        data["parades"].each do |parade|
+          data["parade_attendance"][parade.id] = {}
+          parade_attendances = ParadeAttendance.where(parade_id: parade.id).order('account_id')
+          parade_attendances.each do |attendance|
+            data["parade_attendance"][parade.id][attendance.account_id] = attendance.attendance
+          end
+        end
+  
+        render json: data, status: :ok
+      end
+
+      def annual_attendance_information
+        data = {}
+
+        data["parades"] = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
+        data["parade_attendance"] = {}
+
+        boy_accounts = Account.where(id: data["parades"].account_id).order('id')
+        data["boy_accounts"] = boy_accounts
+
         data["parades"].each do |parade|
           data["parade_attendance"][parade.id] = {}
           parade_attendances = ParadeAttendance.where(parade_id: parade.id).order('account_id')

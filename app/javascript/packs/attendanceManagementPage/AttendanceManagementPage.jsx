@@ -26,7 +26,7 @@ const AttendanceManagementPage = () => {
     setYears((prev) => {
       const currentYear = new Date().getFullYear();
       let next = [...prev];
-      for (let year = 2025; year <= currentYear; year++) {
+      for (let year = 2024; year <= currentYear; year++) {
         next.push(year);
       }
       return next
