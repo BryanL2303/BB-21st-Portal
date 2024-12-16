@@ -276,3 +276,11 @@ Version 1.0
 2. Update frontend of userInformation to include past level classes and ranks for Boys
 3. Updated account_controller to incorporate new columns with edit_account
 4. Completed testing for backend, revert back to weekly backups
+
+16 December 2024
+1. Update AnnualAttendanceExcel to use new backend function
+2. Update parade_controller with new function to retrieve excel data which works with past years
+3. Add migration to indicate if Boys have graduated
+4. Updated UserInformation to include graduated as a checkbox
+5. Updated account_controller edit_account function to include graduated
+6. Add Graduated Boys List to display graduated Boys seperately from current Boys in UsersManagementPage

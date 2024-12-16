@@ -105,12 +105,6 @@ module Api
         data["parades"] = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
         data["parade_attendance"] = {}
 
-        # Next 2 lines are for testing
-        account_ids = ParadeAttendance.where(parade_id: data["parades"].pluck(:id)).pluck(:account_id)
-        boy_accounts = Account.where(id: account_ids).order('id')
-        data["boy_accounts"] = boy_accounts
-
-
         data["parades"].each do |parade|
           data["parade_attendance"][parade.id] = {}
           parade_attendances = ParadeAttendance.where(parade_id: parade.id).order('account_id')
@@ -128,8 +122,19 @@ module Api
         data["parades"] = Parade.where("EXTRACT(YEAR FROM date) = ?", params[:year]).order('date')
         data["parade_attendance"] = {}
 
-        boy_accounts = Account.where(id: data["parades"].account_id).order('id')
-        data["boy_accounts"] = boy_accounts
+        account_ids = ParadeAttendance.where(parade_id: data["parades"].pluck(:id)).pluck(:account_id)
+        boy_accounts = Account.where(id: account_ids, level: 1).order('id')
+        data["sec_1"] = boy_accounts
+        boy_accounts = Account.where(id: account_ids, level: 2).order('id')
+        data["sec_2"] = boy_accounts
+        boy_accounts = Account.where(id: account_ids, level: 3).order('id')
+        data["sec_3"] = boy_accounts
+        boy_accounts = Account.where(id: account_ids, level: [4, 5]).order('id')
+        data["sec_4_5"] = boy_accounts
+        primer_accounts = Account.where(id: account_ids, account_type: 'Primer').order('id')
+        data["primer"] = primer_accounts
+        officer_accounts = Account.where(id: account_ids, account_type: 'Officer').order('id')
+        data["officer"] = officer_accounts
 
         data["parades"].each do |parade|
           data["parade_attendance"][parade.id] = {}
@@ -196,7 +201,7 @@ module Api
 
       def update_attendance
         parade_attendance = {}
-        attendance = ParadeAttendance.find_or_initialize_by(parade_id: params[:id], account_id: params[:account_id])
+        attendance = ParadeAttendance.find_or_initialize_by(parade_id: params[:id], account_id: params[:account_id], level: params[:level])
 
         parade = Parade.find_by(id: params[:id])
 

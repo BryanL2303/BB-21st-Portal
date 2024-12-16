@@ -14,14 +14,18 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
 
   useEffect(() => {
     setCurrentAttendance(parade.parade_attendance)
+    const paradeDate = new Date(parade.info.date); // Convert the string to a Date object
+    const currentYear = new Date().getFullYear(); // Get the current year
+
     if (
-      (cookies.get("Appointment")?.includes("Platoon Sergeant") && !parade.info.cos_finalized &&
+      (paradeDate.getFullYear() === currentYear) &&
+      ((cookies.get("Appointment")?.includes("Platoon Sergeant") && !parade.info.cos_finalized &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
       (cookies.get("Name") == parade.cos?.account_name &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
       ((cookies.get("Name") == parade.csm?.account_name || cookies.get("Appointment")?.includes("CSM")) && !parade.info.do_finalized && !parade.info.captain_finalized) ||
       (cookies.get("Name") == parade.do?.account_name && !parade.info.captain_finalized) ||
-      (cookies.get("Appointment") == 'Captain' && !parade.info.captain_finalized)
+      (cookies.get("Appointment") == 'Captain' && !parade.info.captain_finalized))
       ) {
         setTakingAttendance(true)
     } else {
@@ -33,10 +37,11 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
     else if (cookies.get("Name") == parade.do?.account_name) setParadeAppointment('do')
   }, [parade])
 
-  function setAttendance(attendance, account_id) {
+  function setAttendance(attendance, account_id, level) {
     axios.post('/api/parade/' + parade.info.id + '/update_attendance', {
       parade_appointment: paradeAppointment,
-      account_id, account_id,
+      account_id: account_id,
+      level: level,
       old_attendance: currentAttendance[account_id]?.attendance || null,
       new_attendance: attendance
     }, {
@@ -92,11 +97,11 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
                               trigger={<label style={{display: 'inline-block', height: '100%', width: '100%'}}>{currentAttendance[boy.id]?.attendance || '\u00A0'}</label>}
                               position="bottom"
                             >
-                              <p onClick={() => setAttendance(null, boy.id)}>-</p>
-                              <p onClick={() => setAttendance('1', boy.id)}>1</p>
-                              <p onClick={() => setAttendance('S', boy.id)}>S</p>
-                              <p onClick={() => setAttendance('E', boy.id)}>E</p>
-                              <p onClick={() => setAttendance('0', boy.id)}>0</p>
+                              <p onClick={() => setAttendance(null, boy.id, boy.level)}>-</p>
+                              <p onClick={() => setAttendance('1', boy.id, boy.level)}>1</p>
+                              <p onClick={() => setAttendance('S', boy.id, boy.level)}>S</p>
+                              <p onClick={() => setAttendance('E', boy.id, boy.level)}>E</p>
+                              <p onClick={() => setAttendance('0', boy.id, boy.level)}>0</p>
                             </Popup>
                           </td>}
                       </tr>)

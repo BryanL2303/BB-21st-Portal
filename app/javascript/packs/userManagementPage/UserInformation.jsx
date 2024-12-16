@@ -11,6 +11,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
   const [accountLevel, setAccountLevel] = useState();
+  const [accountGraduated, setAccountGraduated] = useState(false);
   const [accountHonorific, setAccountHonorific] = useState();
   const [accountRollCall, setAccountRollCall] = useState(true);
   const [accountPastRank, setAccountPastRank] = useState({1: null, 2: null, 3: null, 4: null, 5: null})
@@ -30,6 +31,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       })
       setAccountRank(resp.data.rank)
       setAccountLevel(resp.data.level)
+      setAccountGraduated(resp.data.graduated)
       setAccountRollCall(resp.data.roll_call)
       setAccountPastRank((prev) => {
         let next = {...prev}
@@ -49,6 +51,13 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     if (e.target.className == 'VAL' || e.target.className == 'Teacher') {
       setAccountHonorific('Mr')
     }
+    if (account.account_type == 'Boy') {
+      setAccountPastRank((prev) => {
+        let next = {...prev}
+        next[accountLevel] = e.target.className
+        return next
+      })
+    }
   }
 
   function setPastRank(level, e) {
@@ -65,6 +74,21 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__level')[0].innerHTML = e.target.className
     setAccountLevel(e.target.className)
+    if (account.account_type == 'Boy') {
+      setAccountPastRank((prev) => {
+        let next = {...prev}
+        next[parseInt(e.target.className)] = accountRank
+        for (let i = parseInt(e.target.className) + 1; i <= 5; i ++) {
+          next[i] = null
+        }
+        return next
+      })
+    }
+  }
+
+  function setGraduated(e) {
+    setAccountGraduated(e.target.checked)
+    setAccountRollCall(account.roll_call)
   }
 
   function setHonorific(e) {
@@ -113,6 +137,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         rank_4: accountPastRank[4],
         rank_5: accountPastRank[5],
         level: level,
+        graduated: accountGraduated,
         class_1: e.target.elements['class_1']?.value,
         class_2: e.target.elements['class_2']?.value,
         class_3: e.target.elements['class_3']?.value,
@@ -211,9 +236,9 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
         </Popup>}
 
-        {account.account_type == "Boy" && <br/>}
-        {account.account_type == "Boy" && <label>Sec </label>}
-        {account.account_type == "Boy" && <Popup className='account-level-popup' trigger={<label className='create-account-form__level'>{account.level}</label>} position="bottom">
+        {account.account_type == "Boy" && !accountGraduated && <br/>}
+        {account.account_type == "Boy" && !accountGraduated && <label>Sec </label>}
+        {account.account_type == "Boy" && !accountGraduated && <Popup className='account-level-popup' trigger={<label className='create-account-form__level'>{account.level}</label>} position="bottom">
           <p className='5' onClick={setLevel}>5</p>
           <p className='4' onClick={setLevel}>4</p>
           <p className='3' onClick={setLevel}>3</p>
@@ -255,11 +280,16 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           }
         })()}
 
+        {account.account_type == "Boy" && <br/>}
+        {account.account_type == "Boy" && <label>Graduated: </label>}
+        {account.account_type == "Boy" && <input type="checkbox" defaultChecked={account.graduated} onClick={setGraduated}></input>}
+
         {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
-         <br/>}
+         !accountGraduated && <br/>}
         {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
-         <label>Should this user appear in the attendance nominal roll? : </label>}
+         !accountGraduated && <label>Should this user appear in the attendance nominal roll? : </label>}
         {(cookies.get("Type") == 'Admin' || cookies.get("Type") == 'Officer' || cookies.get("Appointment") == 'CSM') &&
+         !accountGraduated && 
          <Popup className='account-roll-call-popup' trigger={<label className='create-account-form__roll-call'>{account.roll_call? 'Yes' : 'No'}</label>} position="bottom">
           <p className='Yes' onClick={setRollCall}>Yes</p>
           <p className='No' onClick={setRollCall}>No</p>

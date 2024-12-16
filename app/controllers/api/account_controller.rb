@@ -52,7 +52,14 @@ module Api
     end
 
     def accounts_by_type
-      accounts = Account.where(account_type: params[:account_type]).order('level').order('account_name')
+      accounts = Account.where(account_type: params[:account_type])
+      accounts = accounts.where(graduated: [false, nil]) if params[:account_type] == 'Boy'
+      accounts = accounts.order('level').order('account_name')
+      render json: accounts, status: :ok
+    end
+
+    def graduated_accounts
+      accounts = Account.where(account_type: "Boy", graduated: true).order('account_name')
 
       render json: accounts, status: :ok
     end
@@ -96,6 +103,7 @@ module Api
         account['honorifics'] = params[:honorifics]
         account['abbreviated_name'] = params[:abbreviated_name]
         account['level'] = params[:level]
+        account['graduated'] = params[:graduated]
         account['class_1'] = params[:class_1]
         account['class_2'] = params[:class_2]
         account['class_3'] = params[:class_3]

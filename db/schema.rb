@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202412150000001) do
+ActiveRecord::Schema[7.0].define(version: 202412160000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 202412150000001) do
     t.string "rank_3"
     t.string "rank_4"
     t.string "rank_5"
+    t.boolean "graduated"
   end
 
   create_table "answer_rubrics", force: :cascade do |t|

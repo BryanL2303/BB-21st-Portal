@@ -8,6 +8,7 @@ import { UserInformation } from './UserInformation'
 import { OfficerAccountsList } from './OfficerAccountsList'
 import { PrimerAccountsList } from './PrimerAccountsList'
 import { BoyAccountsList } from './BoyAccountsList'
+import { GraduatedBoyAccountsList } from './GraduatedBoyAccountsList'
 
 // To access current users and create new accounts
 const UserManagementPage = () => {
@@ -57,6 +58,8 @@ const UserManagementPage = () => {
            && <OfficerAccountsList setPageState = {setPageState} load={load} />}
           {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState} load={load} />}
           <BoyAccountsList setPageState = {setPageState} load={load} />
+          <p>Graduated Boys</p>
+          <GraduatedBoyAccountsList setPageState = {setPageState} load={load} />
         </div>
         <div className='main-block'>
           {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}

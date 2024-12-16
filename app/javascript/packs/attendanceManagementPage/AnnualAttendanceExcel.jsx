@@ -1,398 +1,331 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from 'axios'
 import ExcelJS from 'exceljs'
-import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 
-// const AnnualAttendanceExcel = ({year}) => {
-	// const [updatedDate, setUpdatedDate] = useState()
-	// const [tableData, setTableData] = useState({'Sec 1': {}, 'Sec 2': {}, 'Sec 3': {}, 'Sec 4 and 5': {}, 'Primers': {}, 
-	// 	'Officers and Volunteers': {}});
-	// const [idOrder, setIdOrder] = useState({'1': [], '2': [], '3': [], '4/5': [], 'Primer': [], 
-	// 	'Volunteer': []})
-	// const [talliedAttendance, setTalliedAttendance] = useState({'1': {}, '2': {}, '3': {}, '4/5': {}, 'Primer': {}, 
-	// 	'Volunteer': {}})
-
-  const HandleDownloadWithExcelJS = ({year}) => {
-	const [tableData, setTableData] = useState({'Sec 1': {}, 'Sec 2': {}, 'Sec 3': {}, 'Sec 4 and 5': {}, 'Primers': {}, 
-		'Officers and Volunteers': {}});
-	const [idOrder, setIdOrder] = useState({'1': [], '2': [], '3': [], '4/5': [], 'Primer': [], 
-		'Volunteer': []})
-	const [talliedAttendance, setTalliedAttendance] = useState({'1': {}, '2': {}, '3': {}, '4/5': {}, 'Primer': {}, 
-		'Volunteer': {}})
-
-	function handleBoyAccounts() {
-		axios.post('/api/account/0/get_accounts_by_type', {
-			account_type: "Boy"
-		  }, {
-			withCredentials: true
-		  })
-		  .then(resp => {
-			let sec1Rows = []
-			let sec2Rows = []
-			let sec3Rows = []
-			let sec45Rows = []
-			let newIdOrder = {...idOrder}
-			resp.data.map((boy) => {
-				if (boy.level == 1) {
-					sec1Rows.push([
-						{ value: "", colSpan: 1, rowSpan: 1},
-						{ value: sec1Rows.length + 1, colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Member ID
-						{ value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Class
-						{ value: boy.rank, colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
-					])
-					newIdOrder['1'].push(boy.id)
-				}
-				if (boy.level == 2) {
-					sec2Rows.push([
-						{ value: "", colSpan: 1, rowSpan: 1},
-						{ value: sec2Rows.length + 1, colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Member ID
-						{ value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Class
-						{ value: boy.rank, colSpan: 1, rowSpan: 1 },
-						{ value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
-					])
-					newIdOrder['2'].push(boy.id)
-				}
-				if (boy.level == 3) {
-					sec3Rows.push([
-						{ value: "", rowSpan: 1},
-						{ value: sec3Rows.length + 1, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Member ID
-						{ value: boy.account_name.toUpperCase(), rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Class
-						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Attendance
-					])
-					newIdOrder['3'].push(boy.id)
-				}
-				if (boy.level == 4 || boy.level == 5) {
-					sec45Rows.push([
-						{ value: "", rowSpan: 1},
-						{ value: sec45Rows.length + 1, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Member ID
-						{ value: boy.account_name.toUpperCase(), rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Class
-						{ value: boy.rank, rowSpan: 1 },
-						{ value: "", rowSpan: 1 }, //Percentage Attendance
-					])
-					newIdOrder['4/5'].push(boy.id)
-				}
-			})
-	
-			let tables = [sec1Rows, sec2Rows, sec3Rows, sec45Rows]
-			tables.map((table) => {
-				table.push([
-					{ value: "", rowSpan: 1},
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: null, rowSpan: 1},
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: "Total Boys:", rowSpan: 1 },
-					{ value: table.length - 1, rowSpan: 1 },
-				])
-				table.push([
-					{ value: null, rowSpan: 1},
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: "Total Parades/Meetings:", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1},
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1},
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", colSpan: 1, rowSpan: 1},
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "LEGEND", colSpan: 2, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "1", colSpan: 1, rowSpan: 1 },
-					{ value: "Present", colSpan: 2, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "0", colSpan: 1, rowSpan: 1 },
-					{ value: "Absent", colSpan: 2, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "E", colSpan: 1, rowSpan: 1 },
-					{ value: "Excused", colSpan: 2, rowSpan: 1 },
-					{ value: "", colSpan: 1, rowSpan: 1 },
-					{ value: "S", colSpan: 1, rowSpan: 1 },
-					{ value: "Sick", colSpan: 1, rowSpan: 1 },
-					{ value: "NA", colSpan: 1, rowSpan: 1 },
-					{ value: "Not Applicable", colSpan: 1, rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1},
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-			})
-	
-			setTableData((prev) => {
-				let next = {...prev}
-				next['Sec 1']['rows'] = sec1Rows
-				next['Sec 2']['rows'] = sec2Rows
-				next['Sec 3']['rows'] = sec3Rows
-				next['Sec 4 and 5']['rows'] = sec45Rows
-				return next
-			})
-			setIdOrder(newIdOrder)
-			handlePrimerAccounts()
-		  })
-		  .catch(resp => handleServerError(resp.response.status))
-	}
-
-	function handlePrimerAccounts() {
-		axios.post('/api/account/0/get_accounts_by_type', {
-			account_type: "Primer"
-		}, {
-		  withCredentials: true
-		})
-		.then(resp => {
-		  let primerRows = []
-		  let newIdOrder = {...idOrder}
-		  resp.data.map((primer) => {
-			  primerRows.push([
-				  { value: "", rowSpan: 1},
-				  { value: primerRows.length + 1, rowSpan: 1 },
-				  { value: primer.account_name.toUpperCase(), rowSpan: 1 },
-				  { value: "POLY", rowSpan: 1 },
-				  { value: primer.rank, rowSpan: 1 },
-				  { value: "", rowSpan: 1 }, //Percentage Attendance
-			  ])
-			  idOrder['Primer'].push(primer.id)
-		  })
-  
-		  let tables = [primerRows]
-		  tables.map((table) => {
-			  table.push([
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: "Total Primers:", rowSpan: 1 },
-				  { value: table.length - 1, rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: null, rowSpan: 1 },
-				  { value: "Total Parades/Meetings:", rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "LEGEND", colSpan: 2, rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "1", rowSpan: 1 },
-				  { value: "Present", colSpan: 2, rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "0", rowSpan: 1 },
-				  { value: "Absent", colSpan: 2, rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "E", rowSpan: 1 },
-				  { value: "Excused", colSpan: 2, rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "S", rowSpan: 1 },
-				  { value: "Sick", colSpan: 1, rowSpan: 1 },
-				  { value: "NA", rowSpan: 1 },
-				  { value: "Not Applicable", colSpan: 1, rowSpan: 1 },
-			  ])
-			  table.push([
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-				  { value: "", rowSpan: 1 },
-			  ])
-		  })
-  
-		  setTableData((prev) => {
-			  let next = {...prev}
-			  next['Primers']['rows'] = primerRows
-			  return next
-		  })
-		  setIdOrder(newIdOrder)
-		  handleOfficerAccounts()
-		})
-		.catch(resp => handleServerError(resp.response.status))
-	}
-
-	function handleOfficerAccounts() {
-		axios.post('/api/account/0/get_accounts_by_type', {
-			account_type: "Officer"
-		  }, {
-			withCredentials: true
-		  })
-		  .then(resp => {
-			let officerRows = []
-			let newIdOrder = {...idOrder}
-			resp.data.map((officer) => {
-				officerRows.push([
-					{ value: "", rowSpan: 1},
-					{ value: officerRows.length + 1, rowSpan: 1 },
-					{ value: officer.account_name.toUpperCase(), rowSpan: 1 },
-					{ value: "VAL", rowSpan: 1 },
-					{ value: officer.rank, rowSpan: 1 },
-					{ value: "", rowSpan: 1 }, //Percentage Attendance
-				])
-				idOrder['Volunteer'].push(officer.id)
-			})
-	
-			let tables = [officerRows]
-			tables.map((table) => {
-				table.push([
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: "Total Officers:", rowSpan: 1 },
-					{ value: table.length - 1, rowSpan: 1 },
-				])
-				table.push([
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: null, rowSpan: 1 },
-					{ value: "Total Parades/Meetings:", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "LEGEND", colSpan: 2, rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "1", rowSpan: 1 },
-					{ value: "Present", colSpan: 2, rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "0", rowSpan: 1 },
-					{ value: "Absent", colSpan: 2, rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "E", rowSpan: 1 },
-					{ value: "Excused", colSpan: 2, rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "S", rowSpan: 1 },
-					{ value: "Sick", colSpan: 1, rowSpan: 1 },
-					{ value: "NA", rowSpan: 1 },
-					{ value: "Not Applicable", colSpan: 1, rowSpan: 1 },
-				])
-				table.push([
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-					{ value: "", rowSpan: 1 },
-				])
-			})
-	
-			setTableData((prev) => {
-				let next = {...prev}
-				next['Officers and Volunteers']['rows'] = officerRows
-				return next
-			})
-			setIdOrder(newIdOrder)
-			handleParadesData()
-		  })
-		  .catch(resp => handleServerError(resp.response.status))
-	}
-
+const HandleDownloadWithExcelJS = ({year}) => {
 	function handleParadesData() {
-		axios.post('/api/parade/0/get_parades_by_year', {
+		axios.post('/api/parade/0/get_annual_attendance_information', {
 			year: year,
 			}, {
 			withCredentials: true
 			})
 			.then((resp) => {
-				console.log(resp.data)
+                let sec1Rows = []
+                let sec2Rows = []
+                let sec3Rows = []
+                let sec45Rows = []
+                let idOrder = {'1': [], '2': [], '3': [], '4/5': [], 'Primer': [], 
+                    'Volunteer': []}
+                resp.data['sec_1'].map((boy) => {
+                    sec1Rows.push([
+                        { value: "", colSpan: 1, rowSpan: 1},
+                        { value: sec1Rows.length + 1, colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+                        { value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Class
+                        { value: boy.rank_1, colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['1'].push(boy.id)
+                })
+                resp.data['sec_2'].map((boy) => {
+                    sec2Rows.push([
+                        { value: "", colSpan: 1, rowSpan: 1},
+                        { value: sec2Rows.length + 1, colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+                        { value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Class
+                        { value: boy.rank_2, colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['2'].push(boy.id)
+                })
+                resp.data['sec_3'].map((boy) => {
+                    sec3Rows.push([
+                        { value: "", rowSpan: 1},
+                        { value: sec3Rows.length + 1, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Member ID
+                        { value: boy.account_name.toUpperCase(), rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Class
+                        { value: boy.rank_3, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['3'].push(boy.id)
+                })
+                resp.data['sec_4_5'].map((boy) => {
+                    sec45Rows.push([
+                        { value: "", rowSpan: 1},
+                        { value: sec45Rows.length + 1, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Member ID
+                        { value: boy.account_name.toUpperCase(), rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Class
+                        { value: boy.rank, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['4/5'].push(boy.id)
+                })
+        
+                let tables = [sec1Rows, sec2Rows, sec3Rows, sec45Rows]
+                tables.map((table) => {
+                    table.push([
+                        { value: "", rowSpan: 1},
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: null, rowSpan: 1},
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: "Total Boys:", rowSpan: 1 },
+                        { value: table.length - 1, rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: null, rowSpan: 1},
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: null, rowSpan: 1 },
+                        { value: "Total Parades/Meetings:", rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: "", rowSpan: 1},
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: "", rowSpan: 1},
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: "", colSpan: 1, rowSpan: 1},
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "LEGEND", colSpan: 2, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "1", colSpan: 1, rowSpan: 1 },
+                        { value: "Present", colSpan: 2, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "0", colSpan: 1, rowSpan: 1 },
+                        { value: "Absent", colSpan: 2, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "E", colSpan: 1, rowSpan: 1 },
+                        { value: "Excused", colSpan: 2, rowSpan: 1 },
+                        { value: "", colSpan: 1, rowSpan: 1 },
+                        { value: "S", colSpan: 1, rowSpan: 1 },
+                        { value: "Sick", colSpan: 1, rowSpan: 1 },
+                        { value: "NA", colSpan: 1, rowSpan: 1 },
+                        { value: "Not Applicable", colSpan: 1, rowSpan: 1 },
+                    ])
+                    table.push([
+                        { value: "", rowSpan: 1},
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                        { value: "", rowSpan: 1 },
+                    ])
+                })
+
+                let tableData = {'Sec 1': {}, 'Sec 2': {}, 'Sec 3': {}, 'Sec 4 and 5': {}, 'Primers': {}, 
+                'Officers and Volunteers': {}}
+        
+                tableData['Sec 1']['rows'] = sec1Rows
+                tableData['Sec 2']['rows'] = sec2Rows
+                tableData['Sec 3']['rows'] = sec3Rows
+                tableData['Sec 4 and 5']['rows'] = sec45Rows
+
+                //ORIGINAL HANDLE PRIMER DATA STARTING POINT
+
+                let primerRows = []
+                resp.data['primer'].map((primer) => {
+                    primerRows.push([
+                        { value: "", rowSpan: 1},
+                        { value: primerRows.length + 1, rowSpan: 1 },
+                        { value: primer.account_name.toUpperCase(), rowSpan: 1 },
+                        { value: "POLY", rowSpan: 1 },
+                        { value: primer.rank, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['Primer'].push(primer.id)
+                })
+        
+                primerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: "Total Primers:", rowSpan: 1 },
+                    { value: primerRows.length - 1, rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: "Total Parades/Meetings:", rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "LEGEND", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "1", rowSpan: 1 },
+                    { value: "Present", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "0", rowSpan: 1 },
+                    { value: "Absent", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "E", rowSpan: 1 },
+                    { value: "Excused", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "S", rowSpan: 1 },
+                    { value: "Sick", colSpan: 1, rowSpan: 1 },
+                    { value: "NA", rowSpan: 1 },
+                    { value: "Not Applicable", colSpan: 1, rowSpan: 1 },
+                ])
+                primerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+        
+                tableData['Primers']['rows'] = primerRows
+
+                //ORIGINAL HANDLE OFFICER DATA STARTING POINT
+
+                let officerRows = []
+                resp.data['officer'].map((officer) => {
+                    officerRows.push([
+                        { value: "", rowSpan: 1},
+                        { value: officerRows.length + 1, rowSpan: 1 },
+                        { value: officer.account_name.toUpperCase(), rowSpan: 1 },
+                        { value: "VAL", rowSpan: 1 },
+                        { value: officer.rank, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['Volunteer'].push(officer.id)
+                })
+        
+                officerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: "Total Officers:", rowSpan: 1 },
+                    { value: officerRows.length - 1, rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: null, rowSpan: 1 },
+                    { value: "Total Parades/Meetings:", rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "LEGEND", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "1", rowSpan: 1 },
+                    { value: "Present", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "0", rowSpan: 1 },
+                    { value: "Absent", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "E", rowSpan: 1 },
+                    { value: "Excused", colSpan: 2, rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "S", rowSpan: 1 },
+                    { value: "Sick", colSpan: 1, rowSpan: 1 },
+                    { value: "NA", rowSpan: 1 },
+                    { value: "Not Applicable", colSpan: 1, rowSpan: 1 },
+                ])
+                officerRows.push([
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                    { value: "", rowSpan: 1 },
+                ])
+        
+                tableData['Officers and Volunteers']['rows'] = officerRows
+
+                //ORIGINAL HANDLE PARADES DATA STARTING POINT
 				let updateDate = new Date(resp.data.parades[resp.data.parades.length - 1]?.date);
 				let date = updateDate.toLocaleDateString('en-GB', {
 					day: 'numeric',
@@ -533,13 +466,13 @@ import { saveAs } from "file-saver";
 				]
 	
 				let sheets = ['Sec 1', 'Sec 2', 'Sec 3', 'Sec 4 and 5', 'Primers', 'Officers and Volunteers']
-				let newTableData = {...tableData}
 				let newLevelTotalParades = {'1': 0, '2': 0, '3': 0, '4/5': 0, 'Primer': 0, 'Volunteer': 0}
-				let newTalliedAttendance = {...talliedAttendance}
+				let talliedAttendance = {'1': {}, '2': {}, '3': {}, '4/5': {}, 'Primer': {}, 
+                 	'Volunteer': {}}
 	
 				levels.map((level) => {
 					idOrder[level].map((accountId) => {
-						newTalliedAttendance[level][accountId] = {'1': 0, '0': 0, 'E': 0, 'S': 0}
+						talliedAttendance[level][accountId] = {'1': 0, '0': 0, 'E': 0, 'S': 0}
 					})
 				})
 	
@@ -573,30 +506,29 @@ import { saveAs } from "file-saver";
 					relevantLevels.map((level, index) => {
 						let paradeAttendance = 0
 						idOrder[level].map((accountId, row) => {
-							newTableData[sheets[index]]['rows'][row].push(
+							tableData[sheets[index]]['rows'][row].push(
 								{ value: resp.data.parade_attendance[parade.id][accountId], colSpan: 1, rowspan: 1 }
 							)
 							if (resp.data.parade_attendance[parade.id][accountId] == '1') {
 								paradeAttendance += 1
 							}
-							newTalliedAttendance[level][accountId][resp.data.parade_attendance[parade.id][accountId]] += 1
+							talliedAttendance[level][accountId][resp.data.parade_attendance[parade.id][accountId]] += 1
 						})
-						newTableData[sheets[index]]['rows'][newTableData[sheets[index]]['rows'].length - 7].push(
+						tableData[sheets[index]]['rows'][tableData[sheets[index]]['rows'].length - 7].push(
 							{ value: paradeAttendance, colSpan: 1, rowspan: 1 }
 						)
 					})
 				})
-				setTalliedAttendance(newTalliedAttendance)
 	
 				levels.map((level, index) => {
 					// Add total % attendance and total parade count per boy
 					idOrder[level].map((accountId, row) => {
-						newTableData[sheets[index]]['rows'][row][level.includes('e')?5 : 6].value =
-						 Math.fround(newTalliedAttendance[level][accountId]['1'] * 100 / (newTalliedAttendance[level][accountId]['1'] + newTalliedAttendance[level][accountId]['0']))
+						tableData[sheets[index]]['rows'][row][level.includes('e')?5 : 6].value =
+						 Math.fround(talliedAttendance[level][accountId]['1'] * 100 / (talliedAttendance[level][accountId]['1'] + talliedAttendance[level][accountId]['0']))
 					})
 	
 					// Add total parades/meetings for the year
-					newTableData[sheets[index]]['rows'][newTableData[sheets[index]]['rows'].length - 5].push(
+					tableData[sheets[index]]['rows'][tableData[sheets[index]]['rows'].length - 5].push(
 						{ value: newLevelTotalParades[level], colSpan: 1, rowspan: 1 }
 					)
 	
@@ -605,8 +537,8 @@ import { saveAs } from "file-saver";
 					// headerData[level][3].push({ value: "", colSpan: 1, rowSpan: 1 })
 					// headerData[level][4].push({ value: "", colSpan: 1, rowSpan: 1 })
 					idOrder[level].map((accountId, row) => {
-						newTableData[sheets[index]]['rows'][row].push(
-							{ value: Math.fround(newTalliedAttendance[level][accountId]['1'] * 100 / newLevelTotalParades[level]), colSpan: 1, rowspan: 1 }
+						tableData[sheets[index]]['rows'][row].push(
+							{ value: Math.fround(talliedAttendance[level][accountId]['1'] * 100 / newLevelTotalParades[level]), colSpan: 1, rowspan: 1 }
 						)
 					})
 	
@@ -615,26 +547,24 @@ import { saveAs } from "file-saver";
 					// headerData[level][3].push({ value: "", colSpan: 1, rowSpan: 1 })
 					// headerData[level][4].push({ value: "", colSpan: 1, rowSpan: 1 })
 					idOrder[level].map((accountId, row) => {
-						newTableData[sheets[index]]['rows'][row].push(
-							{ value: newTalliedAttendance[level][accountId]['1'], colSpan: 1, rowspan: 1 }
+						tableData[sheets[index]]['rows'][row].push(
+							{ value: talliedAttendance[level][accountId]['1'], colSpan: 1, rowspan: 1 }
 						)
 					})
 				})
 	
-				newTableData['Sec 1']['headers'] = headerData['1']
-				newTableData['Sec 2']['headers'] = headerData['2']
-				newTableData['Sec 3']['headers'] = headerData['3']
-				newTableData['Sec 4 and 5']['headers'] = headerData['4/5']
-				newTableData['Primers']['headers'] = headerData['Primer']
-				newTableData['Officers and Volunteers']['headers'] = headerData['Volunteer']
-	
-				setTableData(newTableData)
-				prepareWorkbook(updateDate, newLevelTotalParades)
+				tableData['Sec 1']['headers'] = headerData['1']
+				tableData['Sec 2']['headers'] = headerData['2']
+				tableData['Sec 3']['headers'] = headerData['3']
+				tableData['Sec 4 and 5']['headers'] = headerData['4/5']
+				tableData['Primers']['headers'] = headerData['Primer']
+				tableData['Officers and Volunteers']['headers'] = headerData['Volunteer']
+				prepareWorkbook(updateDate, idOrder, tableData, newLevelTotalParades)
 			})
 //			.catch(resp => handleServerError(resp.response.status))
 	}
 
-	function prepareWorkbook(updateDate, newLevelTotalParades) {
+	function prepareWorkbook(updateDate, idOrder, tableData, newLevelTotalParades) {
 		// Create a new workbook
 		const workbook = new ExcelJS.Workbook();
 		
@@ -973,18 +903,16 @@ import { saveAs } from "file-saver";
 		});
 
 		// Save the workbook
-		// workbook.xlsx.writeBuffer().then((buffer) => {
-		// const blob = new Blob([buffer], { type: "application/octet-stream" });
-		// saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
-		// });
+		workbook.xlsx.writeBuffer().then((buffer) => {
+		const blob = new Blob([buffer], { type: "application/octet-stream" });
+		saveAs(blob, "BB Attendance updated on " + date + ".xlsx");
+		});
 	}
 	return (
 		<div>
-		  <button onClick={handleBoyAccounts}>Download {year} Attendance</button>
+		  <button onClick={handleParadesData}>Download {year} Attendance</button>
 		</div>
-	  );
-  };
-
-// };
+	);
+};
 
 export { HandleDownloadWithExcelJS };
