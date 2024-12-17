@@ -196,7 +196,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     <div className='user-information'>
       {account != null && <form className="edit-account-form" onSubmit={editAccount}>
         <label>Rank: </label>
-        {account.account_type == "Officer" && <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>{account.rank}</label>} position="bottom">
+        {account.account_type == "Officer" && <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>{account.rank? account.rank : '-'}</label>} position="bottom">
           <p className={null} onClick={setRank}>-</p>
           <p className='LTA' onClick={setRank}>LTA</p>
           <p className='2LT' onClick={setRank}>2LT</p>
@@ -234,9 +234,9 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         {cookies.get("Type") == 'Admin' && <label>Password: </label>}
         {cookies.get("Type") == 'Admin' && <input name={"password"} className='edit-field' defaultValue={account.password}></input>}
         
-        {(account.class_1 == "STAFF" || account.rank == null) && <br/>}
-        {(account.class_1 == "STAFF" || account.rank == null) && <label>Honorifics: </label>}
-        {(account.class_1 == "STAFF" || account.rank == null) && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
+        {(account.class_1 == "STAFF" || accountRank == null) && <br/>}
+        {(account.class_1 == "STAFF" || accountRank == null) && <label>Honorifics: </label>}
+        {(account.class_1 == "STAFF" || accountRank == null) && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
           <p className='Mr' onClick={setHonorific}>Mr</p>
           <p className='Ms' onClick={setHonorific}>Ms</p>
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
