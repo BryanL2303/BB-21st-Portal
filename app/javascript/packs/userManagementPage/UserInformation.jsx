@@ -47,11 +47,8 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 
   function setRank(e) {
     e.preventDefault()
-    document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className
-    setAccountRank(e.target.className)
-    if (e.target.className == 'VAL' || e.target.className == 'Teacher') {
-      setAccountHonorific('Mr')
-    }
+    document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className?e.target.className: '-'
+    setAccountRank(e.target.className? e.target.className: null)
     if (account.account_type == 'Boy') {
       setAccountPastRank((prev) => {
         let next = {...prev}

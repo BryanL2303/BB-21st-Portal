@@ -11,6 +11,7 @@ const AccountCreationForm = ({ reLoad }) => {
   const [accountType, setAccountType] = useState('Boy');
   const [accountRank, setAccountRank] = useState('REC');
   const [accountLevel, setAccountLevel] = useState('1');
+  const [accountClass, setAccountClass] = useState();
   const [accountHonorific, setAccountHonorific] = useState();
   const [accountRollCall, setAccountRollCall] = useState(true);
 
@@ -19,22 +20,25 @@ const AccountCreationForm = ({ reLoad }) => {
     setAccountType(e.target.className)
     document.getElementsByClassName('create-account-form__type')[0].innerHTML = e.target.className
     if (e.target.className == "Primer") setAccountRank('CLT')
-    else if (e.target.className == 'Officer') setAccountRank('2LT')
+    else if (e.target.className == 'Officer') setAccountRank(null)
   }
 
   function setRank(e) {
     e.preventDefault()
-    document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className
-    setAccountRank(e.target.className)
-    if (e.target.className == 'VAL' || e.target.className == 'Teacher') {
-      setAccountHonorific('Mr')
-    }
+    document.getElementsByClassName('create-account-form__rank')[0].innerHTML = e.target.className? e.target.className: '-'
+    setAccountRank(e.target.className? e.target.className: null)
   }
 
   function setLevel(e) {
     e.preventDefault()
     document.getElementsByClassName('create-account-form__level')[0].innerHTML = e.target.className
     setAccountLevel(e.target.className)
+  }
+
+  function setOfficerClass(e) {
+    e.preventDefault()
+    document.getElementsByClassName('create-account-form__class')[0].innerHTML = e.target.className
+    setAccountClass(e.target.className)
   }
 
   function setHonorific(e) {
@@ -71,6 +75,7 @@ const AccountCreationForm = ({ reLoad }) => {
         account_type: accountType,
         rank: accountRank,
         level: level,
+        class_1: accountType === "Officer" ? accountClass: null,
         credentials: credential,
         honorifics: accountHonorific,
         roll_call: accountRollCall
@@ -120,12 +125,11 @@ const AccountCreationForm = ({ reLoad }) => {
       <br/>
       {accountType != null && <label>Rank: </label>}
       {accountType == "Officer" &&
-       <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>2LT</label>} position="bottom">
+       <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>-</label>} position="bottom">
+        <p className={null} onClick={setRank}>-</p>
         <p className='LTA' onClick={setRank}>LTA</p>
         <p className='2LT' onClick={setRank}>2LT</p>
         <p className='OCT' onClick={setRank}>OCT</p>
-        <p className='VAL' onClick={setRank}>VAL</p>
-        <p className='Teacher' onClick={setRank}>Teacher</p>
       </Popup>}
       {accountType == "Primer" &&
        <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>CLT</label>} position="bottom">
@@ -142,9 +146,9 @@ const AccountCreationForm = ({ reLoad }) => {
         <p className='PTE' onClick={setRank}>PTE</p>
         <p className='REC' onClick={setRank}>REC</p>
       </Popup>}
-      <br/>
-      {(accountRank == "Teacher" || accountRank == 'VAL') && <label>Honorifics: </label>}
-      {(accountRank == "Teacher" || accountRank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>Mr</label>} position="bottom">
+      {(accountClass == "STAFF" || accountRank == null) && <br/>}
+      {(accountClass == "STAFF" || accountRank == null) && <label>Honorifics: </label>}
+      {(accountClass == "STAFF" || accountRank == null) && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>Mr</label>} position="bottom">
         <p className='Mr' onClick={setHonorific}>Mr</p>
         <p className='Ms' onClick={setHonorific}>Ms</p>
         <p className='Mrs' onClick={setHonorific}>Mrs</p>
@@ -157,6 +161,7 @@ const AccountCreationForm = ({ reLoad }) => {
         <p className='Yes' onClick={setRollCall}>Yes</p>
         <p className='No' onClick={setRollCall}>No</p>
       </Popup>}
+      
       <br/>
       {accountType == "Boy" && <label>Level: Secondary </label>}
       {accountType == "Boy" &&
@@ -167,6 +172,16 @@ const AccountCreationForm = ({ reLoad }) => {
         <p className='2' onClick={setLevel}>2</p>
         <p className='1' onClick={setLevel}>1</p>
       </Popup>}
+
+      {accountType == "Officer" && <br/>}
+      {accountType == "Officer" && <label>Class:</label>}
+      {accountType == "Officer" && <Popup className='account-class-popup' trigger={<label className='create-account-form__class'>-</label>} position="bottom">
+        <p className='VAL' onClick={setOfficerClass}>VAL</p>
+        <p className='STAFF' onClick={setOfficerClass}>STAFF</p>
+        <p className='UNI' onClick={setOfficerClass}>UNI</p>
+        <p className='POLY' onClick={setOfficerClass}>POLY</p>
+      </Popup>}
+
       {(accountType == "Primer" || accountType == "Officer") &&
        <label>Credentials (For 32A results): </label>}
       {(accountType == "Primer" || accountType == "Officer") &&
