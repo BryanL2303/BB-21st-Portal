@@ -11,6 +11,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
   const [accountLevel, setAccountLevel] = useState();
+  const [accountClass, setAccountClass] = useState();
   const [accountGraduated, setAccountGraduated] = useState(false);
   const [accountHonorific, setAccountHonorific] = useState();
   const [accountRollCall, setAccountRollCall] = useState(true);
@@ -86,6 +87,12 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     }
   }
 
+  function setOfficerClass(e) {
+    e.preventDefault()
+    document.getElementsByClassName('create-account-form__class')[0].innerHTML = e.target.className
+    setAccountClass(e.target.className)
+  }
+
   function setGraduated(e) {
     setAccountGraduated(e.target.checked)
     setAccountRollCall(account.roll_call)
@@ -138,7 +145,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         rank_5: accountPastRank[5],
         level: level,
         graduated: accountGraduated,
-        class_1: e.target.elements['class_1']?.value,
+        class_1: e.target.elements['account_type']?.value === "Officer" ? accountClass: e.target.elements['class_1']?.value,
         class_2: e.target.elements['class_2']?.value,
         class_3: e.target.elements['class_3']?.value,
         class_4: e.target.elements['class_4']?.value,
@@ -190,11 +197,10 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       {account != null && <form className="edit-account-form" onSubmit={editAccount}>
         <label>Rank: </label>
         {account.account_type == "Officer" && <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>{account.rank}</label>} position="bottom">
+          <p className={null} onClick={setRank}>-</p>
           <p className='LTA' onClick={setRank}>LTA</p>
           <p className='2LT' onClick={setRank}>2LT</p>
           <p className='OCT' onClick={setRank}>OCT</p>
-          <p className='VAL' onClick={setRank}>VAL</p>
-          <p className='Teacher' onClick={setRank}>Teacher</p>
         </Popup>}
         {account.account_type == "Primer" && <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>{account.rank}</label>} position="bottom">
           <p className='SCL' onClick={setRank}>SCL</p>
@@ -228,9 +234,9 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         {cookies.get("Type") == 'Admin' && <label>Password: </label>}
         {cookies.get("Type") == 'Admin' && <input name={"password"} className='edit-field' defaultValue={account.password}></input>}
         
-        {(account.rank == "Teacher" || account.rank == 'VAL') && <br/>}
-        {(account.rank == "Teacher" || account.rank == 'VAL') && <label>Honorifics: </label>}
-        {(account.rank == "Teacher" || account.rank == 'VAL') && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
+        {(account.class_1 == "STAFF" || account.rank == null) && <br/>}
+        {(account.class_1 == "STAFF" || account.rank == null) && <label>Honorifics: </label>}
+        {(account.class_1 == "STAFF" || account.rank == null) && <Popup className='account-honorific-popup' trigger={<label className='create-account-form__honorific'>{account.honorifics? account.honorifics : '-'}</label>} position="bottom">
           <p className='Mr' onClick={setHonorific}>Mr</p>
           <p className='Ms' onClick={setHonorific}>Ms</p>
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
@@ -258,6 +264,15 @@ const UserInformation = ({userId, showForm, reLoad}) => {
             ))
           }
         })()}
+
+        {account.account_type == "Officer" && <br/>}
+        {account.account_type == "Officer" && <label>Class:</label>}
+        {account.account_type == "Officer" && <Popup className='account-class-popup' trigger={<label className='create-account-form__class'>{account.class_1 || "-"}</label>} position="bottom">
+          <p className='VAL' onClick={setOfficerClass}>VAL</p>
+          <p className='STAFF' onClick={setOfficerClass}>STAFF</p>
+          <p className='UNI' onClick={setOfficerClass}>UNI</p>
+          <p className='POLY' onClick={setOfficerClass}>POLY</p>
+        </Popup>}
 
         {account.account_type == "Boy" && (() => {
           const level = parseInt(accountLevel);

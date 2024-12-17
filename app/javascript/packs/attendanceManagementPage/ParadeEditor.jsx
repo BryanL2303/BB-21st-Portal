@@ -232,7 +232,7 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
           <Popup className='account-name-popup' trigger={
               <label className={'dt__name'}>-</label>} position="bottom">
               {officers.map((officer) => {
-                if (officer.rank == 'Teacher') {
+                if (officer.class_1 == 'STAFF') {
                   return(<p key={officer.id} id={officer.id} className={officer.account_name} onClick={(e) => setAccount(e, 'dt')}>{officer.account_name}</p>)
                 }
               })}

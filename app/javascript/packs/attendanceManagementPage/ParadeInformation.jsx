@@ -81,7 +81,7 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
       <br/>
       {(cookies.get('Type') == 'Admin' ||
         cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' || cookies.get('Appointment') == 'CSM' ||
-        cookies.get('Appointment') == 'DY CSM') || cookies.get('Appointment') == 'Admin Sergeant' &&
+        cookies.get('Appointment') == 'DY CSM' || cookies.get('Appointment') == 'Admin Sergeant') &&
          <button onClick={toggleEditor}>Edit Parade Notice</button>}
       {showParadeNotice && <ParadeNoticePDF parade={parade} />}
       {showParadeEditor && <ParadeEditor parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} setPageState={setPageState}/>}

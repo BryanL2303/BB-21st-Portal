@@ -247,7 +247,7 @@ const HandleDownloadWithExcelJS = ({year}) => {
                         { value: "", rowSpan: 1},
                         { value: officerRows.length + 1, rowSpan: 1 },
                         { value: officer.account_name.toUpperCase(), rowSpan: 1 },
-                        { value: "VAL", rowSpan: 1 },
+                        { value: officer.class_1, rowSpan: 1 },
                         { value: officer.rank, rowSpan: 1 },
                         { value: "", rowSpan: 1 }, //Percentage Attendance
                     ])

@@ -284,3 +284,9 @@ Version 1.0
 4. Updated UserInformation to include graduated as a checkbox
 5. Updated account_controller edit_account function to include graduated
 6. Add Graduated Boys List to display graduated Boys seperately from current Boys in UsersManagementPage
+
+17 December 2024
+1. Update UserInformation for Officers, use class_1 to classify Officers
+2. Removed Teacher rank and added it to class under STAFF
+3. Filter by staff for parade editor for duty teacher
+4. Use class_1 for Officers and Volunteers sheet in annual attendance excel
