@@ -14,10 +14,11 @@ module Api
     def create_account
       account = Account.new(account_name: params[:account_name], user_name: params[:account_name],
                             password: params[:password], honorifics: params[:honorifics], roll_call: params[:roll_call],
-                            abbreviated_name: params[:abbreviated_name], class_1: params[:class1],
+                            abbreviated_name: params[:abbreviated_name],
                             account_type: params[:account_type], rank: params[:rank], credentials: params[:credentials])
       account['level'] = params[:level] unless params[:level].nil?
       find_account = Account.find_by(account_name: params[:account_name])
+      account['class_1'] = params[:class1]
 
       if find_account.nil?
         if account.save
