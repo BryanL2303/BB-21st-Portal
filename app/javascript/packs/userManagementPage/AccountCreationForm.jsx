@@ -75,7 +75,7 @@ const AccountCreationForm = ({ reLoad }) => {
         account_type: accountType,
         rank: accountRank,
         level: level,
-        class_1: accountType === "Officer" ? accountClass: null,
+        class1: accountType === "Officer" ? accountClass: null,
         credentials: credential,
         honorifics: accountHonorific,
         roll_call: accountRollCall
