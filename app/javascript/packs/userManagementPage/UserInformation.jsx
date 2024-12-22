@@ -30,7 +30,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       setAccount(() => {
         return resp.data
       })
-      setAccountRank(resp.data.rank)
+      setAccountRank(resp.data.rank?resp.data.rank : null)
       setAccountLevel(resp.data.level)
       setAccountGraduated(resp.data.graduated)
       setAccountRollCall(resp.data.roll_call)
@@ -135,18 +135,18 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         password: password,
         account_type: e.target.elements['account_type'].value,
         rank: accountRank,
-        rank_1: accountPastRank[1],
-        rank_2: accountPastRank[2],
-        rank_3: accountPastRank[3],
-        rank_4: accountPastRank[4],
-        rank_5: accountPastRank[5],
+        rank1: accountPastRank[1],
+        rank2: accountPastRank[2],
+        rank3: accountPastRank[3],
+        rank4: accountPastRank[4],
+        rank5: accountPastRank[5],
         level: level,
         graduated: accountGraduated,
-        class_1: e.target.elements['account_type']?.value === "Officer" ? accountClass: e.target.elements['class_1']?.value,
-        class_2: e.target.elements['class_2']?.value,
-        class_3: e.target.elements['class_3']?.value,
-        class_4: e.target.elements['class_4']?.value,
-        class_5: e.target.elements['class_5']?.value,
+        class1: e.target.elements['account_type']?.value === "Officer" ? accountClass: e.target.elements['class_1']?.value,
+        class2: e.target.elements['class_2']?.value,
+        class3: e.target.elements['class_3']?.value,
+        class4: e.target.elements['class_4']?.value,
+        class5: e.target.elements['class_5']?.value,
         honorifics: accountHonorific,
         roll_call: accountRollCall,
         credentials: credentials

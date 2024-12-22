@@ -290,3 +290,7 @@ Version 1.0
 2. Removed Teacher rank and added it to class under STAFF
 3. Filter by staff for parade editor for duty teacher
 4. Use class_1 for Officers and Volunteers sheet in annual attendance excel
+
+23 December 2024
+1. Update test cases for user information and account creation and user management page to include the new columns migrated
+2. Update controllers based on rubocop detected offenses

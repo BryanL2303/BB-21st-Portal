@@ -100,6 +100,9 @@ describe('UserManagementPage with all of its components', () => {
                     ],
                 })
             }
+            if (url === '/api/account/0/get_graduated_accounts') {
+                return Promise.resolve({ data: [] })
+            }
             return Promise.reject(new Error('Unknown API call'))
         })
 
@@ -199,6 +202,9 @@ describe('UserManagementPage with all of its components', () => {
                         }
                     ],
                 })
+            }
+            if (url === '/api/account/0/get_graduated_accounts') {
+                return Promise.resolve({ data: [] })
             }
             if (url === '/api/account/1/get_account_information') {
                 return Promise.resolve({
@@ -328,6 +334,9 @@ describe('UserManagementPage with all of its components', () => {
                         }
                     ],
                 })
+            }
+            if (url === '/api/account/0/get_graduated_accounts') {
+                return Promise.resolve({ data: [] })
             }
             if (url === '/api/account/1/get_account_information') {
                 return Promise.resolve({

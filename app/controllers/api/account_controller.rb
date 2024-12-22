@@ -59,7 +59,7 @@ module Api
     end
 
     def graduated_accounts
-      accounts = Account.where(account_type: "Boy", graduated: true).order('account_name')
+      accounts = Account.where(account_type: 'Boy', graduated: true).order('account_name')
 
       render json: accounts, status: :ok
     end
@@ -94,21 +94,21 @@ module Api
         account['user_name'] = params[:user_name] unless params[:user_name].nil?
         account['password'] = params[:password] unless params[:password].nil?
         account['rank'] = params[:rank]
-        account['rank_1'] = params[:rank_1]
-        account['rank_2'] = params[:rank_2]
-        account['rank_3'] = params[:rank_3]
-        account['rank_4'] = params[:rank_4]
-        account['rank_5'] = params[:rank_5]
+        account['rank_1'] = params[:rank1]
+        account['rank_2'] = params[:rank2]
+        account['rank_3'] = params[:rank3]
+        account['rank_4'] = params[:rank4]
+        account['rank_5'] = params[:rank5]
         account['roll_call'] = params[:roll_call]
         account['honorifics'] = params[:honorifics]
         account['abbreviated_name'] = params[:abbreviated_name]
         account['level'] = params[:level]
         account['graduated'] = params[:graduated]
-        account['class_1'] = params[:class_1]
-        account['class_2'] = params[:class_2]
-        account['class_3'] = params[:class_3]
-        account['class_4'] = params[:class_4]
-        account['class_5'] = params[:class_5]
+        account['class_1'] = params[:class1]
+        account['class_2'] = params[:class2]
+        account['class_3'] = params[:class3]
+        account['class_4'] = params[:class4]
+        account['class_5'] = params[:class5]
         account['credentials'] = params[:credentials]
         account.save
         render json: true, status: :accepted
