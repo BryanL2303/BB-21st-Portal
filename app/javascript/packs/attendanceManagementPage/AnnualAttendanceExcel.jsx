@@ -1,6 +1,7 @@
 import React from "react";
 import axios from 'axios'
 import ExcelJS from 'exceljs'
+import PropTypes from 'prop-types'
 import { saveAs } from "file-saver";
 
 const HandleDownloadWithExcelJS = ({year}) => {

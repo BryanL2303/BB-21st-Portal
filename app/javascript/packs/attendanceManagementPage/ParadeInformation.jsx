@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import PropTypes from 'prop-types'
 import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 import { ParadeNoticePDF } from './ParadeNoticePDF'

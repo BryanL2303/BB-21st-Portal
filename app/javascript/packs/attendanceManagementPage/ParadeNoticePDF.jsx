@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { PDFViewer, Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
 
