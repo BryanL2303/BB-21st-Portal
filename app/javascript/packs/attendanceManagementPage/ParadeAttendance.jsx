@@ -199,4 +199,42 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
   )
 }
 
+ParadeAttendance.propTypes = {
+  id: PropTypes.number.isRequired,  
+  setPageState: PropTypes.func.isRequired,
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired,
+  boys: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  primers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  officers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  parade: PropTypes.shape({
+    info: PropTypes.shape({
+      date: PropTypes.string,
+      cos_finalized: PropTypes.bool,
+      csm_finalized: PropTypes.bool,
+      do_finalized: PropTypes.bool,
+      captain_finalized: PropTypes.bool,
+    }),
+    parade_attendance: PropTypes.arrayOf(),
+    cos: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    csm: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    do: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+  }),
+}
+
 export { ParadeAttendance }

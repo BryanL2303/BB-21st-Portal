@@ -294,3 +294,4 @@ Version 1.0
 23 December 2024
 1. Update test cases for user information and account creation and user management page to include the new columns migrated
 2. Update controllers based on rubocop detected offenses
+3. Add proptypes and remove unused variables from new attendance management files

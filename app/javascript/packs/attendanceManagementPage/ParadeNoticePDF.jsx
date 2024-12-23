@@ -242,7 +242,7 @@ const ParadeNoticePDF = ({parade}) => {
           </View>
           <View style={styles.announcement}>
             {parade.company_announcements.map((announcement, index) => {
-              return(<Text>{index + 1}{')'} {announcement.announcement}</Text>)
+              return(<Text key={index}>{index + 1}{')'} {announcement.announcement}</Text>)
             })}
           </View>
 
@@ -253,7 +253,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['1'].map((program) => {
                   return(
-                    <FlexRow>
+                    <FlexRow index={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -266,7 +266,7 @@ const ParadeNoticePDF = ({parade}) => {
                   <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_1_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['1'].map((announcement, index) => {
-                  return(<Text>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
+                  return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
                 })}
               </FlexColumn>
 
@@ -275,7 +275,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['2'].map((program) => {
                   return(
-                    <FlexRow>
+                    <FlexRow index={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -288,7 +288,7 @@ const ParadeNoticePDF = ({parade}) => {
                   <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_2_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['2'].map((announcement, index) => {
-                  return(<Text>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
+                  return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
                 })}
               </FlexColumn>
             </FlexRow>
@@ -300,7 +300,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['3'].map((program) => {
                   return(
-                    <FlexRow>
+                    <FlexRow key={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -313,7 +313,7 @@ const ParadeNoticePDF = ({parade}) => {
                   <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_3_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['3'].map((announcement, index) => {
-                  return(<Text>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
+                  return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
                 })}
               </FlexColumn>
 
@@ -322,7 +322,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['4/5'].map((program) => {
                   return(
-                    <FlexRow>
+                    <FlexRow key={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -335,7 +335,7 @@ const ParadeNoticePDF = ({parade}) => {
                   <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_4_5_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['4/5'].map((announcement, index) => {
-                  return(<Text>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
+                  return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
                 })}
               </FlexColumn>
             </FlexRow>
@@ -359,5 +359,37 @@ const ParadeNoticePDF = ({parade}) => {
     <textarea disabled={true} value={parade.info.description}/>
   </div>)
 };
+
+ParadeEditor.propTypes = {
+  parade: PropTypes.shape({
+    info: PropTypes.shape({
+      date: PropTypes.string,
+      venue: PropTypes.string,
+      sec_1_attire: PropTypes.string,
+      sec_2_attire: PropTypes.string,
+      sec_3_attire: PropTypes.string,
+      sec_4_5_attire: PropTypes.string,
+      reporting_time: PropTypes.string,
+      dismissal_time: PropTypes.string,
+      cos_finalized: PropTypes.bool,
+      csm_finalized: PropTypes.bool,
+      do_finalized: PropTypes.bool,
+      captain_finalized: PropTypes.bool,
+    }),
+    parade_attendance: PropTypes.arrayOf(),
+    company_announcements: PropTypes.arrayOf(),
+    platoon_announcements: PropTypes.arrayOf(),
+    platoon_programs: PropTypes.arrayOf(),
+    cos: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    csm: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    do: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+  }),
+}
 
 export { ParadeNoticePDF };

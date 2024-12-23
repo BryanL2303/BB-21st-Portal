@@ -5,6 +5,7 @@ import { handleServerError } from '../general/handleServerError'
 import { ParadeNoticePDF } from './ParadeNoticePDF'
 import { ParadeAttendance } from './ParadeAttendance'
 import { ParadeEditor } from './ParadeEditor'
+import PropTypes from 'prop-types'
 
 // To access attendance records and take new attendance
 const ParadeInformation = ({id, setPageState, reload, setReload}) => {
@@ -16,7 +17,6 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
   const [boys, setBoys] = useState([])
   const [primers, setPrimers] = useState([])
   const [officers, setOfficers] = useState([])
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
   useEffect(() => {
     axios.post('/api/parade/' + id + '/get_parade', {},
@@ -90,6 +90,13 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
       <ParadeAttendance parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} />
     </div>
   )
+}
+
+ParadeInformation.propTypes = {
+  id: PropTypes.number.isRequired,  
+  setPageState: PropTypes.func.isRequired,
+  reload: PropTypes.bool.isRequired,
+  setReload: PropTypes.func.isRequired
 }
 
 export { ParadeInformation }

@@ -578,13 +578,13 @@ const HandleDownloadWithExcelJS = ({year}) => {
 			});
 
 			// Add headers
-			headers.forEach((row, rowIndex) => {
-				const headerRow = worksheet.addRow(row.map((cell) => cell.value));
+			headers.forEach((row) => {
+				worksheet.addRow(row.map((cell) => cell.value));
 			});
 			headers.forEach((row, rowIndex) => {
 				row.forEach((cell, colIndex) => {
 				const { colSpan, rowSpan } = cell;
-				const cellAddress = worksheet.getCell(rowIndex + 1, colIndex + 1);
+				worksheet.getCell(rowIndex + 1, colIndex + 1);
 
 				if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
 					worksheet.mergeCells(
@@ -598,14 +598,14 @@ const HandleDownloadWithExcelJS = ({year}) => {
 			});
 
 			// Add rows
-			rows.forEach((row, rowIndex) => {
-				const dataRow = worksheet.addRow(row.map((cell) => cell.value));
+			rows.forEach((row) => {
+				worksheet.addRow(row.map((cell) => cell.value));
 			});
 			rows.forEach((row, rowIndex) => {
 				rowIndex += headers.length
 				row.forEach((cell, colIndex) => {
 				const { colSpan, rowSpan } = cell;
-				const cellAddress = worksheet.getCell(rowIndex + 1, colIndex + 1);
+				worksheet.getCell(rowIndex + 1, colIndex + 1);
 
 				if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
 					worksheet.mergeCells(
@@ -914,5 +914,9 @@ const HandleDownloadWithExcelJS = ({year}) => {
 		</div>
 	);
 };
+
+HandleDownloadWithExcelJS.propTypes = {
+	year: PropTypes.number.isRequired
+}
 
 export { HandleDownloadWithExcelJS };

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 // To access attendance records and take new attendance
 const NewParadeForm = ({setReload}) => {
-  const cookies = useCookies()
   const levels = ['1', '2', '3', '4/5']
   const [boyList, setBoyList] = useState([])
   const [primerList, setPrimerList] = useState([])
@@ -404,6 +402,10 @@ const NewParadeForm = ({setReload}) => {
         <button>Add Parade</button>
     </form>
   )
+}
+
+NewParadeForm.propTypes = {
+  setReload: PropTypes.func.isRequired
 }
 
 export { NewParadeForm }

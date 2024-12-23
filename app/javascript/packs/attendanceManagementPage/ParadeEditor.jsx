@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
+import PropTypes from 'prop-types'
 
 // To access attendance records and take new attendance
 const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}) => {
-  const cookies = useCookies()
   const levels = ['1', '2', '3', '4/5']
   const [companyAnnouncements, setCompanyAnnouncements] = useState(parade.company_announcements)
   const [platoonAnnouncements, setPlatoonAnnouncements] = useState(parade.platoon_announcements)
@@ -175,7 +174,7 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
     }
   }
 
-  function deleteParade(e) {
+  function deleteParade() {
     if (window.confirm("Deleting the parade will also remove all other information related to it such as attendance taken.\nAre you sure you want to proceed?")) {
       axios.post('/api/parade/' + parade.info.id + '/delete_parade', {})
       .then(() => {
@@ -359,6 +358,52 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
         <button type='button' onClick={deleteParade}>Delete Parade</button>
     </form>
   )
+}
+
+ParadeEditor.propTypes = {
+  setPageState: PropTypes.func.isRequired,
+  setReload: PropTypes.func.isRequired,
+  boys: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  primers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  officers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    account_name: PropTypes.string,
+  })),
+  parade: PropTypes.shape({
+    info: PropTypes.shape({
+      date: PropTypes.string,
+      venue: PropTypes.string,
+      sec_1_attire: PropTypes.string,
+      sec_2_attire: PropTypes.string,
+      sec_3_attire: PropTypes.string,
+      sec_4_5_attire: PropTypes.string,
+      reporting_time: PropTypes.string,
+      dismissal_time: PropTypes.string,
+      cos_finalized: PropTypes.bool,
+      csm_finalized: PropTypes.bool,
+      do_finalized: PropTypes.bool,
+      captain_finalized: PropTypes.bool,
+    }),
+    parade_attendance: PropTypes.arrayOf(),
+    company_announcements: PropTypes.arrayOf(),
+    platoon_announcements: PropTypes.arrayOf(),
+    platoon_programs: PropTypes.arrayOf(),
+    cos: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    csm: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+    do: PropTypes.shape({
+      account_name: PropTypes.string,
+    }),
+  }),
 }
 
 export { ParadeEditor }

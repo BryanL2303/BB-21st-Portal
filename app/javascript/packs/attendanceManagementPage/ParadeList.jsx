@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
+import PropTypes from 'prop-types'
 
 const ParadeList = ({setPageState, reload}) => {
     const cookies = useCookies()
@@ -50,6 +51,11 @@ const ParadeList = ({setPageState, reload}) => {
             })}
         </div>
     )
+}
+
+ParadeList.propTypes = {
+    setPageState: PropTypes.func.isRequired,
+    reload: PropTypes.bool.isRequired
 }
 
 export { ParadeList }
