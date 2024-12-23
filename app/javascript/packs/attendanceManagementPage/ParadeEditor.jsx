@@ -3,7 +3,6 @@ import Popup from 'reactjs-popup'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { handleServerError } from '../general/handleServerError'
-import PropTypes from 'prop-types'
 
 // To access attendance records and take new attendance
 const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}) => {

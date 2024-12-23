@@ -219,6 +219,7 @@ ParadeAttendance.propTypes = {
   })),
   parade: PropTypes.shape({
     info: PropTypes.shape({
+      id: PropTypes.string,
       date: PropTypes.string,
       cos_finalized: PropTypes.bool,
       csm_finalized: PropTypes.bool,

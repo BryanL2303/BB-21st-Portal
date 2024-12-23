@@ -6,7 +6,6 @@ import { handleServerError } from '../general/handleServerError'
 import { ParadeNoticePDF } from './ParadeNoticePDF'
 import { ParadeAttendance } from './ParadeAttendance'
 import { ParadeEditor } from './ParadeEditor'
-import PropTypes from 'prop-types'
 
 // To access attendance records and take new attendance
 const ParadeInformation = ({id, setPageState, reload, setReload}) => {

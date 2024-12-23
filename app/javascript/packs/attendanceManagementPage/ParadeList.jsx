@@ -3,7 +3,6 @@ import axios from 'axios'
 import PropTypes from 'prop-types'
 import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
-import PropTypes from 'prop-types'
 
 const ParadeList = ({setPageState, reload}) => {
     const cookies = useCookies()

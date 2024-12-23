@@ -361,7 +361,7 @@ const ParadeNoticePDF = ({parade}) => {
   </div>)
 };
 
-ParadeEditor.propTypes = {
+ParadeNoticePDF.propTypes = {
   parade: PropTypes.shape({
     info: PropTypes.shape({
       date: PropTypes.string,
