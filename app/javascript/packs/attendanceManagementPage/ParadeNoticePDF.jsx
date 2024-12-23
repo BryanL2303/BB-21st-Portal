@@ -254,7 +254,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['1'].map((program) => {
                   return(
-                    <FlexRow index={program.id}>
+                    <FlexRow key={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -276,7 +276,7 @@ const ParadeNoticePDF = ({parade}) => {
                 <Text style={{textDecoration: 'underline'}}>Program </Text>
                 {parade.platoon_programs['2'].map((program) => {
                   return(
-                    <FlexRow index={program.id}>
+                    <FlexRow key={program.id}>
                       <Text>{program.start_time.slice(11, 16)} - {program.end_time.slice(11, 16)}: {program.program}</Text>
                     </FlexRow>
                   )
@@ -376,19 +376,37 @@ ParadeNoticePDF.propTypes = {
       csm_finalized: PropTypes.bool,
       do_finalized: PropTypes.bool,
       captain_finalized: PropTypes.bool,
+      description: PropTypes.string,
     }),
     parade_attendance: PropTypes.arrayOf(),
     company_announcements: PropTypes.arrayOf(),
     platoon_announcements: PropTypes.arrayOf(),
     platoon_programs: PropTypes.arrayOf(),
+    ce: PropTypes.shape({
+      account_name: PropTypes.string,
+      rank: PropTypes.string,
+    }),
+    flag_bearer: PropTypes.shape({
+      account_name: PropTypes.string,
+      rank: PropTypes.string,
+    }),
     cos: PropTypes.shape({
       account_name: PropTypes.string,
+      rank: PropTypes.string,
     }),
     csm: PropTypes.shape({
       account_name: PropTypes.string,
+      rank: PropTypes.string,
+    }),
+    dt: PropTypes.shape({
+      abbreviated_name: PropTypes.string,
+      honorifics: PropTypes.string,
     }),
     do: PropTypes.shape({
       account_name: PropTypes.string,
+      abbreviated_name: PropTypes.string,
+      honorifics: PropTypes.string,
+      rank: PropTypes.string,
     }),
   }),
 }
