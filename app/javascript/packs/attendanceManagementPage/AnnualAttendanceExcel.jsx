@@ -504,7 +504,7 @@ const HandleDownloadWithExcelJS = ({year}) => {
 						headerData[level][5].push({ value: parade.parade_type, colSpan: 1, rowspan: 1 })
 					})
 	
-					relevantLevels.map((level, index) => {
+					levels.map((level, index) => {
 						let paradeAttendance = 0
 						idOrder[level].map((accountId, row) => {
 							tableData[sheets[index]]['rows'][row].push(
