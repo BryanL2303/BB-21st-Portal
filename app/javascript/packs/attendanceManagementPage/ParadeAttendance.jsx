@@ -86,7 +86,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
               <table width='90%'>
                 <tbody width='100%'>
                   {boys.map((boy) => {
-                    if (boy.level == level && 
+                    if ((boy.level == level || (level == '4/5' && (boy.level == '4' || boy.level == '5'))) && 
                       ((!takingAttendance && boy.id in currentAttendance) ||
                       (takingAttendance && boy.roll_call))) {
                       return(<tr key={boy.id} width='100%'>
