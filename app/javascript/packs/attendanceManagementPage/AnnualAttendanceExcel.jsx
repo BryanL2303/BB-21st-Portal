@@ -566,7 +566,7 @@ const HandleDownloadWithExcelJS = ({year}) => {
 				console.log(sec45Rows)
 				console.log(idOrder)
 				console.log(resp.data)
-				console.log(table.data)
+				console.log(tableData)
 
 				prepareWorkbook(updateDate, idOrder, tableData, newLevelTotalParades)
 			})
