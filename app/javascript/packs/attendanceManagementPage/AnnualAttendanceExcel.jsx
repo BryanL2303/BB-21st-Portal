@@ -560,6 +560,14 @@ const HandleDownloadWithExcelJS = ({year}) => {
 				tableData['Sec 4 and 5']['headers'] = headerData['4/5']
 				tableData['Primers']['headers'] = headerData['Primer']
 				tableData['Officers and Volunteers']['headers'] = headerData['Volunteer']
+				console.log(sec1Rows)
+				console.log(sec2Rows)
+				console.log(sec3Rows)
+				console.log(sec45Rows)
+				console.log(idOrder)
+				console.log(resp.data)
+				console.log(table.data)
+
 				prepareWorkbook(updateDate, idOrder, tableData, newLevelTotalParades)
 			})
 //			.catch(resp => handleServerError(resp.response.status))

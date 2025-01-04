@@ -20,7 +20,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
 
     if (
       (paradeDate.getFullYear() === currentYear) &&
-      ((cookies.get("Appointment")?.includes("Platoon Sergeant") && !parade.info.cos_finalized &&
+      ((cookies.get("Appointment")?.includes("PS") && !parade.info.cos_finalized &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
       (cookies.get("Name") == parade.cos?.account_name &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
