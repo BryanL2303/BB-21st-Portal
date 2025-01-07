@@ -116,6 +116,7 @@ describe('UserInformation Component', () => {
                 rank4: null,
                 rank5: null,
                 level: '2',
+                member_id: '',
                 class1: "",
                 class2: "",
                 class3: undefined,
