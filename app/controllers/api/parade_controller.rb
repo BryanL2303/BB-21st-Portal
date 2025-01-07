@@ -117,15 +117,20 @@ module Api
       data['parades'] = Parade.where('EXTRACT(YEAR FROM date) = ?', params[:year]).order('date')
       data['parade_attendance'] = {}
 
-      account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id)).pluck(:account_id)
-      boy_accounts = Account.where(id: account_ids, level: 1).order('id')
+      sec1_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 1).pluck(:account_id)
+      boy_accounts = Account.where(id: sec1_account_ids).order('id')
       data['sec_1'] = boy_accounts
-      boy_accounts = Account.where(id: account_ids, level: 2).order('id')
+      sec2_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 2).pluck(:account_id)
+      boy_accounts = Account.where(id: sec2_account_ids).order('id')
       data['sec_2'] = boy_accounts
-      boy_accounts = Account.where(id: account_ids, level: 3).order('id')
+      sec3_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 3).pluck(:account_id)
+      boy_accounts = Account.where(id: sec3_account_ids).order('id')
       data['sec_3'] = boy_accounts
-      boy_accounts = Account.where(id: account_ids, level: [4, 5]).order('id')
+      sec45_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: [4, 5]).pluck(:account_id)
+      boy_accounts = Account.where(id: sec45_account_ids).order('id')
       data['sec_4_5'] = boy_accounts
+
+      account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id)).pluck(:account_id)
       primer_accounts = Account.where(id: account_ids, account_type: 'Primer').order('id')
       data['primer'] = primer_accounts
       officer_accounts = Account.where(id: account_ids, account_type: 'Officer').order('id')

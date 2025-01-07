@@ -94,6 +94,7 @@ module Api
         account['account_type'] = params[:account_type]
         account['user_name'] = params[:user_name] unless params[:user_name].nil?
         account['password'] = params[:password] unless params[:password].nil?
+        account['member_id'] = params[:member_id] unless params[:member_id].nil?
         account['rank'] = params[:rank]
         account['rank_1'] = params[:rank1]
         account['rank_2'] = params[:rank2]

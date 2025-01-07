@@ -134,6 +134,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         abbreviated_name: e.target.elements['abbreviated_name'].value,
         password: password,
         account_type: e.target.elements['account_type'].value,
+        member_id: e.target.elements['member_id']?.value,
         rank: accountRank,
         rank1: accountPastRank[1],
         rank2: accountPastRank[2],
@@ -238,6 +239,13 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='Ms' onClick={setHonorific}>Ms</p>
           <p className='Mrs' onClick={setHonorific}>Mrs</p>
         </Popup>}
+
+        {account.account_type == "Boy" && <div>
+            {<br/>}
+            {<label>Member Id: </label>}
+            {<input name={"member_id"} defaultValue={account[`member_id`] || ""}></input>}
+          </div>
+        }
 
         {account.account_type == "Boy" && !accountGraduated && <br/>}
         {account.account_type == "Boy" && !accountGraduated && <label>Sec </label>}

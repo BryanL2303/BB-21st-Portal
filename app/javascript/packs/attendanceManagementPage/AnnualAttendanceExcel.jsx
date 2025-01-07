@@ -22,9 +22,9 @@ const HandleDownloadWithExcelJS = ({year}) => {
                     sec1Rows.push([
                         { value: "", colSpan: 1, rowSpan: 1},
                         { value: sec1Rows.length + 1, colSpan: 1, rowSpan: 1 },
-                        { value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+                        { value: boy.member_id, colSpan: 1, rowSpan: 1 }, //Member ID
                         { value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
-                        { value: "", colSpan: 1, rowSpan: 1 }, //Class
+                        { value: boy.class_1, colSpan: 1, rowSpan: 1 }, //Class
                         { value: boy.rank_1, colSpan: 1, rowSpan: 1 },
                         { value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
                     ])
@@ -34,9 +34,9 @@ const HandleDownloadWithExcelJS = ({year}) => {
                     sec2Rows.push([
                         { value: "", colSpan: 1, rowSpan: 1},
                         { value: sec2Rows.length + 1, colSpan: 1, rowSpan: 1 },
-                        { value: "", colSpan: 1, rowSpan: 1 }, //Member ID
+                        { value: boy.member_id, colSpan: 1, rowSpan: 1 }, //Member ID
                         { value: boy.account_name.toUpperCase(), colSpan: 1, rowSpan: 1 },
-                        { value: "", colSpan: 1, rowSpan: 1 }, //Class
+                        { value: boy.class_2, colSpan: 1, rowSpan: 1 }, //Class
                         { value: boy.rank_2, colSpan: 1, rowSpan: 1 },
                         { value: "", colSpan: 1, rowSpan: 1 }, //Percentage Attendance
                     ])
@@ -46,9 +46,9 @@ const HandleDownloadWithExcelJS = ({year}) => {
                     sec3Rows.push([
                         { value: "", rowSpan: 1},
                         { value: sec3Rows.length + 1, rowSpan: 1 },
-                        { value: "", rowSpan: 1 }, //Member ID
+                        { value: boy.member_id, rowSpan: 1 }, //Member ID
                         { value: boy.account_name.toUpperCase(), rowSpan: 1 },
-                        { value: "", rowSpan: 1 }, //Class
+                        { value: boy.class_3, rowSpan: 1 }, //Class
                         { value: boy.rank_3, rowSpan: 1 },
                         { value: "", rowSpan: 1 }, //Percentage Attendance
                     ])
@@ -58,9 +58,9 @@ const HandleDownloadWithExcelJS = ({year}) => {
                     sec45Rows.push([
                         { value: "", rowSpan: 1},
                         { value: sec45Rows.length + 1, rowSpan: 1 },
-                        { value: "", rowSpan: 1 }, //Member ID
+                        { value: boy.member_id, rowSpan: 1 }, //Member ID
                         { value: boy.account_name.toUpperCase(), rowSpan: 1 },
-                        { value: "", rowSpan: 1 }, //Class
+                        { value: boy.class_4, rowSpan: 1 }, //Class
                         { value: boy.rank, rowSpan: 1 },
                         { value: "", rowSpan: 1 }, //Percentage Attendance
                     ])
@@ -505,19 +505,21 @@ const HandleDownloadWithExcelJS = ({year}) => {
 					})
 	
 					levels.map((level, index) => {
-						let paradeAttendance = 0
-						idOrder[level].map((accountId, row) => {
-							tableData[sheets[index]]['rows'][row].push(
-								{ value: resp.data.parade_attendance[parade.id][accountId], colSpan: 1, rowspan: 1 }
+						if (relevantLevels.includes(level)) {
+							let paradeAttendance = 0
+							idOrder[level].map((accountId, row) => {
+								tableData[sheets[index]]['rows'][row].push(
+									{ value: resp.data.parade_attendance[parade.id][accountId], colSpan: 1, rowspan: 1 }
+								)
+								if (resp.data.parade_attendance[parade.id][accountId] == '1') {
+									paradeAttendance += 1
+								}
+								talliedAttendance[level][accountId][resp.data.parade_attendance[parade.id][accountId]] += 1
+							})
+							tableData[sheets[index]]['rows'][tableData[sheets[index]]['rows'].length - 7].push(
+								{ value: paradeAttendance, colSpan: 1, rowspan: 1 }
 							)
-							if (resp.data.parade_attendance[parade.id][accountId] == '1') {
-								paradeAttendance += 1
-							}
-							talliedAttendance[level][accountId][resp.data.parade_attendance[parade.id][accountId]] += 1
-						})
-						tableData[sheets[index]]['rows'][tableData[sheets[index]]['rows'].length - 7].push(
-							{ value: paradeAttendance, colSpan: 1, rowspan: 1 }
-						)
+						}
 					})
 				})
 	
@@ -576,332 +578,345 @@ const HandleDownloadWithExcelJS = ({year}) => {
 	function prepareWorkbook(updateDate, idOrder, tableData, newLevelTotalParades) {
 		// Create a new workbook
 		const workbook = new ExcelJS.Workbook();
+		const idOrder_keys = ['1', '2', '3', '4/5', 'Primer', 'Volunteer']
 		
 		// Loop through tableData
 		Object.keys(tableData).forEach((level, index) => {
-			const { headers, rows } = tableData[level];
+			if (idOrder[idOrder_keys[index]].length != 0) {
+				const { headers, rows } = tableData[level];
 
-			// Add a worksheet
-			const worksheet = workbook.addWorksheet(level + " (" + year + ")", {
-				views: [{ showGridLines: false }], // Disable gridlines
-			});
-
-			// Add headers
-			headers.forEach((row) => {
-				worksheet.addRow(row.map((cell) => cell.value));
-			});
-			headers.forEach((row, rowIndex) => {
-				row.forEach((cell, colIndex) => {
-				const { colSpan, rowSpan } = cell;
-				worksheet.getCell(rowIndex + 1, colIndex + 1);
-
-				if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
-					worksheet.mergeCells(
-					rowIndex + 1,
-					colIndex + 1,
-					rowIndex + (rowSpan?rowSpan: 1),
-					colIndex + (colSpan?colSpan: 1)
-					);
-				}
+				// Add a worksheet
+				const worksheet = workbook.addWorksheet(level + " (" + year + ")", {
+					views: [{ showGridLines: false }], // Disable gridlines
 				});
-			});
-
-			// Add rows
-			rows.forEach((row) => {
-				worksheet.addRow(row.map((cell) => cell.value));
-			});
-			rows.forEach((row, rowIndex) => {
-				rowIndex += headers.length
-				row.forEach((cell, colIndex) => {
-				const { colSpan, rowSpan } = cell;
-				worksheet.getCell(rowIndex + 1, colIndex + 1);
-
-				if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
-					worksheet.mergeCells(
-					rowIndex + 1,
-					colIndex + 1,
-					rowIndex + (rowSpan?rowSpan: 1),
-					colIndex + (colSpan?colSpan: 1)
-					);
-				}
+	
+				// Add headers
+				headers.forEach((row) => {
+					worksheet.addRow(row.map((cell) => cell.value));
 				});
-			});
-
-			// Set column widths
-			if (level.includes("Sec")) {
-				worksheet.columns = [
-				{ width: 4 },
-				{ width: 6 },
-				{ width: 13 },
-				{ width: 40 },
-				{ width: 10 },
-				{ width: 10 },
-				{ width: 20 },
+				headers.forEach((row, rowIndex) => {
+					row.forEach((cell, colIndex) => {
+					const { colSpan, rowSpan } = cell;
+					worksheet.getCell(rowIndex + 1, colIndex + 1);
+	
+					if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
+						worksheet.mergeCells(
+						rowIndex + 1,
+						colIndex + 1,
+						rowIndex + (rowSpan?rowSpan: 1),
+						colIndex + (colSpan?colSpan: 1)
+						);
+					}
+					});
+				});
+	
+				// Add rows
+				rows.forEach((row) => {
+					worksheet.addRow(row.map((cell) => cell.value));
+				});
+				rows.forEach((row, rowIndex) => {
+					rowIndex += headers.length
+					row.forEach((cell, colIndex) => {
+					const { colSpan, rowSpan } = cell;
+					worksheet.getCell(rowIndex + 1, colIndex + 1);
+	
+					if ((colSpan && colSpan > 1) || (rowSpan && rowSpan > 1)) {
+						worksheet.mergeCells(
+						rowIndex + 1,
+						colIndex + 1,
+						rowIndex + (rowSpan?rowSpan: 1),
+						colIndex + (colSpan?colSpan: 1)
+						);
+					}
+					});
+				});
+	
+				// Set column widths
+				if (level.includes("Sec")) {
+					worksheet.columns = [
+					{ width: 4 },
+					{ width: 6 },
+					{ width: 13 },
+					{ width: 40 },
+					{ width: 10 },
+					{ width: 10 },
+					{ width: 20 },
+					];
+				} else {
+					worksheet.columns = [
+					{ width: 4 },
+					{ width: 6 },
+					{ width: 40 },
+					{ width: 10 },
+					{ width: 10 },
+					{ width: 20 },
+					];
+				}
+	
+				// Set row heights
+				const defaultRowHeights = [
+					64, // Header row height
+					16,
+					16,
+					40,
+					22,
+					16,
 				];
-			} else {
-				worksheet.columns = [
-				{ width: 4 },
-				{ width: 6 },
-				{ width: 40 },
-				{ width: 10 },
-				{ width: 10 },
-				{ width: 20 },
-				];
-			}
-
-			// Set row heights
-			const defaultRowHeights = [
-				64, // Header row height
-				16,
-				16,
-				40,
-				22,
-				16,
-			];
-
-			defaultRowHeights.forEach((height, rowIndex) => {
-				const row = worksheet.getRow(rowIndex + 1);
-				row.height = height;
-			});
-
-			// Additional rows based on idOrder
-			Object.values(idOrder)[index].forEach(() => {
-				const row = worksheet.addRow([]);
-				row.height = 22;
-			});
-
-			worksheet.getCell("B1").font = {
-				bold: true,
-				size: 28,
-				underline: true,
-			};
-			worksheet.getCell("B1").alignment = {
-				vertical: "middle",
-			};
-
-			worksheet.getCell("B4").fill = {
-				type: "pattern",
-				pattern: "solid",
-				fgColor: { argb: "153c7c" }, // Blue background
-			};
-
-			worksheet.getCell("B4").font = {
-				bold: true,
-				size: 28,
-				color: { argb: "f7ff00" },
-			};
-			worksheet.getCell("B4").alignment = {
-				vertical: "middle",
-				horizontal: "center",
-			};
-
-			worksheet.getCell("B5").font = {
-				bold: true,
-			};
-			worksheet.getCell("B5").alignment = {
-				vertical: "middle",
-				horizontal: "center",
-			};
-
-			worksheet.getCell("C5").font = {
-				bold: true,
-			};
-			worksheet.getCell("C5").alignment = {
-				vertical: "middle",
-				horizontal: "center",
-			};
-
-			worksheet.getCell("D5").font = {
-				bold: true,
-			};
-			worksheet.getCell("D5").alignment = {
-				vertical: "middle",
-			};
-
-			worksheet.getCell("E5").font = {
-				bold: true,
-			};
-			worksheet.getCell("E5").alignment = {
-				vertical: "middle",
-				horizontal: "center",
-			};
-
-			rows.map((row, index) => {
-				index += headers.length + 1
-				worksheet.getCell("B" + index).alignment = {
-					vertical: "middle",
-					horizontal: "center",
+	
+				defaultRowHeights.forEach((height, rowIndex) => {
+					const row = worksheet.getRow(rowIndex + 1);
+					row.height = height;
+				});
+	
+				// Additional rows based on idOrder
+				Object.values(idOrder)[index].forEach(() => {
+					const row = worksheet.addRow([]);
+					row.height = 22;
+				});
+	
+				worksheet.getCell("B1").font = {
+					bold: true,
+					size: 28,
+					underline: true,
 				};
-				worksheet.getCell("C" + index).alignment = {
-					vertical: "middle",
-					horizontal: "center",
-				};
-				worksheet.getCell("D" + index).alignment = {
+				worksheet.getCell("B1").alignment = {
 					vertical: "middle",
 				};
-				worksheet.getCell("E" + index).alignment = {
-					vertical: "middle",
-					horizontal: "center",
-				};
-				worksheet.getCell("F" + index).alignment = {
-					vertical: "middle",
-					horizontal: "center",
-				};
-			})
-
-			let paradeCount = Object.values(newLevelTotalParades)[index]
-			rows.map((row, rowIndex) => {
-				rowIndex += headers.length - 3
-				let colIndex = level.includes('Sec')? 8 : 7
-				let colLimit = colIndex + paradeCount
-				for (; colIndex <= colLimit + 1; colIndex += 1) {
-					worksheet.getCell(rowIndex, colIndex).alignment = {
-						vertical: "middle",
-						horizontal: "center",
-					}
-				}
-			})
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).font = {
-				bold: true,
-			};
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).alignment = {
-				vertical: "middle",
-				horizontal: "center",
-				wrapText: true,
-			}
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).fill = {
-				type: "pattern",
-				pattern: "solid",
-				fgColor: { argb: "cdcdcd" }, // Light grey background
-			};
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).font = {
-				bold: true,
-			};
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).alignment = {
-				vertical: "middle",
-				horizontal: "center",
-				wrapText: true,
-			}
-			worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).fill = {
-				type: "pattern",
-				pattern: "solid",
-				fgColor: { argb: "cdcdcd" }, // Light grey background
-			};
-			worksheet.getColumn((level.includes('Sec')? 8 : 7) + paradeCount).width = 20
-			worksheet.getColumn((level.includes('Sec')? 8 : 7) + paradeCount + 1).width = 20
-
-			paradeCount = Object.values(newLevelTotalParades)[index]
-			let rowIndex = headers.length - 2
-			let rowLimit = headers.length + rows.length - 7
-			for (; rowIndex <= rowLimit; rowIndex += 1) {
-				let colIndex = level.includes('Sec')? 8 : 7
-				let colLimit = colIndex + paradeCount
-				colIndex = 2
-				for (; colIndex <= colLimit + 1; colIndex += 1) {
-					worksheet.getCell(rowIndex, colIndex).border = {
-						top: { style: "thin", color: { argb: "000000" } }, // Black top border
-						left: { style: "thin", color: { argb: "000000" } }, // Black left border
-						bottom: { style: "thin", color: { argb: "000000" } }, // Black bottom border
-						right: { style: "thin", color: { argb: "000000" } }, // Black right border
-					}
-				}
-			}
-
-			for (let rowIndex = 5; rowIndex < 7; rowIndex += 1) {
-				let colIndex = level.includes('Sec')? 8 : 7
-				let colLimit = colIndex + paradeCount
-				for (; colIndex < colLimit; colIndex += 1) {
-					worksheet.getCell(rowIndex, colIndex).fill = {
-						type: "pattern",
-						pattern: "solid",
-						fgColor: { argb: "3e629a" }, // Blue background
-					};
-
-					worksheet.getCell(rowIndex, colIndex).font = {
-						color: { argb: "FFFFFF" }
-					}
-				}
-			}
-
-			for (let colIndex = 2; colIndex <= (level.includes('Sec')?7:6); colIndex += 1) {
-				let rowIndex = (level.includes('Sec') && colIndex == 7) || (!level.includes('Sec') && colIndex == 6)? 4 : 5
-				worksheet.getCell(rowIndex, colIndex).fill = {
-					type: "pattern",
-					pattern: "solid",
-					fgColor: { argb: "cdcdcd" }, // Light grey background
-				};
-			}
-
-			if (level.includes('Sec')) {
-				worksheet.getCell("E4").fill = {
+	
+				worksheet.getCell("B4").fill = {
 					type: "pattern",
 					pattern: "solid",
 					fgColor: { argb: "153c7c" }, // Blue background
 				};
-
-				worksheet.getCell("E4").font = {
-					color: { argb: "FFFFFF" }
-				}
-
-				worksheet.getCell("F3").alignment = {
-					horizontal: "right",
-				};
-				worksheet.getCell("E4").alignment = {
-					vertical: "middle",
-				};
-				worksheet.getCell("G4").alignment = {
-					vertical: "middle",
-					horizontal: "center",
-					wrapText: true,
-				};
-				worksheet.getCell("G4").font = {
+	
+				worksheet.getCell("B4").font = {
 					bold: true,
+					size: 28,
+					color: { argb: "f7ff00" },
 				};
-
-				worksheet.getCell("F5").font = {
-					bold: true,
-				};
-				worksheet.getCell("F5").alignment = {
+				worksheet.getCell("B4").alignment = {
 					vertical: "middle",
 					horizontal: "center",
 				};
-
-				rows.map((row, rowIndex) => {
-					rowIndex += headers.length + 1
-					worksheet.getCell("G" + rowIndex).alignment = {
+	
+				worksheet.getCell("B5").font = {
+					bold: true,
+				};
+				worksheet.getCell("B5").alignment = {
+					vertical: "middle",
+					horizontal: "center",
+				};
+	
+				worksheet.getCell("C5").font = {
+					bold: true,
+				};
+				worksheet.getCell("C5").alignment = {
+					vertical: "middle",
+					horizontal: "center",
+				};
+	
+				worksheet.getCell("D5").font = {
+					bold: true,
+				};
+				worksheet.getCell("D5").alignment = {
+					vertical: "middle",
+				};
+	
+				worksheet.getCell("E5").font = {
+					bold: true,
+				};
+				worksheet.getCell("E5").alignment = {
+					vertical: "middle",
+					horizontal: "center",
+				};
+	
+				rows.map((row, index) => {
+					index += headers.length + 1
+					worksheet.getCell("B" + index).alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+					worksheet.getCell("C" + index).alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+					worksheet.getCell("D" + index).alignment = {
+						vertical: "middle",
+					};
+					worksheet.getCell("E" + index).alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+					worksheet.getCell("F" + index).alignment = {
 						vertical: "middle",
 						horizontal: "center",
 					};
 				})
 
-				let lastRowIndex = headers.length + rows.length
-				worksheet.getCell("F" + (lastRowIndex - 5)).alignment = {
-					horizontal: "right",
+				if (!level.includes('Sec')) {
+					rows.map((row, rowIndex) => {
+						rowIndex += headers.length + 1
+						worksheet.getCell("D" + rowIndex).alignment = {
+							vertical: "middle",
+							horizontal: "center",
+						};
+					})
+				}
+	
+				let paradeCount = Object.values(newLevelTotalParades)[index]
+				rows.map((row, rowIndex) => {
+					rowIndex += headers.length - 3
+					let colIndex = level.includes('Sec')? 8 : 7
+					let colLimit = colIndex + paradeCount
+					for (; colIndex <= colLimit + 1; colIndex += 1) {
+						worksheet.getCell(rowIndex, colIndex).alignment = {
+							vertical: "middle",
+							horizontal: "center",
+						}
+					}
+				})
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).font = {
+					bold: true,
 				};
-				worksheet.getCell("F" + (lastRowIndex - 4)).alignment = {
-					horizontal: "right",
-				};
-			} else {
-				worksheet.getCell("E3").alignment = {
-					horizontal: "right",
-				};
-				worksheet.getCell("F4").alignment = {
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).alignment = {
 					vertical: "middle",
 					horizontal: "center",
 					wrapText: true,
+				}
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount).fill = {
+					type: "pattern",
+					pattern: "solid",
+					fgColor: { argb: "cdcdcd" }, // Light grey background
 				};
-				worksheet.getCell("F4").font = {
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).font = {
 					bold: true,
-					size: 14,
 				};
-
-				let lastRowIndex = headers.length + rows.length
-				worksheet.getCell("E" + (lastRowIndex - 5)).alignment = {
-					horizontal: "right",
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).alignment = {
+					vertical: "middle",
+					horizontal: "center",
+					wrapText: true,
+				}
+				worksheet.getCell(headers.length - 2, (level.includes('Sec')? 8 : 7) + paradeCount + 1).fill = {
+					type: "pattern",
+					pattern: "solid",
+					fgColor: { argb: "cdcdcd" }, // Light grey background
 				};
-				worksheet.getCell("E" + (lastRowIndex - 4)).alignment = {
-					horizontal: "right",
-				};
+				worksheet.getColumn((level.includes('Sec')? 8 : 7) + paradeCount).width = 20
+				worksheet.getColumn((level.includes('Sec')? 8 : 7) + paradeCount + 1).width = 20
+	
+				paradeCount = Object.values(newLevelTotalParades)[index]
+				let rowIndex = headers.length - 2
+				let rowLimit = headers.length + rows.length - 7
+				for (; rowIndex <= rowLimit; rowIndex += 1) {
+					let colIndex = level.includes('Sec')? 8 : 7
+					let colLimit = colIndex + paradeCount
+					colIndex = 2
+					for (; colIndex <= colLimit + 1; colIndex += 1) {
+						worksheet.getCell(rowIndex, colIndex).border = {
+							top: { style: "thin", color: { argb: "000000" } }, // Black top border
+							left: { style: "thin", color: { argb: "000000" } }, // Black left border
+							bottom: { style: "thin", color: { argb: "000000" } }, // Black bottom border
+							right: { style: "thin", color: { argb: "000000" } }, // Black right border
+						}
+					}
+				}
+	
+				for (let rowIndex = 5; rowIndex < 7; rowIndex += 1) {
+					let colIndex = level.includes('Sec')? 8 : 7
+					let colLimit = colIndex + paradeCount
+					for (; colIndex < colLimit; colIndex += 1) {
+						worksheet.getCell(rowIndex, colIndex).fill = {
+							type: "pattern",
+							pattern: "solid",
+							fgColor: { argb: "3e629a" }, // Blue background
+						};
+	
+						worksheet.getCell(rowIndex, colIndex).font = {
+							color: { argb: "FFFFFF" }
+						}
+					}
+				}
+	
+				for (let colIndex = 2; colIndex <= (level.includes('Sec')?7:6); colIndex += 1) {
+					let rowIndex = (level.includes('Sec') && colIndex == 7) || (!level.includes('Sec') && colIndex == 6)? 4 : 5
+					worksheet.getCell(rowIndex, colIndex).fill = {
+						type: "pattern",
+						pattern: "solid",
+						fgColor: { argb: "cdcdcd" }, // Light grey background
+					};
+				}
+	
+				if (level.includes('Sec')) {
+					worksheet.getCell("E4").fill = {
+						type: "pattern",
+						pattern: "solid",
+						fgColor: { argb: "153c7c" }, // Blue background
+					};
+	
+					worksheet.getCell("E4").font = {
+						color: { argb: "FFFFFF" }
+					}
+	
+					worksheet.getCell("F3").alignment = {
+						horizontal: "right",
+					};
+					worksheet.getCell("E4").alignment = {
+						vertical: "middle",
+					};
+					worksheet.getCell("G4").alignment = {
+						vertical: "middle",
+						horizontal: "center",
+						wrapText: true,
+					};
+					worksheet.getCell("G4").font = {
+						bold: true,
+					};
+	
+					worksheet.getCell("F5").font = {
+						bold: true,
+					};
+					worksheet.getCell("F5").alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+	
+					rows.map((row, rowIndex) => {
+						rowIndex += headers.length + 1
+						worksheet.getCell("G" + rowIndex).alignment = {
+							vertical: "middle",
+							horizontal: "center",
+						};
+					})
+	
+					let lastRowIndex = headers.length + rows.length
+					worksheet.getCell("F" + (lastRowIndex - 5)).alignment = {
+						horizontal: "right",
+					};
+					worksheet.getCell("F" + (lastRowIndex - 4)).alignment = {
+						horizontal: "right",
+					};
+				} else {
+					worksheet.getCell("E3").alignment = {
+						horizontal: "right",
+					};
+					worksheet.getCell("F4").alignment = {
+						vertical: "middle",
+						horizontal: "center",
+						wrapText: true,
+					};
+					worksheet.getCell("F4").font = {
+						bold: true,
+						size: 14,
+					};
+	
+					let lastRowIndex = headers.length + rows.length
+					worksheet.getCell("E" + (lastRowIndex - 5)).alignment = {
+						horizontal: "right",
+					};
+					worksheet.getCell("E" + (lastRowIndex - 4)).alignment = {
+						horizontal: "right",
+					};
+				}
 			}
 		});
 
