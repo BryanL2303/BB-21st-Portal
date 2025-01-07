@@ -712,8 +712,14 @@ const HandleDownloadWithExcelJS = ({year}) => {
 				};
 				worksheet.getCell("C5").alignment = {
 					vertical: "middle",
-					horizontal: "center",
 				};
+
+				if (level.includes('Sec')) {
+					worksheet.getCell("C5").alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+				}
 	
 				worksheet.getCell("D5").font = {
 					bold: true,
@@ -721,6 +727,12 @@ const HandleDownloadWithExcelJS = ({year}) => {
 				worksheet.getCell("D5").alignment = {
 					vertical: "middle",
 				};
+				if (!level.includes('Sec')) {
+					worksheet.getCell("D5").alignment = {
+						vertical: "middle",
+						horizontal: "center",
+					};
+				}
 	
 				worksheet.getCell("E5").font = {
 					bold: true,
@@ -738,11 +750,22 @@ const HandleDownloadWithExcelJS = ({year}) => {
 					};
 					worksheet.getCell("C" + index).alignment = {
 						vertical: "middle",
-						horizontal: "center",
 					};
+					if (level.includes('Sec')) {
+						worksheet.getCell("C" + index).alignment = {
+							vertical: "middle",
+							horizontal: "center",
+						};
+					}
 					worksheet.getCell("D" + index).alignment = {
 						vertical: "middle",
 					};
+					if (!level.includes('Sec')) {
+						worksheet.getCell("D" + index).alignment = {
+							vertical: "middle",
+							horizontal: "center",
+						};
+					}
 					worksheet.getCell("E" + index).alignment = {
 						vertical: "middle",
 						horizontal: "center",
@@ -752,16 +775,6 @@ const HandleDownloadWithExcelJS = ({year}) => {
 						horizontal: "center",
 					};
 				})
-
-				if (!level.includes('Sec')) {
-					rows.map((row, rowIndex) => {
-						rowIndex += headers.length + 1
-						worksheet.getCell("D" + rowIndex).alignment = {
-							vertical: "middle",
-							horizontal: "center",
-						};
-					})
-				}
 	
 				let paradeCount = Object.values(newLevelTotalParades)[index]
 				rows.map((row, rowIndex) => {
