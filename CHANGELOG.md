@@ -295,3 +295,12 @@ Version 1.0
 1. Update test cases for user information and account creation and user management page to include the new columns migrated
 2. Update controllers based on rubocop detected offenses
 3. Add proptypes and remove unused variables from new attendance management files
+
+7 January 2025
+1. Add migration to add member id to accounts for Boys
+2. Edited the user information frontend for Boys to include member id
+3. Edited the function for generating attendance excel to include member id and class and formatting
+4. Edited function for generating attendance excel to not create irrelevant sheets
+4. Fixed bug with backend not fetching Boys by the correct levels for that year
+5. Update test cases to include member id
+6. Fixed bug with uniform inspection form not using correct route to get Boys accounts
