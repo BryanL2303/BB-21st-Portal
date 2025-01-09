@@ -185,3 +185,125 @@ Version 1.0
 3. Converted the backend into a demo version
 4. Split this version from the actual website to create a demo copy
 5. Created officer account 'John Doe' for trial users, removed access to update John Doe account
+
+30 October 2024
+1. Added function to filter names from AwardsTracker
+2. Added function to hide AwardsManagementPage left menu
+3. Added icons for buttons
+
+31 October 2024
+1. Fixed bug with user information not rerendering components when reloading
+
+4 November 2024
+1. Added migration for new table Appointments
+2. Added column appointment to Accounts
+3. Added new segment AppointmentHolders to UserManagementPage
+4. Added new segment AppointmentInformation for AppointmentHolders
+5. Added model and controller for Appointments table
+6. Added CRUD functions for Appointments
+7. When logging in, set cookies for Appointment if it exists
+8. Added more conditionals to rendering in UserManagementPage since Boys have access to it
+
+5 November 2024
+1. Added css to manage overflow for AppointmentHoldersList
+2. Added css to limit height for account-name-popup-content
+3. Update frontend to replace console logs from axios catches with handleServerError
+4. Added more status codes to catch with handleServerError
+5. Update home link for logging in to not show QuizListPage
+6. Updated admin page table to use textarea instead of input for more space
+
+6 November 2024
+1. Added migration for new tables Parades, ParadeCompanyAnnouncements, ParadePlatoonPrograms, ParadePlatoonAnnouncements, ParadeAttendances
+2. Added models for all new tables
+3. Added new page AttendanceManagementPage
+4. Added new segment NewParadeForm, ParadeList, ParadeInformation for AttendanceManagementPage
+5. Added CRUD functions for all new tables in new controllers ParadeController
+
+19 November 2024
+1. Added new segment ParadeEditor, ParadeNoticePDF, ParadeAttendance for ParadeInformation
+2. Completed editParade function in ParadeController
+3. Updated css for attendanceManagementPage to include new components
+
+20 November 2024
+1. Added migration to add columns user_name, abbrieviated_name, honorifics to Accounts
+2. Updated logInPage to use user_name rather than account_name
+3. Added new rank to Officer account type 'Teacher'
+4. Updated ParadeNoticePDF to use honorifics and abbreviated_name for Teachers and VALs
+5. Updated AccountController to incorporate use of new columns
+6. Updated new account form and account information editor to incorporate new columns
+7. Added css for parade list and annual attendance list
+
+2 December 2024
+1. Added backup yaml file to github workflow for testing to backup database weekly
+2. Added function to update attendance to parade controller and route
+3. Added popup to table in frontend to modify attendance
+4. Added migration to add column roll_call to Accounts
+5. Updated AccountController to incorporate use of new columns
+6. Updated new account form and account information editor to incorporate new column
+
+3 December 2024
+1. Added migration to add columns to Parades for attendance finalization by cos, csm, do and captain
+2. Added frontend for each appointment holder to finalize the attendance
+3. Updated controllers for updating attendance finalization and updating attendance to check if user still has permission
+
+4 December 2024
+1. Added announcements and programs portion to create_parade function in parade_controller
+2. Swapped to using state with global variables to prevent rerendering from affecting them
+3. Added VAL to Officers table title in attendance taking
+4. Fix logical error with authorisation when attendance is finalized
+
+6 December 2024
+1. Add AnnualAttendanceExcel to generate excel sheet with attendance sheets
+2. Updated ParadeNoticePDF to use date of parade rather than template fixed date
+3. Updated ParadeInformation so that we can load parades by clicking on the ParadeList
+
+9 December 2024
+1. Added repository checkout to database back up script
+2. Made the database backup daily for testing purposes
+
+10 December 2024
+1. Update node version in CI script
+2. Update database backup script for testing
+
+11 December 2024
+1. Update database backup script for testing
+2. Removed AttendanceExcelSheet which is no longer necessary
+
+13 December 2024
+1. Complete formatting for AttendanceExcel Sheet
+2. Give permission for Admin Sergeant to create and edit parades
+3. Update attendance excel component to provide all years starting from 2024
+
+15 December 2024
+1. Add migration to record past year ranks and classes for past year attendance excel, add levels to parade attendance to order Boys levels for past year excels
+2. Update frontend of userInformation to include past level classes and ranks for Boys
+3. Updated account_controller to incorporate new columns with edit_account
+4. Completed testing for backend, revert back to weekly backups
+
+16 December 2024
+1. Update AnnualAttendanceExcel to use new backend function
+2. Update parade_controller with new function to retrieve excel data which works with past years
+3. Add migration to indicate if Boys have graduated
+4. Updated UserInformation to include graduated as a checkbox
+5. Updated account_controller edit_account function to include graduated
+6. Add Graduated Boys List to display graduated Boys seperately from current Boys in UsersManagementPage
+
+17 December 2024
+1. Update UserInformation for Officers, use class_1 to classify Officers
+2. Removed Teacher rank and added it to class under STAFF
+3. Filter by staff for parade editor for duty teacher
+4. Use class_1 for Officers and Volunteers sheet in annual attendance excel
+
+23 December 2024
+1. Update test cases for user information and account creation and user management page to include the new columns migrated
+2. Update controllers based on rubocop detected offenses
+3. Add proptypes and remove unused variables from new attendance management files
+
+7 January 2025
+1. Add migration to add member id to accounts for Boys
+2. Edited the user information frontend for Boys to include member id
+3. Edited the function for generating attendance excel to include member id and class and formatting
+4. Edited function for generating attendance excel to not create irrelevant sheets
+4. Fixed bug with backend not fetching Boys by the correct levels for that year
+5. Update test cases to include member id
+6. Fixed bug with uniform inspection form not using correct route to get Boys accounts

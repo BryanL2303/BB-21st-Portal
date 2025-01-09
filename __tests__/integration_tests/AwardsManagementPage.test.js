@@ -10,6 +10,7 @@ jest.mock('axios');
 jest.mock('../../app/javascript/packs/general/useCookies');
 
 let cookies;
+alert = jest.fn()
 confirm = jest.fn().mockReturnValue(true)
 
 useCookies.mockReturnValue({
@@ -91,7 +92,7 @@ describe('AwardsManagementPage with all of its components', () => {
                     ],
                 })
             }
-            return Promise.reject(new Error('Unknown API call'))
+            return Promise.reject({response: { status: 401, statusText: 'Unauthorized' }})
         })
 
         await act(async () => {
@@ -166,7 +167,7 @@ describe('AwardsManagementPage with all of its components', () => {
                     ],
                 })
             }
-            return Promise.reject(new Error('Unknown API call'))
+            return Promise.reject({response: { status: 401, statusText: 'Unauthorized' }})
         })
 
         await act(async () => {

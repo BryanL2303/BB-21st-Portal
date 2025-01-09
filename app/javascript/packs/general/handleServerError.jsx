@@ -5,6 +5,14 @@ function handleServerError(status) {
       alert(
         'Unable to verify user...\nPlease try to log out and log in again.'
       );    
+    } else if (status == 406) {
+      alert(
+        'One of the fields provided is incorrect! \nPlease try again.'
+      )
+    } else if (status == 306) {
+      alert(
+        'One of the fields has already been taken! \nPlease check the existing list.'
+      )
     } else {
       alert(
         'Something went wrong...\nPlease try refreshing the page and trying again.')

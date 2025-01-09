@@ -8,14 +8,17 @@ module Api
   class DemoAccountController < ApplicationController
     protect_from_forgery with: :null_session
     before_action :authenticate_request,
-                  only: %i[create_account get_account get_accounts get_own_account toggle_type edit_account
-                           delete_account get_assignments]
+                  only: %i[create_account account accounts own_account toggle_type edit_account
+                           delete_account assignments]
 
     def create_account
-      account = DemoAccount.new(account_name: params[:account_name], password: params[:password],
+      account = DemoAccount.new(account_name: params[:account_name], user_name: params[:account_name],
+                            password: params[:password], honorifics: params[:honorifics], roll_call: params[:roll_call],
+                            abbreviated_name: params[:abbreviated_name],
                             account_type: params[:account_type], rank: params[:rank], credentials: params[:credentials])
       account['level'] = params[:level] unless params[:level].nil?
       find_account = DemoAccount.find_by(account_name: params[:account_name])
+      account['class_1'] = params[:class1]
 
       if find_account.nil?
         if account.save
@@ -29,14 +32,15 @@ module Api
     end
 
     def authenticate_account
-      account = DemoAccount.find_by(account_name: params[:account_name])
+      account = DemoAccount.find_by(user_name: params[:user_name])
       if account.nil?
         render json: false, status: :not_found
       elsif account.password == params[:password]
         token = encode_token({ user_id: account.id })
         cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
 
-        render json: { account_name: account.account_name, account_type: account.account_type }, status: :accepted
+        render json: { account_name: account.account_name, account_type: account.account_type,
+                       appointment: account.appointment }, status: :accepted
       else
         render json: false, status: :not_acceptable
       end
@@ -49,7 +53,14 @@ module Api
     end
 
     def accounts_by_type
-      accounts = DemoAccount.where(account_type: params[:account_type]).order('level').order('account_name')
+      accounts = DemoAccount.where(account_type: params[:account_type])
+      accounts = accounts.where(graduated: [false, nil]) if params[:account_type] == 'Boy'
+      accounts = accounts.order('level').order('account_name')
+      render json: accounts, status: :ok
+    end
+
+    def graduated_accounts
+      accounts = DemoAccount.where(account_type: 'Boy', graduated: true).order('account_name')
 
       render json: accounts, status: :ok
     end
@@ -81,9 +92,25 @@ module Api
       if name_clash.nil? || name_clash['id'] == account.id
         account['account_name'] = params[:account_name]
         account['account_type'] = params[:account_type]
+        account['user_name'] = params[:user_name] unless params[:user_name].nil?
         account['password'] = params[:password] unless params[:password].nil?
+        account['member_id'] = params[:member_id] unless params[:member_id].nil?
         account['rank'] = params[:rank]
+        account['rank_1'] = params[:rank1]
+        account['rank_2'] = params[:rank2]
+        account['rank_3'] = params[:rank3]
+        account['rank_4'] = params[:rank4]
+        account['rank_5'] = params[:rank5]
+        account['roll_call'] = params[:roll_call]
+        account['honorifics'] = params[:honorifics]
+        account['abbreviated_name'] = params[:abbreviated_name]
         account['level'] = params[:level]
+        account['graduated'] = params[:graduated]
+        account['class_1'] = params[:class1]
+        account['class_2'] = params[:class2]
+        account['class_3'] = params[:class3]
+        account['class_4'] = params[:class4]
+        account['class_5'] = params[:class5]
         account['credentials'] = params[:credentials]
         account.save
         render json: true, status: :accepted

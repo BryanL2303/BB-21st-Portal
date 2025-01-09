@@ -4,6 +4,7 @@ import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react
 import styled from "@react-pdf/styled-components";
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError';
 
 /*For officers/primers to generate results
 */
@@ -40,7 +41,7 @@ const ResultPage = () => {
         setAward(resp.data['award'])
         setMastery(resp.data['mastery'])
       })
-      .catch(error => {console.log(error)})
+      .catch(resp => handleServerError(resp.response.status))
     }
   }, [])
 

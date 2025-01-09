@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 import {AssignedAccountDisplay} from './AssignedAccountDisplay'
 
 /*For officers/primers to view assignment progress
@@ -36,7 +37,7 @@ const AssignmentPage = () => {
       .then(resp => {
         setQuiz(resp.data)
       })
-      .catch(error => console.log(error))
+      .catch(resp => handleServerError(resp.response.status))
       setAssignment(resp.data)
       axios.post('/api/assigned_account/0/get_assigned_accounts', {
         'assignment_id': resp.data.id
@@ -46,9 +47,9 @@ const AssignmentPage = () => {
       .then(resp => {
         setAssignedAccounts(resp.data)
       })
-      .catch(error => console.log(error))
+      .catch(resp => handleServerError(resp.response.status))
       })
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function deleteAssignment(e) {
@@ -58,7 +59,7 @@ const AssignmentPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(window.location.href = '/quiz_bank')
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
+import {handleServerError} from '../general/handleServerError'
 
 /*To edit existing questions and update the database
 */
@@ -20,7 +21,7 @@ const MrqOptionsEditor = ({ question }) => {
     .then(resp => {
       setOptions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   //If there is no ongoing session go to login page
@@ -61,7 +62,7 @@ const MrqOptionsEditor = ({ question }) => {
     .then(
       //Reset all the input fields
     )
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function setPermanent(e) {
@@ -75,7 +76,7 @@ const MrqOptionsEditor = ({ question }) => {
       question = resp.data
       alert("Refresh the page")
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
  
   //Sends the information from the form to the backend to edit the options
@@ -88,7 +89,7 @@ const MrqOptionsEditor = ({ question }) => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(setEdit('deleted'))
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function showEdit(e) {

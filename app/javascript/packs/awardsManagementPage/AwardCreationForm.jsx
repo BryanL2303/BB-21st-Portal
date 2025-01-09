@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError';
 
 // To create new awards, currently not in use
 const AwardCreationForm = () => {
@@ -87,7 +88,7 @@ const AwardCreationForm = () => {
           alert("Badge with same name already exists, please check existing awards")
         }
       })
-      .catch(error => console.log(error))
+      .catch(resp => handleServerError(resp.response.status))
     }
     else {
       alert("Please fill in all fields first")

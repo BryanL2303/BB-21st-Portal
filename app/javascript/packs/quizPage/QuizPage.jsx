@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import {handleServerError} from '../general/handleServerError'
 import {QuestionDisplay} from './QuestionDisplay'
 
 /*For boys to attempt quizzes
@@ -28,7 +29,7 @@ const QuizPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/quiz/0/get_questions', {
       'quiz_id': id
     }, {
@@ -37,7 +38,7 @@ const QuizPage = () => {
     .then(resp => {
       setQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/assignment/0/get_assignment', {
       'quiz_id': id,
       'id': '0'
@@ -45,12 +46,11 @@ const QuizPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then()
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function submitQuiz(e) {
     e.preventDefault()
-    console.log("Submit")
     let i = 0
     let answers = []
     let selected = []
@@ -89,7 +89,7 @@ const QuizPage = () => {
     .then(() => {
       window.location.href = '/quiz_result/' + id
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError'
 
 /*To display the currently selected question from the question bank
 */
@@ -27,7 +28,7 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
         .then( resp => {
           setRubric(resp.data.rubric)
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else {
         axios.post('/api/question/0/get_options', {
           question_id: questionId
@@ -37,10 +38,10 @@ const SelectedQuestion = ({questionId, setQuestionId, setSelected, marks, setMar
         .then( resp => {
           setOptions(resp.data)
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [questionId])
 
   function reSelect(e) {

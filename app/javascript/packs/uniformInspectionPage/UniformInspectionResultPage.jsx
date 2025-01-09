@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import {NavigationBar} from '../general/NavigationBar'
+import {handleServerError} from '../general/handleServerError'
 
 /*To facilitate uniform inspection by officers / primers
 */
@@ -29,7 +30,7 @@ const UniformInspectionResultPage = () => {
       setComponents(resp.data['components'])
       setComponentFields(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/uniform_inspection/' + id + '/get_inspection', {
       'id': id
     })
@@ -39,7 +40,7 @@ const UniformInspectionResultPage = () => {
       setCurrentInspection(resp.data['inspections'][resp.data['boy']['id']][id])
       setBoys(resp.data['boys'])
     })
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   function selectInspection(e) {

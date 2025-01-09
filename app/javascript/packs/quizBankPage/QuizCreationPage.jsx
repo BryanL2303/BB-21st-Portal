@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import {NavigationBar} from '../general/NavigationBar'
+import { handleServerError } from '../general/handleServerError'
 import {SetQuestionForm} from './SetQuestionForm'
 
 /*To create new quizzes and add them into the quiz bank
@@ -29,7 +30,7 @@ const QuizCreationPage = () => {
     .then(resp => {
       setAward(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [awardId.awardId])
 
   function addQuestion(e) {
@@ -118,7 +119,7 @@ const QuizCreationPage = () => {
       alert("Quiz has been created!")
       window.location.href = '/quiz_bank'
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   return(

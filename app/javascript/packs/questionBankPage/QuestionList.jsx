@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
+import { handleServerError } from '../general/handleServerError'
 import { QuestionCreationForm } from './QuestionCreationForm'
 import { McqOptionsEditor } from './McqOptionsEditor'
 import { MrqOptionsEditor } from './MrqOptionsEditor'
@@ -36,14 +37,14 @@ const QuestionList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else {
         setMasteries()
         setCurrentMastery()
         setAward({awardId: award.awardId, masteryId: '0'})
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
@@ -53,7 +54,7 @@ const QuestionList = () => {
     .then( resp => {
       setMcqQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
@@ -63,7 +64,7 @@ const QuestionList = () => {
     .then( resp => {
       setMrqQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
@@ -73,7 +74,7 @@ const QuestionList = () => {
     .then( resp => {
       setOpenEndQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   useEffect(() => {
@@ -95,13 +96,13 @@ const QuestionList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else if (!resp.data.has_mastery) {
         setMasteries()
         setCurrentMastery()
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MCQ'
@@ -111,7 +112,7 @@ const QuestionList = () => {
     .then( resp => {
       setMcqQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'MRQ'
@@ -121,7 +122,7 @@ const QuestionList = () => {
     .then( resp => {
       setMrqQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/question/0/get_questions', {
       award: award,
       question_type: 'Open-ended'
@@ -131,7 +132,7 @@ const QuestionList = () => {
     .then( resp => {
       setOpenEndQuestions(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [award])
 
   function showMastery(e) {

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
 import {NavigationBar} from '../general/NavigationBar'
+import {handleServerError} from '../general/handleServerError'
 import {AccountSelector} from './AccountSelector'
 
 /*To assign quiz to boys
@@ -31,7 +32,7 @@ const QuizAssignmentPage = () => {
     .then(resp => {
       setQuiz(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/account/0/get_accounts', {
       'account_type': 'Boy'
     }, {
@@ -40,7 +41,7 @@ const QuizAssignmentPage = () => {
     .then(resp => {
       setAccounts(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   //Sends the information from the form to the backend to create assignment
@@ -76,7 +77,7 @@ const QuizAssignmentPage = () => {
       withCredentials: true  // Include credentials (cookies)
     })
     .then(() => window.location.href = '/quiz_bank')
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }
 
   function quizBankPage(e) {

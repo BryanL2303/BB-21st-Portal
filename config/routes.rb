@@ -38,6 +38,15 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :appointment do
+      member do
+        post '/create_appointment' => 'demo_appointment#create_appointment'
+        post '/get_appointments' => 'demo_appointment#appointments'
+        post '/update_appointment' => 'demo_appointment#update_appointment'
+        post '/delete_appointment' => 'demo_appointment#delete_appointment'
+      end
+    end
+
     resources :award do
       member do
         post '/create_award' => 'demo_award#create_award'
@@ -139,6 +148,19 @@ Rails.application.routes.draw do
         post '/get_inspections' => 'demo_uniform_inspection#inspections_summary'
         post '/get_component_fields' => 'demo_uniform_inspection#component_fields'
         post '/delete_uniform_inspection' => 'demo_uniform_inspection#delete_uniform_inspection'
+      end
+    end
+
+    resources :parade do
+      member do
+        post '/create_parade' => 'demo_parade#create_parade'
+        post '/get_parade' => 'demo_parade#parade'
+        post '/get_parades_by_year' => 'demo_parade#parades_by_year'
+        post '/get_annual_attendance_information' => 'demo_parade#annual_attendance_information'
+        post '/edit_parade' => 'demo_parade#edit_parade'
+        post '/update_attendance' => 'demo_parade#update_attendance'
+        post '/update_finalize' => 'demo_parade#update_finalize'
+        post '/delete_parade' => 'demo_parade#delete_parade'
       end
     end
   end

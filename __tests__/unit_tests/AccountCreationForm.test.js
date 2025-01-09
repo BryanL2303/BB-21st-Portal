@@ -12,9 +12,7 @@ jest.mock('../../app/javascript/packs/general/useCookies');
 let cookies;
 
 useCookies.mockReturnValue({
-  get: {
-    Type: 'Admin'
-  }
+    get: jest.fn().mockReturnValue('Admin')
 });
 
 alert = jest.fn()
@@ -36,9 +34,11 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const usernameInput = screen.getByPlaceholderText('username')
+        const fullnameInput = screen.getByPlaceholderText('full name')
+        const usernameInput = screen.getByPlaceholderText('user name')
         const passwordInput = screen.getByPlaceholderText('password')
         const createButton = screen.getByText('Create Account')
+        fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
@@ -58,7 +58,12 @@ describe('AccountCreationForm Component', () => {
                 account_type: 'Boy',
                 rank: 'REC',
                 level: '2',
-                credentials: null
+                class1: null,
+                credentials: null,
+                abbreviated_name: '',
+                honorifics: undefined,
+                roll_call: true,
+                user_name: 'John Doe'
             },
             {withCredentials: true}
         )
@@ -80,9 +85,11 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const usernameInput = screen.getByPlaceholderText('username')
+        const fullnameInput = screen.getByPlaceholderText('full name')
+        const usernameInput = screen.getByPlaceholderText('user name')
         const passwordInput = screen.getByPlaceholderText('password')
         const createButton = screen.getByText('Create Account')
+        fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
@@ -109,7 +116,12 @@ describe('AccountCreationForm Component', () => {
                 account_type: 'Primer',
                 rank: 'SCL',
                 level: null,
-                credentials: 'Sec 1 Platoon Primer'
+                class1: null,
+                credentials: 'Sec 1 Platoon Primer',
+                abbreviated_name: '',
+                honorifics: undefined,
+                roll_call: true,
+                user_name: 'John Doe'
             },
             {withCredentials: true}
         )

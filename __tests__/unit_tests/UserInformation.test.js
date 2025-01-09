@@ -110,8 +110,24 @@ describe('UserInformation Component', () => {
                 password: 'John Doe',
                 account_type: 'Boy',
                 rank: 'LCP',
+                rank1: 'LCP',
+                rank2: 'LCP',
+                rank3: null,
+                rank4: null,
+                rank5: null,
                 level: '2',
-                credentials: null
+                member_id: '',
+                class1: "",
+                class2: "",
+                class3: undefined,
+                class4: undefined,
+                class5: undefined,
+                graduated: undefined,
+                credentials: null,
+                abbreviated_name: '',
+                honorifics: undefined,
+                roll_call: undefined,
+                user_name: null
             },
             {withCredentials: true}
         )

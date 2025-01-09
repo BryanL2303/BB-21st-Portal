@@ -132,7 +132,7 @@ const DatabaseTable = ({ table_name }) => {
                   if (column['name'] == 'id') return (<td key={column['name']}>{row[column['name']]}</td>)
                   else return(
                     <td key={column['name']}>
-                      <input className={row['id'] + '-' + column['name'] + '-edit'} defaultValue={row[column['name']]}></input>
+                      <textarea className={row['id'] +'-' +column['name'] +'-edit'} defaultValue={row[column['name']]}/>
                     </td>
                   )
                 }

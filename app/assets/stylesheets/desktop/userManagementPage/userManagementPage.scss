@@ -128,4 +128,15 @@
 		font-size: 20px;
 		margin: 1%;
 	}
+
+	.user-management-page .main-block .appointment-holders-list{
+		max-height: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+
+	.account-name-popup-content{
+		max-height: 10%;
+		overflow-y: auto;
+	}
 }

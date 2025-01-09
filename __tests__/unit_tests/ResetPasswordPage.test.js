@@ -132,13 +132,16 @@ describe('ResetPasswordPage Component', () => {
                     account_type: 'Boy',
                     rank: 'REC',
                     level: '1',
-                    credentials: undefined
+                    credentials: undefined,
+                    abbreviated_name: undefined,
+                    honorifics: undefined,
+                    user_name: ""
                 }, {withCredentials: true}
             );
         });
 
         await waitFor(() => {
-            expect(alert).toHaveBeenCalledWith("Password has been updated successfully")
+            expect(alert).toHaveBeenCalledWith("Log in information has been updated successfully")
         })
     });
 
@@ -196,13 +199,16 @@ describe('ResetPasswordPage Component', () => {
                     account_type: 'Boy',
                     rank: 'REC',
                     level: '1',
-                    credentials: undefined
+                    credentials: undefined,
+                    abbreviated_name: undefined,
+                    honorifics: undefined,
+                    user_name: ""
                 }, {withCredentials: true}
             );
         });
 
         await waitFor(() => {
-            expect(alert).toHaveBeenCalledWith("Failed to update password")
+            expect(alert).toHaveBeenCalledWith("Failed to update")
         })
     });
 });

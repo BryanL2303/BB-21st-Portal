@@ -12,9 +12,7 @@ jest.mock('../../app/javascript/packs/general/useCookies');
 let cookies;
 
 useCookies.mockReturnValue({
-  get: {
-    Type: 'Admin'
-  }
+    get: jest.fn().mockReturnValue('Admin')
 });
 
 alert = jest.fn()

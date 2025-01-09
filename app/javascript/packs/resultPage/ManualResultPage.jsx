@@ -3,6 +3,7 @@ import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react
 import styled from "@react-pdf/styled-components";
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError';
 
 /*For officers/primers to generate results
 */
@@ -28,7 +29,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
     .then(resp => {
       setInstructor(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   const styles = StyleSheet.create({
@@ -243,7 +244,7 @@ const ManualResultPage = ({award, mastery, instructorId, boys, customDescription
     font-size: 7px;
   `;
 
-    const FooterVersionColumn = styled.View`
+  const FooterVersionColumn = styled.View`
     display: flex;
     flex-direction: column;
     /* border: 1px solid #a8026f; */

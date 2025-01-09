@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from 'react'
 import axios from 'axios'
 import { AwardContext } from '../context/AwardContext'
+import {handleServerError} from '../general/handleServerError'
 
 /*To access questions and create new ones
 */
@@ -31,14 +32,14 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else {
         setMasteries()
         setCurrentMastery()
         setAward({awardId: award.awardId, masteryId: '0'})
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/assignment/0/get_assignments', {
       award: award
     }, {
@@ -47,7 +48,7 @@ const QuizList = () => {
     .then( resp => {
       setAssignments(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
     }, {
@@ -56,7 +57,7 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   useEffect(() => {
@@ -78,13 +79,13 @@ const QuizList = () => {
           setCurrentMastery(resp.data[0])
           setAward({awardId: award.awardId, masteryId: resp.data[0].id})
         })
-        .catch(error => {console.log(error)})
+        .catch(resp => handleServerError(resp.response.status))
       } else if (!resp.data.has_mastery) {
         setMasteries()
         setCurrentMastery()
       }
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/assignment/0/get_assignments', {
       award: award
     }, {
@@ -93,7 +94,7 @@ const QuizList = () => {
     .then( resp => {
       setAssignments(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/quiz/0/get_quizzes', {
       award: award
     }, {
@@ -102,7 +103,7 @@ const QuizList = () => {
     .then( resp => {
       setQuizzes(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [award])
 
   //Go to QuizCreationPage

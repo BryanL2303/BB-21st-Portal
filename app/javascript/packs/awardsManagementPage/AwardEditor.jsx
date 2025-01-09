@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import { handleServerError } from '../general/handleServerError';
 
 /*To edit awards information and delete award only accessible by the Administrator
 */
@@ -36,12 +37,12 @@ const AwardEditor = ({awardId}) => {
           setRecommendedLevel2(resp.data[1].recommended_level)
           setRecommendedLevel3(resp.data[2].recommended_level)
         })
-        .catch(error => console.log(error))
+        .catch(resp => handleServerError(resp.response.status))
       } else {
         setRecommendedLevel1(resp.data.recommended_level)
       }
     })
-    .catch(error => console.log(error))
+    .catch(resp => handleServerError(resp.response.status))
   }, [awardId])
 
   function setLevel(e) {
@@ -117,7 +118,7 @@ const AwardEditor = ({awardId}) => {
           alert("Failed to update")
         }
       })
-      .catch(error => console.log(error))
+      .catch(resp => handleServerError(resp.response.status))
     }
     else {
       alert("Please fill in all fields first")

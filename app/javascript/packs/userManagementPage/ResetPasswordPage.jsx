@@ -30,20 +30,23 @@ const ResetPasswordPage = () => {
     axios.post('/api/account/' + account.id + '/edit_account', {
       id: account.id,
       account_name: account.account_name,
+      user_name: e.target.elements['user_name'].value,
+      abbreviated_name: account.abbreviated_name,
       password: e.target.elements['password'].value,
       account_type: account.account_type,
       rank: account.rank,
       level: account.level,
-      credentials: account.credentials
+      credentials: account.credentials,
+      honorifics: account.honorifics
     }, {
       withCredentials: true
     })
     .then(resp => {
       if (resp.data != false) {
-        alert("Password has been updated successfully")
+        alert("Log in information has been updated successfully")
       }
       else{
-        alert("Failed to update password")
+        alert("Failed to update")
       }
     })
     .catch(resp => {handleServerError(resp.response.status)})
@@ -53,8 +56,11 @@ const ResetPasswordPage = () => {
     <div className='reset-password-page'>
       <NavigationBar/>
       <div className='user-information'>
-        <h1>Reset Password</h1>
+        <h1>Reset Username and Password</h1>
         {account != null && <form className="edit-account-form" onSubmit={editAccount}>
+          <label>Username: </label>
+          <input className='edit-field' name={'user_name'} defaultValue={account.user_name}></input>
+          <br/>
           <label>Password: </label>
           <input className='edit-field' name={'password'} defaultValue={account.password}></input>
           <br/>

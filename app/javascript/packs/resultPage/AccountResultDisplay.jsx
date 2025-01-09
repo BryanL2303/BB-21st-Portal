@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
+import {handleServerError} from '../general/handleServerError'
 
 /*To display the currently selected question for the test
 */
@@ -16,7 +17,7 @@ const AccountResultDisplay = ({assignedAccount}) => {
     .then(resp => {
       setAccount(resp.data)
     })
-    .catch(error => {console.log(error)})
+    .catch(resp => handleServerError(resp.response.status))
   }, [])
 
   return(

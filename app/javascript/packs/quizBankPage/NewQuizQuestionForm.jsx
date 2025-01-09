@@ -14,18 +14,15 @@ const NewQuizQuestionForm = ({type, marks, setMarks}) => {
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then()
   .catch(() => {window.location.href = '/'})
 
   function changeLocalMarks(e) {
     e.preventDefault()
     if (!isNaN(+e.target.value)) {
-      console.log("This is an integer")
+      // This is an integer
       let disparity = e.target.value - localMark
       setMarks(marks + disparity)
       setLocalMark(e.target.value)
-    } else {
-      console.log("This is not an integer")
     }
   }
 

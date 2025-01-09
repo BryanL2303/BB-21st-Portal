@@ -27,7 +27,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.9.0]
+        node-version: [22.11.0]
         ruby-version: [3.3.4]
 
     steps:
