@@ -32,7 +32,9 @@ const UserInformation = ({userId, showForm, reLoad}) => {
       })
       setAccountRank(resp.data.rank?resp.data.rank : null)
       setAccountLevel(resp.data.level)
+      setAccountClass(resp.data.class1)
       setAccountGraduated(resp.data.graduated)
+      setAccountHonorific(resp.data.honorifics)
       setAccountRollCall(resp.data.roll_call)
       setAccountPastRank((prev) => {
         let next = {...prev}
@@ -86,7 +88,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 
   function setOfficerClass(e) {
     e.preventDefault()
-    document.getElementsByClassName('create-account-form__class')[0].innerHTML = e.target.className
+    document.getElementsByClassName('create-account-form__class')[0].innerHTML = e.target.className?e.target.className: '-'
     setAccountClass(e.target.className)
   }
 

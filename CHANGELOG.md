@@ -304,3 +304,11 @@ Version 1.0
 4. Fixed bug with backend not fetching Boys by the correct levels for that year
 5. Update test cases to include member id
 6. Fixed bug with uniform inspection form not using correct route to get Boys accounts
+
+20 January 2025
+1. Fixed bug with fetching annual parade attendance to split sec 4s and 5s
+2. Fixed annualattendanceexcel to display Sec 5s after Sec 4s with the correct class and rank
+3. Edited user information to allow null values for Primers ranks, officers class
+4. Added class for Primers with no ranks
+5. Remove 2024 from annual attendance list
+6. Fix bug where certain user information gets overwritten with null when editing accounts
