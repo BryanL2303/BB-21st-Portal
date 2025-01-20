@@ -126,10 +126,16 @@ module Api
       sec3_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 3).pluck(:account_id)
       boy_accounts = Account.where(id: sec3_account_ids).order('id')
       data['sec_3'] = boy_accounts
-      sec45_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id),
-                                                 level: [4, 5]).pluck(:account_id)
-      boy_accounts = Account.where(id: sec45_account_ids).order('id')
-      data['sec_4_5'] = boy_accounts
+      sec4_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 4).pluck(:account_id)
+      boy_accounts = Account.where(id: sec4_account_ids).order('id')
+      data['sec_4'] = boy_accounts
+      sec5_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id), level: 5).pluck(:account_id)
+      boy_accounts = Account.where(id: sec5_account_ids).order('id')
+      data['sec_5'] = boy_accounts
+      # sec45_account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id),
+      #                                            level: [4, 5]).pluck(:account_id)
+      # boy_accounts = Account.where(id: sec45_account_ids).order('id')
+      # data['sec_4_5'] = boy_accounts
 
       account_ids = ParadeAttendance.where(parade_id: data['parades'].pluck(:id)).pluck(:account_id)
       primer_accounts = Account.where(id: account_ids, account_type: 'Primer').order('id')

@@ -201,6 +201,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           <p className='OCT' onClick={setRank}>OCT</p>
         </Popup>}
         {account.account_type == "Primer" && <Popup className='account-rank-popup' trigger={<label className='create-account-form__rank'>{account.rank}</label>} position="bottom">
+          <p className={null} onClick={setRank}>-</p>
           <p className='SCL' onClick={setRank}>SCL</p>
           <p className='CLT' onClick={setRank}>CLT</p>
         </Popup>}
@@ -270,9 +271,10 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           }
         })()}
 
-        {account.account_type == "Officer" && <br/>}
-        {account.account_type == "Officer" && <label>Class:</label>}
-        {account.account_type == "Officer" && <Popup className='account-class-popup' trigger={<label className='create-account-form__class'>{account.class_1 || "-"}</label>} position="bottom">
+        {(account.account_type == "Primer" && account.rank == null) || account.account_type == "Officer" && <br/>}
+        {(account.account_type == "Primer" && account.rank == null) || account.account_type == "Officer" && <label>Class:</label>}
+        {(account.account_type == "Primer" && account.rank == null) || account.account_type == "Officer" && <Popup className='account-class-popup' trigger={<label className='create-account-form__class'>{account.class_1 || "-"}</label>} position="bottom">
+          <p className={null} onClick={setRank}>-</p>
           <p className='VAL' onClick={setOfficerClass}>VAL</p>
           <p className='STAFF' onClick={setOfficerClass}>STAFF</p>
           <p className='UNI' onClick={setOfficerClass}>UNI</p>

@@ -54,13 +54,25 @@ const HandleDownloadWithExcelJS = ({year}) => {
                     ])
                     idOrder['3'].push(boy.id)
                 })
-                resp.data['sec_4_5'].map((boy) => {
+                resp.data['sec_4'].map((boy) => {
                     sec45Rows.push([
                         { value: "", rowSpan: 1},
                         { value: sec45Rows.length + 1, rowSpan: 1 },
                         { value: boy.member_id, rowSpan: 1 }, //Member ID
                         { value: boy.account_name.toUpperCase(), rowSpan: 1 },
                         { value: boy.class_4, rowSpan: 1 }, //Class
+                        { value: boy.rank_4, rowSpan: 1 },
+                        { value: "", rowSpan: 1 }, //Percentage Attendance
+                    ])
+                    idOrder['4/5'].push(boy.id)
+                })
+				resp.data['sec_5'].map((boy) => {
+                    sec45Rows.push([
+                        { value: "", rowSpan: 1},
+                        { value: sec45Rows.length + 1, rowSpan: 1 },
+                        { value: boy.member_id, rowSpan: 1 }, //Member ID
+                        { value: boy.account_name.toUpperCase(), rowSpan: 1 },
+                        { value: boy.class_5, rowSpan: 1 }, //Class
                         { value: boy.rank, rowSpan: 1 },
                         { value: "", rowSpan: 1 }, //Percentage Attendance
                     ])
@@ -541,7 +553,8 @@ const HandleDownloadWithExcelJS = ({year}) => {
 					// headerData[level][4].push({ value: "", colSpan: 1, rowSpan: 1 })
 					idOrder[level].map((accountId, row) => {
 						tableData[sheets[index]]['rows'][row].push(
-							{ value: Math.fround(talliedAttendance[level][accountId]['1'] * 100 / newLevelTotalParades[level]), colSpan: 1, rowspan: 1 }
+							// { value: Math.fround(talliedAttendance[level][accountId]['1'] * 100 / newLevelTotalParades[level]), colSpan: 1, rowspan: 1 }
+							{ value: Math.fround(talliedAttendance[level][accountId]['1'] * 100 / (talliedAttendance[level][accountId]['1'] + talliedAttendance[level][accountId]['0'] + talliedAttendance[level][accountId]['E'] + talliedAttendance[level][accountId]['S'])), colSpan: 1, rowspan: 1 }
 						)
 					})
 	
