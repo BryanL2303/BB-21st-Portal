@@ -33,10 +33,6 @@ const UserMenu = () => {
          <button className="award-management--button" onClick={() => {toUrl('/awards')}}>Awards</button>}
         {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
          <button className="result-generation--button" onClick={() => {toUrl('/generate_result')}}>Result Generation</button>}
-        {cookies.get("Type") != "Boy" &&
-         <button className="uniform-inspection--button" onClick={() => {toUrl('/uniform_inspection_results')}}>Uniform Inspection</button>}
-        {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
-         <button className="help--button" onClick={() => {toUrl('/help')}}>Help</button>}
         <button onClick={() => {toUrl('/reset_password')}}>Reset Log In Information</button>
         <button className="log-out--button" onClick={logOut}>Log Out</button>
       </div>
@@ -48,3 +44,5 @@ export { UserMenu }
 // {false && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
 // {false && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
 // {false && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}
+// {cookies.get("Type") != "Boy" && <button className="uniform-inspection--button" onClick={() => {toUrl('/uniform_inspection_results')}}>Uniform Inspection</button>}
+//{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) && <button className="help--button" onClick={() => {toUrl('/help')}}>Help</button>}
