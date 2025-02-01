@@ -74,7 +74,6 @@ const ResultGenerationPage = () => {
     .then(resp => {
       setAward(resp.data)
       setCustomDescription(resp.data.results_description)
-      console.log("Reached if/else")
       if (resp.data.has_mastery) {
         axios.post('/api/award/' + data[0] + '/get_masteries',
         {'award_id': data[0]},

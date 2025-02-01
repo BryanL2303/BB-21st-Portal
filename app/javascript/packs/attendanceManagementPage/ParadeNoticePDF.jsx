@@ -214,7 +214,7 @@ const ParadeNoticePDF = ({parade}) => {
               </FlexColumn>
               <FlexColumn style={{borderRight: '1px solid #000', width: '13%', alignItems: 'flex-start'}}>
                   <Text>{parade.dt?.honorifics} {parade.dt?.abbreviated_name}</Text>
-                  {parade.do?.rank != 'Teacher' && parade.do?.rank != 'VAL' && <Text>{parade.do?.rank?parade.do?.rank:parade.do?.honorifics} {parade.do?.account_name}</Text>}
+                  {parade.do?.rank != 'Teacher' && parade.do?.rank != 'VAL' && <Text>{parade.do?.rank?parade.do?.rank:parade.do?.honorifics} {parade.do?.abbreviated_name}</Text>}
                   {(parade.do?.class == 'Staff' || parade.do?.rank == 'VAL') && <Text>{parade.do?.honorifics} {parade.do?.abbreviated_name}</Text>}
               </FlexColumn>
 
