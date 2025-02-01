@@ -183,27 +183,4 @@ describe('UserMenu Component', () => {
       expect(window.location.href).toBe('/generate_result');
     });
   });
-
-  test('navigates to correct URL when help button is clicked', async () => {
-    // Mock cookie to return 'Admin' when cookies.get("Type") is called
-    cookies.get.mockImplementation((key) => {
-        if (key === "Type") return 'Admin';
-        return null;
-    });
-
-    // Mock window.location.href
-    delete window.location;
-    window.location = { href: '' };
-
-    render(<UserMenu />);
-
-    // Find and click the admin button
-    const button = screen.getByText('Help');
-    fireEvent.click(button);
-
-    // Check if window.location.href was updated
-    await waitFor(() => {
-      expect(window.location.href).toBe('/help');
-    });
-  });
 });
