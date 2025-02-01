@@ -74,6 +74,7 @@ const ResultGenerationPage = () => {
     .then(resp => {
       setAward(resp.data)
       setCustomDescription(resp.data.results_description)
+      console.log("Reached if/else")
       if (resp.data.has_mastery) {
         axios.post('/api/award/' + data[0] + '/get_masteries',
         {'award_id': data[0]},
@@ -94,6 +95,7 @@ const ResultGenerationPage = () => {
         .catch(resp => handleServerError(resp.response.status))
       }
       else {
+        // Potential issue here where award does not have custom description and/or columns
         setMastery()
         let descriptionBox = document.getElementsByClassName('result-description')
         descriptionBox.map((descriptionBox) => {
