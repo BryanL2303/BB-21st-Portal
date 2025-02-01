@@ -405,6 +405,7 @@ ParadeNoticePDF.propTypes = {
     do: PropTypes.shape({
       account_name: PropTypes.string,
       abbreviated_name: PropTypes.string,
+      class: PropTypes.string,
       honorifics: PropTypes.string,
       rank: PropTypes.string,
     }),
