@@ -54,7 +54,6 @@ const ResetPasswordPage = () => {
 
   return(
     <div className='reset-password-page'>
-      <NavigationBar/>
       <div className='user-information'>
         <h1>Reset Username and Password</h1>
         {account != null && <form className="edit-account-form" onSubmit={editAccount}>

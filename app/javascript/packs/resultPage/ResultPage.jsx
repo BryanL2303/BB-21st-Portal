@@ -264,7 +264,6 @@ const ResultPage = () => {
 
   return(
     <div className="result-page">
-      <NavigationBar/>
       {account != null && assignment != null && <PDFViewer style={styles.viewer}>
         <Document>
           <Page>

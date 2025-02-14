@@ -7,7 +7,7 @@ const UserMenu = () => {
     const cookies = useCookies()
 
     function toUrl(url) {
-        window.location.href = url
+      window.location.href = url
     }
 
     //Logout the user by removing the token issued to the user
@@ -40,9 +40,3 @@ const UserMenu = () => {
 }
 
 export { UserMenu }
-// Removed until further decision is made
-// {false && cookies.get("Type") == "Boy" && <button className="quiz--button" onClick={quizPage}>Quizzes</button>}
-// {false && cookies.get("Type") != "Boy" && <button className="question-bank--button" onClick={questionBankPage}>Questions</button>}
-// {false && cookies.get("Type") != "Boy" && <button className="quiz-bank--button" onClick={quizBankPage}>Quizzes</button>}
-// {cookies.get("Type") != "Boy" && <button className="uniform-inspection--button" onClick={() => {toUrl('/uniform_inspection_results')}}>Uniform Inspection</button>}
-//{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) && <button className="help--button" onClick={() => {toUrl('/help')}}>Help</button>}

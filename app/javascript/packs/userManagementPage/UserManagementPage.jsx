@@ -48,7 +48,6 @@ const UserManagementPage = () => {
 
   return(
     <div className='user-management-page'>
-      <NavigationBar/>
       <div className='page-container'>
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>

@@ -1,16 +1,13 @@
 @media screen{
     .attendance-management-page .page-container{
 		overflow: hidden;
-		display: flex;
 		margin-top: 3vh;
 		height: 85vh;
+        padding-left: 5%;
 	}
 
     .attendance-management-page .page-container .annual-attendance-list{
-        position: absolute;
-        top: 10vh;
 		height: 10vh;
-        left: 5vw;
         width: 90vw;
         overflow-x: auto;
 	}
@@ -29,9 +26,6 @@
 	}
 
     .attendance-management-page .page-container .parade-list{
-        position: absolute;
-        top: 20vh;
-        left: 5vw;
         height: 75vh;
 		width: 90vw;
         overflow-x: auto;

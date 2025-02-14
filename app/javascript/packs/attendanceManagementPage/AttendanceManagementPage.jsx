@@ -33,7 +33,6 @@ const AttendanceManagementPage = () => {
 
   return(
     <div className='attendance-management-page'>
-      <NavigationBar/>
       <div className='page-container'>
         <div className='annual-attendance-list'>
           <h1>Yearly Attendance File</h1>

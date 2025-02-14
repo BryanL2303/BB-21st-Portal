@@ -172,7 +172,6 @@ const ResultGenerationPage = () => {
 
   return(
     <div className='result-generation-page'>
-      <NavigationBar/>
       <div className='page-container'>
         <div className='main-block'>
           <div className='fields'>

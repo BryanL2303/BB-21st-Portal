@@ -43,13 +43,12 @@ const AwardsManagementPage = () => {
 
   return(
     <div className='award-management-page'>
-      <NavigationBar/>
       <div className='page-container'>
         {!renderSide && <button className="img-button" onClick={() => {
           setRenderSide(true)
           let mainBlock = document.getElementsByClassName('main-block')[0]
           mainBlock.style.width = '70%'
-          }}><img className="side-menu-img" src="/packs/media/packs/general/three-horizontal-lines-icon-58a09c6e8d783720708479463a51e0ee.png" alt='Show Menu'></img>
+          }}><i class="fa-solid fa-bars fa-2xl"></i>
           </button>}
         {renderSide && <div className='awards-list'>
           <button className="img-button" onClick={() => {

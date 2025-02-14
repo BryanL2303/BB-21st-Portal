@@ -40,7 +40,6 @@ const AdminPage = () => {
 
   return(
     <div className='admin-page'>
-      <NavigationBar/>
       <div className='page-container'>
         {tableNames.map((table_name) => {
           return(
