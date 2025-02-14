@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
 import axios from 'axios'
-import {NavigationBar} from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError';
 
 /*For officers/primers to generate results

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'

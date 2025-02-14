@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { ManualResultPage } from './ManualResultPage'
 import { handleServerError } from '../general/handleServerError'
 

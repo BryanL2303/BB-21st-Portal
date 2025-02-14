@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError'
 
 /*To allow boys to reset their password
