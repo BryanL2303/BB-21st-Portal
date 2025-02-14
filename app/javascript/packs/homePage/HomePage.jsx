@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
-
-function homePage() {
+function HomePage() {
 	const [currentImage, setCurrentImage] = useState(1);
 
 	useEffect(() => {
@@ -31,8 +30,6 @@ function homePage() {
 
 	return (
 		<>
-			<Header></Header>
-
 			<section className='slider' data-slide={currentImage}></section>
 
 			<section className='achievements'>
@@ -81,10 +78,8 @@ function homePage() {
 					</div>
 				</div>
 			</section>
-
-			<Footer></Footer>
 		</>
 	)
 }
 
-export { homePage }
+export { HomePage }
