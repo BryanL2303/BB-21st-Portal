@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react'
+
+
 function homePage() {
 	const [currentImage, setCurrentImage] = useState(1);
 
