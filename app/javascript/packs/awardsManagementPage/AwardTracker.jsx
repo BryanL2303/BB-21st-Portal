@@ -190,7 +190,7 @@ const AwardTracker = () => {
         {Object.keys(changeLog).length != 0 && <button onClick={saveChanges}>Save Changes</button>}
       </div>
       <div>
-        <Popup className='account-filter-popup' trigger={<button className="img-button"><img className="filter-account-img" src="/packs/media/packs/general/filter-line-icon-75b677be9dfe5ecb38441d43e9bed3d6.png" alt='Filter'></img></button>} position="bottom left">
+        <Popup className='account-filter-popup' trigger={<button className="img-button"><i class="fa-solid fa-filter fa-2xl"></i></button>} position="bottom left">
           <button onClick={selectAllBoys}>Select All</button>
           <button onClick={unSelectAllBoys}>Unselect All</button>
           {boys.map((boy, index) => {

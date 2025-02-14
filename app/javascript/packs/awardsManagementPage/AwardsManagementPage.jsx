@@ -54,7 +54,7 @@ const AwardsManagementPage = () => {
             setRenderSide(false)
             let mainBlock = document.getElementsByClassName('main-block')[0]
             mainBlock.style.width = '90%'
-            }}><img className="hide-img" src="/packs/media/packs/general/close-line-icon-ecbf3750de5dd12acf13dc3e22baf8bd.png" alt='Hide Menu'></img>
+            }}><i class="fa-solid fa-x fa-2xl"></i>
             </button>
           <button className='menu-button' onClick={showTracker}>Awards Tracker</button>
           <p>Current Awards</p>
