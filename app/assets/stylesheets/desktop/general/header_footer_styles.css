@@ -1,0 +1,214 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+#root {
+    background-color: #f6f6f6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    background-color: white;
+    color: black;
+    height: 100px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+header .fa-bars {
+    display: none;
+}
+
+header > a > div {
+    background: url("./coy logo.webp") center/contain no-repeat;
+    width: 90px;
+    height: 90px;
+}
+
+header > div {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+header > div:last-of-type a {
+    color: black;
+    text-decoration: none;
+}
+
+header > div:last-of-type a::after {
+    content: "";
+    display: block;
+    width: 0;
+    margin-top: 3px;
+    height: 1px;
+    background-color: black;
+    transition: width 0.3s ease-in-out;
+}
+
+header > div:last-of-type a:hover::after, header > div:last-of-type a[active="true"]::after {
+    width: 100%;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    background: black;
+    padding: 10px 20px;
+    color: white;
+    gap: 20px;
+}
+
+footer > div:first-of-type {
+    display: grid;
+    grid-template-columns: 20vw 1fr 20vw;
+    height: max-content;
+    justify-content: space-evenly;
+}
+
+footer > div:first-of-type > div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+footer > div:first-of-type > div > div {
+    display: flex;
+    gap: 20px;
+}
+
+footer > div:first-of-type > div:last-of-type {
+    align-items: flex-start;
+}
+
+footer > div:first-of-type > div:last-of-type > div {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+footer > div:first-of-type > div:last-of-type > div > a:first-of-type {
+    text-decoration: none;
+    color: white;
+    margin-left: 30px;
+    font-size: 13px;
+}
+
+footer > div:first-of-type > div:last-of-type > div > a:last-of-type {
+    text-decoration: none;
+    color: white;
+    margin-left: 60px;
+    font-size: 13px;
+}
+
+footer > div:last-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    justify-content: center;
+}
+
+footer > div:last-of-type a {
+    color: white;
+    text-decoration: none;
+}
+
+footer .fa-brands {
+    font-size: 40px;
+    color: white;
+}
+
+footer img {
+    object-fit: contain;
+}
+
+@media screen and (max-width: 800px) {
+    footer > div {
+        grid-template-columns: 1fr !important;
+    }
+
+    footer > div > div {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid white;
+    }
+
+    footer > div:first-of-type > div:last-of-type > div {
+        flex-direction: row;
+    }
+
+    footer > div:first-of-type > div:last-of-type > div a {
+        margin-left: 0;
+    }
+
+    footer > div:first-of-type > div:last-of-type {
+        justify-content: center;
+        align-items: center;
+    }
+
+    footer > div:first-of-type > div > div {
+        flex-wrap: wrap;
+    }
+
+    footer > div:first-of-type > div:last-of-type > div > a {
+        margin-left: 0 !important;
+    }
+
+    header {
+        flex-direction: column;
+        overflow: hidden;
+        gap: 10px;
+        position: relative !important;
+        background: transparent;
+        box-shadow: none;
+        transition: height 0.3s ease-in-out;
+    }
+
+    header .fa-bars {
+        position: absolute;
+        top: 50px;
+        transform: translateY(-50%);
+        left: 30px;
+        cursor: pointer;
+        display: flex;
+    }
+
+    header > div {
+        flex-direction: column;
+        width: 100%;
+        justify-content: start;
+        padding: 0 15px;
+        gap: 0;
+    }
+
+    header a::after {
+        display: none !important;
+    }
+
+    header div a {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        height: 30px;
+        border-bottom: 1px solid black;
+    }
+
+    header div a:last-of-type {
+        border-bottom: none;
+    }
+}
