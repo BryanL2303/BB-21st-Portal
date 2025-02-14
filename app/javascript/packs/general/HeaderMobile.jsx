@@ -44,7 +44,7 @@ const HeaderDesktop = () => {
 
   return(
     <div className='header-div'>
-      {<button className="menu-button" onClick={toggleUserMenu}><i class="fa-solid fa-bars fa-2xl"></i></button>}
+      {<button className="menu-button" onClick={toggleUserMenu}><i className="fa-solid fa-bars fa-2xl"></i></button>}
       <div className='logo-div'><img className='logo' src="/assets/coy logo-9c8cabf89b71a4b4554e2864db559572b3b21bb9be05fafabfc844e3a584b7e1.png"></img></div>
       {!loggedIn && navigationViewable && <div className='navigation-div' ref={popupRef} tabIndex={0}>
         {/* Only uncomment the below when it has been implemented, backend function has to be created to fetch the next parade notice if its available */}

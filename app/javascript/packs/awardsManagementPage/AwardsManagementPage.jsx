@@ -54,7 +54,7 @@ const AwardsManagementPage = () => {
             setRenderSide(false)
             let mainBlock = document.getElementsByClassName('main-block')[0]
             mainBlock.style.width = '90%'
-            }}><i class="fa-solid fa-x fa-2xl"></i>
+            }}><i className="fa-solid fa-x fa-2xl"></i>
             </button>
           <button className='menu-button' onClick={showTracker}>Awards Tracker</button>
           <p>Current Awards</p>
