@@ -312,3 +312,10 @@ Version 1.0
 4. Added class for Primers with no ranks
 5. Remove 2024 from annual attendance list
 6. Fix bug where certain user information gets overwritten with null when editing accounts
+
+14 February 2025
+1. Overhaul NavigationBar to Header. This header has 2 versions, one for mobile and one for desktop
+2. Removed outdated files/images which are no longer used
+3. Linked stylesheet fontawesome
+4. Added empty component footer to be completed
+5. Shifted images away from general folder into assets/images folder

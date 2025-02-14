@@ -1,0 +1,51 @@
+@media screen and (max-width: 800px){
+	.header-div{
+		position: relative;
+		min-height: 10vh;
+        height: fit-content;
+		width: auto;
+		margin: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+	}
+
+    .header-div button{
+		height: 100%;
+	}
+
+    .header-div .menu-button {
+        position: absolute;
+        height: 10vh;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    .header-div .logo-div {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .header-div .logo {
+        height: 9vh
+    }
+
+    .header-div button:hover{
+		opacity: 0.8;
+	}
+
+    .navigation-div {
+        width: 100%;
+    }
+
+    .navigation-div button {
+        margin: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 100%;
+        border-bottom: solid;
+        text-align: start;
+    }
+}

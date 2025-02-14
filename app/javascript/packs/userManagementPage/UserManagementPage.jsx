@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import useCookies from '../general/useCookies'
-import { NavigationBar } from '../general/NavigationBar'
 import { AccountCreationForm } from './AccountCreationForm'
 import { AppointmentHoldersList } from './AppointmentHoldersList'
 import { UserInformation } from './UserInformation'
@@ -48,7 +47,6 @@ const UserManagementPage = () => {
 
   return(
     <div className='user-management-page'>
-      <NavigationBar/>
       <div className='page-container'>
         <div className='users-list'>
           <button onClick = {showForm}>Create New Account</button>
