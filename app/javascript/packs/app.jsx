@@ -2,6 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './Layout';
+import { homePage } from './homePage/homePage'
 import { LogInPage } from './logInPage/LogInPage'
 import { AttendanceManagementPage } from './attendanceManagementPage/AttendanceManagementPage'
 import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPage'
@@ -17,7 +18,7 @@ root.render(
   <Router>
     <Routes>
       <Route element={<Layout />}>
-        <Route path='/' element={<LogInPage/>}/>
+        <Route path='/' element={<homePage/>}/>
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
         {/* <Route path='/' element={<LogInPage/>}/> */}
