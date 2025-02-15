@@ -1,0 +1,209 @@
+.achievements {
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+ul {
+    margin-left: 20px;
+    line-height: 1.7;
+}
+
+li {
+    padding-left: 5px;
+}
+
+.hero {
+    margin-top: 20px;
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hero > div {
+    display: flex;
+    gap: 20px;
+}
+
+.hero > div > div {
+    width: 400px;
+    flex-shrink: 0;
+    height: 250px;
+    border-radius: 20px;
+}
+
+.hero p {
+    display: flex;
+    align-items: center;
+}
+
+.hero > div > div:first-of-type {
+    background: url("/assets/Bonding-3fc14ffd975df418446d2458c1cf9e5a114d1a8736b75bded0b8ec6b335a1291.webp") center/cover no-repeat;
+}
+
+.hero > div > div:last-of-type {
+    background: url("/assets/Leading-98517e51d486bbf0f7517872a674d218429c4f4eca3d6c1643746fedcd243f9f.webp") center/cover no-repeat;
+}
+
+.slider {
+    width: 100%;
+    height: calc(100vh - 100px);
+    transition: all 0.3s ease-in-out;
+}
+
+.slider[data-slide="1"] {
+    background: url("/assets/slide 1-33d3a75424fd99dd5496cfcc0a826a4d61682b740f677546b441b852c5bc3eaf.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="2"] {
+    background: url("/assets/slide 2-2a5632daac50d47f2c80ddbc3b93f583a1e2b9a6611005409b3cef19e92eded2.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="3"] {
+    background: url("/assets/slide 3-2b16ec326434e1820740701eaf15c0bad14d3c0dcabbeb8ba37b705c78416ebf.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="4"] {
+    background: url("/assets/slide 4-4d066934af31f0ac016f2b6fbb760a38c09ee24406afbf299d514f8dae08fc81.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="5"] {
+    background: url("/assets/slide 5-c82dc754afdd70b3d458447eaf1b010e068df46946cac8709218dc3d765864a9.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="6"] {
+    background: url("/assets/slide 6-2f002ffdb32ed6b84fe389d4a5d49242df535091f5e949d2131e5a2a31c282ba.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="7"] {
+    background: url("/assets/slide 7-fc0180bca98594375fd4c40699ae2325b71644ed44703484f63a549abbad2629.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="8"] {
+    background: url("/assets/slide 8-d4ae70c939744a94d3accec48721307d7f589a4778ff5f903e2a5b5ff5429aef.webp") center/cover no-repeat;
+}
+
+.slider[data-slide="9"] {
+    background: url("/assets/slide 9-dcf597c266c943c194b8f98e4355d6732fee325ea90db60922e3dc8aa64e75c7.webp") center/cover no-repeat;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f6f6f6;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(183, 183, 183);
+    border-radius: 10px;
+}
+
+.testimonies {
+    margin: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.scroller {
+    overflow: hidden;
+    -webkit-mask: linear-gradient(90deg, transparent, white 5%, white 95%, transparent);
+    mask: linear-gradient(90deg, transparent, white 5%, white 95%, transparent);
+}
+
+.scroller > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: max-content;
+    flex-wrap: nowrap;
+    animation: scroll 35s linear infinite;
+}
+
+@keyframes scroll {
+    to {
+        transform: translate(calc(-50% - 0.5rem));
+    }
+}
+
+.testimony {
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: space-between;
+    width: 300px;
+    height: 170px;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.testimony > p {
+    width: 100%;
+    text-wrap: auto;
+    font-size: 14px;
+}
+
+.testimony > p:last-of-type {
+    font-size: 12px;
+    text-align: right;
+}
+
+header[sticky='true'] {
+    position: sticky;
+    top: 0;    
+}
+
+@media screen and (max-width: 1000px) {
+    .hero > div > div {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .hero > div {
+        flex-direction: column;
+    }
+
+    .hero > div > div:first-of-type {
+        background-position: center top;
+    }
+
+    .hero > div > div {
+        width: 100%;
+        height: 220px;
+    }
+
+    .slider {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    #root *, header *, footer *, footer, header {
+        display: none !important;
+    }
+
+    #root {
+        background: none !important;
+        margin: 0 !important;
+    }
+
+    #root::before {
+        display: block;
+        content: "Your device's viewport is too small to display any content.\A\APlease try again on a device with a larger viewport.\A\AWe apologize for the inconvenience.";
+        position: absolute;
+        top: 50%;
+        font-weight: bold;
+        left: 50%;
+        text-align: center;
+        text-wrap: wrap;
+        white-space: pre-line;
+        transform: translate(-50%, -50%);
+    }
+}

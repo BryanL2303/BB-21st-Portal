@@ -57,7 +57,7 @@ const HeaderDesktop = () => {
         <button className="log-in--button" onClick={() => {toUrl('/log_in')}}>Members Log In</button>
       </div>}
       {/* {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu}><img src="/assets/user-menu-icon-8dc4bed4f03c2d69df8b5087e12febc3e1662c2ba5fe6006f3202086ab0fdb54.jpg" alt='Side bar'></img></button>} */}
-      {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu}><i class="fa-solid fa-ellipsis-vertical fa-2xl"></i></button>}
+      {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu}><i className="fa-solid fa-ellipsis-vertical fa-2xl"></i></button>}
 
       {navigationViewable && loggedIn && <div className='popup-navigation-div' ref={popupRef} tabIndex={0} >
       {/* onBlur={toggleUserMenu} */}
