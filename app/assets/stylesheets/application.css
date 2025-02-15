@@ -25,3 +25,8 @@ body{
     width: 100vw;
     overflow: hidden;
 }
+
+.layout-div {
+    overflow-y: auto;
+    max-height: 100vh;
+}

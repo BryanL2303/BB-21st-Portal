@@ -9,13 +9,13 @@ const Layout = () => {
 const [isMobile,] = useState(window.innerWidth < 800);
 // Add in the logic to switch between logged in / logged out for header
   return (
-    <>
+    <div className="layout-div">
       {isMobile ? <HeaderMobile /> : <HeaderDesktop />}
       <main>
         <Outlet /> {/* This will render the current route's component */}
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
