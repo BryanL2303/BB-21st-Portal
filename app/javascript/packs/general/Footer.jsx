@@ -11,8 +11,8 @@ const Footer = () => {
                 <div>
                     <p>Affiliated With:</p>
                     <div>
-                        <img src="./gm.webp" width="60px" height="60px" alt="Geylang Methodist School (Secondary)" />
-                        <img src="./church.png" width="60px" height="60px" alt="Christalite Methodist Chapel" />
+                        <img src="/assets/gm-3fa691a60eebcd4c586a4a35eecafc9cf13f7f44005a12f609badbbd03ac934b.webp" width="60px" height="60px" alt="Geylang Methodist School (Secondary)" />
+                        <img src="/assets/church-1a489e164024027313247629433f9d397441e4f460323a3e367223c01f5dc57c.png" width="60px" height="60px" alt="Christalite Methodist Chapel" />
                     </div>
                 </div>
                 <div>
