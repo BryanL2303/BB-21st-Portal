@@ -292,7 +292,7 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
           <tbody width='100%'>
             {companyAnnouncements.map((announcement, index) => {
               return(
-                <tr key={index} width='100%'>
+                <tr key={'company' + announcement.announcement} width='100%'>
                   <td width='3%'><label>{index + 1}. </label></td>
                   <td width='82%'><input defaultValue={announcement.announcement} onBlur={(e) => {updateCompanyAnnouncement(e, index)}} /></td>
                   <td width='15%'><button type='button' onClick={() => deleteCompanyAnnouncement(index)}>X</button></td>
@@ -315,7 +315,7 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
                   <tbody width='100%'>
                     {platoonPrograms[level].map((program, index) => {
                       return(
-                        <tr key={index} width='100%'>
+                        <tr key={level + program.program} width='100%'>
                           <td width='13%'><input type='datetime-local' defaultValue={program.start_time.slice(0, 16)} onBlur={(e) => {updatePlatoonProgram(e, level, index, 'start_time')}} /></td>-
                           <td width='13%'><input type='datetime-local' defaultValue={program.end_time.slice(0, 16)} onBlur={(e) => {updatePlatoonProgram(e, level, index, 'end_time')}} /></td>
                           <td width='65%'><input defaultValue={program.program} onBlur={(e) => {updatePlatoonProgram(e, level, index, 'program')}} /></td>
@@ -336,7 +336,7 @@ const ParadeEditor = ({parade, boys, primers, officers, setReload, setPageState}
                   <tbody width='100%'>
                     {platoonAnnouncements[level].map((announcement, index) => {
                       return(
-                        <tr key={index} width='100%'>
+                        <tr key={level + announcement.announcement} width='100%'>
                           <td width='3%'><label>{index + 1}. </label></td>
                           <td width='82%'><input defaultValue={announcement.announcement} onBlur={(e) => {updatePlatoonAnnouncement(e, level, index)}} /></td>
                           <td width='15%'><button type='button' onClick={() => deletePlatoonAnnouncement(level, index)}>X</button></td>
