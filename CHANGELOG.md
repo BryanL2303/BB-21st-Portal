@@ -324,3 +324,4 @@ Version 1.0
 1. Added files for footer and home page
 2. Home page is not displayed yet since its filled with dummy data
 3. Update footer to remove credits to flaticon
+4. Fixed bug with parade controller not creating platoon announcements due to typo
