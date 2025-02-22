@@ -39,7 +39,7 @@ function HomePage() {
 					<ul>
 						<li>BB Blaze 2024 - Silver Honour Roll</li>
 						<li>J M Fraser Award 2024 - Distinction</li>
-						<li>Founder's Award 2024 -Staff Sergeant Emmanuel Lim Tze Yong -Staff Sergeant Asher Long Zhijie</li>
+						<li>{`Founder's Award 2024 -Staff Sergeant Emmanuel Lim Tze Yong -Staff Sergeant Asher Long Zhijie`}</li>
 						<li>BB Cares 2024 - Partnership with Lions Befrienders to engage elderly folk through conversations and cleaning their homes.</li>
 						<li>BB Character Quest 2024 - Results to be released</li>
 						<li>BB Share-a-Gift 2024</li>
@@ -48,8 +48,8 @@ function HomePage() {
 				<div>
 					<h3>2023</h3>
 					<ul>
-						<li>Staff Sergeants Dylan Yeo, Jaedon Ho and Jesse Oh were awarded the Founder’s Award 2022</li>
-						<li>Bronze Honour Roll placing in Boys’ Brigade Adventure Blaze 2023 Competition</li>
+						<li>{`Staff Sergeants Dylan Yeo, Jaedon Ho and Jesse Oh were awarded the Founder’s Award 2022`}</li>
+						<li>{`Bronze Honour Roll placing in Boys’ Brigade Adventure Blaze 2023 Competition`}</li>
 						<li>Awarded J M Frazer Distinction Award</li>
 						<li>Created and celebrated National Day event with the residents of Geylang East Home for the Aged as part of BB Cares VIA Outreach programme.</li>
 					</ul>

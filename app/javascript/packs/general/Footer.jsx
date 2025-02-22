@@ -6,7 +6,7 @@ const Footer = () => {
             <div>
                 <div>
                     <p>Social Media:</p>
-                    <a href="https://www.instagram.com/bb21coy/" target="_blank" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.instagram.com/bb21coy/" target="_blank" rel="noreferrer" aria-label="Instagram"><i className="fa-brands fa-instagram"></i></a>
                 </div>
                 <div>
                     <p>Affiliated With:</p>
@@ -18,13 +18,13 @@ const Footer = () => {
                 <div>
                     <p>Associated Websites:</p>
                     <div>
-                        <a href="https://www.bb.org.sg/" target="_blank">BB HQ Website</a>
-                        <a href="https://members.bb.org.sg/cos/o.x?c=/ca3_ca3bbportal/user&func=login" target="_blank">BB Members Portal</a>
+                        <a href="https://www.bb.org.sg/" target="_blank" rel="noreferrer">BB HQ Website</a>
+                        <a href="https://members.bb.org.sg/cos/o.x?c=/ca3_ca3bbportal/user&func=login" target="_blank" rel="noreferrer">BB Members Portal</a>
                     </div>
                 </div>
             </div>
             <div>
-                <p>Uicons by <a href="https://www.flaticon.com/free-icons/" title="uicons icons" target="_blank">Flaticon</a> & <a href="https://fontawesome.com/" title="Font Awesome" target="_blank">Font Awesome</a></p>
+                <p>Uicons by <a href="https://www.flaticon.com/free-icons/" title="uicons icons" target="_blank" rel="noreferrer">Flaticon</a> & <a href="https://fontawesome.com/" title="Font Awesome" target="_blank" rel="noreferrer">Font Awesome</a></p>
                 <p>Website designed and developed by: Bryan Lee & Dylan Yeo</p>
             </div>
         </footer>

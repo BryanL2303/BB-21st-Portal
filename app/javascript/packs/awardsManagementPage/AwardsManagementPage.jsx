@@ -47,7 +47,7 @@ const AwardsManagementPage = () => {
           setRenderSide(true)
           let mainBlock = document.getElementsByClassName('main-block')[0]
           mainBlock.style.width = '70%'
-          }}><i class="fa-solid fa-bars fa-2xl"></i>
+          }}><i className="fa-solid fa-bars fa-2xl"></i>
           </button>}
         {renderSide && <div className='awards-list'>
           <button className="img-button" onClick={() => {
