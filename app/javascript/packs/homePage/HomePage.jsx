@@ -60,13 +60,13 @@ function HomePage() {
 				<h2>Not Just A CCA</h2>
 				<div>
 					<div></div>
-					<p>Our members form lasting friendships and camaraderie through shared experiences and teamwork, fostering a supportive and united community that transcends our activities' boundaries.<br /><br />Empowering youth to take the lead, we nurtures future-ready leaders with the skills, confidence, and character to inspire change and make a difference.</p>
+					<p>{`Our members form lasting friendships and camaraderie through shared experiences and teamwork, fostering a supportive and united community that transcends our activities' boundaries.<br /><br />Empowering youth to take the lead, we nurtures future-ready leaders with the skills, confidence, and character to inspire change and make a difference.`}</p>
 					<div></div>
 				</div>
 			</section>
 
 			<section className="testimonies">
-				<h2>Don't just take it from us</h2>
+				<h2>{`Don't just take it from us`}</h2>
 				<div className="scroller">
 					<div>
 						{duplicatedTestimonies.map((testimony, index) => (
