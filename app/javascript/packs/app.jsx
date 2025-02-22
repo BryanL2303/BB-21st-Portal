@@ -2,7 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './Layout';
-import { HomePage } from './homePage/HomePage'
+// import { HomePage } from './homePage/HomePage'
 import { LogInPage } from './logInPage/LogInPage'
 import { AttendanceManagementPage } from './attendanceManagementPage/AttendanceManagementPage'
 import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPage'

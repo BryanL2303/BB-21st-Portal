@@ -24,7 +24,7 @@ const Footer = () => {
                 </div>
             </div>
             <div>
-                <p>Uicons by <a href="https://www.flaticon.com/free-icons/" title="uicons icons" target="_blank" rel="noreferrer">Flaticon</a> & <a href="https://fontawesome.com/" title="Font Awesome" target="_blank" rel="noreferrer">Font Awesome</a></p>
+                <p>Uicons by <a href="https://fontawesome.com/" title="Font Awesome" target="_blank" rel="noreferrer">Font Awesome</a></p>
                 <p>Website designed and developed by: Bryan Lee & Dylan Yeo</p>
             </div>
         </footer>
