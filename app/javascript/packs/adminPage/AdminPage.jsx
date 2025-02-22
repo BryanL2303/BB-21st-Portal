@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError';
 import { DatabaseTable } from './DatabaseTable';
 
@@ -40,7 +39,6 @@ const AdminPage = () => {
 
   return(
     <div className='admin-page'>
-      <NavigationBar/>
       <div className='page-container'>
         {tableNames.map((table_name) => {
           return(

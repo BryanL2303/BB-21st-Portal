@@ -1,0 +1,61 @@
+@media screen and (min-width: 800px){
+	.header-div{
+		position: relative;
+		height: 10vh;
+		width: auto;
+		margin: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        border-bottom: solid;
+	}
+
+    .header-div img{
+		height: 90%;
+	}
+
+	.header-div button{
+		height: 90%;
+	}
+
+    .header-div button:hover{
+		opacity: 0.8;
+	}
+
+    .header-div .account-dropdown {
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    .navigation-div {
+        width: 50%;
+        display: flex;
+        justify-content: end;
+    }
+
+    .navigation-div button {
+        padding: 10px;
+    }
+
+    .popup-navigation-div {
+        position: absolute;
+        right: 0;
+        height: fit-content;
+        width: 30%;
+        padding: 10px;        
+        z-index: 1;
+        background: white;
+    }
+
+    .popup-navigation-div button {
+        background: black;
+        color: white;
+        border-radius: 5px;
+        margin: 10px;
+        padding: 10px;
+        width: 90%;
+    }
+}

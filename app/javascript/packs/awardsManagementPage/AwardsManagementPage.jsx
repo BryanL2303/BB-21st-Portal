@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'
@@ -43,20 +42,19 @@ const AwardsManagementPage = () => {
 
   return(
     <div className='award-management-page'>
-      <NavigationBar/>
       <div className='page-container'>
         {!renderSide && <button className="img-button" onClick={() => {
           setRenderSide(true)
           let mainBlock = document.getElementsByClassName('main-block')[0]
           mainBlock.style.width = '70%'
-          }}><img className="side-menu-img" src="/packs/media/packs/general/three-horizontal-lines-icon-58a09c6e8d783720708479463a51e0ee.png" alt='Show Menu'></img>
+          }}><i className="fa-solid fa-bars fa-2xl"></i>
           </button>}
         {renderSide && <div className='awards-list'>
           <button className="img-button" onClick={() => {
             setRenderSide(false)
             let mainBlock = document.getElementsByClassName('main-block')[0]
             mainBlock.style.width = '90%'
-            }}><img className="hide-img" src="/packs/media/packs/general/close-line-icon-ecbf3750de5dd12acf13dc3e22baf8bd.png" alt='Hide Menu'></img>
+            }}><i className="fa-solid fa-x fa-2xl"></i>
             </button>
           <button className='menu-button' onClick={showTracker}>Awards Tracker</button>
           <p>Current Awards</p>

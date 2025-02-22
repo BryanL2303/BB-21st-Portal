@@ -45,11 +45,7 @@ const LogInPage = () => {
   }
 
   return(
-    <div className='log-in-page'>
-      <div className='navigation-bar'>
-        <img className="crest" src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png" alt="BB Crest"></img>
-      </div>
-      
+    <div className='log-in-page'>      
       <form className='log-in-form' onSubmit={ submitForm }>
         <label>BB 21st Portal</label>
         <input className='log-in-form__name' name={"username"} placeholder='username'></input>

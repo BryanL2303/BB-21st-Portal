@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { PDFViewer, Document, Text, Page, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
 import axios from 'axios'
-import {NavigationBar} from '../general/NavigationBar'
 import { handleServerError } from '../general/handleServerError';
 
 /*For officers/primers to generate results
@@ -264,13 +263,12 @@ const ResultPage = () => {
 
   return(
     <div className="result-page">
-      <NavigationBar/>
       {account != null && assignment != null && <PDFViewer style={styles.viewer}>
         <Document>
           <Page>
             <View>
               <Header>              
-                <Image style={styles.logo} src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></Image>
+                <Image style={styles.logo} src="/assets/bb-crest-34c67a3e6293d4779a6cc93c1dcec5d5724968d117976abb1651536a0835175d.png"></Image>
                 <HeaderText>
                   <HeaderLogoColumn>
                     <HeaderLogoRow>

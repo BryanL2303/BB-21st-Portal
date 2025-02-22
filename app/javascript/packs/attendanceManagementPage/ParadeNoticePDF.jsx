@@ -147,8 +147,8 @@ const ParadeNoticePDF = ({parade}) => {
       <Document>
         <Page size="A4" style={styles.page} orientation='landscape'>
           <View>
-            <Header>              
-              <Image style={styles.logo} src="/packs/media/packs/general/bb-crest-7106b85f04ce6829d39a973203d05a81.png"></Image>
+            <Header>
+              <Image style={styles.logo} src="/assets/bb-crest-34c67a3e6293d4779a6cc93c1dcec5d5724968d117976abb1651536a0835175d.png"></Image>
               <HeaderText>
                 <HeaderLogoColumn>
                   <HeaderLogoRow>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { NavigationBar } from '../general/NavigationBar'
 import { ManualResultPage } from './ManualResultPage'
 import { handleServerError } from '../general/handleServerError'
 
@@ -172,7 +171,6 @@ const ResultGenerationPage = () => {
 
   return(
     <div className='result-generation-page'>
-      <NavigationBar/>
       <div className='page-container'>
         <div className='main-block'>
           <div className='fields'>
