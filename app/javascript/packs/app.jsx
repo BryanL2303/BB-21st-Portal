@@ -18,10 +18,11 @@ root.render(
   <Router>
     <Routes>
       <Route element={<Layout />}>
-        <Route path='/' element={<HomePage/>}/>
+        {/* Temporarily disable home page since its filled with filler data */}
+        {/* <Route path='/' element={<HomePage/>}/> */}
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
-        {/* <Route path='/' element={<LogInPage/>}/> */}
+        <Route path='/' element={<LogInPage/>}/>
         <Route path='/home' element={<UserManagementPage/>}/>
         <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
