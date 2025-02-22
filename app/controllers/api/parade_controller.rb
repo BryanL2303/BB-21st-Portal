@@ -38,7 +38,7 @@ module Api
               program.save
             end
 
-            params[:platoon_announcements][level].each do |_platoon_announncement|
+            params[:platoon_announcements][level].each do |platoon_announcement|
               announcement = ParadePlatoonAnnouncement.new(parade_id: parade.id, level:,
                                                            announcement: platoon_announcement['announcement'])
               announcement.save
