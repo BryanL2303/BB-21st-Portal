@@ -319,3 +319,8 @@ Version 1.0
 3. Linked stylesheet fontawesome
 4. Added empty component footer to be completed
 5. Shifted images away from general folder into assets/images folder
+
+22 February 2025
+1. Added files for footer and home page
+2. Home page is not displayed yet since its filled with dummy data
+3. Update footer to remove credits to flaticon
