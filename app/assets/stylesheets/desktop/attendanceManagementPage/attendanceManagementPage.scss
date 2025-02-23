@@ -1,81 +1,85 @@
 @media screen{
-    .attendance-management-page .page-container{
+	.attendance-management-page {
+		position: relative;  
+    	}
+	
+    	.attendance-management-page .page-container{
 		overflow: hidden;
 		margin-top: 3vh;
 		height: 85vh;
-        padding-left: 5%;
+        	padding-left: 5%;
 	}
 
-    .attendance-management-page .page-container .annual-attendance-list{
+    	.attendance-management-page .page-container .annual-attendance-list{
 		height: 10vh;
-        width: 90vw;
-        overflow-x: auto;
+        	width: 90vw;
+        	overflow-x: auto;
 	}
 
-    .attendance-management-page .page-container .annual-attendance-list .year-button{
-        border: solid;
-        height: 35%;
-        width: 20%;
+    	.attendance-management-page .page-container .annual-attendance-list .year-button{
+	        border: solid;
+	        height: 35%;
+	        width: 20%;
 	}
 
-    .attendance-management-page .page-container .annual-attendance-list button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
-        padding: 5px;
+	.attendance-management-page .page-container .annual-attendance-list button{
+	        border: solid;
+	        border-width: thin;
+	        margin: 1%;
+	        padding: 5px;
 	}
 
-    .attendance-management-page .page-container .parade-list{
-        height: 75vh;
+    	.attendance-management-page .page-container .parade-list{
+        	height: 75vh;
 		width: 90vw;
-        overflow-x: auto;
+        	overflow-x: auto;
 	}
 
-    .attendance-management-page .page-container .parade-list button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
-        padding: 5px;
+    	.attendance-management-page .page-container .parade-list button{
+	        border: solid;
+	        border-width: thin;
+	        margin: 1%;
+	        padding: 5px;
 	}
 
-    .attendance-management-page .page-container .main-block{
-        position: absolute;
-        top: 20vh;
-        left: 25vw;
-        height: 75vh;
-        overflow-x: auto;
+    	.attendance-management-page .page-container .main-block{
+	        position: absolute;
+	        top: 20vh;
+	        left: 25vw;
+	        height: 60vh;
+	        overflow-x: auto;
 	}
 
 	.parade-form-popup-content{
 		position: absolute;
-        width: 90vw;
-        height: 90vh;
-        overflow-y: auto;
-        overflow-x: auto;
+	        width: 90vw;
+	        height: 90vh;
+	        overflow-y: auto;
+	        overflow-x: auto;
 	}
 
-    .attendance-management-page .page-container .parade-editor button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
-        padding: 5px;
+    	.attendance-management-page .page-container .parade-editor button{
+	        border: solid;
+	        border-width: thin;
+	        margin: 1%;
+	        padding: 5px;
 	}
 
-    .attendance-management-page .page-container .main-block .flex-block{
-        display: flex;
-        flex-wrap: wrap;
+    	.attendance-management-page .page-container .main-block .flex-block{
+	        display: flex;
+	        flex-wrap: wrap;
 	}
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block{
-        width: 50%;
+    	.attendance-management-page .page-container .main-block .parade-information .flex-block .half-block{
+        	width: 50%;
 	}
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td{
-        border: solid, black;
-        border-width: thin;
+    	.attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td{
+	        border: solid, black;
+	        border-width: thin;
 	}
 
-    .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
-        width: 98%;
-    }
+    	.attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
+        	width: 98%;
+    	}
 }
