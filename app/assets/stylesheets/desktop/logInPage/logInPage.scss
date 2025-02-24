@@ -1,47 +1,89 @@
-@media screen and (min-width: 800px){
+@media screen {
 	.log-in-page{
 		position: relative;
 		height: 100vh;
 		width: 100vw;
 		overflow: hidden;
 		text-align: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background: url("/assets/slide 2-2a5632daac50d47f2c80ddbc3b93f583a1e2b9a6611005409b3cef19e92eded2.webp") center/cover no-repeat;
 	}
 
 	.log-in-form{
-		height: 50%;
-		width: 50%;
-		position: absolute;
-		top: 25%;
-		left: 25%;
-		border: solid;
-		border-radius: 3%;
+		height: max-content;
+		width: max-content;
+		min-width: 450px;
+		border: 1px solid black;
+		display: flex;
+		flex-direction: column;
+		padding: 20px;
+		gap: 20px;
+		border-radius: 20px;
+		align-items: flex-start;
+		backdrop-filter: blur(10px);
+		background: rgba($color: #000000, $alpha: 0.1);
+		font-family: sans-serif;
+		box-shadow: 0 0 10px black;
 	}
 
-	.log-in-form{
-		font-size: 30px;
+	.log-in-form h2 {
+		font-size: 35px;
+		width: 100%;
+		text-align: center;
 	}
 
-	.log-in-form__name{
-		position: absolute;
-		top: 30%;
-		left: 25%;
-		width: 50%;
+	.log-in-form > div {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 5px;
+		width: 100%;
+	}
+
+	.log-in-form label {
+		font-size: 22px;
+	}
+
+	.log-in-form label i {
+		margin-right: 10px;
+		font-size: 22px;
+	}
+
+	.log-in-form input {
+		border: none;
+		outline: none;
+		background: transparent;
+		flex: 1;
+		width: 100%;
+		border-bottom: 1px solid black;
+		padding: 10px 0;
 		font-size: 20px;
 	}
 
-	.log-in-form__password{
-		position: absolute;
-		top: 40%;
-		left: 25%;
-		width: 50%;	
-		font-size: 20px;
+	.log-in-form input::placeholder {
+		color: black;
+	}
+
+	.log-in-form input:-webkit-autofill,
+	.log-in-form input:-webkit-autofill:hover,
+	.log-in-form input:-webkit-autofill:focus,
+	.log-in-form input:-webkit-autofill:active {
+		-webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+		-webkit-text-fill-color: #000 !important;
+		transition: background-color 5000s ease-in-out 0s;
 	}
 
 	.log-in-form button{
-		position: absolute;
-		top: 50%;
-		left: 25%;
-		width: 50%;	
-		font-size: 20px;
+		padding: 5px;
+		width: 100%;
+		background: black;
+		color: white;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		font-size: 18px;
+		border-radius: 20px;
 	}
 }

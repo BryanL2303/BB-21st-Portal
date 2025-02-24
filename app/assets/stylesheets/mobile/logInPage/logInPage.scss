@@ -1,47 +1,5 @@
-@media screen and (max-width: 800px){
-	.log-in-page{
-		position: relative;
-		height: 100vh;
-		width: 100vw;
-		overflow: hidden;
-		text-align: center;
-	}
-
+@media screen and (max-width: 800px) {
 	.log-in-form{
-		height: 50%;
-		width: 80%;
-		position: absolute;
-		top: 30%;
-		left: 10%;
-		border: solid;
-		border-radius: 3%;
-	}
-
-	.log-in-form{
-		font-size: 40px;
-	}
-
-	.log-in-form__name{
-		position: absolute;
-		top: 20%;
-		left: 15%;
-		width: 70%;
-		font-size: 30px;
-	}
-
-	.log-in-form__password{
-		position: absolute;
-		top: 50%;
-		left: 15%;
-		width: 70%;	
-		font-size: 30px;
-	}
-
-	.log-in-form button{
-		position: absolute;
-		top: 70%;
-		left: 25%;
-		width: 50%;	
-		font-size: 30px;
+		min-width: 80vw;
 	}
 }
