@@ -28,6 +28,7 @@
 
     .attendance-management-page .parade-list > div:last-of-type {
         display: flex;
+        flex-direction: row-reverse;
         flex: 1;
         overflow-x: auto;
     }
