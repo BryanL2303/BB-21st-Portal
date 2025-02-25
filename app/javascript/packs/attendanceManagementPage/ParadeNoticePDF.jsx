@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types'
 import { PDFViewer, Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
 import styled from "@react-pdf/styled-components";
@@ -124,6 +124,7 @@ const FooterVersionColumn = styled.View`
 const ParadeNoticePDF = ({parade}) => {
   let date = new Date(parade.info.date);
   let dayOfWeek = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date)
+  const [pageWidth, setPageWidth] = useState(null);
   dayOfWeek = dayOfWeek.toUpperCase()
 
   date = date.toLocaleDateString('en-GB', {
@@ -131,6 +132,10 @@ const ParadeNoticePDF = ({parade}) => {
     month: 'long',
     year: 'numeric',
   });
+
+  const onLoadSuccess = ({ numPages, width }) => {
+    setPageWidth(width);
+  };
 
   function formatTime(datetimeStr) {
     const date = new Date(datetimeStr.split('.')[0]);
@@ -143,9 +148,9 @@ const ParadeNoticePDF = ({parade}) => {
 
   return(
   <div>
-    <PDFViewer width="98%" height="800">
-      <Document>
-        <Page size="A4" style={styles.page} orientation='landscape'>
+    <PDFViewer>
+      <Document onLoadSuccess={onLoadSuccess}>
+        <Page size="A4" style={styles.page} orientation='landscape' scale={pageWidth ? window.innerWidth / pageWidth : 1}>
           <View>
             <Header>
               <Image style={styles.logo} src="/assets/bb-crest-34c67a3e6293d4779a6cc93c1dcec5d5724968d117976abb1651536a0835175d.png"></Image>

@@ -83,7 +83,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
           return(
             <div key={level} className="half-block">
               <h3>Sec {level} Attendance:</h3>
-              <table width='90%'>
+              <table>
                 <tbody width='100%'>
                   {boys.map((boy) => {
                     if ((boy.level == level || (level == '4/5' && (boy.level == '4' || boy.level == '5'))) && 

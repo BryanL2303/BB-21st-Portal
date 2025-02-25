@@ -1,0 +1,38 @@
+@media screen and (max-width: 800px) {
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block {
+        width: 100%;
+    }
+
+    .attendance-management-page .parade-information textarea {
+        width: 100%;
+    }
+
+    .attendance-management-page .page-container .parade-list {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .attendance-management-page .page-container .parade-list button {
+        flex-shrink: 0;
+    }
+
+    .attendance-management-page .page-container .parades {
+        flex-direction: column;
+    }
+
+    .attendance-management-page .page-container {
+        min-height: 500px;
+    }
+
+    .attendance-management-page .parade-list > div:last-of-type {
+        display: flex;
+        flex: 1;
+        overflow-x: auto;
+    }
+
+    .attendance-management-page .page-container {
+        height: 100%;
+    }
+}

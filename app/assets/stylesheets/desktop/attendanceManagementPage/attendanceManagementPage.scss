@@ -1,16 +1,25 @@
 @media screen{
+    .attendance-management-page {
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .attendance-management-page * {
+        box-sizing: border-box;
+    }
+
     .attendance-management-page .page-container{
-		overflow: hidden;
 		margin-top: 3vh;
 		height: 85vh;
-        padding-left: 5%;
+        padding: 0 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 	}
 
-    .attendance-management-page .page-container .annual-attendance-list{
-		height: 10vh;
-        width: 90vw;
-        overflow-x: auto;
-	}
+    .attendance-management-page .parade-list h1 {
+        font-family: sans-serif;
+    }
 
     .attendance-management-page .page-container .annual-attendance-list .year-button{
         border: solid;
@@ -25,25 +34,24 @@
         padding: 5px;
 	}
 
+    .attendance-management-page .page-container .parades {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+        flex: 1;
+        height: 400px;
+    }
+
     .attendance-management-page .page-container .parade-list{
-        height: 75vh;
-		width: 90vw;
-        overflow-x: auto;
+		width: 20%;
+        flex-shrink: 0;
 	}
 
     .attendance-management-page .page-container .parade-list button{
-        border: solid;
-        border-width: thin;
+        border: 1px solid black;
         margin: 1%;
         padding: 5px;
-	}
-
-    .attendance-management-page .page-container .main-block{
-        position: absolute;
-        top: 20vh;
-        left: 25vw;
-        height: 75vh;
-        overflow-x: auto;
+        cursor: pointer;
 	}
 
 	.parade-form-popup-content{
@@ -61,21 +69,81 @@
         padding: 5px;
 	}
 
+    .attendance-management-page .page-container .main-block {
+        flex: 1;
+    }
+
     .attendance-management-page .page-container .main-block .flex-block{
         display: flex;
         flex-wrap: wrap;
+        gap: 20px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
 	}
+
+    .attendance-management-page .page-container .main-block .parade-information {
+        overflow: auto;
+        height: 100%;
+    }
 
     .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block{
-        width: 50%;
+        width: calc((100% - 20px) / 2);
 	}
 
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block h3 {
+        font-family: sans-serif;
+        margin-bottom: 5px;
+    }
+
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block table{
+        border-collapse: collapse;
+        width: 100%;
+    }
+
     .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td{
-        border: solid, black;
-        border-width: thin;
+        border: 1px solid black;
+        padding: 5px;
+        font-family: sans-serif;
 	}
+
+    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td:last-of-type {
+        text-align: center;
+    }
 
     .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
         width: 98%;
+    }
+
+    .attendance-management-page .parade-information iframe {
+        height: 750px;
+        width: 100%;
+        border: 1px solid black;
+        box-sizing: border-box;
+    }
+
+    .attendance-management-page .parade-information textarea {
+        border-radius: 10px;
+        padding: 5px 10px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+    }
+
+    .attendance-management-page .parade-list > div:first-of-type {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .attendance-management-page .parade-list > div:first-of-type button:nth-of-type(1), .attendance-management-page .parade-list > div:first-of-type button:nth-of-type(2) {
+        background: black;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: white;
     }
 }
