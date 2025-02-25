@@ -47,10 +47,19 @@ const LogInPage = () => {
   return(
     <div className='log-in-page'>      
       <form className='log-in-form' onSubmit={ submitForm }>
-        <label>BB 21st Portal</label>
-        <input className='log-in-form__name' name={"username"} placeholder='username'></input>
-        <input className='log-in-form__password' type='password' name={"password"} placeholder='password'></input>
-        <br/>
+        <h2>BB 21<sup>st</sup> Portal</h2>
+
+        <label htmlFor="username">
+          <i className='fa-solid fa-user'></i>  
+          Username:
+        </label>
+        <input className='log-in-form__name' name={"username"} id='username' placeholder='Enter Username' required></input>
+        
+        <label htmlFor="password">
+          <i className='fa-solid fa-lock'></i>
+          Password:
+        </label>
+        <input className='log-in-form__password' type='password' id='password' name={"password"} placeholder='Enter Password'></input>
         <br/>
         <button>Log In</button>
       </form>

@@ -90,8 +90,8 @@ describe('LogInPage Component', () => {
     mockAxios.post.mockResolvedValue(mockResponse);
   
     // Find input fields and button
-    const usernameInput = screen.getByPlaceholderText('username');
-    const passwordInput = screen.getByPlaceholderText('password');
+    const usernameInput = screen.getByPlaceholderText('Enter Username');
+    const passwordInput = screen.getByPlaceholderText('Enter Password');
     const loginButton = screen.getByText('Log In');
   
     // Simulate user input
