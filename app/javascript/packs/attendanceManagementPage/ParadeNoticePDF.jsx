@@ -133,7 +133,7 @@ const ParadeNoticePDF = ({parade}) => {
     year: 'numeric',
   });
 
-  const onLoadSuccess = ({ numPages: _, width }) => {
+  const onLoadSuccess = ({ width }) => {
     setPageWidth(width);
   };
 
