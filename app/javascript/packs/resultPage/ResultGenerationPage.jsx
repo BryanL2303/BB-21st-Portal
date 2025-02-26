@@ -155,9 +155,6 @@ const ResultGenerationPage = () => {
         })
       })
       setColumnContents(data)
-
-      document.getElementsByClassName('fields')[0].hidden = true
-      document.getElementsByClassName('fields')[1].hidden = true
       setPdf(true)
     }
   }
@@ -165,55 +162,52 @@ const ResultGenerationPage = () => {
   function undoPdf(e) {
     e.preventDefault()
     setPdf(false)
-    document.getElementsByClassName('fields')[0].hidden = false
-    document.getElementsByClassName('fields')[1].hidden = false
   }
 
-  return(
+  return (
     <div className='result-generation-page'>
       <div className='page-container'>
         <div className='main-block'>
-          <div className='fields'>
-          <h1>Generate Results</h1>
-          <br/>
-          <p>Pick the badge to generate results for</p>
-          <select onChange={selectAward}>
-            {awards.map((award, index) => {
-              if (!award.has_mastery && award.has_results)
-                return (<option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>)
-              else {
-                let array = []
-                masteries[index].map((mastery, index) => {
-                  if (mastery.has_results) 
-                    array.push(<option value={String(award.id) + ' ' + String(index + 1)}>{award.badge_name} {mastery.mastery_name}</option>)
-                })
-                return(array)
-              }
-            })}            
-          </select>
-          <br/>
-          <br/>
-          <p>Pick the instructor for the badgework</p>
-          <select onChange={selectInstructor}>
-            {primerAccounts.map((primerAccount) => {
-              return (<option key={primerAccount.id + "-primer-instructor"} value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>)
-            })}
-            {officerAccounts.map((officerAccount) => {
-              return (<option key={officerAccount.id + "-officer-instructor"} value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>)
-            })}
-          </select>
-          <br/>
-          <br/>
-          <p>Pick the Boys to include in the results</p>
-          {boyAccounts.map((boyAccount) => {
-            return(
-              <div key={boyAccount.id + "-display"} className='account-display'>
-                <input type='checkbox' className='boy-account-selector' id={boyAccount.id} onChange={selectBoy}></input>
-                <label> Sec {boyAccount.level} {boyAccount.rank} {boyAccount.account_name}</label>
-              </div>
-            )
-          })}
-          <br/>
+          <div className='fields generate-results-form'>
+            <h1>Generate Results</h1>
+            
+            <label htmlFor='results-badge'>Select a badge to view results:</label>
+            <select onChange={selectAward} id='results-badge'>
+              {awards.map((award, index) => {
+                if (!award.has_mastery && award.has_results)
+                  return (<option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>)
+                else {
+                  let array = []
+                  masteries[index].map((mastery, index) => {
+                    if (mastery.has_results) 
+                      array.push(<option key={`${award.id}-mastery-${index + 1}`} value={String(award.id) + ' ' + String(index + 1)}>{award.badge_name} {mastery.mastery_name}</option>)
+                  })
+                  return(array)
+                }
+              })}            
+            </select>
+            
+            <label htmlFor="results-instructor">Select the instructor for the badgework:</label>
+            <select onChange={selectInstructor} id='results-instructor'>
+              {primerAccounts.map((primerAccount) => {
+                return (<option key={primerAccount.id + "-primer-instructor"} value={primerAccount.id}>{primerAccount.rank} {primerAccount.account_name}</option>)
+              })}
+              {officerAccounts.map((officerAccount) => {
+                return (<option key={officerAccount.id + "-officer-instructor"} value={officerAccount.id}>{officerAccount.rank} {officerAccount.account_name}</option>)
+              })}
+            </select>
+            
+            <p>Select the Boys to include in the results:</p>
+            <div className='boy-accounts'>
+              {boyAccounts.map((boyAccount) => {
+                return(
+                  <div key={boyAccount.id + "-display"} className='account-display'>
+                    <input type='checkbox' className='boy-account-selector' id={boyAccount.id} onChange={selectBoy}></input>
+                    <label htmlFor={boyAccount.id}><span>Sec {boyAccount.level} {boyAccount.rank} {boyAccount.account_name}</span></label>
+                  </div>
+                )
+              })}
+            </div>
           </div>
           <form className='fields' onSubmit={generateResult}>
             {award != null && mastery == null && award.custom_description && <div>
@@ -291,7 +285,7 @@ const ResultGenerationPage = () => {
             <button>Generate Results</button>
           </form>
         {pdf && <ManualResultPage award={award} mastery={mastery} instructorId={instructorId} boys={boys} customDescription={customDescription} columns={columns} columnContents={columnContents}/>}
-        {pdf && <button onClick={undoPdf}>Change fields</button>}
+        {pdf && <button onClick={undoPdf}>Hide Results</button>}
         </div>
       </div>
     </div>

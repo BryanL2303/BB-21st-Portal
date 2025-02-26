@@ -1,0 +1,19 @@
+@media screen and (max-width: 1000px) {
+    .result-generation-page .page-container .main-block .generate-results-form select {
+        width: 60%;
+    }    
+}
+
+@media screen and (max-width: 700px) {
+    .result-generation-page .page-container .main-block .generate-results-form {
+        grid-template-columns: 1fr;
+
+        select {
+            width: 100%;
+        }
+
+        h1, p, .boy-accounts {
+            grid-column: span 1;
+        }
+    }
+}

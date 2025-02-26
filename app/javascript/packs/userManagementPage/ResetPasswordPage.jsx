@@ -56,12 +56,10 @@ const ResetPasswordPage = () => {
       <div className='user-information'>
         <h1>Reset Username and Password</h1>
         {account != null && <form className="edit-account-form" onSubmit={editAccount}>
-          <label>Username: </label>
-          <input className='edit-field' name={'user_name'} defaultValue={account.user_name}></input>
-          <br/>
-          <label>Password: </label>
-          <input className='edit-field' name={'password'} defaultValue={account.password}></input>
-          <br/>
+          <label htmlFor='user_name'>Username: </label>
+          <input className='edit-field' type="text" name={'user_name'} defaultValue={account.user_name} id='user_name' autoComplete='username'></input>
+          <label htmlFor='password'>Password: </label>
+          <input className='edit-field' name={'password'} defaultValue={account.password} id='password' autoComplete='new-password'></input>
           <button className="edit-button">Save Changes</button>
         </form>}
       </div>

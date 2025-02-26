@@ -39,11 +39,12 @@ const AttendanceManagementPage = () => {
             return(<HandleDownloadWithExcelJS key={year} year={year}/>)
           })}
         </div>
-        <br/>
-        <ParadeList reload={reload} setPageState={setPageState}/>
-        <div className='main-block'>
-          {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
-          {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+        <div className='parades'>
+          <ParadeList reload={reload} setPageState={setPageState}/>
+          <div className='main-block'>
+            {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
+            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+          </div>
         </div>
       </div>
     </div>

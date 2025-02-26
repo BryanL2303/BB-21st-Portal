@@ -1,30 +1,125 @@
-@media screen{
+@media screen {
+	.result-generation-page * {
+		box-sizing: border-box;
+	}
+
+	.result-generation-page .scroll-to-top {
+		display: none;
+	}
+
 	.result-generation-page .page-container{
 		overflow: hidden;
-		margin-top: 3vh;
-		height: 90vh;
+		margin: 20px 30px;
 		display: flex;
-	}
+		position: relative;
+		min-height: 85vh;
+		
+		.main-block{
+			height: auto;
+			display: flex;
+			width: 100%;
+			flex-direction: column;
+			gap: 20px;
 
-	.result-generation-page .page-container .main-block{
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 10vw;
-		width: 100vw;
-		height: auto;
-		max-height: 90%;
-		display: flex;
-		flex-direction: column;
-	}
+			.generate-results-form {
+				font-family: sans-serif;
+				display: grid;
+				gap: 20px;
+				grid-template-columns: max-content 1fr;
+				align-items: center;
 
-	.result-generation-page .page-container button{
-		width: 15vw;
+				h1 {
+					font-size: 26px;
+					grid-column: span 2;
+				}
+
+				select {
+					border: 1px solid black;
+					padding: 5px 10px;
+					cursor: pointer;
+					outline: none;
+					width: 40%;
+					border-radius: 10px;
+				}
+
+				label {
+					display: flex;
+					width: max-content;
+					align-items: center;
+					gap: 10px;
+				}
+
+				input[type="checkbox"] {
+					display: none;
+				}
+
+				input[type="checkbox"] + label::before {
+					font: var(--fa-font-solid);
+					content: "\f00d";
+					color: red;
+					width: 25px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-shrink: 0;
+				}
+
+				input[type="checkbox"]:checked + label::before {
+					font: var(--fa-font-solid);
+					content: "\f00c";
+					color: darkgreen;
+					width: 25px;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-shrink: 0;
+				}
+
+				p {
+					grid-column: span 2;
+				}
+
+				.account-display label {
+					cursor: pointer;
+					width: 300px;
+				}
+
+				.account-display span {
+					width: 100%;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+
+				.boy-accounts {
+					grid-column: span 2;
+					width: 100%;
+					display: flex;
+					gap: 10px;
+					flex-wrap: wrap;
+				}
+			}
+		}
+
+		iframe {
+			border: none;
+		}
+		
+		button {
+			width: 150px;
+			position: fixed;
+			background: black;
+			bottom: 20px;
+			right: 33px;
+			padding: 8px 10px;
+			border-radius: 10px;
+			color: white;
+			border: 1px solid white;
+			cursor: pointer;
+		}
 	}
 
 	.result-generation-page .page-container textarea{
 		height: 200px;
-	}
-
-	.result-page{
 	}
 }
