@@ -50,14 +50,14 @@ const HeaderDesktop = () => {
 
   return(
     <div className='header-div'>
-      <img src="/assets/coy logo-9c8cabf89b71a4b4554e2864db559572b3b21bb9be05fafabfc844e3a584b7e1.png"></img>
+      <img src="/assets/coy logo-9c8cabf89b71a4b4554e2864db559572b3b21bb9be05fafabfc844e3a584b7e1.png" alt='BB Logo'></img>
       {!loggedIn && <div className='navigation-div'>
         {/* Only uncomment the below when it has been implemented, backend function has to be created to fetch the next parade notice if its available */}
         {/* <button className="parade-notice--button" onClick={() => {toUrl('/parade_notice')}}>Parade Notice</button> */}
         <button className="log-in--button" onClick={() => {toUrl('/log_in')}}>Members Log In</button>
       </div>}
       {/* {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu}><img src="/assets/user-menu-icon-8dc4bed4f03c2d69df8b5087e12febc3e1662c2ba5fe6006f3202086ab0fdb54.jpg" alt='Side bar'></img></button>} */}
-      {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu}><i className="fa-solid fa-ellipsis-vertical fa-2xl"></i></button>}
+      {loggedIn && <button className="account-dropdown" onClick={toggleUserMenu} aria-label='Menu'><i className="fa-solid fa-ellipsis-vertical fa-2xl"></i></button>}
 
       {navigationViewable && loggedIn && <div className='popup-navigation-div' ref={popupRef} tabIndex={0} >
       {/* onBlur={toggleUserMenu} */}
