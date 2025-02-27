@@ -201,32 +201,40 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
 }
 
 ParadeAttendance.propTypes = {
-  id: PropTypes.number.isRequired,  
-  setPageState: PropTypes.func.isRequired,
-  reload: PropTypes.bool.isRequired,
+  id: PropTypes.number,  
+  setPageState: PropTypes.func,
+  reload: PropTypes.bool,
   setReload: PropTypes.func.isRequired,
   boys: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     account_name: PropTypes.string,
   })),
   primers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     account_name: PropTypes.string,
   })),
   officers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     account_name: PropTypes.string,
   })),
   parade: PropTypes.shape({
     info: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       date: PropTypes.string,
       cos_finalized: PropTypes.bool,
       csm_finalized: PropTypes.bool,
       do_finalized: PropTypes.bool,
       captain_finalized: PropTypes.bool,
     }),
-    parade_attendance: PropTypes.arrayOf(),
+    parade_attendance: PropTypes.objectOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        parade_id: PropTypes.number.isRequired,
+        account_id: PropTypes.number.isRequired,
+        attendance: PropTypes.string.isRequired,
+        level: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
+      })
+    ),
     cos: PropTypes.shape({
       account_name: PropTypes.string,
     }),
