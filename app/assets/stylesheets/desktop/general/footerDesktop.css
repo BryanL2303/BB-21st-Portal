@@ -7,6 +7,10 @@ footer {
     gap: 20px;
 }
 
+footer *:not(.fa-brands) {
+    font-family: sans-serif;
+}
+
 footer > div:first-of-type {
     display: grid;
     grid-template-columns: 20vw 1fr 20vw;
