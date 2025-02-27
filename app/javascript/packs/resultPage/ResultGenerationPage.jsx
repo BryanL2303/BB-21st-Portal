@@ -175,7 +175,7 @@ const ResultGenerationPage = () => {
             <select onChange={selectAward} id='results-badge'>
               {awards.map((award, index) => {
                 if (!award.has_mastery && award.has_results)
-                  return (<option key={award.id + "-award"} value={String(award.id) + ' ' + '0'}>{award.badge_name}</option>)
+                  return (<option key={award.id + "-award"} value={String(award.id) + ' 0'}>{award.badge_name}</option>)
                 else {
                   let array = []
                   masteries[index].map((mastery, index) => {

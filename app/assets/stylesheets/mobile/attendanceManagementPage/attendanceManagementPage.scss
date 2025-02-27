@@ -28,12 +28,77 @@
 
     .attendance-management-page .parade-list > div:last-of-type {
         display: flex;
-        flex-direction: row-reverse;
+        flex-direction: row;
         flex: 1;
         overflow-x: auto;
     }
 
     .attendance-management-page .page-container {
         height: 100%;
+    }
+
+    .attendance-management-page .new-parade-form {
+        .flex-block {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .half-block {
+            width: 100%;
+        }
+    } 
+}
+
+@media screen and (max-width: 500px) {
+    .attendance-management-page {
+        .new-parade-form .new-announcement-container {
+            align-items: flex-start;
+            flex-direction: column;
+
+            input, button {
+                width: 100%;
+            }
+        }
+
+        .new-parade-form .platoon-program-container {
+            background: #fafafa;
+            padding: 10px 5px;
+            border-radius: 10px;
+        }
+
+        .new-parade-form > div:nth-of-type(5) > div > div {
+            gap: 20px;
+        }
+
+        .new-parade-form .platoon-program-container > div > div {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .new-parade-form .platoon-program-container input[type='datetime-local'] {
+            width: 100%;
+        }
+
+        .new-parade-form > div:first-of-type select {
+            width: 100%;
+        }
+
+        .new-parade-form > div:first-of-type > label {
+            flex-shrink: 0;
+        }
+
+        .new-parade-form .platoon-program-container button {
+            background: transparent;
+        }
+
+        .annual-attendance-list h1, .parade-list h1 {
+            font-size: 26px;
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .attendance-management-page .new-parade-form .half-block {
+        grid-template-columns: 1fr;
     }
 }

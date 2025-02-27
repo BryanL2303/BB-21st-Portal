@@ -95,7 +95,7 @@ li {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f6f6f6;
+    background: white;
 }
 
 ::-webkit-scrollbar-thumb {

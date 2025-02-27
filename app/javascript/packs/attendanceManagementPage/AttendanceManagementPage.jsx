@@ -43,7 +43,7 @@ const AttendanceManagementPage = () => {
           <ParadeList reload={reload} setPageState={setPageState}/>
           <div className='main-block'>
             {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
-            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={pageState} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={Number(pageState)} setPageState={setPageState} reload={reload} setReload={setReload}/>}
           </div>
         </div>
       </div>

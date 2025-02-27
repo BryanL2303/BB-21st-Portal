@@ -360,9 +360,9 @@ const ParadeNoticePDF = ({parade}) => {
     </PDFViewer>
     <br/>
     <br/>
-    <label>Description:</label>
+    <label htmlFor='parade-description'>Description:</label>
     <br/>
-    <textarea disabled={true} value={parade.info.description}/>
+    <textarea disabled={true} value={parade.info.description} id='parade-description'/>
   </div>)
 };
 
@@ -383,10 +383,50 @@ ParadeNoticePDF.propTypes = {
       captain_finalized: PropTypes.bool,
       description: PropTypes.string,
     }),
-    parade_attendance: PropTypes.arrayOf(),
-    company_announcements: PropTypes.arrayOf(),
-    platoon_announcements: PropTypes.arrayOf(),
-    platoon_programs: PropTypes.arrayOf(),
+    parade_attendance: PropTypes.objectOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        parade_id: PropTypes.number.isRequired,
+        account_id: PropTypes.number.isRequired,
+        attendance: PropTypes.string.isRequired,
+        level: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
+      })
+    ),
+    company_announcements: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        parade_id: PropTypes.number.isRequired,
+        announcement: PropTypes.string.isRequired,
+        created_at: PropTypes.string.isRequired,
+        updated_at: PropTypes.string,
+      })
+    ),
+    platoon_announcements: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          parade_id: PropTypes.number.isRequired,
+          level: PropTypes.string.isRequired,
+          announcement: PropTypes.string.isRequired,
+          created_at: PropTypes.string.isRequired,
+          updated_at: PropTypes.string,
+        })
+      )
+    ),
+    platoon_programs: PropTypes.objectOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          created_at: PropTypes.string.isRequired,
+          end_time: PropTypes.string.isRequired,
+          level: PropTypes.string.isRequired,
+          parade_id: PropTypes.number.isRequired,
+          program: PropTypes.string.isRequired,
+          start_time: PropTypes.string.isRequired,
+          updated_at: PropTypes.string,
+        })
+      )
+    ),
     ce: PropTypes.shape({
       account_name: PropTypes.string,
       rank: PropTypes.string,
