@@ -43,7 +43,7 @@ const ParadeList = ({setPageState, reload}) => {
             </div>
             <br/>
             <div>
-                {parades.map((parade) => {
+                {parades.slice().reverse().map((parade) => {
                 return(
                     <button key={parade.id} className={parade.id} onClick={showParadeInformation}>{parade.date.split('T')[0]}</button>
                 )
