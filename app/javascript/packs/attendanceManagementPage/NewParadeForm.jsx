@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Popup from 'reactjs-popup'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { handleServerError } from '../general/handleServerError'
@@ -180,7 +179,7 @@ const NewParadeForm = ({ setReload }) => {
 	}
 
 	function updatePlatoonAnnouncement(e, level) {
-		const index = e.target.getAttribute("index")
+		const index = e.target.getAttribute("data-index")
 		if (index === null || index === undefined) {
 			return alert("Platoon Announcement index not found. This is most likely a development error. If you see error, please contact the admin.")
 		}
@@ -418,7 +417,7 @@ const NewParadeForm = ({ setReload }) => {
 										{platoonAnnouncements[level].map((announcement, index) => {
 											return (
 												<li key={level + announcement.announcement}>
-													<input defaultValue={announcement.announcement} index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' />
+													<input defaultValue={announcement.announcement} data-index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' />
 													<button type='button' onClick={() => deletePlatoonAnnouncement(level, index)} aria-label='Remove Platoon Announcement'>
 														<i className='fa-solid fa-xmark'></i>
 													</button>
