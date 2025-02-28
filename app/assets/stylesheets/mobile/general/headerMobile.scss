@@ -29,7 +29,11 @@
     }
 
     .header-div .logo {
-        height: 9vh
+        height: 9vh;
+    }
+
+    .header-div button {
+        color: black;
     }
 
     .header-div button:hover{
@@ -38,14 +42,16 @@
 
     .navigation-div {
         width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .navigation-div button {
         margin: 10px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        width: 100%;
-        border-bottom: solid;
+        padding: 10px 5px;
+        border-bottom: 1px solid black;
         text-align: start;
+        color: black;
+        outline: none;
     }
 }

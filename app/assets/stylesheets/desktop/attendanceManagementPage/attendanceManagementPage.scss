@@ -1,4 +1,4 @@
-@media screen{
+@media screen {
     .attendance-management-page {
         position: relative;
         margin-bottom: 20px;
@@ -6,6 +6,9 @@
 
     .attendance-management-page * {
         box-sizing: border-box;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 
     .attendance-management-page .page-container{
@@ -28,10 +31,11 @@
 	}
 
     .attendance-management-page .page-container .annual-attendance-list button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
+        border: 1px solid black;
+        margin-top: 5px;
         padding: 5px;
+        outline: none;
+        color: black;
 	}
 
     .attendance-management-page .page-container .parades {
@@ -52,6 +56,7 @@
         margin: 1%;
         padding: 5px;
         cursor: pointer;
+        color: black;
 	}
 
 	.parade-form-popup-content{
@@ -221,6 +226,7 @@
                 border: none;
                 outline: none;
                 padding: 5px;
+                color: black;
                 border-bottom: 1px solid black;
                 background: transparent;
             }
@@ -242,7 +248,9 @@
             input, select {
                 border: none;
                 outline: none;
+                border-radius: 0;
                 padding: 5px;
+                color: black;
                 border-bottom: 1px solid black;
                 background: transparent;
             }
@@ -290,6 +298,7 @@
                 outline: none;
                 background: transparent;
                 flex: 1;
+                border-radius: 0;
                 border-bottom: 1px solid black;
                 padding: 5px;
                 width: 80%;
@@ -301,6 +310,7 @@
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
+                color: black;
             }
 
             button:hover {
@@ -363,13 +373,16 @@
                 outline: none;
                 background: transparent;
                 flex: 1;
+                border-radius: 0;
                 border-bottom: 1px solid black;
+                padding: 5px 0;
             }
 
             button {
                 width: 50px;
                 cursor: pointer;
                 display: flex;
+                color: black;
                 align-items: center;
                 justify-content: center;
             }
@@ -412,6 +425,7 @@
                 outline: none;
                 border: 1px solid black;
                 border-radius: 10px;
+                text-align: left;
             }
 
             input[type='text'] {
@@ -430,6 +444,7 @@
                 width: 50px;
                 cursor: pointer;
                 display: flex;
+                color: black;
                 align-items: center;
                 justify-content: center;
             }
