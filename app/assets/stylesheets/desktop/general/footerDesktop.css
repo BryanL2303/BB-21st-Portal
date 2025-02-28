@@ -62,6 +62,7 @@ footer > div:last-of-type {
     gap: 5px;
     font-size: 12px;
     justify-content: center;
+    text-align: center;
 }
 
 footer > div:last-of-type a {

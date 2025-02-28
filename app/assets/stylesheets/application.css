@@ -20,13 +20,36 @@
     user-select: none;
 }
 
-body{
-    min-height: 100vh;
-    width: 100vw;
-    overflow: hidden;
+.layout-div {
+    display: flex;
+    flex-direction: column;
 }
 
-.layout-div {
-    overflow-y: auto;
-    max-height: 100vh;
+main {
+    flex: 1;
+}
+
+@media screen and (max-width: 350px) {
+    main *, header *, footer *, footer, header {
+        display: none !important;
+    }
+
+    main {
+        background: none !important;
+        margin: 0 !important;
+    }
+
+    main::before {
+        display: block;
+        content: "Your device's viewport is too small to display any content.\A\AWe apologize for the inconvenience.";
+        position: absolute;
+        top: 50%;
+        font-family: sans-serif;
+        font-weight: bold;
+        left: 50%;
+        text-align: center;
+        text-wrap: wrap;
+        white-space: pre-line;
+        transform: translate(-50%, -50%);
+    }
 }

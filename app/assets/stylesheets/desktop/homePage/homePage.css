@@ -183,27 +183,3 @@ header[sticky='true'] {
         height: 300px;
     }
 }
-
-@media screen and (max-width: 350px) {
-    #root *, header *, footer *, footer, header {
-        display: none !important;
-    }
-
-    #root {
-        background: none !important;
-        margin: 0 !important;
-    }
-
-    #root::before {
-        display: block;
-        content: "Your device's viewport is too small to display any content.\A\APlease try again on a device with a larger viewport.\A\AWe apologize for the inconvenience.";
-        position: absolute;
-        top: 50%;
-        font-weight: bold;
-        left: 50%;
-        text-align: center;
-        text-wrap: wrap;
-        white-space: pre-line;
-        transform: translate(-50%, -50%);
-    }
-}
