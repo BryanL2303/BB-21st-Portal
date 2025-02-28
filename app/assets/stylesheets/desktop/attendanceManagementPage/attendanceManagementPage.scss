@@ -73,59 +73,102 @@
         flex: 1;
     }
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block{
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding-bottom: 10px;
-        margin-bottom: 10px;
-	}
-
     .attendance-management-page .page-container .main-block .parade-information {
         overflow: auto;
         height: 100%;
-    }
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block{
-        width: calc((100% - 20px) / 2);
-	}
+        .flex-block {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block h3 {
-        font-family: sans-serif;
-        margin-bottom: 5px;
-    }
+        .flex-block .half-block {
+            width: calc((100% - 20px) / 2);
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block table{
-        border-collapse: collapse;
-        width: 100%;
-    }
+            h3 {
+                font-family: sans-serif;
+                margin-bottom: 5px;
+            }
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td{
-        border: 1px solid black;
-        padding: 5px;
-        font-family: sans-serif;
-	}
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
 
-    .attendance-management-page .page-container .main-block .parade-information .flex-block .half-block td:last-of-type {
-        text-align: center;
+            td {
+                border: 1px solid black;
+                padding: 5px;
+                font-family: sans-serif;
+            }
+
+            td:last-of-type {
+                text-align: center;
+            }
+        }
+
+        iframe {
+            height: 750px;
+            width: 100%;
+            border: 1px solid black;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            border-radius: 10px;
+            padding: 5px 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        > div:first-of-type {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+            justify-content: end;
+
+            > button {
+                padding: 5px 10px;
+                background: black;
+                color: white;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                outline: none;
+                gap: 10px;
+                cursor: pointer;
+            }
+    
+            > button:hover {
+                background: black;
+            }
+    
+            > button[name='show-parade-notice']::before {
+                font: var(--fa-font-solid);
+                content: "\f424";
+            }
+    
+            > button[name='hide-parade-notice']::before {
+                font: var(--fa-font-solid);
+                content: "\f422";
+            }
+    
+            > button[name='edit-parade-notice']::before {
+                font: var(--fa-font-solid);
+                content: "\f044";
+            }
+        }
+
+        label[for='parade-description'], h4 {
+            font-family: sans-serif;
+        }
     }
 
     .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
         width: 98%;
-    }
-
-    .attendance-management-page .parade-information iframe {
-        height: 750px;
-        width: 100%;
-        border: 1px solid black;
-        box-sizing: border-box;
-    }
-
-    .attendance-management-page .parade-information textarea {
-        border-radius: 10px;
-        padding: 5px 10px;
-        margin-top: 5px;
-        margin-bottom: 20px;
     }
 
     .attendance-management-page .parade-list > div:first-of-type {

@@ -362,7 +362,7 @@ const ParadeNoticePDF = ({parade}) => {
     <br/>
     <label htmlFor='parade-description'>Description:</label>
     <br/>
-    <textarea disabled={true} value={parade.info.description} id='parade-description'/>
+    <textarea disabled={true} value={parade.info.description} id='parade-description'></textarea>
   </div>)
 };
 
