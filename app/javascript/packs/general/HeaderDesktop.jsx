@@ -4,7 +4,6 @@ import useCookies from './useCookies'
 
 const HeaderDesktop = () => {
 	const cookies = useCookies()
-	const popupRef = useRef(null)
 	const [loggedIn, setLoggedIn] = useState(false)
 	const [navigationViewable, setNavigationViewable] = useState(false)
 	const [buttons, setButtons] = useState(3);
