@@ -12,6 +12,9 @@
         flex-direction: column;
         width: 100%;
         overflow-x: hidden;
+        position: sticky;
+        top: 0;
+        background: white;
     }
 
     .attendance-management-page .page-container .parade-list button {
