@@ -40,6 +40,11 @@
 					outline: none;
 					width: 40%;
 					border-radius: 10px;
+					background: transparent;
+					color: black;
+					appearance: none;
+					-webkit-appearance: none;
+					-moz-appearance: none;
 				}
 
 				label {
@@ -102,7 +107,7 @@
 		}
 
 		iframe {
-			border: none;
+			border: 1px solid black;
 		}
 		
 		button {

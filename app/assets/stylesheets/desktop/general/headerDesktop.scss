@@ -1,61 +1,121 @@
-@media screen and (min-width: 800px){
-	.header-div{
-		position: relative;
-		height: 10vh;
-		width: auto;
-		margin: 0;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
+@media screen and (min-width: 800px) {
+    header {
+        border-bottom: 1px solid black;
+    }
+
+    header > div:first-of-type {
+        width: max-content;
+    }
+
+    header > div:nth-of-type(2)[data-header-type='home'] {
+        height: max-content !important;
+
+        button:not(:last-of-type) {
+            display: none;
+        }
+    }
+
+    header .sidebar {
+        position: fixed;
+        right: -310px;
+        width: 300px;
+        height: 100%;
+        background: white;
+        padding: 10px 20px;
+        z-index: 2;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        top: 0;
+        box-shadow: -5px 0 5px rgba($color: #000000, $alpha: 0.4);
+        transition: right 0.3s ease-in-out;
+
+        > div:first-of-type {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            button {
+                width: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 20px;
+                color: black;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background: transparent;
+            }
+        }
+
+        > div:nth-of-type(2) {
+            display: flex;
+            align-items: center;
+        }
+
+        > div:last-of-type {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            button {
+                width: 100%;
+                height: 30px;
+                background: black;
+                border-radius: 10px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+
+    header .sidebar *:not(.fa-solid) {
+        font-family: sans-serif;
+    }
+
+    header .sidebar[data-open='false'] {
+        right: -310px;
+    }
+    
+    header .sidebar[data-open='true'] {
+        right: 0;
+    }
+}
+
+@media screen {
+    header {
+        padding: 5px 30px;
         display: flex;
         justify-content: space-between;
-        border-bottom: solid;
-	}
+        align-items: center;
 
-    .header-div img{
-		height: 90%;
-	}
+        > div:first-of-type {
+            align-items: center;
 
-	.header-div button{
-		height: 90%;
-	}
+            button {
+                display: none;
+            }
+        }
 
-    .header-div button:hover{
-		opacity: 0.8;
-	}
+        > div:nth-of-type(2)[data-header-type='home'] {  
+            align-items: center;
 
-    .header-div .account-dropdown {
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
-    }
+            button:last-of-type {
+                width: 40px;
+                height: 40px;
+                cursor: pointer;
 
-    .navigation-div {
-        width: 50%;
-        display: flex;
-        justify-content: end;
-    }
+                i {
+                    font-size: 20px;
+                }
 
-    .navigation-div button {
-        padding: 10px;
-    }
-
-    .popup-navigation-div {
-        position: absolute;
-        right: 0;
-        height: fit-content;
-        width: 30%;
-        padding: 10px;        
-        z-index: 1;
-        background: white;
-    }
-
-    .popup-navigation-div button {
-        background: black;
-        color: white;
-        border-radius: 5px;
-        margin: 10px;
-        padding: 10px;
-        width: 90%;
+                &:hover {
+                    background: transparent;
+                }
+            }
+        }
     }
 }

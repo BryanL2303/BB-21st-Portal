@@ -28,11 +28,11 @@ const ParadeList = ({setPageState, reload}) => {
     return (
         <div className='parade-list'>
             <div>
-                <button onClick={() => {setCurrentYear(currentYear - 1)}}>
+                <button onClick={() => {setCurrentYear(currentYear - 1)}} aria-label='Previous Year'>
                     <i className='fa-solid fa-chevron-left'></i>
                 </button>
                 <h1>{currentYear}</h1>
-                <button onClick={() => {setCurrentYear(currentYear + 1)}}>
+                <button onClick={() => {setCurrentYear(currentYear + 1)}} aria-label='Next Year'>
                     <i className='fa-solid fa-chevron-right'></i>
                 </button>
                 {(cookies.get('Type') == 'Admin' || cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' ||
@@ -43,7 +43,7 @@ const ParadeList = ({setPageState, reload}) => {
             </div>
             <br/>
             <div>
-                {parades.map((parade) => {
+                {parades.slice().reverse().map((parade) => {
                 return(
                     <button key={parade.id} className={parade.id} onClick={showParadeInformation}>{parade.date.split('T')[0]}</button>
                 )

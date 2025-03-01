@@ -76,17 +76,18 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
 
   return(
     <div className='parade-information'>
-      {!showParadeNotice && <button onClick={toggleParadeNotice}>Show Parade Notice</button>}
-      {showParadeNotice && <button onClick={toggleParadeNotice}>Hide Parade Notice</button>}
-      <br/>
-      {(cookies.get('Type') == 'Admin' ||
-        cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' || cookies.get('Appointment') == 'CSM' ||
-        cookies.get('Appointment') == 'DY CSM' || cookies.get('Appointment') == 'Admin Sergeant') &&
-         <button onClick={toggleEditor}>Edit Parade Notice</button>}
+      <div>
+        {!showParadeNotice && <button onClick={toggleParadeNotice} aria-label='Show Parade Notice' name='show-parade-notice'>Show Parade Notice</button>}
+        {showParadeNotice && <button onClick={toggleParadeNotice} aria-label='Hide Parade Notice' name='hide-parade-notice'>Hide Parade Notice</button>}
+
+        {(['Admin', 'Officer', 'Primer'].includes(cookies.get('Type')) || ['CSM', 'DY CSM', 'Admin Sergeant'].includes(cookies.get('Appointment'))) && (
+          <button onClick={toggleEditor} name='edit-parade-notice'>Edit Parade Notice</button>
+        )}
+      </div>
+
       {showParadeNotice && <ParadeNoticePDF parade={parade} />}
       {showParadeEditor && <ParadeEditor parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} setPageState={setPageState}/>}
-      <br/>
-      <br/>
+
       <ParadeAttendance parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} />
     </div>
   )
