@@ -171,7 +171,7 @@ const ParadeNoticePDF = ({parade}) => {
                     <Text>This hope we have as an anchor of the soul, a hope both</Text>
                   </HeaderVerseRow>
                   <HeaderVerseRow>
-                    <Text style={{fontFamily: 'Times-Bold'}}>sure and stedfast</Text> <Text> and one which enters within the veil</Text>
+                    <Text style={{fontFamily: 'Times-Bold'}}>sure and stedfast</Text><Text> and one which enters within the veil</Text>
                   </HeaderVerseRow>
                   <HeaderVerseRow>
                     <Text>where Jesus has entered as a forerunner for us...</Text>
@@ -193,10 +193,10 @@ const ParadeNoticePDF = ({parade}) => {
             <FlexRow>
               <FlexColumn style={{width: '15%'}}>
                 <FlexRow>
-                  <Text>Venue: </Text> <Text style={{fontFamily: 'Times-Bold'}}>{parade.info.venue}</Text>
+                  <Text>Venue: </Text><Text style={{fontFamily: 'Times-Bold'}}>{parade.info.venue}</Text>
                 </FlexRow>
                 <FlexRow>
-                  <Text>Reporting Time: </Text> <Text style={{fontFamily: 'Times-Bold'}}>{formatTime(parade.info.reporting_time)}</Text>
+                  <Text>Reporting Time: </Text><Text style={{fontFamily: 'Times-Bold'}}>{formatTime(parade.info.reporting_time)}</Text>
                 </FlexRow>
               </FlexColumn>
 
@@ -205,7 +205,7 @@ const ParadeNoticePDF = ({parade}) => {
                   <Text> </Text>
                 </FlexRow>
                 <FlexRow>
-                  <Text>Dismissal Time: </Text> <Text style={{fontFamily: 'Times-Bold'}}>{formatTime(parade.info.dismissal_time)}</Text>
+                  <Text>Dismissal Time: </Text><Text style={{fontFamily: 'Times-Bold'}}>{formatTime(parade.info.dismissal_time)}</Text>
                 </FlexRow>
               </FlexColumn>
             </FlexRow>
@@ -269,7 +269,7 @@ const ParadeNoticePDF = ({parade}) => {
               <FlexColumn style={{borderRight: '2px solid #000', width: '20%', marginLeft: '2px'}}>
                 <Text style={{textDecoration: 'underline'}}>Platoon Announcements</Text>
                 <FlexRow>
-                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_1_attire}</Text>
+                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text><Text>{parade.info.sec_1_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['1'].map((announcement, index) => {
                   return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
@@ -291,7 +291,7 @@ const ParadeNoticePDF = ({parade}) => {
               <FlexColumn style={{width: '20%', marginLeft: '2px'}}>
                 <Text style={{textDecoration: 'underline'}}>Platoon Announcements</Text>
                 <FlexRow>
-                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_2_attire}</Text>
+                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text><Text>{parade.info.sec_2_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['2'].map((announcement, index) => {
                   return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
@@ -316,7 +316,7 @@ const ParadeNoticePDF = ({parade}) => {
               <FlexColumn style={{borderRight: '2px solid #000', width: '20%'}}>
                 <Text style={{textDecoration: 'underline'}}>Platoon Announcements</Text>
                 <FlexRow>
-                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_3_attire}</Text>
+                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text><Text>{parade.info.sec_3_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['3'].map((announcement, index) => {
                   return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
@@ -338,7 +338,7 @@ const ParadeNoticePDF = ({parade}) => {
               <FlexColumn style={{width: '20%'}}>
                 <Text style={{textDecoration: 'underline'}}>Platoon Announcements</Text>
                 <FlexRow>
-                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text> <Text>{parade.info.sec_4_5_attire}</Text>
+                  <Text style={{fontFamily: 'Times-Bold'}}>Attire: </Text><Text>{parade.info.sec_4_5_attire}</Text>
                 </FlexRow>
                 {parade.platoon_announcements['4/5'].map((announcement, index) => {
                   return(<Text key={index}>{String.fromCharCode(index + 97)}{')'} {announcement.announcement}</Text>)
