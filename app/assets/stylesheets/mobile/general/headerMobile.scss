@@ -1,57 +1,80 @@
-@media screen and (max-width: 800px){
-	.header-div{
-		position: relative;
-		min-height: 10vh;
-        height: fit-content;
-		width: auto;
-		margin: 0;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-	}
-
-    .header-div button{
-		height: 100%;
-	}
-
-    .header-div .menu-button {
-        position: absolute;
-        height: 10vh;
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
-    }
-
-    .header-div .logo-div {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .header-div .logo {
-        height: 9vh;
-    }
-
-    .header-div button {
-        color: black;
-    }
-
-    .header-div button:hover{
-		opacity: 0.8;
-	}
-
-    .navigation-div {
-        width: 100%;
-        display: flex;
+@media screen and (max-width: 800px) {
+	header {
         flex-direction: column;
-    }
+        justify-content: flex-start;
+        align-items: center;
 
-    .navigation-div button {
-        margin: 10px;
-        padding: 10px 5px;
-        border-bottom: 1px solid black;
-        text-align: start;
-        color: black;
-        outline: none;
-    }
+        img {
+            object-fit: contain;
+        }
+
+        > div {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        > div:first-of-type {
+            align-items: center;
+
+            button {
+                display: flex !important;
+                color: black;
+            }
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            left: 0;
+
+            i {
+                font-size: 25px;
+            }
+        }
+
+        .menu-button:hover {
+            background: transparent;
+        }
+
+        > div:nth-of-type(2) {
+            display: block;
+            overflow: hidden;
+            transition: height 0.3s ease-in-out;
+
+            button {
+                height: 40px;
+                border-bottom: 1px solid black;
+                text-align: left;
+                background: transparent;
+                color: black;
+                outline: none;
+                width: 100%;
+            }
+
+            button:not(.log-in--button):last-of-type {
+                display: none;
+            }
+        }
+
+        > div:nth-of-type(2)[data-state='false'] {
+            height: 0 !important;
+        }
+
+        .sidebar {
+            display: none;
+        }
+	}
 }

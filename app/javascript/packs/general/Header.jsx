@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import useCookies from './useCookies'
 
-const HeaderDesktop = () => {
+const Header = () => {
 	const cookies = useCookies()
 	const [loggedIn, setLoggedIn] = useState(false)
 	const [navigationViewable, setNavigationViewable] = useState(false)
@@ -20,23 +20,6 @@ const HeaderDesktop = () => {
 			setButtons(count);
 		}
 	}, [cookies])
-
-	// useEffect(() => {
-	// 	const handleClickOutside = (event) => {
-	// 		if (popupRef.current && !popupRef.current.contains(event.target)) {
-	// 			toggleUserMenu(); // Close the menu
-	// 		}
-	// 	};
-
-	// 	document.addEventListener("mousedown", handleClickOutside);
-	// 	return () => document.removeEventListener("mousedown", handleClickOutside);
-	// }, [navigationViewable]);
-
-	// useEffect(() => {
-	//   if (popupRef.current && navigationViewable) {
-	//     popupRef.current.focus();
-	//   }
-	// }, [navigationViewable]);
 
 	function toUrl(url) {
 		window.location.href = url
@@ -149,6 +132,4 @@ const HeaderDesktop = () => {
 	)
 }
 
-export default HeaderDesktop
-
-// <button className="parade-notice--button" onClick={() => {toUrl('/parade_notice')}}>Parade Notice</button>
+export default Header
