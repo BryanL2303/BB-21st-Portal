@@ -417,7 +417,7 @@ const NewParadeForm = ({ setReload }) => {
 										{platoonAnnouncements[level].map((announcement, index) => {
 											return (
 												<li key={level + announcement.announcement}>
-													<input defaultValue={announcement.announcement} data-index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' />
+													<input defaultValue={announcement.announcement} data-index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' name={'sec-' + level + '-announcement'} />
 													<button type='button' onClick={() => deletePlatoonAnnouncement(level, index)} aria-label='Remove Platoon Announcement'>
 														<i className='fa-solid fa-xmark'></i>
 													</button>
