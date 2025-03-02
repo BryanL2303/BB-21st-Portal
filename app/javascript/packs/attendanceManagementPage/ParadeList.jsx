@@ -48,7 +48,7 @@ const ParadeList = ({setPageState, reload}) => {
                         {(cookies.get('Type') == 'Admin' || cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' ||
                         cookies.get('Appointment') == 'CSM' || cookies.get('Appointment') == 'DY CSM' ||
                         cookies.get('Appointment') == 'Admin Sergeant') &&
-                        <button onClick={showNewParadeForm}><i className='fa-solid fa-plus'></i>New Parade</button>
+                        <button onClick={showNewParadeForm}><i className='fa-solid fa-plus'></i>New</button>
                         }
                         <HandleDownloadWithExcelJS key={currentYear} year={currentYear}/>
                     </div>

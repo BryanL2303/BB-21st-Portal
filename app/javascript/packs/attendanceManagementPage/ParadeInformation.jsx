@@ -22,9 +22,8 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
     axios.post('/api/parade/' + id + '/get_parade', {},
     {withCredentials: true})
     .then((resp) => {
-      console.log(resp.data)
-        setParade(resp.data)
-        setRender(true)
+      setParade(resp.data)
+      setRender(true)
     })
     .catch(resp => handleServerError(resp.response.status))
     axios.post('/api/account/0/get_accounts_by_type', {
