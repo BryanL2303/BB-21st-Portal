@@ -42,6 +42,7 @@ const Header = () => {
 		})
 		.then(() => window.location.href = '/')
 		.catch()
+		setLoggedIn(false)
 	}
 
 	return (
