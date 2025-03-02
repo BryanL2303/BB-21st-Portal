@@ -49,13 +49,6 @@
         overflow-x: auto;
 	}
 
-    .attendance-management-page .page-container .parade-editor button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
-        padding: 5px;
-	}
-
     .attendance-management-page .page-container .main-block {
         flex: 1;
     }
@@ -154,10 +147,6 @@
         }
     }
 
-    .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
-        width: 98%;
-    }
-
     .attendance-management-page .parade-list > div {
         display: flex;
         flex-direction: column;
@@ -201,7 +190,6 @@
 
     .new-parade-form {
         overflow-y: auto;
-        height: 100%;
     }
 
     .new-parade-form *:not(.fa-solid) {
@@ -305,12 +293,11 @@
                 border-radius: 0;
                 border-bottom: 1px solid black;
                 padding: 5px;
-                width: 80%;
             }
 
             button {
                 display: flex;
-                width: 25px;
+                width: 50px;
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
@@ -478,6 +465,11 @@
         button:hover {
             background: black;
         }
+    }
+
+    .attendance-management-page .page-container .main-block .parade-information .parade-editor .flex-block {
+        margin: 0 !important;
+        padding: 0 !important;
     }
 }
 
