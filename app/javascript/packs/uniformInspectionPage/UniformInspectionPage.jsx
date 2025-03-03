@@ -25,7 +25,7 @@ const UniformInspectionPage = () => {
 	}, [])
 
 	function uniformInspectionForm(e) {
-		window.location.href = '/uniform_inspection_form/' + e.target.id
+		window.location.href = '/uniform_inspection_form'
 	}
 
 	function filter() {

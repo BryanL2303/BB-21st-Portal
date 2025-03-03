@@ -148,7 +148,7 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByPlaceholderText('Enter Password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
-            expect(screen.getByText('1')).toBeInTheDocument();
+            expect(screen.getByText('Secondary 1')).toBeInTheDocument();
         })
     })
 
