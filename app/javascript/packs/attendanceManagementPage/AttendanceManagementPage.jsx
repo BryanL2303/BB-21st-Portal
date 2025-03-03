@@ -9,7 +9,6 @@ const AttendanceManagementPage = () => {
   const [pageState, setPageState] = useState('form')
   const [renderPage, setRenderPage] = useState(false)
   const [reload, setReload] = useState(false)
-  const [years, setYears] = useState([])
 
   useEffect(() => {
     // If there is no ongoing session go back to log in page
@@ -17,14 +16,6 @@ const AttendanceManagementPage = () => {
     {withCredentials: true})
     .then(() => setRenderPage(true))
     .catch(() => window.location.href = '/')
-    setYears((prev) => {
-      const currentYear = new Date().getFullYear();
-      let next = [...prev];
-      for (let year = 2025; year <= currentYear; year++) {
-        next.push(year);
-      }
-      return next
-    })
   }, [])
 
   if (!renderPage) return null
