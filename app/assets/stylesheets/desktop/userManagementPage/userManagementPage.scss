@@ -1,4 +1,4 @@
-@media screen{
+@media screen {
 	.user-management-page .page-container {
 		display: flex;
 		margin: 20px 30px;
@@ -19,6 +19,9 @@
 					cursor: pointer;
 					background: black;
 					color: white;
+					display: flex;
+					justify-content: center;
+					align-items: center;
 					border: none;
 					outline: none;
 					border-radius: 10px;

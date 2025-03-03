@@ -43,9 +43,9 @@ describe('AccountCreationForm Component', () => {
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
         // Simulate changing levels
-        const levelLabel = screen.getByText('1')
+        const levelLabel = screen.getByText('Secondary 1')
         fireEvent.click(levelLabel)
-        const popUpLevel = screen.getByText('2')
+        const popUpLevel = screen.getByText('Secondary 2')
         fireEvent.click(popUpLevel)
 
         fireEvent.click(createButton)
