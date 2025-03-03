@@ -42,6 +42,7 @@ const Header = () => {
 		})
 		.then(() => window.location.href = '/')
 		.catch()
+		setLoggedIn(false)
 	}
 
 	return (
@@ -78,6 +79,9 @@ const Header = () => {
 
 					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 						<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
+
+					{cookies.get("Type") != "Boy" &&
+						<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 					
 					<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
 					<button className="log-out--button" onClick={logOut}>Log Out</button>
@@ -121,6 +125,9 @@ const Header = () => {
 
 						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 							<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
+						
+						{cookies.get("Type") != "Boy" &&
+							<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 						
 						<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
 						<button className="log-out--button" onClick={logOut}>Log Out</button>
