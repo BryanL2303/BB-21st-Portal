@@ -52,7 +52,7 @@ const Header = () => {
 					<i className="fa-solid fa-bars"></i>
 				</button>
 
-				<img src="/assets/coy logo-9c8cabf89b71a4b4554e2864db559572b3b21bb9be05fafabfc844e3a584b7e1.png" alt='BB Logo' width={"90px"} height={"90px"} />
+				<img src="/assets/coy logo-9045c6ee2f3bfcea2b14a1e4c8a6586a5542c17289ec5cd76a7b2d653a295abe.webp" alt='BB Logo' width={"90px"} height={"90px"} />
 			</div>
 
 			<div data-state={navigationViewable} style={{ height: (40 * buttons) + "px" }} data-header-type={loggedIn ? "home" : "public" }>
