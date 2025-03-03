@@ -50,9 +50,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 	}
 
 	function setAccount(appointment, e) {
-		console.log(appointment, e.target.value)
 		appointmentHolders[appointment] = e.target.value
-		console.log(appointmentHolders)
 	}
 
 	function addCompanyAnnouncement() {
@@ -147,25 +145,6 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 			submit = false
 		}
 		if (submit) {
-			console.log({parade_type: paradeType,
-				date: e.target.elements['date'].value,
-				venue: e.target.elements['venue'].value,
-				sec_1_attire: e.target.elements['sec_1_attire'].value,
-				sec_2_attire: e.target.elements['sec_2_attire'].value,
-				sec_3_attire: e.target.elements['sec_3_attire'].value,
-				sec_4_5_attire: e.target.elements['sec_4_5_attire'].value,
-				reporting_time: e.target.elements['reporting_time'].value,
-				dismissal_time: e.target.elements['dismissal_time'].value,
-				dt_id: appointmentHolders['dt'],
-				do_id: appointmentHolders['do'],
-				cos_id: appointmentHolders['cos'],
-				flag_bearer_id: appointmentHolders['flag_bearer'],
-				csm_id: appointmentHolders['csm'],
-				ce_id: appointmentHolders['ce'],
-				description: e.target.elements['description'].value,
-				company_announcements: companyAnnouncements,
-				platoon_programs: platoonPrograms,
-				platoon_announcements: platoonAnnouncements})
 			axios.post('/api/parade/' + parade.info.id + '/edit_parade', {
 				parade_type: paradeType,
 				date: e.target.elements['date'].value,
