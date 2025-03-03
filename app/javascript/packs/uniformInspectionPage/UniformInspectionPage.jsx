@@ -24,7 +24,7 @@ const UniformInspectionPage = () => {
 		.catch(resp => handleServerError(resp.response.status))
 	}, [])
 
-	function uniformInspectionForm(e) {
+	function uniformInspectionForm() {
 		window.location.href = '/uniform_inspection_form'
 	}
 
