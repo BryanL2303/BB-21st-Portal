@@ -34,9 +34,9 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const fullnameInput = screen.getByPlaceholderText('full name')
-        const usernameInput = screen.getByPlaceholderText('user name')
-        const passwordInput = screen.getByPlaceholderText('password')
+        const fullnameInput = screen.getByPlaceholderText('Enter Full Name')
+        const usernameInput = screen.getByPlaceholderText('Enter User Name')
+        const passwordInput = screen.getByPlaceholderText('Enter Password')
         const createButton = screen.getByText('Create Account')
         fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
@@ -85,9 +85,9 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const fullnameInput = screen.getByPlaceholderText('full name')
-        const usernameInput = screen.getByPlaceholderText('user name')
-        const passwordInput = screen.getByPlaceholderText('password')
+        const fullnameInput = screen.getByPlaceholderText('Enter Full Name')
+        const usernameInput = screen.getByPlaceholderText('Enter User Name')
+        const passwordInput = screen.getByPlaceholderText('Enter Password')
         const createButton = screen.getByText('Create Account')
         fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
@@ -98,7 +98,7 @@ describe('AccountCreationForm Component', () => {
         fireEvent.click(typeLabel)
         const popUpType = screen.getByText('Primer')
         fireEvent.click(popUpType)
-        const rankLabel = screen.getByText('CLT')
+        const rankLabel = screen.getByText('Not Applicable')
         fireEvent.click(rankLabel)
         const popUpRank = screen.getByText('SCL')
         fireEvent.click(popUpRank)

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Popup from 'reactjs-popup'
 import axios from 'axios'
 import PropTypes from 'prop-types'
 import { handleServerError } from '../general/handleServerError'
@@ -214,16 +213,16 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 					<input name='venue' id='venue' defaultValue={parade.info.venue} />
 					
 					<label htmlFor='sec-1-attire'>Sec 1 Attire:</label>
-					<input name='sec_1_attire' id='sec-1-attire' defaultValue={parade.info.sec_1_attire} />
+					<input name='sec_1_attire' id='sec-1-attire' defaultValue={parade.info.sec_1_attire} placeholder='Enter Sec 1 Attire' />
 					
 					<label htmlFor='sec-2-attire'>Sec 2 Attire:</label>
-					<input name='sec_2_attire' id='sec-2-attire' defaultValue={parade.info.sec_2_attire} />
+					<input name='sec_2_attire' id='sec-2-attire' defaultValue={parade.info.sec_2_attire} placeholder='Enter Sec 2 Attire' />
 					
 					<label htmlFor='sec-3-attire'>Sec 3 Attire:</label>
-					<input name='sec_3_attire' id='sec-3-attire' defaultValue={parade.info.sec_3_attire} />
+					<input name='sec_3_attire' id='sec-3-attire' defaultValue={parade.info.sec_3_attire} placeholder='Enter Sec 3 Attire' />
 					
 					<label htmlFor='sec-4-5-attire'>Sec 4 / 5 Attire:</label>
-					<input name='sec_4_5_attire' id='sec-4-5-attire' defaultValue={parade.info.sec_4_5_attire} />
+					<input name='sec_4_5_attire' id='sec-4-5-attire' defaultValue={parade.info.sec_4_5_attire} placeholder='Enter Sec 4 / 5 Attire' />
 					
 					<label htmlFor='reporting-time'>Reporting Time:</label>
 					<input name='reporting_time' id='repoting-time' className='reporting-time-input' type='datetime-local' defaultValue={parade.info.reporting_time.slice(0, 16)} />
