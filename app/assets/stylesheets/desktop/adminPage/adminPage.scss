@@ -1,45 +1,36 @@
-@media screen and (min-width: 800px){
-	.admin-page{
-		position: relative;
-		height: 100vh;
-		width: 100vw;
-		overflow: hidden;
-		text-align: center;
+@media screen and (min-width: 800px) {
+	.admin-page {
+		font-family: sans-serif;
 	}
 
-	.admin-page .page-container{
-		padding-left: 3vw;
-		padding-right: 3vw;
-		padding-top: 3vh;
-		padding-bottom: 3vh;
-		height: 87vh;
-		width: 94vw;
+	.admin-page .page-container {
+		margin: 20px 30px;
 		text-align: center;
 		overflow-x: auto;
-		overflow-y: auto;
+		height: 85vh;
 	}
 
 	.admin-page .page-container table {
 		width: 100%;
-		border-collapse: collapse; /* Ensures borders do not have space between them */
-	  }
-	  
-	  .admin-page .page-container thead th {
-		font-weight: bold; /* Bold headers */
-		border: 1px solid #ddd; /* Border for header cells */
-		padding: 1px; /* Small padding for header cells */
-	  }
+		border-collapse: collapse;
+	}
 
-	  .admin-page .page-container tbody tr {
-		border: 1px solid #ddd; /* Border for each row */
-	  }
-	  
-	  .admin-page .page-container td {
-		padding: 1px; /* Small padding for body cells */
-		border: 1px solid #ddd; /* Border for body cells */
-	  }
-	  
-	  .admin-page .page-container tbody tr:hover {
-		background-color: #f1f1f1; /* Light gray background on hover */
-	  }
+	.admin-page .page-container thead th {
+		font-weight: bold;
+		border: 1px solid #ddd;
+		padding: 1px;
+	}
+
+	.admin-page .page-container tbody tr {
+		border: 1px solid #ddd;
+	}
+
+	.admin-page .page-container td {
+		padding: 1px;
+		border: 1px solid #ddd;
+	}
+
+	.admin-page .page-container tbody tr:hover {
+		background-color: #f1f1f1;
+	}
 }
