@@ -43,11 +43,8 @@ describe('AccountCreationForm Component', () => {
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
         // Simulate changing levels
-        const levelLabel = screen.getByText('Secondary 1')
-        fireEvent.click(levelLabel)
-        const popUpLevel = screen.getByText('Secondary 2')
-        fireEvent.click(popUpLevel)
-
+        const levelLabel = screen.getByLabelText('Level:')
+        fireEvent.change(levelLabel, { target: { value: '2' } })
         fireEvent.click(createButton)
 
         // Wait for axios post call and check its parameters
@@ -94,16 +91,12 @@ describe('AccountCreationForm Component', () => {
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
         // Switch account type and rank
-        const typeLabel = screen.getByText('Boy')
-        fireEvent.click(typeLabel)
-        const popUpType = screen.getByText('Primer')
-        fireEvent.click(popUpType)
-        const rankLabel = screen.getByText('Not Applicable')
-        fireEvent.click(rankLabel)
-        const popUpRank = screen.getByText('SCL')
-        fireEvent.click(popUpRank)
+        const typeLabel = screen.getByLabelText('Account Type:')
+        fireEvent.change(typeLabel, { target: { value: 'Primer' } })
+        const rankLabel = screen.getByLabelText('Rank:')
+        fireEvent.change(rankLabel, { target: { value: 'SCL' } })
 
-        const credentialInput = screen.getByPlaceholderText('credentials')
+        const credentialInput = screen.getByPlaceholderText('Enter Credentials')
         fireEvent.change(credentialInput, { target: { value: 'Sec 1 Platoon Primer' } })
 
         fireEvent.click(createButton)

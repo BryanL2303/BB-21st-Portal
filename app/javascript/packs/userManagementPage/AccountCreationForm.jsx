@@ -41,7 +41,7 @@ const AccountCreationForm = ({ reLoad }) => {
 				level: accountType === "Boy" ? accountLevel : null,
 				class1: accountType === "Officer" ? accountClass : null,
 				credentials: accountType !== "Boy" ? e.target.elements['credentials'].value : null,
-				honorifics: accountType === "Officer" && (accountRank === "NIL" || accountClass === "STAFF") ? accountHonorific : null,
+				honorifics: accountType === "Officer" && (accountRank === "NIL" || accountClass === "STAFF") ? accountHonorific : undefined,
 				roll_call: accountRollCall
 			}, {
 				withCredentials: true
