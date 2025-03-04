@@ -197,7 +197,7 @@ module Api
 
         ParadePlatoonAnnouncement.where(parade_id: params[:id]).destroy_all
         ['1', '2', '3', '4/5'].each do |level|
-          params[:platoon_announcements][level].each do |_platoon_announncement|
+          params[:platoon_announcements][level].each do |platoon_announcement|
             announcement = ParadePlatoonAnnouncement.new(parade_id: params[:id], level:,
                                                          announcement: platoon_announcement['announcement'])
             announcement.save

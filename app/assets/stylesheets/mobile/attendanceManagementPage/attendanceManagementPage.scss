@@ -12,6 +12,9 @@
         flex-direction: column;
         width: 100%;
         overflow-x: hidden;
+        position: sticky;
+        top: 0;
+        background: white;
     }
 
     .attendance-management-page .page-container .parade-list button {
@@ -26,11 +29,22 @@
         min-height: 500px;
     }
 
-    .attendance-management-page .parade-list > div:last-of-type {
+    .attendance-management-page .parade-list > div {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .attendance-management-page .parade-list > div > div:last-of-type {
         display: flex;
         flex-direction: row;
         flex: 1;
+        gap: 5px;
         overflow-x: auto;
+    }
+
+    .attendance-management-page .parade-list > div > div:last-of-type button {
+        width: max-content;
     }
 
     .attendance-management-page .page-container {
@@ -46,7 +60,11 @@
         .half-block {
             width: 100%;
         }
-    } 
+    }
+
+    .attendance-management-page .parade-list > div > div:first-of-type > div:last-of-type button {
+        width: max-content;
+    }
 }
 
 @media screen and (max-width: 500px) {

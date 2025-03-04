@@ -9,6 +9,9 @@ import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPag
 import { ResultPage } from './resultPage/ResultPage'
 import { ResultGenerationPage } from './resultPage/ResultGenerationPage'
 import { AdminPage } from './adminPage/AdminPage'
+import { UniformInspectionPage } from './uniformInspectionPage/UniformInspectionPage'
+import { UniformInspectionResultPage } from './uniformInspectionPage/UniformInspectionResultPage'
+import { UniformInspectionForm } from './uniformInspectionPage/UniformInspectionForm'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
 
@@ -28,6 +31,9 @@ root.render(
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>
         <Route path='/view_result/:id' element={<ResultPage/>}/>
+        <Route path='/uniform_inspection_results' element={<UniformInspectionPage/>}/>
+        <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
+        <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
       </Route>

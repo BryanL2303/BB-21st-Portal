@@ -1,69 +1,181 @@
-@media screen and (min-width: 800px){
-	.uniform-inspection-page .page-container{
-		margin-top: 3vh;
-		height: 85vh;
+@media screen {
+	.uniform-inspection-page *:not(.fa-solid) {
+		font-family: sans-serif;
+		box-sizing: border-box;
+	}
+
+	.uniform-inspection-page .page-container {
+		margin: 20px 30px;
 		display: flex;
 		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		gap: 20px;
 	}
 
-	.uniform-inspection-page .page-container button{
-		width: 15vw;
+	.uniform-inspection-list-table {
+		display: grid;
+		grid-template-columns: 50px 1fr repeat(3, 200px) max-content;
+		border-bottom: 1px solid black;
+
+		> div {
+			display: contents;
+		}
+
+		> p {
+			font-size: 18px;
+			font-weight: bold;
+		}
+
+		p {
+			padding: 5px 10px;
+			border: 1px solid black;
+			border-bottom: none;
+			border-right: none;
+			display: flex;
+			align-items: center;
+		}
+
+		p:first-of-type { 
+			justify-content: center;
+		}
+
+		p:last-of-type { 
+			justify-content: center;
+			border-right: 1px solid black;
+		}
+
+		a {
+			text-decoration: none;
+			color: black;
+			cursor: pointer;
+		}
 	}
 
-	.uniform-inspection-page table{
-		border: solid;
-		width: 80vw;
-		text-align: left;
+	#conduct-inspection-button {
+		cursor: pointer;
+		background: black;
+		color: white;
+		border: 1px solid white;
+		outline: none;
+		border-radius: 10px;
+		padding: 5px 10px;
+		width: max-content;
+		margin-left: auto;
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
 	}
 
-	.uniform-inspection-page table th{
-		text-align: center;
-	}
-
-	.uniform-inspection-page table tr{
-		text-align: center;
-	}
-
-	.uniform-inspection-form .header{
-		height: 6vh;
+	.uniform-inspection-filter {
 		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
+		gap: 10px 20px;
+		flex-wrap: wrap;
+		align-items: center;
+		position: sticky;
+		top: 0;
+		background: white;
+
+		div {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+			flex-wrap: wrap;
+		}
+
+		input[type='checkbox'] {
+			display: none;
+		}
+
+		input[type='checkbox'] + label {
+			cursor: pointer;
+			border: 1px solid black;
+			outline: none;
+			border-radius: 10px;
+			padding: 3px 5px;
+			color: black;
+			font-size: 14px;
+		}
+
+		input[type='checkbox'] + label::before {
+			content: '\f00d';
+			font: var(--fa-font-solid);
+			margin-right: 5px;
+			color: red;
+		}
+
+		input[type='checkbox']:checked + label::before {
+			content: '\f00c';
+			font: var(--fa-font-solid);
+			margin-right: 5px;
+			color: darkgreen;
+		}
+
+		input[type='search'] {
+			padding: 5px 10px;
+			border: none;
+			border-bottom: 1px solid black;
+			outline: none;
+			border-radius: 0;
+			width: 200px;
+		}
+
+		label[for='search'] i {
+			margin-right: 5px;
+		}
 	}
 
-	.uniform-inspection-form .page-container{
-		height: 79vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
-	}
+	// .uniform-inspection-page .page-container button{
+	// 	width: 15vw;
+	// }
 
-	.uniform-inspection-result-page .page-container{
-		margin-top: 3vh;
-		height: 85vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 10vw;
-		padding-right: 10vw;
-		width: 80vw;
-	}
+	// .uniform-inspection-page table{
+	// 	border: solid;
+	// 	width: 80vw;
+	// 	text-align: left;
+	// }
 
-	.uniform-inspection-result-page .page-container button{
-		width: 15vw;
-	}
+	// .uniform-inspection-page table th{
+	// 	text-align: center;
+	// }
+
+	// .uniform-inspection-page table tr{
+	// 	text-align: center;
+	// }
+
+	// .uniform-inspection-form .header{
+	// 	height: 6vh;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	overflow-x: hidden;
+	// 	overflow-y: auto;
+	// 	padding-left: 10vw;
+	// 	padding-right: 10vw;
+	// 	width: 80vw;
+	// }
+
+	// .uniform-inspection-form .page-container{
+	// 	height: 79vh;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	overflow-x: hidden;
+	// 	overflow-y: auto;
+	// 	padding-left: 10vw;
+	// 	padding-right: 10vw;
+	// 	width: 80vw;
+	// }
+
+	// .uniform-inspection-result-page .page-container{
+	// 	margin-top: 3vh;
+	// 	height: 85vh;
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	overflow-x: hidden;
+	// 	overflow-y: auto;
+	// 	padding-left: 10vw;
+	// 	padding-right: 10vw;
+	// 	width: 80vw;
+	// }
+
+	// .uniform-inspection-result-page .page-container button{
+	// 	width: 15vw;
+	// }
 }

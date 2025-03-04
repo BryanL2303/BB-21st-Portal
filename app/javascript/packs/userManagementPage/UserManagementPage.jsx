@@ -59,6 +59,7 @@ const UserManagementPage = () => {
           <p>Graduated Boys</p>
           <GraduatedBoyAccountsList setPageState = {setPageState} load={load} />
         </div>
+        <hr />
         <div className='main-block'>
           {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}
           {pageState == "appointments" && <AppointmentHoldersList load={load} reLoad={reLoad}/>}

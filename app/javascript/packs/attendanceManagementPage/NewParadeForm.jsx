@@ -139,9 +139,9 @@ const NewParadeForm = ({ setReload }) => {
 	}
 
 	function addPlatoonProgram(level) {
-		let newProgram = document.getElementsByName('sec-' + level + '-program')[0].value
-		let newStartTime = document.getElementsByName('sec-' + level + '-start-time')[0].value
-		let newEndTime = document.getElementsByName('sec-' + level + '-end-time')[0].value
+		let newProgram = document.getElementsByName('sec-' + level + '-program-new')[0].value
+		let newStartTime = document.getElementsByName('sec-' + level + '-start-time-new')[0].value
+		let newEndTime = document.getElementsByName('sec-' + level + '-end-time-new')[0].value
 		if (newProgram != '') {
 			setPlatoonPrograms((prev) => {
 				prev[level] = [...prev[level], { start_time: newStartTime, end_time: newEndTime, program: newProgram }]
@@ -396,12 +396,12 @@ const NewParadeForm = ({ setReload }) => {
 								<div className='platoon-program-container'>
 									<div>
 										<div>
-											<input type='datetime-local' name={'sec-' + level + '-start-time'} />
+											<input type='datetime-local' name={'sec-' + level + '-start-time-new'} />
 											<p>-</p>
-											<input type='datetime-local' name={'sec-' + level + '-end-time'} />
+											<input type='datetime-local' name={'sec-' + level + '-end-time-new'} />
 										</div>
 										
-										<input type='text' name={'sec-' + level + '-program'}  placeholder='Enter Program' />
+										<input type='text' name={'sec-' + level + '-program-new'}  placeholder='Enter Program' />
 									</div>
 									
 									<button type='button' onClick={() => addPlatoonProgram(level)} aria-label='Add Platoon Program'>
@@ -417,7 +417,7 @@ const NewParadeForm = ({ setReload }) => {
 										{platoonAnnouncements[level].map((announcement, index) => {
 											return (
 												<li key={level + announcement.announcement}>
-													<input defaultValue={announcement.announcement} data-index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' />
+													<input defaultValue={announcement.announcement} data-index={index} onBlur={(e) => { updatePlatoonAnnouncement(e, level) }} placeholder='Enter Announcement' name={'sec-' + level + '-announcement'} />
 													<button type='button' onClick={() => deletePlatoonAnnouncement(level, index)} aria-label='Remove Platoon Announcement'>
 														<i className='fa-solid fa-xmark'></i>
 													</button>

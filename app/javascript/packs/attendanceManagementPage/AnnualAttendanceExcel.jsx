@@ -5,6 +5,10 @@ import PropTypes from 'prop-types'
 import { saveAs } from "file-saver";
 
 const HandleDownloadWithExcelJS = ({year}) => {
+	if (year < 2025) {
+		return null
+	}
+
 	function handleParadesData() {
 		axios.post('/api/parade/0/get_annual_attendance_information', {
 			year: year,
@@ -959,9 +963,7 @@ const HandleDownloadWithExcelJS = ({year}) => {
 		});
 	}
 	return (
-		<div>
-		  <button onClick={handleParadesData}>Download {year} Attendance</button>
-		</div>
+		<button onClick={handleParadesData}><i className="fa-solid fa-file-excel"></i> Attendance</button>
 	);
 };
 

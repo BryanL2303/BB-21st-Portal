@@ -42,6 +42,7 @@ const Header = () => {
 		})
 		.then(() => window.location.href = '/')
 		.catch()
+		setLoggedIn(false)
 	}
 
 	return (
@@ -51,7 +52,7 @@ const Header = () => {
 					<i className="fa-solid fa-bars"></i>
 				</button>
 
-				<img src="/assets/coy logo-9c8cabf89b71a4b4554e2864db559572b3b21bb9be05fafabfc844e3a584b7e1.png" alt='BB Logo' width={"90px"} height={"90px"} />
+				<img src="/assets/coy logo-9045c6ee2f3bfcea2b14a1e4c8a6586a5542c17289ec5cd76a7b2d653a295abe.webp" alt='BB Logo' width={"90px"} height={"90px"} />
 			</div>
 
 			<div data-state={navigationViewable} style={{ height: (40 * buttons) + "px" }} data-header-type={loggedIn ? "home" : "public" }>
@@ -78,6 +79,9 @@ const Header = () => {
 
 					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 						<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
+
+					{cookies.get("Type") != "Boy" &&
+						<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 					
 					<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
 					<button className="log-out--button" onClick={logOut}>Log Out</button>
@@ -121,6 +125,9 @@ const Header = () => {
 
 						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 							<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
+						
+						{cookies.get("Type") != "Boy" &&
+							<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 						
 						<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
 						<button className="log-out--button" onClick={logOut}>Log Out</button>

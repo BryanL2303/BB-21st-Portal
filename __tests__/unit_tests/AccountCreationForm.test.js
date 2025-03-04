@@ -34,20 +34,17 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const fullnameInput = screen.getByPlaceholderText('full name')
-        const usernameInput = screen.getByPlaceholderText('user name')
-        const passwordInput = screen.getByPlaceholderText('password')
+        const fullnameInput = screen.getByPlaceholderText('Enter Full Name')
+        const usernameInput = screen.getByPlaceholderText('Enter User Name')
+        const passwordInput = screen.getByPlaceholderText('Enter Password')
         const createButton = screen.getByText('Create Account')
         fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
         // Simulate changing levels
-        const levelLabel = screen.getByText('1')
-        fireEvent.click(levelLabel)
-        const popUpLevel = screen.getByText('2')
-        fireEvent.click(popUpLevel)
-
+        const levelLabel = screen.getByLabelText('Level:')
+        fireEvent.change(levelLabel, { target: { value: '2' } })
         fireEvent.click(createButton)
 
         // Wait for axios post call and check its parameters
@@ -85,25 +82,21 @@ describe('AccountCreationForm Component', () => {
         })
 
         // Simulate changing input and creating account
-        const fullnameInput = screen.getByPlaceholderText('full name')
-        const usernameInput = screen.getByPlaceholderText('user name')
-        const passwordInput = screen.getByPlaceholderText('password')
+        const fullnameInput = screen.getByPlaceholderText('Enter Full Name')
+        const usernameInput = screen.getByPlaceholderText('Enter User Name')
+        const passwordInput = screen.getByPlaceholderText('Enter Password')
         const createButton = screen.getByText('Create Account')
         fireEvent.change(fullnameInput, { target: { value: 'John Doe' } })
         fireEvent.change(usernameInput, { target: { value: 'John Doe' } })
         fireEvent.change(passwordInput, { target: { value: 'John Doe' } })
 
         // Switch account type and rank
-        const typeLabel = screen.getByText('Boy')
-        fireEvent.click(typeLabel)
-        const popUpType = screen.getByText('Primer')
-        fireEvent.click(popUpType)
-        const rankLabel = screen.getByText('CLT')
-        fireEvent.click(rankLabel)
-        const popUpRank = screen.getByText('SCL')
-        fireEvent.click(popUpRank)
+        const typeLabel = screen.getByLabelText('Account Type:')
+        fireEvent.change(typeLabel, { target: { value: 'Primer' } })
+        const rankLabel = screen.getByLabelText('Rank:')
+        fireEvent.change(rankLabel, { target: { value: 'SCL' } })
 
-        const credentialInput = screen.getByPlaceholderText('credentials')
+        const credentialInput = screen.getByPlaceholderText('Enter Credentials')
         fireEvent.change(credentialInput, { target: { value: 'Sec 1 Platoon Primer' } })
 
         fireEvent.click(createButton)

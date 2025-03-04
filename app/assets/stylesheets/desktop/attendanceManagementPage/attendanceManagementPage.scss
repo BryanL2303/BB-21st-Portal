@@ -6,54 +6,33 @@
 
     .attendance-management-page * {
         box-sizing: border-box;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
     }
 
-    .attendance-management-page .page-container{
-		margin-top: 3vh;
-		height: 85vh;
-        padding: 0 30px;
+    .attendance-management-page .page-container {
+        padding: 20px 30px;
         display: flex;
         flex-direction: column;
         gap: 10px;
 	}
 
-    .attendance-management-page .parade-list h1, .annual-attendance-list h1 {
+    .attendance-management-page .parade-list h1 {
         font-family: sans-serif;
     }
-
-    .attendance-management-page .page-container .annual-attendance-list .year-button{
-        border: solid;
-        height: 35%;
-        width: 20%;
-	}
-
-    .attendance-management-page .page-container .annual-attendance-list button{
-        border: 1px solid black;
-        margin-top: 5px;
-        padding: 5px;
-        outline: none;
-        color: black;
-	}
 
     .attendance-management-page .page-container .parades {
         display: flex;
         justify-content: space-between;
         gap: 30px;
         flex: 1;
-        height: 400px;
     }
 
-    .attendance-management-page .page-container .parade-list{
+    .attendance-management-page .page-container .parade-list {
 		width: 20%;
         flex-shrink: 0;
 	}
 
-    .attendance-management-page .page-container .parade-list button{
+    .attendance-management-page .page-container .parade-list button {
         border: 1px solid black;
-        margin: 1%;
         padding: 5px;
         cursor: pointer;
         color: black;
@@ -65,13 +44,6 @@
         height: 90vh;
         overflow-y: auto;
         overflow-x: auto;
-	}
-
-    .attendance-management-page .page-container .parade-editor button{
-        border: solid;
-        border-width: thin;
-        margin: 1%;
-        padding: 5px;
 	}
 
     .attendance-management-page .page-container .main-block {
@@ -172,19 +144,37 @@
         }
     }
 
-    .attendance-management-page .page-container .main-block .parade-information .parade-editor table input{
-        width: 98%;
+    .attendance-management-page .parade-list > div {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
     }
 
-    .attendance-management-page .parade-list > div:first-of-type {
+    .attendance-management-page .parade-list .fa-file-excel, .attendance-management-page .parade-list .fa-plus {
+        margin-right: 5px;
+    }
+
+    .attendance-management-page .parade-list > div > div:first-of-type {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         gap: 5px 10px;
+    }
+
+    .attendance-management-page .parade-list > div > div:first-of-type > div:first-of-type {
         justify-content: space-between;
         align-items: center;
     }
 
-    .attendance-management-page .parade-list > div:first-of-type button:nth-of-type(1), .attendance-management-page .parade-list > div:first-of-type button:nth-of-type(2) {
+    .attendance-management-page .parade-list > div > div:first-of-type > div {
+        display: flex;
+        gap: 5px;
+    }
+
+    .attendance-management-page .parade-list > div > div:first-of-type > div:last-of-type button {
+        width: calc((100% - 5px) / 2);
+    }
+
+    .attendance-management-page .parade-list > div > div:first-of-type > div:first-of-type button {
         background: black;
         width: 28px;
         height: 28px;
@@ -197,7 +187,6 @@
 
     .new-parade-form {
         overflow-y: auto;
-        height: 100%;
     }
 
     .new-parade-form *:not(.fa-solid) {
@@ -301,12 +290,11 @@
                 border-radius: 0;
                 border-bottom: 1px solid black;
                 padding: 5px;
-                width: 80%;
             }
 
             button {
                 display: flex;
-                width: 25px;
+                width: 50px;
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
@@ -474,5 +462,31 @@
         button:hover {
             background: black;
         }
+    }
+
+    .attendance-management-page .page-container .main-block .parade-information .parade-editor .flex-block {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .attendance-management-page .parade-list > div {
+        position: sticky;
+        top: 20px;
+    }
+
+    .parade-list > div > div:last-of-type {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+
+        > button {
+            width: calc((100% - 5px) / 2);
+        }
+    }
+
+    .attendance-management-page .page-container .parade-list button {
+        width: calc((100% - 5px) / 2);
     }
 }

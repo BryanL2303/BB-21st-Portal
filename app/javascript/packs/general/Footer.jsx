@@ -28,7 +28,7 @@ const Footer = () => {
                 </div>
             </div>
             <div>
-                <p>Uicons by <a href="https://fontawesome.com/" title="Font Awesome" target="_blank" rel="noreferrer">Font Awesome</a></p>
+                <p>Icons by <a href="https://fontawesome.com/" title="Font Awesome" target="_blank" rel="noreferrer">Font Awesome</a></p>
                 <p>Website designed and developed by: Bryan Lee & Dylan Yeo</p>
             </div>
         </footer>

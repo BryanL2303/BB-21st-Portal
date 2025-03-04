@@ -1,9 +1,63 @@
-@media screen{
-	.user-management-page .page-container{
-		overflow: hidden;
+@media screen {
+	.user-management-page .page-container {
 		display: flex;
-		margin-top: 3vh;
+		margin: 20px 30px;
 		height: 85vh;
+		gap: 20px;
+
+		.main-block {
+			flex: 1;
+
+			.create-account-form {
+				display: flex;
+				flex-direction: column;
+				gap: 20px;
+
+				button {
+					margin-left: auto;
+					width: max-content;
+					cursor: pointer;
+					background: black;
+					color: white;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					border: none;
+					outline: none;
+					border-radius: 10px;
+					padding: 5px 10px;
+				}
+
+				button:hover {
+					background: black;
+				}
+			}
+
+			.create-account-form > div {
+				display: grid;
+				grid-template-columns: 250px 1fr;
+				gap: 10px;
+				align-items: center;
+
+				input, select {
+					border: none;
+					padding: 5px 0;
+					outline: none;
+					border-bottom: 1px solid black;
+					background: transparent;
+					color: black;
+					border-radius: 0;
+				}
+
+				select {
+					cursor: pointer;
+				}
+			}
+		}
+	}
+
+	.user-management-page .page-container * {
+		font-family: sans-serif;
 	}
 
 	.user-management-page .page-container button{
@@ -40,16 +94,6 @@
 		overflow: hidden;
 	}
 
-	.user-management-page .page-container .main-block{
-		max-height: 100%;
-		width: 70%;
-		border-style: solid;
-		border-color: darkgrey;
-		border-radius: 5px;
-		padding: 1%;
-		margin: 1%;
-	}
-
 	.user-management-page .page-container .user-information{
 		max-height: 95%;
 		overflow-x: hidden;
@@ -70,27 +114,6 @@
 		max-height: 95%;
 		overflow-x: hidden;
 		overflow-y: auto;
-	}
-
-	.user-management-page .create-account-form label{
-		font-size: auto;
-	}
-
-	.user-management-page .create-account-form button{
-		margin-left: 70%;
-		width: 30%;
-	}
-
-	.user-management-page .create-account-form__name{
-		width: 50%;
-		font-size: 20px;
-		margin: 1%;
-	}
-
-	.user-management-page .create-account-form__password{
-		width: 50%;
-		font-size: 20px;
-		margin: 1%;
 	}
 
 	.user-management-page .create-account-form__type{

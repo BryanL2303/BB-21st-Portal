@@ -144,11 +144,11 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
-            expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter User Name')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter Password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
-            expect(screen.getByText('1')).toBeInTheDocument();
+            expect(screen.getByText('Secondary 1')).toBeInTheDocument();
         })
     })
 
@@ -259,11 +259,11 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
-            expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter User Name')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter Password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
-            expect(screen.getByText('1')).toBeInTheDocument();
+            expect(screen.getByText('Secondary 1')).toBeInTheDocument();
         })
 
         const johnDoeButton = screen.getByText('Primer CLT John Doe')
@@ -398,11 +398,11 @@ describe('UserManagementPage with all of its components', () => {
             expect(screen.getByText('Boy Sec 1 REC Elon Musk')).toBeInTheDocument();
             expect(screen.getByText('Boy Sec 1 REC Colin Baker')).toBeInTheDocument();
             // Accounts Creation Form
-            expect(screen.getByPlaceholderText('user name')).toBeInTheDocument();
-            expect(screen.getByPlaceholderText('password')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter User Name')).toBeInTheDocument();
+            expect(screen.getByPlaceholderText('Enter Password')).toBeInTheDocument();
             expect(screen.getByText('Boy')).toBeInTheDocument();
             expect(screen.getByText('REC')).toBeInTheDocument();
-            expect(screen.getByText('1')).toBeInTheDocument();
+            expect(screen.getByText('Secondary 1')).toBeInTheDocument();
         })
 
         const johnDoeButton = screen.getByText('Primer CLT John Doe')

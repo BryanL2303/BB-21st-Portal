@@ -1,69 +1,41 @@
-@media screen and (max-width: 800px){
-	.uniform-inspection-page .page-container{
-		margin-top: 3vh;
-		height: 85vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 5vw;
-		padding-right: 5vw;
-		width: 90vw;
+@media screen and (max-width: 1000px) {
+	.uniform-inspection-list-table {
+		grid-template-columns: max-content 1fr repeat(3, 160px) max-content;
 	}
+}
 
-	.uniform-inspection-page .page-container button{
-		width: 15vw;
+@media screen and (max-width: 850px) {
+	.uniform-inspection-list-table {
+		grid-template-columns: max-content 1fr repeat(2, 160px) max-content;
+
+		p:nth-of-type(4) {
+			display: none;
+		}
 	}
+}
 
-	.uniform-inspection-page table{
-		border: solid;
-		width: 90vw;
-		text-align: left;
+@media screen and (max-width: 800px) {
+	.uniform-inspection-list-table {
+		grid-template-columns: max-content 1fr repeat(2, 110px) max-content;
 	}
+}
 
-	.uniform-inspection-page table th{
-		text-align: center;
+@media screen and (max-width: 600px) {
+	.uniform-inspection-list-table {
+		grid-template-columns: max-content 1fr max-content max-content;
+
+		p:nth-of-type(5) {
+			display: none;
+		}
 	}
+}
 
-	.uniform-inspection-page table tr{
-		text-align: center;
-	}
+@media screen and (max-width: 370px) {
+	.uniform-inspection-list-table {
+		grid-template-columns: max-content 1fr max-content;
 
-	.uniform-inspection-form .header{
-		height: 6vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 5vw;
-		padding-right: 5vw;
-		width: 90vw;
-	}
-
-	.uniform-inspection-form .page-container{
-		height: 79vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 5vw;
-		padding-right: 5vw;
-		width: 90vw;
-	}
-
-	.uniform-inspection-result-page .page-container{
-		margin-top: 3vh;
-		height: 85vh;
-		display: flex;
-		flex-direction: column;
-		overflow-x: hidden;
-		overflow-y: auto;
-		padding-left: 5vw;
-		padding-right: 5vw;
-		width: 90vw;
-	}
-
-	.uniform-inspection-result-page .page-container button{
-		width: 15vw;
+		p:nth-of-type(3) {
+			display: none;
+		}
 	}
 }
