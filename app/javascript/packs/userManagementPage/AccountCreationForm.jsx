@@ -149,7 +149,7 @@ const AccountCreationForm = ({ reLoad }) => {
 				</>}
 
 				{(["Officer", "Primer"].includes(accountType)) && <>
-					<label htmlFor='credentials'>Credentials (For 32A results): </label>
+					<label htmlFor='credentials-input'>Credentials (For 32A results): </label>
 					<input className='account-credentials' name={'credentials'} placeholder='Enter Credentials' id='credentials-input' />
 				</>}
 			</div>
