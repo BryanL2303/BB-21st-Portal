@@ -1,5 +1,5 @@
 @media screen {
-	.uniform-inspection-page *:not(.fa-solid), .uniform-inspection-form *:not(.fa-solid) {
+	.uniform-inspection-page *:not(.fa-solid), .uniform-inspection-form *:not(.fa-solid), .uniform-inspection-result-page *:not(.fa-solid) {
 		font-family: sans-serif;
 		box-sizing: border-box;
 	}
@@ -283,29 +283,80 @@
 		}
 	}
 
-	// .uniform-inspection-page .page-container button{
-	// 	width: 15vw;
-	// }
+	.uniform-inspection-result-page {
+		display: flex;
+		flex-direction: column;
+		margin: 20px 30px;
+	}
 
-	// .uniform-inspection-page table{
-	// 	border: solid;
-	// 	width: 80vw;
-	// 	text-align: left;
-	// }
+	.uniform-inspection-result-page .page-container {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 
-	// .uniform-inspection-result-page .page-container{
-	// 	margin-top: 3vh;
-	// 	height: 85vh;
-	// 	display: flex;
-	// 	flex-direction: column;
-	// 	overflow-x: hidden;
-	// 	overflow-y: auto;
-	// 	padding-left: 10vw;
-	// 	padding-right: 10vw;
-	// 	width: 80vw;
-	// }
+		> div:first-of-type {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			position: sticky;
+			top: 0;
+			background: white;
 
-	// .uniform-inspection-result-page .page-container button{
-	// 	width: 15vw;
-	// }
+			select {
+				background: transparent;
+				padding: 5px 10px;
+				color: black;
+				border-radius: 0;
+				outline: none;
+				border: none;
+				border-bottom: 1px solid black;
+			}
+
+			> div {
+				display: flex;
+				gap: 5px;
+			}
+
+			> div:first-of-type {
+				align-items: center;
+			}
+
+			> div:last-of-type {
+				flex-direction: column;
+			}
+		}
+
+		div:not(:first-of-type) {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		ul {
+			margin-left: 10px;
+		}
+
+		li {
+			display: flex;
+			gap: 10px;
+			align-items: center;
+
+			input {
+				accent-color: black;
+			}
+
+			label {
+				line-height: 1.3;
+				cursor: pointer;
+			}
+		}
+
+		input:not(.field-missing):checked + label {
+			color: darkgreen;
+		}
+
+		.field-missing + label {
+			color: red;
+		}
+	}
 }
