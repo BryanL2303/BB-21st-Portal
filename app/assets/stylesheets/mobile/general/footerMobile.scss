@@ -1,0 +1,32 @@
+@media screen and (max-width: 800px) {
+    footer > div {
+        grid-template-columns: 1fr !important;
+        
+        > div {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid white;
+        }
+    }
+
+    footer > div:first-of-type > div:last-of-type > div {
+        flex-direction: row;
+
+        a {
+            margin-left: 0;
+        }
+    }
+
+    footer > div:first-of-type > div:last-of-type {
+        justify-content: center;
+        align-items: center;
+
+        > div > a {
+            margin-left: 0 !important;
+        }
+    }
+
+    footer > div:first-of-type > div > div {
+        flex-wrap: wrap;
+    }
+}
