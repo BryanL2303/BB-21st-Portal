@@ -116,6 +116,7 @@
 			outline: none;
 			border-radius: 0;
 			width: 200px;
+			background: transparent;
 		}
 
 		label[for='search'] i {
@@ -142,6 +143,7 @@
 			select {
 				outline: none;
 				border: none;
+				background: transparent;
 				padding: 5px 10px;
 				color: black;
 				border-radius: 0;
@@ -246,6 +248,7 @@
 			li {
 				display: flex;
 				gap: 10px;
+				align-items: center;
 
 				input {
 					accent-color: black;
