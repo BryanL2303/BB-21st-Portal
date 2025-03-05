@@ -1,5 +1,6 @@
 @media screen and (max-width: 800px) {
-    .user-management-page .page-container .main-block .create-account-form > div {
+    .user-management-page .page-container .main-block .create-account-form > div,
+    .user-management-page .page-container .user-information form {
         grid-template-columns: 1fr;
     }
 }
