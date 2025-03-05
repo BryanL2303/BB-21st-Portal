@@ -27,7 +27,6 @@ const UniformInspectionResultPage = () => {
 		.then(resp => {
 			setComponents(resp.data['components'])
 			setComponentFields(resp.data)
-			console.log(resp.data)
 		})
 		.catch(resp => handleServerError(resp.response.status))
 
@@ -37,7 +36,6 @@ const UniformInspectionResultPage = () => {
 			setInspections(resp.data['inspections'][resp.data['boy']['id']])
 			setCurrentInspection(resp.data['inspections'][resp.data['boy']['id']][id])
 			setBoys(resp.data['boys'])
-			console.log(resp.data)
 		})
 		.catch(resp => handleServerError(resp.response.status))
 	}, [])
