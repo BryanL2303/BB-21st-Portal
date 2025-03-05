@@ -14,6 +14,7 @@ import { UniformInspectionResultPage } from './uniformInspectionPage/UniformInsp
 import { UniformInspectionForm } from './uniformInspectionPage/UniformInspectionForm'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
+import { NotFound } from "./general/NotFound";
 
 const container = document.body.appendChild(document.createElement('div'));
 const root = createRoot(container);
@@ -36,6 +37,8 @@ root.render(
         <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   </Router>
