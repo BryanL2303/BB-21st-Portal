@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
