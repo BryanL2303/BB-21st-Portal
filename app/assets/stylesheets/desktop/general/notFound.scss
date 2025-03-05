@@ -1,0 +1,23 @@
+@media screen {
+    .not-found {
+        font-family: sans-serif;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+        min-height: 70vh;
+        margin: 0 30px;
+    }
+    
+    .not-found h2 {
+        font-size: 26px;
+    }
+    
+    .not-found p {
+        font-size: 18px;
+        text-align: center;
+        line-height: 1.5;
+    }
+}
