@@ -166,5 +166,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '*path', to: 'pages#index', via: :all
+  match '/api/*path', to: 'application#not_found', via: :all
+  get '*path', to: 'pages#index', constraints: ->(req) { !req.xhr? && req.format.html? }, via: :all
 end
