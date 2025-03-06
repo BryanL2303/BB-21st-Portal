@@ -3,4 +3,31 @@
     .user-management-page .page-container .user-information form {
         grid-template-columns: 1fr;
     }
+
+    .user-management-page:has(.users-list) .main-block, .user-management-page hr {
+        display: none;
+    }
+
+    .user-management-page .users-list {
+        width: 100% !important;
+    }
+
+    .user-management-page .users {
+        height: unset !important;
+        min-height: 300px;
+    }
+
+    .user-management-page .page-container .users-list > div:first-of-type {
+        background: white;
+        position: sticky;
+        top: 0;
+    }
+
+    .user-management-page .back-button {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
 }

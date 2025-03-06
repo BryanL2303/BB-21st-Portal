@@ -13,6 +13,7 @@ import { UniformInspectionPage } from './uniformInspectionPage/UniformInspection
 import { UniformInspectionResultPage } from './uniformInspectionPage/UniformInspectionResultPage'
 import { UniformInspectionForm } from './uniformInspectionPage/UniformInspectionForm'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
+import { UserManagementSmallPage } from './userManagementPage/UserManagementSmallPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
 import { NotFound } from "./general/NotFound";
 
@@ -36,6 +37,7 @@ root.render(
         <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
         <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
+        <Route path='/user_management/:userId' element={<UserManagementSmallPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
 
         <Route path="*" element={<NotFound />} />

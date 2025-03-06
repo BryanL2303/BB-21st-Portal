@@ -277,7 +277,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 
         {account.account_type == "Boy" && <>
           <label htmlFor='graduated-input'>Graduated:</label>
-          <select id="graduated-input" defaultChecked={account.graduated} onChange={setGraduated}>
+          <select id="graduated-input" defaultValue={account.graduated ? "Yes" : "No"} onChange={setGraduated}>
             <option value="Yes">Yes</option>
             <option value="No">No</option>
           </select>
@@ -324,8 +324,8 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 
 UserInformation.propTypes = {
   userId: PropTypes.string.isRequired,
-  showForm: PropTypes.func.isRequired,
-  reLoad: PropTypes.func.isRequired
+  showForm: PropTypes.func,
+  reLoad: PropTypes.func
 }
 
 export { UserInformation }

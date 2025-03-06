@@ -11,64 +11,109 @@ import { GraduatedBoyAccountsList } from './GraduatedBoyAccountsList'
 
 // To access current users and create new accounts
 const UserManagementPage = () => {
-  const cookies = useCookies()
-  const [renderPage, setRenderPage] = useState(false)
-  const [load, setLoad] = useState(false);
-  const [pageState, setPageState] = useState("form");
+	const cookies = useCookies()
+	const [renderPage, setRenderPage] = useState(false)
+	const [load, setLoad] = useState(false);
+	const [pageState, setPageState] = useState("form");
+	const [user, setUser] = useState(null);
+	const [pageSize, _] = useState(window.innerWidth > 800);
 
-  if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
-    window.location.href = '/reset_password'
-  }
+	if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
+		window.location.href = '/reset_password'
+	}
 
-  useEffect(() => {
-    //If there is no ongoing session go back to log in page
-    axios.post("/application/0/check_session", {},
-    {withCredentials: true})
-    .then(() => setRenderPage(true))
-    .catch(() => window.location.href = '/')
-  }, [])
+	useEffect(() => {
+		// If there is no ongoing session go back to log in page
+		axios.post("/application/0/check_session", {}, { withCredentials: true })
+		.then(() => setRenderPage(true))
+		.catch(() => window.location.href = '/')
+	}, [])
 
-  //Show the form to create new accounts
-  function showForm () {
-    setPageState("form");
-  }
+	// Show the form to create new accounts
+	function showForm() {
+		pageSize ? setPageState("form") : window.location.href = "/user_management/0";
+	}
 
-  function showAppointments() {
-    setPageState("appointments")
-  }
+	function showForm1() {
+		setPageState("form")
+	}
 
-  function reLoad () {
-    setLoad((prevLoad) => {
-      return !prevLoad
-    })
-  }
+	function showAppointments() {
+		setPageState("appointments")
+	}
 
-  if (!renderPage) return null
+	function showUser(id) {
+		if (pageSize) {
+			setPageState("user")
+			setUser(id)
+		} else {
+			window.location.href = "/user_management/" + encodeURIComponent(id)
+		}
+	}
 
-  return(
-    <div className='user-management-page'>
-      <div className='page-container'>
-        <div className='users-list'>
-          <button onClick = {showForm}>Create New Account</button>
-          <button onClick = {showAppointments}>Appointment Holders</button>
-          <p>Current Users</p>
-          {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin")
-           && <OfficerAccountsList setPageState = {setPageState} load={load} />}
-          {cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState = {setPageState} load={load} />}
-          <BoyAccountsList setPageState = {setPageState} load={load} />
-          <p>Graduated Boys</p>
-          <GraduatedBoyAccountsList setPageState = {setPageState} load={load} />
-        </div>
-        <hr />
-        <div className='main-block'>
-          {pageState == "form" && <AccountCreationForm reLoad={reLoad}/>}
-          {pageState == "appointments" && <AppointmentHoldersList load={load} reLoad={reLoad}/>}
-          {pageState != "form" && pageState != "appointments" &&
-           <UserInformation userId={pageState} showForm={showForm} reLoad={reLoad}/>}
-        </div>
-      </div>
-    </div>
-  )
+	function reLoad() {
+		setLoad((prevLoad) => {
+			return !prevLoad
+		})
+	}
+
+	function filter() {
+		const search = document.getElementById('search').value.toLowerCase()
+
+		document.querySelectorAll("#all-users label").forEach(label => {
+			const name = label.textContent.toLowerCase()
+			label.style.display = name.includes(search) ? "block" : "none";
+		})
+	}
+
+	if (!renderPage) return null
+
+	return (
+		<div className='user-management-page'>
+			<div className='page-container'>
+				<div className='toggle-buttons'>
+					<input type="radio" name="toggle-buttons" id="users" onChange={showForm1} checked={pageState != "appointments"} />
+					<label htmlFor="users">Users</label>
+					<input type="radio" name="toggle-buttons" id="appt" onChange={showAppointments} checked={pageState == "appointments"} />
+					<label htmlFor="appt">Appointment Holders</label>
+				</div>
+
+				<div className='users'>
+					{pageState != "appointments" && <>
+						<div className='users-list'>
+							<div>
+								<div>
+									<label htmlFor="search">
+										<i className='fa-solid fa-magnifying-glass'></i>
+										Search
+									</label>
+									<input type="search" name="search" id="search" placeholder='Search by Name' onInput={filter} />
+								</div>
+								<button onClick={showForm}>Create New Account</button>
+							</div>
+
+							<div id='all-users'>
+								<p>Current Users</p>
+								{["Admin", "Officer"].includes(cookies.get('Type')) && <OfficerAccountsList setPageState={showUser} load={load} />}
+								{cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState={showUser} load={load} />}
+								<BoyAccountsList setPageState={showUser} load={load} />
+								
+								<p>Graduated Boys</p>
+								<GraduatedBoyAccountsList setPageState={showUser} load={load} />
+							</div>
+						</div>
+						<hr />
+					</>}
+
+					<div className='main-block'>
+						{pageState == "form" && <AccountCreationForm reLoad={reLoad} />}
+						{pageState == "appointments" && <AppointmentHoldersList load={load} reLoad={reLoad} />}
+						{pageState == "user" && <UserInformation userId={user} showForm={showForm} reLoad={reLoad} />}
+					</div>
+				</div>
+			</div>
+		</div>
+	)
 }
 
 export { UserManagementPage }
