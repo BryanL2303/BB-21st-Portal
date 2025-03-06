@@ -12,8 +12,8 @@ const UserManagementSmallPage = () => {
     const cookies = useCookies()
     const { userId } = useParams();
     const [renderPage, setRenderPage] = useState(false)
-    const [_, setLoad] = useState(false);
-    const [pageState, setPageState] = useState("form");
+    const [, setLoad] = useState(false);
+    const [, setPageState] = useState("form");
 
     if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
         window.location.href = '/reset_password'
