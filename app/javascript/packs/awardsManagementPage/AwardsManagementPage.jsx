@@ -4,6 +4,7 @@ import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'
 import useCookies from '../general/useCookies'
+import { handleServerError } from '../general/handleServerError'
 
 // To access current users and create new accounts
 const AwardsManagementPage = () => {
