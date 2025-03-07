@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
 // To view awards information and delete award accounts
 const AwardInformation = ({ awards }) => {
-	// const [awards, setAwards] = useState([]);					// All Award (List of Objects)
 	const [selectedAward, setSelectedAward] = useState(null); 	// Selected Award Details (Object or NULL)
 	const [masteries, setMasteries] = useState([]);				// Selected Award Masteries (List of Objects)
 
@@ -85,6 +85,10 @@ const AwardInformation = ({ awards }) => {
 			</div>	
 		</div>
 	)
+}
+
+AwardInformation.propTypes = {
+	awards: PropTypes.array.isRequired
 }
 
 export { AwardInformation }
