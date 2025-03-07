@@ -75,9 +75,9 @@ const AwardAttainmentTable = ({ award_name, boys, checked, toggleAttainment, ele
 AwardAttainmentTable.propTypes = {
   award_name: PropTypes.string,
   boys: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     account_name: PropTypes.string,
-    level: PropTypes.string
+    level: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
   })),
   checked: PropTypes.shape({
     id: PropTypes.number,
