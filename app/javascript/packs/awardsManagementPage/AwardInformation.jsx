@@ -3,16 +3,10 @@ import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
 // To view awards information and delete award accounts
-const AwardInformation = () => {
-	const [awards, setAwards] = useState([]);					// All Award (List of Objects)
+const AwardInformation = ({ awards }) => {
+	// const [awards, setAwards] = useState([]);					// All Award (List of Objects)
 	const [selectedAward, setSelectedAward] = useState(null); 	// Selected Award Details (Object or NULL)
 	const [masteries, setMasteries] = useState([]);				// Selected Award Masteries (List of Objects)
-
-	useEffect(() => {
-		axios.post('/api/award/0/get_awards', {}, { withCredentials: true })
-		.then(resp => setAwards(resp.data['awards']))
-		.catch(resp => handleServerError(resp.response.status))
-	}, []);
 
 	function awardDetails(id) {
 		axios.post(`/api/award/${id}/get_award`, {}, { withCredentials: true })
@@ -48,7 +42,7 @@ const AwardInformation = () => {
 	return (
 		<div className='award-information'>
 			<div>
-				{awards?.length > 0 && awards.map(award => (
+				{awards.map(award => (
 					<React.Fragment key={award.badge_name}>
 						<input type="radio" id={award.id} name="awards-list" onChange={(e) => awardDetails(e.target.id)} />
 						<label htmlFor={award.id}>{award.badge_name}</label>
