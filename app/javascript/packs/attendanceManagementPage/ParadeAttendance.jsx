@@ -12,6 +12,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
   const [takingAttendance, setTakingAttendance] = useState(false)
   const [currentAttendance, setCurrentAttendance] = useState(parade.parade_attendance)
   const levels = ['1', '2', '3', '4/5']
+  const [platoonAttendance, setPlatonAttendance] = useState({"1": { current: 0, total: 0 }, "2": { current: 0, total: 0 }, "3": { current: 0, total: 0 }, "4": { current: 0, total: 0 }, "primer": { current: 0, total: 0 }, "officer": { current: 0, total: 0 }})
 
   useEffect(() => {
     setCurrentAttendance(parade.parade_attendance)
@@ -38,6 +39,15 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
     else if (cookies.get("Name") == parade.do?.account_name) setParadeAppointment('do')
   }, [parade])
 
+  useEffect(() => {
+    calculateTotalAttendance('1')
+    calculateTotalAttendance('2')
+    calculateTotalAttendance('3')
+    calculateTotalAttendance('4')
+    calculateTotalAttendance("primer")
+    calculateTotalAttendance("officer")
+  }, [currentAttendance])
+
   function setAttendance(attendance, account_id, level) {
     axios.post('/api/parade/' + parade.info.id + '/update_attendance', {
       parade_appointment: paradeAppointment,
@@ -58,6 +68,8 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
       }
     })
     .catch(resp => handleServerError(resp.response.status))
+
+    calculateTotalAttendance(level)
   }
 
   function sendFinalizeAttendance(finalized) {
@@ -75,6 +87,19 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
     .catch(resp => handleServerError(resp.response.status))
   }
 
+  function calculateTotalAttendance(level) {
+    let total = document.querySelectorAll(`tr[data-sec="${level}"`).length;
+    let current = Array.from(document.querySelectorAll(`tr[data-sec="${level}"] > td:last-of-type`)).filter(row => row.textContent == "1").length
+
+    setPlatonAttendance((prev) => ({
+      ...prev,
+      [level]: {
+        total: total,
+        current: current
+      }
+    }))
+  }
+
   return(
     <div className='parade-attendance'>
       <div className="flex-block" style={{borderBottom: 'solid'}}>
@@ -89,7 +114,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
                     if ((boy.level == level || (level == '4/5' && (boy.level == '4' || boy.level == '5'))) && 
                       ((!takingAttendance && boy.id in currentAttendance) ||
                       (takingAttendance && boy.roll_call))) {
-                      return(<tr key={boy.id} width='100%'>
+                      return(<tr key={boy.id} width='100%' data-sec={boy.level == '5' ? '4' : boy.level}>
                         <td width='80%'>{boy.rank} {boy.account_name}</td>
                         {!takingAttendance && <td><label>{currentAttendance[boy.id]?.attendance || '\u00A0'}</label></td>}
                         {takingAttendance &&
@@ -108,6 +133,10 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
                       </tr>)
                     }
                   })}
+                  <tr className='total-strength'>
+                    <td width='80%'>Platoon Strength</td>
+                    <td width='20%'>{platoonAttendance[level == '4/5' ? '4' : level].current} / {platoonAttendance[level == '4/5' ? '4' : level].total}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -121,7 +150,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
               {primers.map((primer) => {
                 if ((!takingAttendance && primer.id in currentAttendance) ||
                 (takingAttendance && primer.roll_call)) {
-                  return(<tr key={primer.id} width='100%'>
+                  return(<tr key={primer.id} width='100%' data-sec="primer">
                     <td width='80%'>{primer.rank} {primer.account_name}</td>
                     {!takingAttendance && <td><label>{currentAttendance[primer.id]?.attendance || '\u00A0'}</label></td>}
                     {takingAttendance &&
@@ -140,6 +169,10 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
                   </tr>)
                 }
               })}
+              <tr className='total-strength'>
+                <td width='80%'>Primer Strength</td>
+                <td width='20%'>{platoonAttendance.primer.current} / {platoonAttendance.primer.total}</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -151,7 +184,7 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
               {officers.map((officer) => {
                 if ((!takingAttendance && officer.id in currentAttendance) ||
                 (takingAttendance && officer.roll_call)) {
-                  return(<tr key={officer.id} width='100%'>
+                  return(<tr key={officer.id} width='100%' data-sec="officer">
                     <td width='80%'>{officer.rank!= 'Teacher'? officer.rank : officer.honorifics} {officer.account_name}</td>
                     {!takingAttendance && <td><label>{currentAttendance[officer.id]?.attendance || '\u00A0'}</label></td>}
                     {takingAttendance &&
@@ -170,9 +203,13 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
                   </tr>)
                 }
               })}
+              <tr className='total-strength'>
+                <td width='80%'>Officers / VAL Strength</td>
+                <td width='20%'>{platoonAttendance.officer.current} / {platoonAttendance.officer.total}</td>
+              </tr>
             </tbody>
           </table>
-        </div>
+        </div>  
       </div>
 
       {parade.info.cos_finalized && <h4 style={{width: '100%'}}>COS Finalized</h4>}

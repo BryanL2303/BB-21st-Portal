@@ -29,7 +29,6 @@ const AwardInformation = ({ awards }) => {
 	function cleanUpData(data, requirement_key) {
 		const linkRegex = /(https?:\/\/[^\s]+)/g;
 		const links = data[requirement_key].match(linkRegex);
-		console.log(links)
 		const cleanedDescription = data[requirement_key].replace(/Read more about the requirements( here)?:?\s?(https?:\/\/\S+)?/, '').trim();
 
 		return {
