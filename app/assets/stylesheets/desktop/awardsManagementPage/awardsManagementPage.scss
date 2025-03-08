@@ -163,6 +163,27 @@
 		width: 30%;
 	}
 
+	.award-file-reader {
+		label {
+			width: 250px;
+			height: 100px;
+			border: 1px dotted black;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			font-size: 14px;
+			color: black;
+			padding: 10px;
+			text-align: center;
+			border-radius: 10px;
+		}
+
+		input {
+			display: none;
+		}
+	}
+
 	// All styles below are not formatted
 
 	.award-management-page .page-container .menu-button{

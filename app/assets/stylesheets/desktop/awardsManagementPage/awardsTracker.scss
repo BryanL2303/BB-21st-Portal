@@ -1,24 +1,54 @@
 @media screen{
-	.award-management-page .page-container .award-tracker{
-        height: 100%;
-        max-width: 100%;
-		overflow-y: auto;
+	.award-management-page .page-container .award-tracker {
+        overflow: hidden;
 	}
 
-    .award-management-page .page-container img {
-        height: 5vh;
-    }
+    .award-management-page .page-container .award-attainment-table {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
-    .award-management-page .page-container .award-tracker .award-table {
-        border-collapse: collapse; /* Ensures borders don't have gaps */
-        max-width: 100%; /* Stretch table to fit within container */
-    }
-    
-    .award-management-page .page-container .award-tracker .award-table td, 
-    .award-management-page .page-container .award-tracker .award-table th {
-        border: 1px solid #000; /* Set border for all cells */
-        text-align: center; /* Center text horizontally */
-        vertical-align: middle; /* Center text vertically */
-        padding: 10px; /* Optional: Adds padding to make cells look better */
+        .award-table {
+            display: grid;
+            grid-template-columns: 210px repeat(var(--columns), 130px);
+            overflow-x: auto;
+            margin-bottom: 10px;
+            max-height: 85vh;
+
+            .boy-header {
+                grid-row: span 2;
+                position: sticky;
+                left: 0;
+                background: white;
+            }
+
+            p {
+                padding: 5px;
+                border: 1px solid black;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                grid-column: span var(--colspan, 1);
+                grid-row: span var(--rowspan, 1);
+                height: calc(40 * var(--rowspan, 1));
+            }
+
+            .award-header {
+                font-weight: bold;
+            }
+
+            .award-boy {
+                justify-content: start !important;
+                position: sticky;
+                left: 0;
+                background: white;
+                text-align: left;
+            }
+
+            input {
+                accent-color: black;
+            }
+        }
     }
 }
