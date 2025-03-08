@@ -73,7 +73,7 @@ const AwardTracker = () => {
         boys.forEach((boy) => {
           if (boy.id in milestonesAttained[milestone] && milestonesAttained[milestone][boy.id]) {
             let element = document.getElementsByClassName(boy.id + "-" + milestone)[0]
-            // element.style.backgroundColor = "lightgreen"
+            element.style.backgroundColor = "lightgreen"
           }
         })
       })
