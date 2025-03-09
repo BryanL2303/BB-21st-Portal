@@ -266,5 +266,10 @@ module Api
         render json: { error: parade.errors.messages }, status: 422
       end
     end
+
+    def parades_after_today
+      parades = Parade.where('date > ?', DateTime.now)
+      render json: parades
+    end
   end
 end

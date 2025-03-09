@@ -16,6 +16,7 @@ import { UserManagementPage } from './userManagementPage/UserManagementPage'
 import { UserManagementSmallPage } from './userManagementPage/UserManagementSmallPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
 import { NotFound } from "./general/NotFound";
+import { DashboardPage } from "./dashboardPage/dashboardPage";
 
 const container = document.body.appendChild(document.createElement('div'));
 const root = createRoot(container);
@@ -28,7 +29,7 @@ root.render(
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path='/' element={<LogInPage/>}/>
-        <Route path='/home' element={<UserManagementPage/>}/>
+        <Route path='/home' element={<DashboardPage/>}/>
         <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>

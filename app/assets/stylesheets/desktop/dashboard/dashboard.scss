@@ -1,0 +1,89 @@
+@media screen {
+    .dashboard {
+        box-sizing: border-box;
+        margin: 20px 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-family: sans-serif;
+    }
+
+    .dashboard .dashboard-routes {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+
+        > div {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid black;
+            color: black;
+            width: 120px;
+            height: 100px;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+            &:hover {
+                box-shadow: 0 0 10px black;
+                transform: translateY(-5px);
+            }
+
+            i {
+                font-size: 30px;
+            }
+
+            p {
+                height: 35px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+
+    .dashboard .pending-tasks {
+        padding: 20px;
+        border: 1px solid black;
+        border-radius: 10px;
+        min-height: 150px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .tasks {
+            flex: 1;
+            display: flex;
+
+            ol {
+                list-style-position: inside;
+            }
+
+            li {
+                line-height: 1.2;
+            }
+
+            > div {
+                justify-content: center;
+                align-items: center;
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                .fa-party-horn {
+                    font-size: 45px;
+                }
+
+                p {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
