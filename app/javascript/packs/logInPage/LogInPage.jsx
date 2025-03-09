@@ -37,11 +37,11 @@ const LogInPage = () => {
         }
         window.location.href = '/home'
       }
-      else {
-        alert("Username or password is wrong, please double check input.")
-      }
     })
-    .catch(resp => handleServerError(resp.response.status))
+    .catch(resp => {
+      if (!resp.data) alert("Incorrect Username or Password. Please try again.")
+      else handleServerError(resp.response.status)
+    })
   }
 
   return(
