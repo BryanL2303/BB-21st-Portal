@@ -1,10 +1,190 @@
-@media screen{
-	.award-management-page .page-container{
-		overflow: hidden;
-		display: flex;
-		margin-top: 3vh;
-		height: 85vh;
+@media screen {
+	.award-management-page .page-container *:not(.fa-solid) {
+		font-family: sans-serif;
 	}
+
+	.award-management-page .page-container {
+		display: flex;
+		flex-direction: column;
+		margin: 20px 30px;
+		box-sizing: border-box;
+		gap: 20px;
+
+		.toggle-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+
+			input {
+				display: none;
+			}
+
+			label {
+				text-align: center;
+				width: 150px;
+				padding: 5px 20px;
+				background: white;
+				border-radius: 10px;
+				cursor: pointer;
+				color: black;
+				border: 1px solid black;
+				outline: none;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			input:checked + label {
+				background: black;
+				color: white;
+			}
+		}
+
+		.awards {
+			display: flex;
+			gap: 20px;
+		}
+	}
+
+	.award-management-page .page-container .award-information * {
+		user-select: auto !important;
+	}
+
+	.award-management-page .page-container .award-information {
+		display: flex;
+		gap: 20px;
+		width: 100%;
+
+		> div:first-of-type {
+			width: 25%;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			input[type='radio'] {
+				display: none;
+			}
+
+			label {
+				padding: 3px 5px;
+				cursor: pointer;
+				border-radius: 10px;
+				color: black;
+			}
+
+			input[type='radio']:checked + label {
+				background: black;
+				color: white;
+			}
+
+			label:hover {
+				background: lightgrey;
+			}
+		}
+
+		> div:last-of-type {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+
+			> p {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				font-weight: bold;
+				font-size: 20px;
+				margin-top: 20px;
+			}
+
+			> div:first-of-type {
+				display: flex;
+				gap: 10px;
+				justify-content: space-between;
+				align-items: center;
+
+				h1 {
+					font-size: 20px;
+				}
+
+				a {
+					text-decoration: none;
+					color: black;
+
+					i {
+						font-size: 18px;
+					}
+				}
+			}
+
+			.mastery-level {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				border: 1px solid black;
+				padding: 15px;
+				border-radius: 10px;
+				transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+				&:hover {
+					transform: translateY(-5px);
+   					box-shadow: 0 0 5px black;
+				}
+
+				> div {
+					display: flex;
+					gap: 10px;
+					justify-content: space-between;
+					align-items: center;
+				}
+				
+				h2 {
+					font-size: 18px;
+				}
+
+				span {
+					background: black;
+					color: white;
+					border-radius: 10px;
+					padding: 5px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+
+	.award-management-page .page-container .award-information .edit-button {
+		margin-left: 70%;
+		width: 30%;
+	}
+
+	.award-management-page .page-container .award-information .delete-button {
+		margin-left: 70%;
+		width: 30%;
+	}
+
+	.award-file-reader {
+		label {
+			width: 250px;
+			height: 100px;
+			border: 1px dotted black;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+			font-size: 14px;
+			color: black;
+			padding: 10px;
+			text-align: center;
+			border-radius: 10px;
+		}
+
+		input {
+			display: none;
+		}
+	}
+
+	// All styles below are not formatted
 
 	.award-management-page .page-container .menu-button{
 		display: flex;
@@ -50,22 +230,6 @@
 		padding: 1%;
 		margin: 1%;
 		overflow: hidden;
-	}
-
-	.award-management-page .page-container .award-information{
-		max-height: 95%;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.award-management-page .page-container .award-information .edit-button{
-		margin-left: 70%;
-		width: 30%;
-	}
-
-	.award-management-page .page-container .award-information .delete-button{
-		margin-left: 70%;
-		width: 30%;
 	}
 
 	.award-management-page .create-award-form{

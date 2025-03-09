@@ -160,7 +160,7 @@ const AccountCreationForm = ({ reLoad }) => {
 }
 
 AccountCreationForm.propTypes = {
-	reLoad: PropTypes.func.isRequired
+	reLoad: PropTypes.func
 }
 
 export { AccountCreationForm }

@@ -13,8 +13,11 @@ import { UniformInspectionPage } from './uniformInspectionPage/UniformInspection
 import { UniformInspectionResultPage } from './uniformInspectionPage/UniformInspectionResultPage'
 import { UniformInspectionForm } from './uniformInspectionPage/UniformInspectionForm'
 import { UserManagementPage } from './userManagementPage/UserManagementPage'
+import { UserManagementSmallPage } from './userManagementPage/UserManagementSmallPage'
 import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
 import { NotFound } from "./general/NotFound";
+import { DashboardPage } from "./dashboardPage/dashboardPage";
+import { ParadeNoticePage } from './attendanceManagementPage/ParadeNoticePage';
 
 const container = document.body.appendChild(document.createElement('div'));
 const root = createRoot(container);
@@ -27,7 +30,8 @@ root.render(
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path='/' element={<LogInPage/>}/>
-        <Route path='/home' element={<UserManagementPage/>}/>
+        <Route path='/home' element={<DashboardPage/>}/>
+        <Route path='/parade_notice' element={<ParadeNoticePage />}/>
         <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>
@@ -36,6 +40,7 @@ root.render(
         <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
         <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
+        <Route path='/user_management/:userId' element={<UserManagementSmallPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
 
         <Route path="*" element={<NotFound />} />

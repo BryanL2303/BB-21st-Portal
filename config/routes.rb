@@ -162,6 +162,7 @@ Rails.application.routes.draw do
         post '/update_attendance' => 'parade#update_attendance'
         post '/update_finalize' => 'parade#update_finalize'
         post '/delete_parade' => 'parade#delete_parade'
+        get '/parades_after_today' => 'parade#parades_after_today'
       end
     end
   end

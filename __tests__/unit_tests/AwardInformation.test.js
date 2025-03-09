@@ -40,13 +40,19 @@ describe('AwardInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse);
     
         await act(async () => {
-            render(<AwardInformation awardId={1} />)
+            render(<AwardInformation awards={[mockResponse.data]} />)
         })
+
+        const badge = await screen.findByLabelText('Target');
+        expect(badge).toBeInTheDocument();
+        await act(async () => {
+            fireEvent.click(badge);
+        });        
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/1/get_award',
-            {'id': 1},
+            {},
             {withCredentials: true}
         )
     })
@@ -82,19 +88,28 @@ describe('AwardInformation Component', () => {
         .mockResolvedValueOnce(mockResponse2);
     
         await act(async () => {
-            render(<AwardInformation awardId={1} />)
+            render(<AwardInformation awards={[mockResponse.data]} />)
         })
+
+        const badge = await screen.findByLabelText('Adventure');
+        expect(badge).toBeInTheDocument();
+        const radio = screen.getByRole('radio', { name: 'Adventure' });
+        expect(radio).not.toBeChecked();
+        await act(async () => {
+            fireEvent.click(badge);
+        });        
+        expect(radio).toBeChecked();
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/1/get_award',
-            {'id': 1},
+            {},
             {withCredentials: true}
         )
 
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/0/get_masteries',
-            {'award_id': 1},
+            {'award_id': "1"},
             {withCredentials: true}
         )
     })

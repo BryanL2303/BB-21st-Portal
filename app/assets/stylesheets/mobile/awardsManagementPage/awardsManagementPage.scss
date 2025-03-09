@@ -1,0 +1,29 @@
+@media screen and (max-width: 800px) {
+    .award-management-page .page-container .award-information {
+        flex-direction: column;
+        min-height: 500px;
+
+        hr {
+            display: none;
+        }
+
+        > div:first-of-type {
+            flex-direction: row;
+            width: 100%;
+            overflow-x: auto;
+            position: sticky;
+            top: 0;
+            background: white;
+            height: 50px;
+            align-items: center;
+
+            label {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .award-management-page .page-container .award-attainment-table .award-table {
+        grid-template-columns: 120px repeat(var(--columns), 130px);
+    }
+}

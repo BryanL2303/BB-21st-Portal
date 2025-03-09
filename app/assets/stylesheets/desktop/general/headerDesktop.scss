@@ -7,12 +7,14 @@
         width: max-content;
     }
 
-    header > div:nth-of-type(2)[data-header-type='home'] {
+    header > div:nth-of-type(2) {
+        gap: 10px;
+        display: flex;
         height: max-content !important;
+    }
 
-        button:not(:last-of-type) {
-            display: none;
-        }
+    header > div:nth-of-type(2)[data-header-type='home'] button:not(:last-of-type) {
+        display: none;
     }
 
     header .sidebar {
@@ -116,6 +118,10 @@
                     background: transparent;
                 }
             }
+        }
+
+        img {
+            object-fit: contain;
         }
     }
 }

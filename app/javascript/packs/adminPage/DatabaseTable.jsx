@@ -116,23 +116,23 @@ const DatabaseTable = ({ table_name }) => {
     <table>
       <thead>
         <tr>
-          {columns.map((column) => {
+          {columns.map((column, index) => {
             if (column['name'] != 'created_at' && column['name'] != 'updated_at') 
-              return(<td key={column['name']}>{column['name']}</td>)
+              return(<td key={column['name'] + index}>{column['name']}</td>)
           })}
           <td></td>
         </tr>
       </thead>
       <tbody>
-        {data.map((row) => {
+        {data.map((row, index) => {
           if (editData[row['id']]) return(
             <tr key={row['id']}>
               {columns.map((column) => {
                 if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
                   if (column['name'] == 'id') return (<td key={column['name']}>{row[column['name']]}</td>)
                   else return(
-                    <td key={column['name']}>
-                      <textarea className={row['id'] +'-' +column['name'] +'-edit'} defaultValue={row[column['name']]}/>
+                    <td key={column['name'] + index}>
+                      <textarea className={row['id'] + '-' + column['name'] +'-edit'} defaultValue={row[column['name']]}/>
                     </td>
                   )
                 }
@@ -147,7 +147,7 @@ const DatabaseTable = ({ table_name }) => {
             <tr key={row['id']}>
               {columns.map((column) => {
                 if (column['name'] != 'created_at' && column['name'] != 'updated_at') 
-                  return(<td key={column['name']}>{row[column['name']]}</td>)
+                  return(<td key={column['name'] + index}>{row[column['name']]}</td>)
               })}
               <td>
                 <button onClick={() => {toggleEdit(row['id'])}}>Edit Row</button>
@@ -159,9 +159,9 @@ const DatabaseTable = ({ table_name }) => {
         <tr>
           {columns.map((column) => {
             if (column['name'] != 'created_at' && column['name'] != 'updated_at') {
-                if (column['name'] == 'id') return (<td key={column['name']}></td>)
+                if (column['name'] == 'id') return (<td key={`${table_name}-${column['name']}`}></td>)
                 else return(
-                  <td key={column['name']}>
+                  <td key={`${table_name}-${column['name']}`}>
                     <input className={table_name+ '-' + column['name'] + '-' + 'form'}></input>
                   </td>
                 )

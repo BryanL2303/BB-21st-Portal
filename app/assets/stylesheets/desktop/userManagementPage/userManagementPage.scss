@@ -1,9 +1,45 @@
 @media screen {
 	.user-management-page .page-container {
 		display: flex;
+		flex-direction: column;
 		margin: 20px 30px;
-		height: 85vh;
 		gap: 20px;
+		box-sizing: border-box;
+
+		.toggle-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 20px;
+
+			input {
+				display: none;
+			}
+
+			label {
+				text-align: center;
+				width: 150px;
+				padding: 5px 20px;
+				background: white;
+				border-radius: 10px;
+				cursor: pointer;
+				color: black;
+				border: 1px solid black;
+				outline: none;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+
+			input:checked + label {
+				background: black;
+				color: white;
+			}
+		}
+
+		.users {
+			display: flex;
+			gap: 20px;
+		}
 
 		.main-block {
 			flex: 1;
@@ -24,6 +60,7 @@
 					align-items: center;
 					border: none;
 					outline: none;
+					min-height: unset;
 					border-radius: 10px;
 					padding: 5px 10px;
 				}
@@ -41,7 +78,7 @@
 
 				input, select {
 					border: none;
-					padding: 5px 0;
+					padding: 5px;
 					outline: none;
 					border-bottom: 1px solid black;
 					background: transparent;
@@ -54,103 +91,146 @@
 				}
 			}
 		}
+
+		.users {
+			height: 85vh;
+		}
+
+		.users-list {
+			width: 25%;
+			gap: 10px;
+			display: flex;
+			flex-direction: column;
+
+			> div {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+
+				> div {
+					display: flex;
+					gap: 5px;
+				}
+			}
+
+			label[for='search'] {
+				display: flex;
+				gap: 5px;
+				align-items: center;
+			}
+
+			input[type='search'] {
+				border: none;
+				border-bottom: 1px solid black;
+				outline: none;
+				background: transparent;
+				color: black;
+				border-radius: 0;
+				padding: 5px;
+				width: 100%;
+			}
+
+			button {
+				background: black;
+				color: white;
+				border: none;
+				outline: none;
+				border-radius: 10px;
+				padding: 5px 10px;
+				cursor: pointer;
+			}
+
+			p {
+				font-weight: bold;
+				font-size: 18px;
+			}
+
+			input[type='radio'] {
+				display: none;
+			}
+
+			> div:last-of-type {
+				overflow: auto;
+
+				label {
+					padding: 3px 5px;
+					cursor: pointer;
+					border-radius: 10px;
+					color: black;
+				}
+
+				input[type='radio']:checked + label {
+					background: black;
+					color: white;
+				}
+
+				label:hover {
+					background: lightgrey;
+				}
+			}
+		}
 	}
 
-	.user-management-page .page-container * {
+	.user-management-page .page-container *:not(.fa-solid) {
 		font-family: sans-serif;
 	}
 
-	.user-management-page .page-container button{
+	.user-management-page .page-container .user-information {
+		height: 100%;
+		overflow-y: auto;
 		display: flex;
-		padding: 2%;
-		background-color: white;
-		border: none;
-		min-height: 4vh;
-		width: 80%;
+		flex-direction: column;
+		gap: 20px;
+		
+		form {
+			display: grid;
+			grid-template-columns: 250px 1fr;
+			gap: 10px;
+			align-items: center;
+
+			input, select {
+				border: none;
+				padding: 5px;
+				outline: none;
+				border-bottom: 1px solid black;
+				background: transparent;
+				color: black;
+				border-radius: 0;
+			}
+
+			select {
+				cursor: pointer;
+			}
+
+			select:disabled {
+				cursor: not-allowed;
+			}
+		}
+
+		> div {
+			display: flex;
+			gap: 10px;
+			justify-content: flex-end;
+			flex-wrap: wrap;
+
+			button {
+				background: black;
+				color: white;
+				border: none;
+				outline: none;
+				border-radius: 10px;
+				cursor: pointer;
+				min-height: unset;
+				padding: 5px 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: max-content;
+			}
+		}
 	}
 
-	.user-management-page .page-container button:hover{
-		background-color: lightgrey;
-		border: none;
-	}
-
-	.user-management-page .page-container .users-list{
-		height: auto;
-		max-height: 100%;
-		width: 26%;
-		border-style: solid;
-		border-color: darkgrey;
-		border-radius: 5px;
-		padding: 1%;
-		margin: 1%;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.user-management-page .page-container .users-list button{
-		margin-left: 2.5%;
-		width: 95%;
-		text-align: left;
-		overflow: hidden;
-	}
-
-	.user-management-page .page-container .user-information{
-		max-height: 95%;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.user-management-page .page-container .user-information .edit-button{
-		margin-left: 70%;
-		width: 30%;
-	}
-
-	.user-management-page .page-container .user-information .delete-button{
-		margin-left: 70%;
-		width: 30%;
-	}
-
-	.user-management-page .create-account-form{
-		max-height: 95%;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-
-	.user-management-page .create-account-form__type{
-		width: 20%;
-		font-size: 20px;
-		margin: 1%;
-		text-align: center;
-		border: solid;
-		border-color: black;
-		border-width: 1px;
-	}
-
-	.user-management-page .create-account-form__rank{
-		width: 20%;
-		font-size: 20px;
-		margin: 1%;
-		text-align: center;
-		border: solid;
-		border-color: black;
-		border-width: 1px;
-	}
-
-	.user-management-page .create-account-form__level{
-		width: 15%;
-		font-size: 20px;
-		margin: 1%;
-		text-align: center;
-		border: solid;
-		border-color: black;
-		border-width: 1px;
-	}
-
-	.user-management-page .edit-field{
-		width: 50%;
-		font-size: 20px;
-		margin: 1%;
-	}
+	// Note: Styles below this point are not updated
 
 	.user-management-page .main-block .appointment-holders-list{
 		max-height: 100%;

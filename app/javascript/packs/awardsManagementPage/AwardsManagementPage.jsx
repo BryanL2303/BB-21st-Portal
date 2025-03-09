@@ -3,75 +3,56 @@ import axios from 'axios'
 import { AwardTracker } from './AwardTracker'
 import { AwardInformation } from './AwardInformation'
 import { AwardEditor } from './AwardEditor'
-import { handleServerError } from '../general/handleServerError'
 import useCookies from '../general/useCookies'
+import { handleServerError } from '../general/handleServerError'
 
 // To access current users and create new accounts
 const AwardsManagementPage = () => {
-  const cookies = useCookies()
-  const [renderPage, setRenderPage] = useState(false)
-  const [renderSide, setRenderSide] = useState(true)
-  const [pageState, setPageState] = useState("tracker");
-  const [awards, setAwards] = useState([])
+	const cookies = useCookies()
+	const [renderPage, setRenderPage] = useState(false)
+	const [pageState, setPageState] = useState("tracker");
+	const [awards, setAwards] = useState([]);
 
-  useEffect(() => {
-    //If there is no ongoing session go back to log in page
-    axios.post("/application/0/check_session", {},
-    { withCredentials: true })
-    .then(() => {
-      setRenderPage(true)
-      axios.post('/api/award/0/get_awards', {},
-      { withCredentials: true })
-      .then(resp => {setAwards(resp.data['awards'])})
-      .catch(resp => handleServerError(resp.response.status))
-    })
-    .catch(() => {window.location.href = '/'})
-  }, [])
+	useEffect(() => {
+		// If there is no ongoing session go back to log in page
+		axios.post("/application/0/check_session", {}, { withCredentials: true })
+		.then(() => {
+			setRenderPage(true)
+		
+			axios.post('/api/award/0/get_awards', {}, { withCredentials: true })
+			.then(resp => setAwards(resp.data['awards']))
+			.catch(resp => handleServerError(resp.response.status))
+		})
+		.catch(() => { window.location.href = '/' })		
+	}, [])
 
-  function showTracker(e) {
-    e.preventDefault()
-    setPageState('tracker')
-  }
+	function showTracker() {
+		setPageState('tracker')
+	}
 
-  function showAward(e) {
-    e.preventDefault()
-    setPageState(e.target.id)
-  }
+	function showAward() {
+		setPageState('requirements')
+	}
 
-  if (!renderPage) return null
+	if (!renderPage) return null
 
-  return(
-    <div className='award-management-page'>
-      <div className='page-container'>
-        {!renderSide && <button className="img-button" onClick={() => {
-          setRenderSide(true)
-          let mainBlock = document.getElementsByClassName('main-block')[0]
-          mainBlock.style.width = '70%'
-          }}><i className="fa-solid fa-bars fa-2xl"></i>
-          </button>}
-        {renderSide && <div className='awards-list'>
-          <button className="img-button" onClick={() => {
-            setRenderSide(false)
-            let mainBlock = document.getElementsByClassName('main-block')[0]
-            mainBlock.style.width = '90%'
-            }}><i className="fa-solid fa-x fa-2xl"></i>
-            </button>
-          <button className='menu-button' onClick={showTracker}>Awards Tracker</button>
-          <p>Current Awards</p>
-          {awards.map((award) => {
-            return(
-              <button key={award.id} onClick={showAward} id={award.id} className='menu-button'>{award.badge_name}</button>
-            )
-          })}
-        </div>}
-        <div className='main-block'>
-          {pageState == "tracker" && <AwardTracker/>}
-          {pageState != "tracker" && cookies.get("Type") != 'Admin' && <AwardInformation awardId={pageState}/>}
-          {pageState != "tracker" && cookies.get("Type") == 'Admin' && <AwardEditor awardId={pageState}/>}
-        </div>
-      </div>
-    </div>
-  )
+	return (
+		<div className='award-management-page'>
+			<div className='page-container'>
+				<div className='toggle-buttons'>
+					<input type="radio" name="toggle-buttons" id="tracker" onChange={showTracker} checked={pageState == "tracker"} role='Switch to Awards Tracker' />
+					<label htmlFor="tracker">Awards Tracker</label>
+					<input type="radio" name="toggle-buttons" id="requirements" onChange={showAward} checked={pageState == "requirements"} role='Switch to Award Requirements' />
+					<label htmlFor="requirements">Award Requirements</label>
+				</div>
+
+				<div className='awards'>
+					{pageState == "tracker" && <AwardTracker />}
+					{pageState == "requirements" &&	(cookies.get("Type") != 'Admin' ? <AwardInformation awards={awards} /> : <AwardEditor awardId={pageState} />)}
+				</div>
+			</div>
+		</div>
+	)
 }
 
 export { AwardsManagementPage }

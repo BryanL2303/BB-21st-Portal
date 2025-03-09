@@ -12,12 +12,12 @@ const Header = () => {
 	useEffect(() => {
 		setLoggedIn(cookies.get('Name') != null)
 
-		if (!loggedIn) setButtons(1);
+		if (!loggedIn) setButtons(2); 
 		if (loggedIn) {
-			let count = 3;
+			let count = 4;
 			if (cookies.get("Type") == "Admin") count += 1;
 			if (cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) count += 3
-			if (cookies.get("Type") != "Boy") count += 1
+			if (cookies.get("Type") != "Boy") count += 1 
 			setButtons(count);
 		}
 	}, [cookies])
@@ -41,31 +41,30 @@ const Header = () => {
 		axios.post("/application/0/log_out", {}, {
 			withCredentials: true
 		})
-		.then(() => window.location.href = '/')
+		.then(() => {
+			setLoggedIn(false)
+			window.location.href = '/'
+		}) 
 		.catch()
-		setLoggedIn(false)
 	}
 
 	return (
 		<header>
 			<div>
-				<button className="menu-button" onClick={toggleUserMenu} aria-label='Menu'>
+				<button className="menu-button" onClick={toggleUserMenu} aria-label='Menu'> 
 					<i className="fa-solid fa-bars"></i>
 				</button>
 
-				<img src="/assets/coy logo-9045c6ee2f3bfcea2b14a1e4c8a6586a5542c17289ec5cd76a7b2d653a295abe.webp" alt='BB Logo' width={"90px"} height={"90px"} />
+				<img src="/assets/coy logo-9045c6ee2f3bfcea2b14a1e4c8a6586a5542c17289ec5cd76a7b2d653a295abe.webp" alt='BB Logo' width={"90px"} height={"90px"} onClick={() => { toUrl('/home') }} />
 			</div>
 
 			<div data-state={navigationViewable} style={{ height: (40 * buttons) + "px" }} data-header-type={loggedIn ? "home" : "public" }>
-				{!loggedIn &&
-					// 1. Parade Notice - Uncomment after backend fetch is implemented */}
-
+				{!loggedIn && <>
+					<button className="log-in--button" onClick={() => { toUrl('/parade_notice') }}>Parade Notice</button>
 					<button className="log-in--button" onClick={() => { toUrl('/log_in') }}>Members Log In</button>
-				}
+				</>}
 
 				{loggedIn &&
-					// 1. Parade Notice - Uncomment after backend fetch is implemented
-
 					<>
 					{cookies.get("Type") == "Admin" &&
 						<button className="admin--button" onClick={() => { toUrl('/admin') }}>Admin Page</button>}
@@ -103,15 +102,13 @@ const Header = () => {
 				</div>
 
 				<div>
-					{!loggedIn &&
-						// 1. Parade Notice - Uncomment after backend fetch is implemented */}
+					{!loggedIn && <>
+						<button className="log-in--button" onClick={() => { toUrl('/parade_notice') }}>Parade Notice</button>
 
 						<button className="log-in--button" onClick={() => { toUrl('/log_in') }}>Members Log In</button>
-					}
+					</>}
 
 					{loggedIn &&
-						// 1. Parade Notice - Uncomment after backend fetch is implemented
-
 						<>
 						{cookies.get("Type") == "Admin" &&
 							<button className="admin--button" onClick={() => { toUrl('/admin') }}>Admin Page</button>}

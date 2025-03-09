@@ -82,26 +82,22 @@ describe('UserInformation Component', () => {
             {withCredentials: true},
         )
     
-        const rankLabel = screen.getByText('REC')
+        const rankLabel = screen.getByLabelText('Rank:')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
+        const nameInput = screen.getByLabelText('Name:')
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
-        const levelInput = screen.getByText('1');
+        const levelInput = screen.getByLabelText('Secondary:');
         expect(levelInput).toBeInTheDocument();
 
         // Simulate changing input
-        fireEvent.click(rankLabel)
-        const popUpRank = screen.getByText('LCP')
-        fireEvent.click(popUpRank)
+        fireEvent.change(rankLabel, { target: { value: "LCP" } })
         fireEvent.change(nameInput, { target: { value: 'Joseph Doe' } })
-        fireEvent.click(levelInput)
-        const popUpLevel = screen.getByText('2')
-        fireEvent.click(popUpLevel)
+        fireEvent.change(levelInput, { target: { value: "2" } })
 
         // Simulate clicking the save button
-        const saveButton = screen.getByText('Save Changes')
-        fireEvent.click(saveButton)
+        const form = screen.getByTestId('user-information-form')
+        fireEvent.submit(form)
 
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/edit_account', {
@@ -215,26 +211,22 @@ describe('UserInformation Component', () => {
             {withCredentials: true},
         )
     
-        const rankLabel = screen.getByText('REC')
+        const rankLabel = screen.getByLabelText('Rank:')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
+        const nameInput = screen.getByLabelText('Name:')
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
-        const levelInput = screen.getByText('1');
+        const levelInput = screen.getByLabelText('Secondary:');
         expect(levelInput).toBeInTheDocument();
 
         // Simulate changing input
-        fireEvent.click(rankLabel)
-        const popUpRank = screen.getByText('LCP')
-        fireEvent.click(popUpRank)
+        fireEvent.change(rankLabel, { target: { value: 'LCP' } })
         fireEvent.change(nameInput, { target: { value: 'John Doe' } })
-        fireEvent.click(levelInput)
-        const popUpLevel = screen.getByText('2')
-        fireEvent.click(popUpLevel)
+        fireEvent.change(levelInput, { target: { value: '2' } })
 
         // Simulate clicking the save button
-        const saveButton = screen.getByText('Save Changes')
-        fireEvent.click(saveButton)
+        const form = screen.getByTestId('user-information-form')
+        fireEvent.submit(form)
 
         await waitFor(() => 
             expect(alert).toHaveBeenCalledWith("Failed to update")
@@ -267,9 +259,9 @@ describe('UserInformation Component', () => {
         )
     
         // Simulate changing input
-        const rankLabel = screen.getByText('REC')
+        const rankLabel = screen.getByLabelText('Rank:')
         expect(rankLabel).toBeInTheDocument();
-        const nameInput = screen.getAllByDisplayValue('John Doe')[0]
+        const nameInput = screen.getByLabelText('Name:')
         expect(nameInput).toBeInTheDocument();
         expect(screen.getByDisplayValue('Boy')).toBeInTheDocument();
         const levelInput = screen.getByText('1');
