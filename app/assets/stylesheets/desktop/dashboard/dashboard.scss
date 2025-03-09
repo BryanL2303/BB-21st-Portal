@@ -61,7 +61,8 @@
             display: flex;
 
             ol {
-                list-style-position: inside;
+                list-style-position: outside;
+                margin-left: 20px;
             }
 
             li {
