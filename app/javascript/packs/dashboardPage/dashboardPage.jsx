@@ -50,7 +50,7 @@ const DashboardPage = () => {
 
             <div className='dashboard-routes'>
                 {cookies.get("Type") == "Admin" &&
-                <div onClick={() => goTo('/admin_page')}>
+                <div onClick={() => goTo('/admin')}>
                     <i className='fa-solid fa-gear'></i>
                     <p>Admin Page</p>
                 </div>}

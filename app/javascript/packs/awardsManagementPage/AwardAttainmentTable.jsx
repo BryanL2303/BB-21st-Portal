@@ -49,7 +49,7 @@ const AwardAttainmentTable = ({ award_name, boys, checked, toggleAttainment, ele
 							{award_name in fixedRequirements && fixedRequirements[award_name].map((requirement) => {
 								return (
 									<p key={requirement["name"]}>
-										<input type='checkbox' disabled={true} checked={requirement['requirements'](boy)} />
+										<input type='checkbox' disabled={true} checked={!!requirement['requirements'](boy)} />
 									</p>
 								)
 							})}
@@ -57,13 +57,13 @@ const AwardAttainmentTable = ({ award_name, boys, checked, toggleAttainment, ele
 								if (award in masteries[award_name])
 									return masteries[award_name][award].map((mastery) => (
 										<p key={award + "-" + mastery + "-checkbox"}>
-											<input className={boy.id + "-" + award + '-' + mastery} type='checkbox' checked={checked[boy.id + "-" + award + '-' + mastery]} onChange={toggleAttainment} name='award-tracker-checkbox' />
+											<input className={boy.id + "-" + award + '-' + mastery} type='checkbox' checked={!!checked[boy.id + "-" + award + '-' + mastery]} onChange={toggleAttainment} name='award-tracker-checkbox' />
 										</p>
 									))
 								else
 									return (
 										<p key={award + "-checkbox"}>
-											<input className={boy.id + "-" + award} type='checkbox' checked={checked[boy.id + "-" + award]} onChange={toggleAttainment} name='award-tracker-checkbox' />
+											<input className={boy.id + "-" + award} type='checkbox' checked={!!checked[boy.id + "-" + award]} onChange={toggleAttainment} name='award-tracker-checkbox' />
 										</p>
 									)
 							})}

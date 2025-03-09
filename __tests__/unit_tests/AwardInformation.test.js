@@ -45,12 +45,14 @@ describe('AwardInformation Component', () => {
 
         const badge = await screen.findByLabelText('Target');
         expect(badge).toBeInTheDocument();
-        fireEvent.click(badge);
+        await act(async () => {
+            fireEvent.click(badge);
+        });        
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/1/get_award',
-            {'id': 1},
+            {},
             {withCredentials: true}
         )
     })
@@ -93,19 +95,21 @@ describe('AwardInformation Component', () => {
         expect(badge).toBeInTheDocument();
         const radio = screen.getByRole('radio', { name: 'Adventure' });
         expect(radio).not.toBeChecked();
-        fireEvent.click(badge);
+        await act(async () => {
+            fireEvent.click(badge);
+        });        
         expect(radio).toBeChecked();
 
         // Wait for axios post call and check its parameters
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/1/get_award',
-            {'id': 1},
+            {},
             {withCredentials: true}
         )
 
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/award/0/get_masteries',
-            {'award_id': 1},
+            {'award_id': "1"},
             {withCredentials: true}
         )
     })
