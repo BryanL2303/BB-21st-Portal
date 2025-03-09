@@ -42,7 +42,6 @@ const DashboardPage = () => {
 		})
 		.then(() => window.location.href = '/')
 		.catch()
-		setLoggedIn(false)
 	}
 
     return (

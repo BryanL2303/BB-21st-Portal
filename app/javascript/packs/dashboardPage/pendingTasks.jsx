@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import useCookies from '../general/useCookies'
 
@@ -20,7 +20,7 @@ const PendingTasks = ({ userId, paradesAfterToday }) => {
                 {paradesAfterToday.length > 0 && <ol>
                     {/* Check if there is an upcoming parade */}
                     {paradesAfterToday.length > 0 && paradesAfterToday.map(parade => 
-                        <li key={parade.id}>There is an upcoming parade on {new Date(parade.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</li>
+                        <li key={parade.id + "upcoming"}>There is an upcoming Parade on {new Date(parade.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</li>
                     )}
 
                     {/* Check if the user has any roles in the parade */} 
@@ -28,7 +28,7 @@ const PendingTasks = ({ userId, paradesAfterToday }) => {
                         return ["do", "dt", "flag_bearer", "cos"].map(role => {
                             if (parade[`${role}_id`] && parade[`${role}_id`] == userId) {
                                 return (
-                                    <li key={parade.id}>You are the <strong>{role === "flag_bearer" ? "Flag Bearer" : role.toUpperCase()}</strong> for the upcoming {new Date(parade.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} Parade</li>
+                                    <li key={parade.id + role}>You are the <strong>{role === "flag_bearer" ? "Flag Bearer" : role.toUpperCase()}</strong> for the upcoming {new Date(parade.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} Parade</li>
                                 )
                             }
                         })
