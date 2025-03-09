@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { handleServerError } from '../general/handleServerError'
 import { ParadeNoticePDF } from './ParadeNoticePDF'
 
 const ParadeNoticePage = () => {
