@@ -479,6 +479,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            flex-direction: column;
         }
 
         iframe {
@@ -486,10 +487,6 @@
             height: 210mm;
             width: 100%;
             border: 1px solid black;
-        }
-
-        label, textarea, br {
-            display: none;
         }
     }
 }

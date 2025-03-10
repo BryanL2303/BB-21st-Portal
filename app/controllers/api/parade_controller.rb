@@ -268,7 +268,7 @@ module Api
     end
 
     def parades_after_today
-      parades = Parade.where('date > ?', DateTime.now)
+      parades = Parade.where('date >= ?', Date.today.beginning_of_day)
       render json: parades
     end
   end
