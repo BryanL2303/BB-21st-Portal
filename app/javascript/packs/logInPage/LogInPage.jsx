@@ -29,7 +29,7 @@ const LogInPage = () => {
     })
     .then(resp => {
       if (resp.data != false) {
-        //If account is authenticated save account information in cookies
+        // If account is authenticated save account information in cookies
         cookies.set('Name', resp.data.account_name, { path: '/' });
         cookies.set('Type', resp.data.account_type, { path: '/' });
         if (resp.data.appointment != null) {
@@ -53,13 +53,13 @@ const LogInPage = () => {
           <i className='fa-solid fa-user'></i>  
           Username:
         </label>
-        <input className='log-in-form__name' name={"username"} id='username' placeholder='Enter Username' required></input>
+        <input className='log-in-form__name' name={"username"} id='username' placeholder='Enter Username' required autoComplete='username' />
         
         <label htmlFor="password">
           <i className='fa-solid fa-lock'></i>
           Password:
         </label>
-        <input className='log-in-form__password' type='password' id='password' name={"password"} placeholder='Enter Password'></input>
+        <input className='log-in-form__password' type='password' id='password' name={"password"} placeholder='Enter Password' required autoComplete='current-password' />
         <br/>
         <button>Log In</button>
       </form>

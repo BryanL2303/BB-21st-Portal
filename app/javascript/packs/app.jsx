@@ -18,6 +18,7 @@ import { ResetPasswordPage } from './userManagementPage/ResetPasswordPage'
 import { NotFound } from "./general/NotFound";
 import { DashboardPage } from "./dashboardPage/dashboardPage";
 import { ParadeNoticePage } from './attendanceManagementPage/ParadeNoticePage';
+import { UserAwards } from './awardsManagementPage/UserAwards';
 
 const container = document.body.appendChild(document.createElement('div'));
 const root = createRoot(container);
@@ -33,6 +34,7 @@ root.render(
         <Route path='/home' element={<DashboardPage/>}/>
         <Route path='/parade_notice' element={<ParadeNoticePage />}/>
         <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
+        <Route path='/user_awards' element={<UserAwards />}/>
         <Route path='/awards' element={<AwardsManagementPage/>}/>
         <Route path='/generate_result' element={<ResultGenerationPage/>}/>
         <Route path='/view_result/:id' element={<ResultPage/>}/>

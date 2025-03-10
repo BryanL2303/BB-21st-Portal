@@ -55,10 +55,16 @@ const DashboardPage = () => {
                     <p>Admin Page</p>
                 </div>}
 
-                {cookies.get("Type") != "Boy" || cookies.get("Appointment") != null &&
+                {cookies.get("Type") == "Boy" &&
+                <div onClick={() => goTo('/user_awards')}>
+                    <i className='fa-solid fa-award'></i>
+                    <p>My Awards</p>
+                </div>}
+
+                {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
-                    <p>User Management</p>
+                    <p>User Management</p> 
                 </div>}
 
                 <div onClick={() => goTo('/attendance_management')}>
@@ -68,12 +74,12 @@ const DashboardPage = () => {
 
                 {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
                 <div onClick={() => goTo('/awards')}>
-                    <i className='fa-solid fa-award'></i>
-                    <p>Awards</p>
+                    <img src="assets/awards_tracker-70a626f9e4f7d91be0dcb0ecfa8f5e521ea57d41796d0377913c25731748b2ce.svg" alt="Awards Management Icon" />
+                    <p>Awards Management</p>
                 </div>}
 
                 {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
-                <div onClick={() => goTo('/results_generation')}>
+                <div onClick={() => goTo('/generate_result')}>
                     <i className='fa-solid fa-file-invoice'></i>
                     <p>Results Generation</p>
                 </div>}

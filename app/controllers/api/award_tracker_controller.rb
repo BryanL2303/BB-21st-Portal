@@ -83,5 +83,42 @@ module Api
 
       render json: attainments, status: :accepted
     end
+
+    def user_awards
+      awarded_awards = AttainedAward.where(account_id: @current_user.id).select(:award_id, :mastery_id)
+
+      render json: awarded_awards, status: :ok
+    end
+
+    def all_awards
+      awards = {}
+      all_awards = Award.select(:id, :badge_name, :has_mastery)
+
+      all_awards.each do |award|
+        masteries =
+          if award.has_mastery
+            Mastery
+              .where(award_id: award.id)
+              .pluck(:id, :mastery_name)
+              .map { |id, name| { id:, name: } }
+          else
+            []
+          end
+
+        image_url = find_badge_image(award.badge_name)
+
+        awards[award.badge_name] = { award:, masteries:, image_url: }
+      end
+
+      render json: awards, status: :ok
+    end
+
+    private
+
+    def find_badge_image(badge_name)
+      formatted_name = badge_name.downcase.gsub(/\s+/, '-')
+      file = Dir.glob(Rails.root.join("public/assets/*#{formatted_name}*.webp")).first
+      file ? "/assets/#{File.basename(file)}" : ''
+    end
   end
 end
