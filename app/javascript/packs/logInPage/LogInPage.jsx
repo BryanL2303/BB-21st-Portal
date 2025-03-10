@@ -29,7 +29,7 @@ const LogInPage = () => {
     })
     .then(resp => {
       if (resp.data != false) {
-        //If account is authenticated save account information in cookies
+        // If account is authenticated save account information in cookies
         cookies.set('Name', resp.data.account_name, { path: '/' });
         cookies.set('Type', resp.data.account_type, { path: '/' });
         if (resp.data.appointment != null) {

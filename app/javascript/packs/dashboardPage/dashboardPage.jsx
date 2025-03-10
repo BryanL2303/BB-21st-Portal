@@ -55,10 +55,10 @@ const DashboardPage = () => {
                     <p>Admin Page</p>
                 </div>}
 
-                {cookies.get("Type") != "Boy" || cookies.get("Appointment") != null &&
+                {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
-                    <p>User Management</p>
+                    <p>User Management</p> 
                 </div>}
 
                 <div onClick={() => goTo('/attendance_management')}>
