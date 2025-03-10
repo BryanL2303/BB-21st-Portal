@@ -17,7 +17,7 @@ const Header = () => {
 			let count = 4;
 			if (cookies.get("Type") == "Admin") count += 1;
 			if (cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) count += 3
-			if (cookies.get("Type") != "Boy") count += 1 
+			if (cookies.get("Type") != "Boy") count += 2
 			setButtons(count);
 		}
 	}, [cookies])
@@ -74,8 +74,11 @@ const Header = () => {
 					
 					<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
+					{(cookies.get("Type") == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+
 					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
-						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards</button>}
+						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Award Management</button>}
 
 					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 						<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
@@ -118,8 +121,11 @@ const Header = () => {
 						
 						<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
+						{(cookies.get("Type") == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+
 						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
-							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards</button>}
+							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards Management</button>}
 
 						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
 							<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}

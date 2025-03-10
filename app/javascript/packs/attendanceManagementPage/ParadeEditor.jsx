@@ -225,7 +225,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 					<input name='sec_4_5_attire' id='sec-4-5-attire' defaultValue={parade.info.sec_4_5_attire} placeholder='Enter Sec 4 / 5 Attire' />
 					
 					<label htmlFor='reporting-time'>Reporting Time:</label>
-					<input name='reporting_time' id='repoting-time' className='reporting-time-input' type='datetime-local' defaultValue={parade.info.reporting_time.slice(0, 16)} />
+					<input name='reporting_time' id='reporting-time' className='reporting-time-input' type='datetime-local' defaultValue={parade.info.reporting_time.slice(0, 16)} />
 					
 					<label htmlFor='dismissal-time'>Dismissal Time:</label>
 					<input name='dismissal_time' id='dismissal-time' className='dismissal-time-input' type='datetime-local' defaultValue={parade.info.dismissal_time.slice(0, 16)} />

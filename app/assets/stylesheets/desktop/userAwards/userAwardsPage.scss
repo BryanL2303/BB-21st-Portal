@@ -1,0 +1,68 @@
+@media screen {
+    .user-awards {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 30px;
+        gap: 20px;
+        font-family: sans-serif;
+
+        .awards-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .award {
+            display: flex;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid black;
+            width: 350px;
+            height: 120px;
+
+            img {
+                width: 110px;
+                object-fit: contain;
+                padding-right: 10px;
+                margin-right: 10px;
+                border-right: 1px solid black;
+            }
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                > div {
+                    display: flex;
+                    margin-bottom: 5px;
+                }
+            }
+
+            h3 {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                width: 50%;
+            }
+
+            .fa-xmark {
+                color: red;
+                width: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .fa-check {
+                color: green;
+                width: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
