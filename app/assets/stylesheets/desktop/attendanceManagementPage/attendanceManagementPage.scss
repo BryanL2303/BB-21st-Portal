@@ -474,18 +474,18 @@
         margin: 20px 30px;
         font-family: sans-serif;
         min-height: 500px;
+        justify-content: center;
 
         div {
-            width: 100%;
+            width: max-content;
             display: flex;
-            justify-content: center;
             flex-direction: column;
         }
 
         iframe {
             max-width: 297mm;
             height: 210mm;
-            width: 100%;
+            width: 100vw;
             border: 1px solid black;
         }
     }
