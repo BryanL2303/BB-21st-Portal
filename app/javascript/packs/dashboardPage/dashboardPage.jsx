@@ -73,7 +73,7 @@ const DashboardPage = () => {
                 </div>}
 
                 {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
-                <div onClick={() => goTo('/results_generation')}>
+                <div onClick={() => goTo('/generate_result')}>
                     <i className='fa-solid fa-file-invoice'></i>
                     <p>Results Generation</p>
                 </div>}
