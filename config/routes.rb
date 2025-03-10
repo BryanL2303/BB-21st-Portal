@@ -64,6 +64,8 @@ Rails.application.routes.draw do
       member do
         post '/get_attainments' => 'award_tracker#attainments'
         post '/process_changes' => 'award_tracker#process_changes'
+        get '/user_awards' => 'award_tracker#user_awards'
+        get '/all_awards' => 'award_tracker#all_awards'
       end
     end
 
