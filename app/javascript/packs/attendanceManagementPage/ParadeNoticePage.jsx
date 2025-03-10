@@ -6,15 +6,19 @@ const ParadeNoticePage = () => {
     const [nearestParade, setnearestParade] = useState(null)
 
     useEffect(() => {
-        axios.get("/api/parade/0/parades_after_today", {}, { withCredentials: true })
+        axios.get("/api/parade/0/parades_after_today", {}, {})
         .then(resp => {
+            if (resp.data.length === 0) {
+                return
+            }
+
             axios.post('/api/parade/' + resp.data[0].id + '/get_parade', {}, {withCredentials: true})
             .then(resp => {
                 setnearestParade(resp.data)
             })
             .catch(resp => console.log(resp.response.status))
         })
-        .catch(resp => console.log(resp.response.status))
+        .catch(resp => console.error(resp))
     }, [])
 
     return (
