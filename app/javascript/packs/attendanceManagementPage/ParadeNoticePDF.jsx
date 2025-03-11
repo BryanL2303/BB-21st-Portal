@@ -133,6 +133,18 @@ const ParadeNoticePDF = ({ parade }) => {
 
 	function formatTime(datetimeStr) {
 		const date = new Date(datetimeStr.split('.')[0]);
+	
+		if (parade.info.parade_type === "Camp") {
+			return new Intl.DateTimeFormat('en-US', {
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				hour12: true
+			}).format(date);
+		}
+	
 		return new Intl.DateTimeFormat('en-US', {
 			hour: 'numeric',
 			minute: 'numeric',
@@ -254,8 +266,8 @@ const ParadeNoticePDF = ({ parade }) => {
 									<FlexColumn style={{ borderRight: '2px solid #000', width: '38%', paddingHorizontal: 5 * 0.75, paddingVertical: 5 * 0.75 }}>
 										<Text style={[styles.bold, { textDecoration: 'underline', marginBottom: 5 * 0.75 }]}>Platoon Announcements</Text>
 										<FlexRow style={{ gap: 3 * 0.75 }}>
-											<Text>Attire:</Text>
-											<Text>{parade.info.sec_1_attire}</Text>
+											<Text style={{ flexShrink: 0 }}>Attire:</Text>
+											<Text style={{ flex: 1, wordWrap: 'break-word', overflowWrap: 'break-word' }}>{parade.info.sec_1_attire}</Text>
 										</FlexRow>
 										{parade.platoon_announcements['1'].map((announcement, index) => (
 											<Text style={{ fontSize: 13 * 0.75, lineHeight: 1.2 }} key={index}>
@@ -279,8 +291,8 @@ const ParadeNoticePDF = ({ parade }) => {
 									<FlexColumn style={{ width: '38%', paddingHorizontal: 5 * 0.75, paddingVertical: 5 * 0.75 }}>
 										<Text style={[styles.bold, { textDecoration: 'underline', marginBottom: 5 * 0.75 }]}>Platoon Announcements</Text>
 										<FlexRow style={{ gap: 3 * 0.75 }}>
-											<Text>Attire:</Text>
-											<Text>{parade.info.sec_2_attire}</Text>
+											<Text style={{ flexShrink: 0 }}>Attire:</Text>
+											<Text style={{ flex: 1, wordWrap: 'break-word', overflowWrap: 'break-word' }}>{parade.info.sec_2_attire}</Text>
 										</FlexRow>
 										{parade.platoon_announcements['2'].map((announcement, index) => (
 											<Text style={{ fontSize: 13 * 0.75, lineHeight: 1.2 }} key={index}>
@@ -310,8 +322,8 @@ const ParadeNoticePDF = ({ parade }) => {
 									<FlexColumn style={{ borderRight: '2px solid #000', width: '38%', paddingHorizontal: 5 * 0.75, paddingVertical: 5 * 0.75 }}>
 										<Text style={[styles.bold, { textDecoration: 'underline', marginBottom: 5 * 0.75 }]}>Platoon Announcements</Text>
 										<FlexRow style={{ gap: 3 * 0.75 }}>
-											<Text>Attire:</Text>
-											<Text>{parade.info.sec_3_attire}</Text>
+											<Text style={{ flexShrink: 0 }}>Attire:</Text>
+											<Text style={{ flex: 1, wordWrap: 'break-word', overflowWrap: 'break-word' }}>{parade.info.sec_3_attire}</Text>
 										</FlexRow>
 										{parade.platoon_announcements['3'].map((announcement, index) => (
 											<Text style={{ fontSize: 13 * 0.75, lineHeight: 1.2 }} key={index}>
@@ -335,8 +347,8 @@ const ParadeNoticePDF = ({ parade }) => {
 									<FlexColumn style={{ width: '38%', paddingHorizontal: 5 * 0.75, paddingVertical: 5 * 0.75 }}>
 										<Text style={[styles.bold, { textDecoration: 'underline', marginBottom: 5 * 0.75 }]}>Platoon Announcements</Text>
 										<FlexRow style={{ gap: 3 * 0.75 }}>
-											<Text>Attire:</Text>
-											<Text>{parade.info.sec_4_5_attire}</Text>
+											<Text style={{ flexShrink: 0 }}>Attire:</Text>
+											<Text style={{ flex: 1, wordWrap: 'break-word', overflowWrap: 'break-word' }}>{parade.info.sec_4_5_attire}</Text>
 										</FlexRow>
 										{parade.platoon_announcements['4/5'].map((announcement, index) => (
 											<Text style={{ fontSize: 13 * 0.75, lineHeight: 1.2 }} key={index}>
@@ -366,6 +378,7 @@ const ParadeNoticePDF = ({ parade }) => {
 ParadeNoticePDF.propTypes = {
 	parade: PropTypes.shape({
 		info: PropTypes.shape({
+			parade_type: PropTypes.string,
 			date: PropTypes.string,
 			venue: PropTypes.string,
 			sec_1_attire: PropTypes.string,

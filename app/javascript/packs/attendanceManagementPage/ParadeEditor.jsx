@@ -9,7 +9,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 	const [companyAnnouncements, setCompanyAnnouncements] = useState(parade.company_announcements)
 	const [platoonAnnouncements, setPlatoonAnnouncements] = useState(parade.platoon_announcements)
 	const [platoonPrograms, setPlatoonPrograms] = useState(parade.platoon_programs)
-	let paradeType = parade.info.parade_type
+	const [paradeType, setParadeType] = useState(parade.info.parade_type)
 	let appointmentHolders = {'dt': parade.info.dt_id, 'do': parade.info.do_id, 'cos': parade.info.cos_id, 'flag_bearer': parade.info.flag_bearer_id, 'csm': parade.info.csm_id, 'ce': parade.info.ce_id}
 
 	useEffect(() => {
@@ -41,11 +41,6 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 			document.getElementsByName('sec-' + level + '-start-time')[0].value = e.target.value + 'T00:00'
 			document.getElementsByName('sec-' + level + '-end-time')[0].value = e.target.value + 'T00:00'
 		})
-	}
-
-	function setParadeType(e) {
-		document.getElementsByClassName('parade__type')[0].innerHTML = e.target.className
-		paradeType = e.target.className
 	}
 
 	function setAccount(appointment, e) {
@@ -197,7 +192,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 
 			<div>
 				<label htmlFor='parade-type-select'>Parade Type:</label>
-				<select name="parade_type" id="parade-type-select" onChange={e => setParadeType(e)}>
+				<select name="parade_type" id="parade-type-select" onChange={e => setParadeType(e.target.value)} defaultValue={paradeType}>
 					<option value="Parade">Parade</option>
 					<option value="Camp">Camp</option>
 					<option value="Others">Others</option>
@@ -225,7 +220,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 					<input name='sec_4_5_attire' id='sec-4-5-attire' defaultValue={parade.info.sec_4_5_attire} placeholder='Enter Sec 4 / 5 Attire' />
 					
 					<label htmlFor='reporting-time'>Reporting Time:</label>
-					<input name='reporting_time' id='repoting-time' className='reporting-time-input' type='datetime-local' defaultValue={parade.info.reporting_time.slice(0, 16)} />
+					<input name='reporting_time' id='reporting-time' className='reporting-time-input' type='datetime-local' defaultValue={parade.info.reporting_time.slice(0, 16)} />
 					
 					<label htmlFor='dismissal-time'>Dismissal Time:</label>
 					<input name='dismissal_time' id='dismissal-time' className='dismissal-time-input' type='datetime-local' defaultValue={parade.info.dismissal_time.slice(0, 16)} />

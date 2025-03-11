@@ -8,7 +8,7 @@ module Api
   # ParadeCompanyAnnouncement, ParadePlatoonProgram and ParadePlatoonAnnouncement
   class ParadeController < ApplicationController
     protect_from_forgery with: :null_session
-    before_action :authenticate_request
+    before_action :authenticate_request, except: %i[parades_after_today parade]
 
     def create_parade
       parade = Parade.new(parade_type: params[:parade_type], date: DateTime.parse(params[:date]), venue: params[:venue],
@@ -268,7 +268,7 @@ module Api
     end
 
     def parades_after_today
-      parades = Parade.where('date > ?', DateTime.now)
+      parades = Parade.where('date >= ?', Date.today.beginning_of_day)
       render json: parades
     end
   end
