@@ -192,7 +192,7 @@ const ParadeEditor = ({ parade, boys, primers, officers, setReload, setPageState
 
 			<div>
 				<label htmlFor='parade-type-select'>Parade Type:</label>
-				<select name="parade_type" id="parade-type-select" onChange={e => setParadeType(e.target.value)}>
+				<select name="parade_type" id="parade-type-select" onChange={e => setParadeType(e.target.value)} defaultValue={paradeType}>
 					<option value="Parade">Parade</option>
 					<option value="Camp">Camp</option>
 					<option value="Others">Others</option>
