@@ -378,6 +378,7 @@ const ParadeNoticePDF = ({ parade }) => {
 ParadeNoticePDF.propTypes = {
 	parade: PropTypes.shape({
 		info: PropTypes.shape({
+			parade_type: PropTypes.string,
 			date: PropTypes.string,
 			venue: PropTypes.string,
 			sec_1_attire: PropTypes.string,
