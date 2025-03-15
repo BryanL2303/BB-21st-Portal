@@ -5,11 +5,13 @@ import { handleServerError } from '../general/handleServerError'
 const UserAwards = () => {
     const [awards, setAwards] = useState({})
     const [attained, setAttained] = useState({})
+    const [username, setUsername] = useState('')
     
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
         .then(response => {
             if (response.data.user?.account_type != "Boy") window.location.href = '/home'
+            setUsername(response.data.user.account_name)
 
             axios.get('/api/award_tracker/0/user_awards')
             .then(response => setAttained(response.data.map(award => `${award.award_id}-${award.mastery_id}`)))
@@ -24,7 +26,7 @@ const UserAwards = () => {
 
     return (
         <div className='user-awards'>
-            <h2>User Awards</h2>
+            <h2>{username}'s Awards</h2>
 
             <div className='awards-list'>
                 {Object.entries(awards).map(([badge_name, { award, masteries, image_url }]) => {
@@ -40,14 +42,14 @@ const UserAwards = () => {
                                 </div>
                             )) : 
                             <div>
-                                <p>Core</p>
+                                <p>-</p>
                                 <i className={attained.includes(`${award.id}-null`) ? 'fa-solid fa-check' : 'fa-solid fa-xmark'}></i>   
                             </div>}
                         </div>
                     </div>
                 })}
             </div>
-        </div>
+        </div> 
     )
 }
 
