@@ -17,21 +17,26 @@ describe('LogInPage Component', () => {
 
   it('should redirect if check session is ok', async () => {
     mockAxios.post.mockResolvedValue({
-      data: true
+      data: {
+        user: {
+          account_name: 'testuser',
+          account_type: 'Admin',
+        }
+      },
     });
 
     render(<LogInPage />)
 
     // Wait for axios post call and check its parameters
-    await act(() => expect(mockAxios.post).toHaveBeenCalledWith(
-      '/application/0/check_session',
+    await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
+      "/application/0/check_session",
       {},
       { withCredentials: true }
     ));
-
-    // Check if redirection happens
+  
+    // Ensure redirection happens
     await waitFor(() => {
-      expect(window.location.href).toBe('/home');
+      expect(window.location.href).toBe("/home");
     });
   })
 

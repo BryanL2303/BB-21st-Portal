@@ -38,8 +38,6 @@ const AwardsManagementPage = () => {
 
 	if (!renderPage) return null
 
-	console.log(user)
-
 	return (
 		<div className='award-management-page'>
 			<div className='page-container'>
