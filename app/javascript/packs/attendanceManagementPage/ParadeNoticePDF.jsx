@@ -133,6 +133,18 @@ const ParadeNoticePDF = ({ parade }) => {
 
 	function formatTime(datetimeStr) {
 		const date = new Date(datetimeStr.split('.')[0]);
+	
+		if (parade.info.parade_type === "Camp") {
+			return new Intl.DateTimeFormat('en-US', {
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				hour12: true
+			}).format(date);
+		}
+	
 		return new Intl.DateTimeFormat('en-US', {
 			hour: 'numeric',
 			minute: 'numeric',
@@ -366,6 +378,7 @@ const ParadeNoticePDF = ({ parade }) => {
 ParadeNoticePDF.propTypes = {
 	parade: PropTypes.shape({
 		info: PropTypes.shape({
+			parade_type: PropTypes.string,
 			date: PropTypes.string,
 			venue: PropTypes.string,
 			sec_1_attire: PropTypes.string,
