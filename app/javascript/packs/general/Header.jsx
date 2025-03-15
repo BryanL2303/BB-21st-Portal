@@ -15,7 +15,7 @@ const Header = () => {
 			setUser(response.data.user)
 			setLoggedIn(!!response.data.user)
 
-			if (!!response.data.user) {
+			if (response.data.user) {
 				let count = 3;
 				if (user.account_type == "Boy") count += 1
 				if (user.account_type == "Admin") count += 1;
