@@ -1,19 +1,17 @@
 import React from 'react'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError';
 
 // To log in, accounts can only be created by existing users
 const LogInPage = () => {
-  // Cookies are only used for name and account type, JWT is handled by backend
-  const cookies = useCookies()
-
   // If there is an ongoing session go to home page
   // No useEffect as we do not need to render the component if we are redirecting
   axios.post("/application/0/check_session", {}, {
     withCredentials: true
   })
-  .then(() => window.location.href = '/home')
+  .then(response => {
+    if (response.data.user) window.location.href = '/home'
+  })
   .catch(resp => {
     if (resp.response.status != 401) handleServerError(resp.response.status)
   })
@@ -29,12 +27,6 @@ const LogInPage = () => {
     })
     .then(resp => {
       if (resp.data != false) {
-        // If account is authenticated save account information in cookies
-        cookies.set('Name', resp.data.account_name, { path: '/' });
-        cookies.set('Type', resp.data.account_type, { path: '/' });
-        if (resp.data.appointment != null) {
-          cookies.set('Appointment', resp.data.appointment, { path: '/' })
-        }
         window.location.href = '/home'
       }
     })

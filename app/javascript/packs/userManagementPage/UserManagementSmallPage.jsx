@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { AccountCreationForm } from './AccountCreationForm'
 import { UserInformation } from './UserInformation'
 
@@ -9,15 +8,10 @@ import { UserInformation } from './UserInformation'
 // This page should only be visible for mobile screens
 
 const UserManagementSmallPage = () => {
-    const cookies = useCookies()
     const { userId } = useParams();
     const [renderPage, setRenderPage] = useState(false)
     const [, setLoad] = useState(false);
     const [, setPageState] = useState("form");
-
-    if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
-        window.location.href = '/reset_password'
-    }
 
     // Check if the screen is below 800px
     useEffect(() => {
@@ -35,7 +29,10 @@ const UserManagementSmallPage = () => {
     // Session Authentication
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
-        .then(() => setRenderPage(true))
+        .then(response => {
+            if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
+            setRenderPage(true)
+        })
         .catch(() => window.location.href = '/')
     }, [])
 

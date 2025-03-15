@@ -11,7 +11,9 @@ const UniformInspectionPage = () => {
 	axios.post("/application/0/check_session", {}, {
 		withCredentials: true
 	})
-	.then()
+	.then(response => {
+		if (response.data.user?.account_type == 'Boy') window.location.href = '/home'
+	})
 	.catch(() => { window.location.href = '/' })
 
 	useEffect(() => {

@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 const UserAwards = () => {
-    const cookies = useCookies()
     const [awards, setAwards] = useState({})
     const [attained, setAttained] = useState({})
-
-    if (cookies.get('Type') != "Boy") window.location.href = '/home'
+    const [username, setUsername] = useState('')
     
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
-        .then(() => {
+        .then(response => {
+            if (response.data.user?.account_type != "Boy") window.location.href = '/home'
+            setUsername(response.data.user.account_name)
+
             axios.get('/api/award_tracker/0/user_awards')
             .then(response => setAttained(response.data.map(award => `${award.award_id}-${award.mastery_id}`)))
             .catch(error => handleServerError(error.response?.status))
@@ -26,7 +26,7 @@ const UserAwards = () => {
 
     return (
         <div className='user-awards'>
-            <h2>User Awards</h2>
+            <h2>{username}&apos;s Awards</h2>
 
             <div className='awards-list'>
                 {Object.entries(awards).map(([badge_name, { award, masteries, image_url }]) => {
@@ -42,14 +42,14 @@ const UserAwards = () => {
                                 </div>
                             )) : 
                             <div>
-                                <p>Core</p>
+                                <p>&ndash;</p>
                                 <i className={attained.includes(`${award.id}-null`) ? 'fa-solid fa-check' : 'fa-solid fa-xmark'}></i>   
                             </div>}
                         </div>
                     </div>
                 })}
             </div>
-        </div>
+        </div> 
     )
 }
 

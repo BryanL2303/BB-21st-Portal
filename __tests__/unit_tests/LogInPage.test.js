@@ -3,21 +3,12 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import mockAxios from 'axios';
-import useCookies from '../../app/javascript/packs/general/useCookies';
 import { LogInPage } from '../../app/javascript/packs/logInPage/LogInPage';
 
 jest.mock('axios');
-jest.mock('../../app/javascript/packs/general/useCookies');
-
-let cookies;
-
-useCookies.mockReturnValue({
-  set: jest.fn(),
-});
 
 describe('LogInPage Component', () => {
   beforeEach(() => {
-    cookies = useCookies();
 
     // Mock window.location.href
     delete window.location;
@@ -26,21 +17,26 @@ describe('LogInPage Component', () => {
 
   it('should redirect if check session is ok', async () => {
     mockAxios.post.mockResolvedValue({
-      data: true
+      data: {
+        user: {
+          account_name: 'testuser',
+          account_type: 'Admin',
+        }
+      },
     });
 
     render(<LogInPage />)
 
     // Wait for axios post call and check its parameters
-    await act(() => expect(mockAxios.post).toHaveBeenCalledWith(
-      '/application/0/check_session',
+    await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
+      "/application/0/check_session",
       {},
       { withCredentials: true }
     ));
-
-    // Check if redirection happens
+  
+    // Ensure redirection happens
     await waitFor(() => {
-      expect(window.location.href).toBe('/home');
+      expect(window.location.href).toBe("/home");
     });
   })
 
@@ -66,7 +62,7 @@ describe('LogInPage Component', () => {
     expect(loginButton).toBeInTheDocument()    
   });
 
-  it('should trigger axios call on form submission with correct values and save cookies', async () => {
+  it('should trigger axios call on form submission with correct values', async () => {
     mockAxios.post.mockRejectedValue({
       response: { status: 401, statusText: 'Unauthorized' },
     });
@@ -110,12 +106,6 @@ describe('LogInPage Component', () => {
         },
         { withCredentials: true }
       )
-    });
-  
-    // Check if cookies were set
-    await waitFor(() => {
-      expect(cookies.set).toHaveBeenCalledWith('Name', 'testuser', { path: '/' });
-      expect(cookies.set).toHaveBeenCalledWith('Type', 'Admin', { path: '/' });
     });
   
     // Check if redirection happens
