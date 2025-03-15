@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { handleServerError } from './handleServerError'
 
 const Header = () => {
 	const [loggedIn, setLoggedIn] = useState(false)
