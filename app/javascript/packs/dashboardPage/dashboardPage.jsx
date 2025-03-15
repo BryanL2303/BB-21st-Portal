@@ -74,7 +74,7 @@ const DashboardPage = () => {
 
                 {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
                 <div onClick={() => goTo('/awards')}>
-                    <img src="assets/awards_tracker-70a626f9e4f7d91be0dcb0ecfa8f5e521ea57d41796d0377913c25731748b2ce.svg" alt="Awards Management Icon" />
+                    <img src="assets/awards_tracker-27eebc7c26359df7efb6e2ac54d10547b766b986e0b4923657d4f07c0543251c.webp" alt="Awards Management Icon" />
                     <p>Awards Management</p>
                 </div>}
 
