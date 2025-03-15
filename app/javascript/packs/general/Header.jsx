@@ -1,27 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import useCookies from './useCookies'
 
 const Header = () => {
-	const cookies = useCookies()
 	const [loggedIn, setLoggedIn] = useState(false)
 	const [navigationViewable, setNavigationViewable] = useState(false)
 	const [buttons, setButtons] = useState(3);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
+	const [user, setUser] = useState({});
 
 	useEffect(() => {
-		setLoggedIn(cookies.get('Name') != null)
+		axios.post("/application/0/check_session", {}, { withCredentials: true })
+		.then(response => {
+			setUser(response.data.user)
+			setLoggedIn(response.data.user != null)
+		})
+		.catch(resp => {
+			if (resp.response.status != 401) handleServerError(resp.response.status)
+		})
 
 		if (!loggedIn) setButtons(2); 
 		if (loggedIn) {
 			let count = 3;
-			if (cookies.get("Type") == "Boy") count += 1
-			if (cookies.get("Type") == "Admin") count += 1;
-			if (cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) count += 3
-			if (cookies.get("Type") != "Boy") count += 1
+			if (user.account_type == "Boy") count += 1
+			if (user.account_type == "Admin") count += 1;
+			if (user.account_type != "Boy" || user.appointment != null) count += 3
+			if (user.account_type != "Boy") count += 1
 			setButtons(count);
 		}
-	}, [cookies])
+	}, [])
 
 	function toUrl(url) {
 		window.location.href = url
@@ -36,9 +42,6 @@ const Header = () => {
 	}
 
 	function logOut() {
-		cookies.remove('Name', { path: '/' });
-		cookies.remove('Type', { path: '/' });
-		cookies.remove('Appointment', { path: '/' });
 		axios.post("/application/0/log_out", {}, {
 			withCredentials: true
 		})
@@ -67,24 +70,24 @@ const Header = () => {
 
 				{loggedIn &&
 					<>
-					{cookies.get("Type") == "Admin" &&
+					{user.account_type == "Admin" &&
 						<button className="admin--button" onClick={() => { toUrl('/admin') }}>Admin Page</button>}
 
-					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
 					
 					<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
-					{(cookies.get("Type") == "Boy") &&
+					{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
 
-					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Award Management</button>}
 
-					{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
 
-					{cookies.get("Type") != "Boy" &&
+					{user.account_type != "Boy" &&
 						<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 					
 					<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
@@ -114,24 +117,24 @@ const Header = () => {
 
 					{loggedIn &&
 						<>
-						{cookies.get("Type") == "Admin" &&
+						{user.account_type == "Admin" &&
 							<button className="admin--button" onClick={() => { toUrl('/admin') }}>Admin Page</button>}
 
-						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
 						
 						<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
-						{(cookies.get("Type") == "Boy") &&
+						{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
 
-						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards Management</button>}
 
-						{(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
 						
-						{cookies.get("Type") != "Boy" &&
+						{user.account_type != "Boy" &&
 							<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 						
 						<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
