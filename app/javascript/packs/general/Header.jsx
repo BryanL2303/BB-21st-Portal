@@ -14,10 +14,11 @@ const Header = () => {
 
 		if (!loggedIn) setButtons(2); 
 		if (loggedIn) {
-			let count = 4;
+			let count = 3;
+			if (cookies.get("Type") == "Boy") count += 1
 			if (cookies.get("Type") == "Admin") count += 1;
 			if (cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) count += 3
-			if (cookies.get("Type") != "Boy") count += 2
+			if (cookies.get("Type") != "Boy") count += 1
 			setButtons(count);
 		}
 	}, [cookies])
