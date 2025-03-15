@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 const UserAwards = () => {
-    const cookies = useCookies()
     const [awards, setAwards] = useState({})
     const [attained, setAttained] = useState({})
-
-    if (cookies.get('Type') != "Boy") window.location.href = '/home'
     
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
-        .then(() => {
+        .then(response => {
+            if (response.data.user?.account_type != "Boy") window.location.href = '/home'
+
             axios.get('/api/award_tracker/0/user_awards')
             .then(response => setAttained(response.data.map(award => `${award.award_id}-${award.mastery_id}`)))
             .catch(error => handleServerError(error.response?.status))

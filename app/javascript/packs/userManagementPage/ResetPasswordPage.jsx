@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
-/*To allow boys to reset their password
-*/
+// To allow boys to reset their password
 const ResetPasswordPage = () => {
   const [account, setAccount] = useState();
 

@@ -18,14 +18,13 @@ const UserManagementPage = () => {
 	const [user, setUser] = useState(null);
 	const [pageSize,] = useState(window.innerWidth > 800);
 
-	if (cookies.get('Type') == 'Boy' && cookies.get('Appointment') == null) {
-		window.location.href = '/reset_password'
-	}
-
 	useEffect(() => {
 		// If there is no ongoing session go back to log in page
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
-		.then(() => setRenderPage(true))
+		.then(response => {
+			if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
+			setRenderPage(true)
+		})
 		.catch(() => window.location.href = '/')
 	}, [])
 

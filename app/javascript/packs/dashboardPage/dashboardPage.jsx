@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { PendingTasks } from './pendingTasks'
 import { handleServerError } from '../general/handleServerError'
 
 const DashboardPage = () => {
-    const cookies = useCookies()
     const [userId, setUserId] = useState(null)
     const [paradesAfterToday, setParadesAfterToday] = useState([])
     const [account, setAccount] = useState(null)
+    const [user, setUser] = useState({})
 
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
-        .then(() => {
+        .then(response => {
+            setUser(response.data.user)
+
             axios.get("/api/parade/0/parades_after_today", {}, { withCredentials: true })
             .then(resp => {
                 setParadesAfterToday(resp.data)
@@ -34,9 +35,6 @@ const DashboardPage = () => {
     }
 
     function logOut() {
-		cookies.remove('Name', { path: '/' });
-		cookies.remove('Type', { path: '/' });
-		cookies.remove('Appointment', { path: '/' });
 		axios.post("/application/0/log_out", {}, {
 			withCredentials: true
 		})
@@ -49,19 +47,19 @@ const DashboardPage = () => {
             <h2>Hello, {!account ? "" : `${account.rank == null ? account.honorifics : account.rank} ${account.account_name}`}</h2>
 
             <div className='dashboard-routes'>
-                {cookies.get("Type") == "Admin" &&
+                {user?.account_type == "Admin" &&
                 <div onClick={() => goTo('/admin')}>
                     <i className='fa-solid fa-gear'></i>
                     <p>Admin Page</p>
                 </div>}
 
-                {cookies.get("Type") == "Boy" &&
+                {user?.account_type == "Boy" &&
                 <div onClick={() => goTo('/user_awards')}>
                     <i className='fa-solid fa-award'></i>
                     <p>My Awards</p>
                 </div>}
 
-                {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) &&
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
                     <p>User Management</p> 
@@ -72,19 +70,19 @@ const DashboardPage = () => {
                     <p>Parade & Attendance</p>
                 </div>
 
-                {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) &&
                 <div onClick={() => goTo('/awards')}>
                     <img src="assets/awards_tracker-27eebc7c26359df7efb6e2ac54d10547b766b986e0b4923657d4f07c0543251c.webp" alt="Awards Management Icon" />
                     <p>Awards Management</p>
                 </div>}
 
-                {(cookies.get("Type") != "Boy" || cookies.get("Appointment") != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) &&
                 <div onClick={() => goTo('/generate_result')}>
                     <i className='fa-solid fa-file-invoice'></i>
                     <p>Results Generation</p>
                 </div>}
 
-                {cookies.get("Type") != "Boy" &&
+                {user?.account_type != "Boy" &&
                 <div onClick={() => goTo('/uniform_inspection_results')}>
                     <i className='fa-solid fa-shirt-long-sleeve'></i>
                     <p>Uniform Inspection</p>
