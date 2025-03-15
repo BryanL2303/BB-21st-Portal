@@ -26,7 +26,7 @@ const UserAwards = () => {
 
     return (
         <div className='user-awards'>
-            <h2>{username}'s Awards</h2>
+            <h2>{username}&apos;s Awards</h2>
 
             <div className='awards-list'>
                 {Object.entries(awards).map(([badge_name, { award, masteries, image_url }]) => {
@@ -42,7 +42,7 @@ const UserAwards = () => {
                                 </div>
                             )) : 
                             <div>
-                                <p>-</p>
+                                <p>&ndash;</p>
                                 <i className={attained.includes(`${award.id}-null`) ? 'fa-solid fa-check' : 'fa-solid fa-xmark'}></i>   
                             </div>}
                         </div>

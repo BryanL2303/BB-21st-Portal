@@ -13,21 +13,22 @@ const Header = () => {
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
 		.then(response => {
 			setUser(response.data.user)
-			setLoggedIn(response.data.user != null)
+			setLoggedIn(!!response.data.user)
+
+			if (!!response.data.user) {
+				let count = 3;
+				if (user.account_type == "Boy") count += 1
+				if (user.account_type == "Admin") count += 1;
+				if (user.account_type != "Boy" || user.appointment != null) count += 3
+				if (user.account_type != "Boy") count += 1
+				setButtons(count);
+			} else {
+				setButtons(2);
+			}
 		})
 		.catch(resp => {
 			if (resp.response.status != 401) handleServerError(resp.response.status)
 		})
-
-		if (!loggedIn) setButtons(2); 
-		if (loggedIn) {
-			let count = 3;
-			if (user.account_type == "Boy") count += 1
-			if (user.account_type == "Admin") count += 1;
-			if (user.account_type != "Boy" || user.appointment != null) count += 3
-			if (user.account_type != "Boy") count += 1
-			setButtons(count);
-		}
 	}, [])
 
 	function toUrl(url) {
