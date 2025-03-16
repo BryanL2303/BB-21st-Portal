@@ -16,7 +16,7 @@ const Header = () => {
 			setLoggedIn(!!response.data.user)
 
 			if (response.data.user) {
-				let count = 3;
+				let count = 4;
 				if (user.account_type == "Boy") count += 1
 				if (user.account_type == "Admin") count += 1;
 				if (user.account_type != "Boy" || user.appointment != null) count += 3
@@ -93,6 +93,7 @@ const Header = () => {
 						<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 					
 					<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
+					<button onClick={() => { toUrl('/help') }}>Help</button>
 					<button className="log-out--button" onClick={logOut}>Log Out</button>
 
 					<button aria-label='Open Sidebar' onClick={toggleSidebar}>
@@ -140,6 +141,7 @@ const Header = () => {
 							<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
 						
 						<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
+						<button onClick={() => { toUrl('/help') }}>Help</button>
 						<button className="log-out--button" onClick={logOut}>Log Out</button>
 						</>
 					}

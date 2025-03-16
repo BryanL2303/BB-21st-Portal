@@ -44,7 +44,7 @@ const DashboardPage = () => {
 
     return (
         <div className='dashboard'>
-            <h2>Hello, {!account ? "" : `${account.rank == null ? account.honorifics : account.rank} ${account.account_name}`}</h2>
+            <h2>Hello, {!account ? "" : `${(account.account_type != "Admin" && account.rank == null) ? account.honorifics : (account.account_type == "Admin" ? "" : account.rank)} ${account.account_name}`}</h2>
 
             <div className='dashboard-routes'>
                 {user?.account_type == "Admin" &&
@@ -91,6 +91,11 @@ const DashboardPage = () => {
                 <div onClick={() => goTo('/reset_password')}>
                     <i className='fa-solid fa-rotate-right'></i>
                     <p>Reset Log In Information</p>
+                </div>
+
+                <div onClick={() => goTo('/help')}>
+                    <i className='fa-solid fa-question'></i>
+                    <p>Help</p>
                 </div>
 
                 <div onClick={logOut}>
