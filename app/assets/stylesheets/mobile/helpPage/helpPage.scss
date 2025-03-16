@@ -1,0 +1,19 @@
+@media screen and (max-width: 800px) {
+    .help-page > div:first-of-type {
+        display: none;
+    }
+
+    .help-page-table {
+        overflow-x: auto;
+    }
+
+    .help-page-step > div:nth-of-type(2) > div:first-of-type span {
+        flex-shrink: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .help-page-table {
+        grid-template-columns: 1fr repeat(4, 60px);
+    }
+}

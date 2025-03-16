@@ -167,7 +167,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
             <section className="help-page-section">
                 <h2>Overview</h2>
                 
-                <h3 id="website-purpose">Website's purpose</h3>
+                <h3 id="website-purpose">Website&apos;s purpose</h3>
                 <p>BB 21<sup>st</sup> Portal is a website designed for Officers, Primers and Boys to facilitate administrative workflow</p>
 
                 <h3 id="features">Features</h3>
@@ -176,8 +176,8 @@ function HelpPageSectionContent({ accountType, appointment }) {
                     <li>Provides an overview of all members, including Officers, Primers, current and graduated boys</li>
                     <li>Creating and updating Parade Notices</li>
                     <li>Keeping track of Parade Attendance</li>
-                    <li>Keeping track of Boys' Awards</li>
-                    <li>Providing a description and guide to complete awards from the company's perspective</li>
+                    <li>Keeping track of Boys&apos; Awards</li>
+                    <li>Providing a description and guide to complete awards from the company&apos;s perspective</li>
                     <li>Generating 32A results in PDF format through a simplified form</li>
                     <li>Conducting Uniform Inspections based on a list of criterias</li>
                     <li>Allowing Boys to see their attained awards</li>
@@ -197,7 +197,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
                     <p>Primer</p>
                     <p>Officer</p>
 
-                    <p>Boy's Awards</p>
+                    <p>Boy&apos;s Awards</p>
                     <div><i className="fa-solid fa-check"></i></div>
                     <div><i className="fa-solid fa-check"></i></div>
                     <div><i className="fa-solid fa-xmark"></i></div>
@@ -255,7 +255,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
                     <li><strong>Role in upcoming Parade:</strong> You are the <i>COS</i> for the DD MM YYYY Parade</li>
                 </ul>
 
-                <p>If no pending tasks are found, a message will be displayed stating "No Pending Tasks"</p>
+                <p>If no pending tasks are found, a message will be displayed stating &quot;No Pending Tasks&quot;</p>
             </section>
 
             {(accountType !== "Boy" || appointment) && <section>
@@ -309,7 +309,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
                 <h3 id="download-attendance-file">Download attendance file</h3>
                 <ol>
                     <li>Select the year that you wish to download the attendance file</li>
-                    <li>Click the "Attendance" button</li>
+                    <li>Click the &quot;Attendance&quot; button</li>
                     <li>The attendance file will be downloaded</li>
                 </ol>
                 <p><strong>Note that the attendance file is only available from 2025 onwards</strong></p>
@@ -331,7 +331,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
 
                 <h3 id="updating-awards-tracker">Updating awards tracker</h3>
                 <ol>
-                    <li>Click the "Awards Tracker" button at the top</li>
+                    <li>Click the &quot;Awards Tracker&quot; button at the top</li>
                     <li>Find the table that you wish to update (Electives, IPA, etc)</li>
                     <li>Find the boy(s) that you wish to update (rows)</li>
                     <li>Find the award that you wish to update (columns)</li>
@@ -341,14 +341,14 @@ function HelpPageSectionContent({ accountType, appointment }) {
 
                 <h3 id="award-requirements">Award Requirements</h3>
                 <ol>
-                    <li>Click the "Award Requirements" button at the top</li>
+                    <li>Click the &quot;Award Requirements&quot; button at the top</li>
                     <li>Find and click the award that you wish to view</li>
                 </ol>
 
                 <p>For Awards <strong>with</strong> Masteries</p>
                 <ul>
                     <li>You may see multiple masteries</li>
-                    <li>A description from the company's perspective will be displayed per mastery</li>
+                    <li>A description from the company&apos;s perspective will be displayed per mastery</li>
                     <li>The recommended secondary level for the completion of the mastery is displayed at the top right of every mastery</li>
                     <li>Clicking the book icon (found at the right of the award name) would redirect you to the BBSP Notion for that award, where you may learn more about the award</li>
                 </ul>
@@ -386,22 +386,22 @@ function HelpPageSectionContent({ accountType, appointment }) {
                 <div>
                     <HelpPageSteps steps={conducting_inspection_steps} />
                 </div>
-                <p><strong>Only click the "Finish Inspection" button after you have completed the inspection for all boys</strong></p>
+                <p><strong>Only click the &quot;Finish Inspection&quot; button after you have completed the inspection for all boys</strong></p>
                 <p>The Boys do not share the same form, you have to swap between the Boys when filling up the form</p>
                 <p>You may switch between Boys at any point of the inspection. Swapping to another Boy will not remove the form filled out for the previous Boys.</p>
             </section>}
 
             {accountType === "Boy" && <section>
-                <h2>Boys' Awards</h2>
+                <h2>Boys&apos; Awards</h2>
 
-                <h3 id="viewing-boys-awards">Viewing Boys' Awards</h3>
+                <h3 id="viewing-boys-awards">Viewing Boys&apos; Awards</h3>
                 <ul>
                     <li>You should be able to see a list of all awards along with their image</li>
                     <li>Each mastery available for that award is also shown</li>
                     <li>For each mastery, a status in a form of an icon will be displayed</li>
-                    <li>A red "X" icon indicates that you have not yet achieved the award</li>
+                    <li>A red &quot;X&quot; icon indicates that you have not yet achieved the award</li>
                     <li>A green checkmark indicates that you have achieved the award</li>
-                    <li>For awards that do not have masteries, a "-" would be displayed in place of a mastery level</li>
+                    <li>For awards that do not have masteries, a &quot;-&quot; would be displayed in place of a mastery level</li>
                 </ul>
             </section>}
         </div>

@@ -15,11 +15,11 @@ function HelpPage() {
             setAccountType(resp.data.user?.account_type);
             setAppointment(resp.data.user?.appointment);
         })
-        .catch(() => {
-            if (response.status === 401) {
+        .catch(error => {
+            if (error.status === 401) {
                 window.location.href = "/";
             } else {
-                handleServerError(response.status);
+                handleServerError(error.status);
             }
         })
     }, []);
@@ -29,7 +29,7 @@ function HelpPage() {
             <div>
                 <div>
                     <p>Overview</p>
-                    <a href="#website-purpose">Website's purpose</a>
+                    <a href="#website-purpose">Website&apos;s purpose</a>
                     <a href="#features">Features</a>
 
                     <p>Home Page</p>
@@ -66,7 +66,7 @@ function HelpPage() {
                     </>}
 
                     {accountType === "Boy" && <>
-                    <p>Boys' Awards</p>
+                    <p>Boys&apos; Awards</p>
                     <a href="#viewing-boys-awards">Viewing Boys&#39; Awards</a>
                     </>}
                 </div>
