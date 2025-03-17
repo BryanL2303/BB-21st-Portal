@@ -404,6 +404,13 @@ function HelpPageSectionContent({ accountType, appointment }) {
                     <li>For awards that do not have masteries, a &quot;-&quot; would be displayed in place of a mastery level</li>
                 </ul>
             </section>}
+
+            {accountType === "Admin" && <section>
+                <h2>Developer</h2>
+
+                <h3>Developer Guide</h3>
+                <a href='https://github.com/BryanL2303/BB-21st-Portal/blob/ui/ux-redesign/docs/DeveloperGuide.md'>Click here to see the developer guide</>
+            </section>}
         </div>
     );
 }
