@@ -22,7 +22,9 @@ const ResultGenerationPage = () => {
   //If there is no ongoing session go back to log in page
   axios.post("/application/0/check_session", {},
   { withCredentials: true })
-  .then()
+  .then(response => {
+    if (response.data.user?.account_type == "Boy" && response.data.user?.appointment == null) window.location.href = '/home'
+  })
   .catch(() => {window.location.href = '/'})
 
   useEffect(() => {

@@ -1,10 +1,160 @@
-@media screen and (min-width: 800px){
-	.help-page .page-container{
-        position: absolute;
-		padding-left: 10vw;
-		height: 100vh;
-		width: 80vw;
-		overflow: hidden;
-		text-align: center;
+
+.help-page {
+	margin: 20px 30px;
+	display: flex;
+	font-family: sans-serif;
+
+	> div:first-of-type {
+		padding-right: 10px;
+		border-right: 1px solid black;
+		margin-right: 10px;
+		width: 20vw;
+	}
+
+	> div:first-of-type > div {
+		position: sticky;
+		top: 0;
+		height: 95vh;
+		width: 20vw;
+		padding-top: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		overflow-y: auto;
+
+		p {
+			font-weight: bold;
+			font-size: 18px;
+		}
+
+		a {
+			padding-left: 10px;
+			text-decoration: none;
+			color: black;
+			cursor: pointer;
+			font-size: 16px;
+		}
+	}
+
+	.help-page-section-content {
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		margin-left: 10px;
+
+		section {
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+
+		h2 {
+			padding-bottom: 5px;
+			border-bottom: 1px solid black;
+			margin: 5px 0;
+		}
+
+		h3:not(:first-of-type) {
+			margin-top: 20px;
+		}
+	}
+
+	ol, ul {
+		margin-left: 20px;
+		line-height: 1.7;
+	}
+}
+
+.help-page-table {
+	display: grid;
+	grid-template-columns: 1fr repeat(4, 130px);
+
+	> p, > div {
+		padding: 5px 10px;
+		border-left: 1px solid black;
+		border-top: 1px solid black;
+	}
+
+	> div, > p:nth-of-type(-n+5) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.fa-xmark {
+		color: red;
+	}
+
+	.fa-check {
+		color: darkgreen;
+	}
+
+	> p:last-of-type, > div:nth-last-of-type(-n+4) {
+		border-bottom: 1px solid black;
+	}
+
+	> div:has(+ p), > p:nth-of-type(5), > div:last-of-type {
+		border-right: 1px solid black;
+	}
+}
+
+.help-page-step {
+	display: flex;
+	height: 280px;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 20px;
+
+	> div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-width: 40px;
+	}
+
+	i {
+		cursor: pointer;
+		font-size: 24px;
+	}
+
+	> div:nth-of-type(2) {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: start;
+
+		> div:first-of-type {
+			display: flex;
+			gap: 10px;
+			padding-bottom: 5px;
+			border-bottom: 1px solid black;
+			margin-bottom: 5px;
+			width: 100%;
+			align-items: center;
+
+			p {
+				font-size: 18px;
+			}
+
+			span {
+				width: 40px;
+				height: 40px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background: black;
+				color: white;
+				border-radius: 50%;
+			}
+		}
+
+		> div:last-of-type {
+			width: 100%;
+			flex: 1;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: contain;
+		}
 	}
 }

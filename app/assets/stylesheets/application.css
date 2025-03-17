@@ -20,6 +20,11 @@
     user-select: none;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+  
+
 .layout-div {
     display: flex;
     flex-direction: column;

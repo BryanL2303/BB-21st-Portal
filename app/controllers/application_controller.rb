@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
     authenticate_request
     return unless @current_user
 
-    render json: true, status: :accepted
+    render json: { user: @current_user }, status: :accepted
   end
 
   def log_out

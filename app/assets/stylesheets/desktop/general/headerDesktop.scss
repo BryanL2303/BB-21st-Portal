@@ -85,6 +85,28 @@
     header .sidebar[data-open='true'] {
         right: 0;
     }
+
+    header .log-in--button {
+        background: transparent;
+        cursor: pointer;
+        padding: 5px;
+        display: flex;
+        width: max-content;
+        flex-direction: column;
+
+        &::after {
+            content: '';
+            width: 0;
+            height: 1px;
+            background: black;
+            margin-top: 3px;
+            transition: width 0.3s ease-in-out;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
 }
 
 @media screen {
