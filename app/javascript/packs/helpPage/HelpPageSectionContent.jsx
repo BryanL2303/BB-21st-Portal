@@ -408,7 +408,7 @@ function HelpPageSectionContent({ accountType, appointment }) {
             {accountType === "Admin" && <section>
                 <h2>Developer</h2>
 
-                <h3>Developer Guide</h3>
+                <h3 id='#developer'>Developer Guide</h3>
                 <a href='https://github.com/BryanL2303/BB-21st-Portal/blob/ui/ux-redesign/docs/DeveloperGuide.md'>Click here to see the developer guide</>
             </section>}
         </div>
