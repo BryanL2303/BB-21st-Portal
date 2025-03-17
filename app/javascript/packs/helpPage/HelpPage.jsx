@@ -69,6 +69,11 @@ function HelpPage() {
                     <p>Boys&apos; Awards</p>
                     <a href="#viewing-boys-awards">Viewing Boys&#39; Awards</a>
                     </>}
+
+                    {accountType === "Admin" && <>
+                    <p>Developer</p>
+                    <a href="#developer">Developer Guide</a>
+                    </>}
                 </div>
             </div>
 
