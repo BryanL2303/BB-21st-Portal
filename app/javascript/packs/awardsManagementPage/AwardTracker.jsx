@@ -113,7 +113,7 @@ const AwardTracker = () => {
       }, {withCredentials: true})
       .then(resp => {
         setAttained(resp.data)
-        checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
+        checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, serviceAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
       })
       .catch(resp => handleServerError(resp.response.status))
     }
