@@ -205,7 +205,7 @@ const AwardTracker = () => {
       </div>
       {["Electives", "IPA", "SPA", "Founders", "Service"].map((special_award) => {
         return (
-          <div key={special_award} style={{width: "100%"}}>{!checkingMilestone && <AwardAttainmentTable award_name={special_award} boys={selectedBoys} checked={checked} toggleAttainment={toggleAttainment} electivePoints={electivePoints} ipaAttained={ipaAttained} spaAttained={spaAttained} />}</div>
+          <div key={special_award} style={{width: "100%"}}>{!checkingMilestone && <AwardAttainmentTable award_name={special_award} boys={selectedBoys} checked={checked} toggleAttainment={toggleAttainment} electivePoints={electivePoints} />}</div>
         )
       })}
     </div>

@@ -612,7 +612,7 @@ award.save
 
 award = Award.new(badge_name: 'Link Badge', recommended_level: '1', has_mastery: false, custom_description: false,
                   has_custom_columns: false, has_results: true, has_pass: true, badge_requirements:
-                 "Awarded to Sec 1 Boys who were members of the Juniors Programme.",
+                 'Awarded to Sec 1 Boys who were members of the Juniors Programme.',
                   results_description:
                  "Boys were members in the Juniors Programme and have completed the requirements for the award during
                   their last session in the Juniors Programme.")
