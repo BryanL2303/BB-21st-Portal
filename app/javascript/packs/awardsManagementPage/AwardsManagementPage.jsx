@@ -17,7 +17,7 @@ const AwardsManagementPage = () => {
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
 		.then(response => {
 			if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
-			setUser(response.data)
+			setUser(response.data.user)
 
 			setRenderPage(true)
 		
@@ -50,7 +50,7 @@ const AwardsManagementPage = () => {
 
 				<div className='awards'>
 					{pageState == "tracker" && <AwardTracker />}
-					{pageState == "requirements" &&	(user?.account_type != 'Admin' ? <AwardInformation awards={awards} /> : <AwardEditor awardId={pageState} />)}
+					{pageState == "requirements" &&	(user.account_type != 'Admin' ? <AwardInformation awards={awards} /> : <AwardEditor awards={awards} />)}
 				</div>
 			</div>
 		</div>
