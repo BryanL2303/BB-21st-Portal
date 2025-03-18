@@ -5,7 +5,7 @@ import { handleServerError } from './handleServerError'
 const Header = () => {
 	const [loggedIn, setLoggedIn] = useState(false)
 	const [navigationViewable, setNavigationViewable] = useState(false)
-	const [buttons, setButtons] = useState(3);
+	const [buttons, setButtons] = useState(2);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [user, setUser] = useState({});
 
@@ -17,13 +17,11 @@ const Header = () => {
 
 			if (response.data.user) {
 				let count = 4;
-				if (user.account_type == "Boy") count += 1
-				if (user.account_type == "Admin") count += 1;
-				if (user.account_type != "Boy" || user.appointment != null) count += 3
-				if (user.account_type != "Boy") count += 1
+				if (response.data.user.account_type == "Boy") count += 1
+				if (response.data.user.account_type == "Admin") count += 1;
+				if ((response.data.user.account_type != "Boy") || (response.data.user.account_type == "Boy" && response.data.user.appointment != null)) count += 3
+				if (response.data.user.account_type != "Boy") count += 1
 				setButtons(count);
-			} else {
-				setButtons(2);
 			}
 		})
 		.catch(resp => {
