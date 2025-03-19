@@ -7,8 +7,9 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
 	const specialMasteries = { "Total Defence": { 1: "Bronze", 2: "Silver", 3: "Gold" } }
 	const electiveAwards = ["Adventure", "Drill", "Arts & Crafts", "Athletics", "First Aid", "Hobbies", "Kayaking", "Musketry", "Sailing", "Sportsman", "Swimming"]
 	const ipaAwards = ["Target", "Adventure", "Drill", "Community Spiritedness", "Global Awareness", "Leadership"]
-	const spaAwards = ["Total Defence", "Global Awareness", "Leadership"]
-	const foundersAwards = ["Christian Education", "Community Spiritedness", "Global Awareness", "Leadership"]
+	const spaAwards = ["Intermediary Proficiency Award", "Total Defence", "Global Awareness", "Leadership"]
+	const foundersAwards = ["Senior Proficiency Award", "Christian Education", "Community Spiritedness", "Global Awareness", "Leadership"]
+	const serviceAwards = ["Link Badge", "1 Year Service (First Year)", "1 Year Service (Second Year)", "1 Year Service (Third Year)", "3 Year Service", "National Event"]
 
 	function readUploadFile(e) {
 		let boyToAttained = {}
@@ -23,7 +24,7 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
 				const json = xlsx.utils.sheet_to_json(workbook["Sheets"][sheetName]);
 				let colToAward = {}
 				Object.entries(json[0]).map(([key, award]) => {
-					if (electiveAwards.includes(award) || ipaAwards.includes(award) || spaAwards.includes(award) || foundersAwards.includes(award)) {
+					if (electiveAwards.includes(award) || ipaAwards.includes(award) || spaAwards.includes(award) || foundersAwards.includes(award) || serviceAwards.includes(award)) {
 						colToAward[key.split("_")[3]] = award
 					}
 				})
@@ -88,7 +89,7 @@ const AwardFileReader = ({ boyIds, boyNames, toggleAttainment }) => {
 	return (
 		<div className='award-file-reader'>
 			<label htmlFor='award-file'>Upload Award Trackers from Members Portal</label>
-			<input type="file" onChange={readUploadFile} accept=".xlsx" id='award-file' />
+			<input type="file" onChange={readUploadFile} accept=".xls" id='award-file' />
 		</div>
 	)
 }

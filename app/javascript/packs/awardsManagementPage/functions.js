@@ -4,26 +4,28 @@ const electiveMasteries = {"Adventure": ["Advanced"], "Drill": ["Advanced"], "Ar
 const electiveSpecialPoints = {"Adventure Advanced": 2, 'Drill Advanced': 2}
 const ipaAwards = ["Target", "Adventure", "Drill", "Community Spiritedness", "Global Awareness", "Leadership"]
 const ipaMasteries = {"Adventure": ["Basic"], "Drill": ["Basic"], "Community Spiritedness": ["Advanced"], "Global Awareness": ["Basic"], "Leadership": ["Basic"]}
-const spaAwards = ["Total Defence", "Global Awareness", "Leadership"]
+const spaAwards = ["Intermediary Proficiency Award", "Total Defence", "Global Awareness", "Leadership"]
 const spaMasteries = {"Total Defence": ["Silver"], "Global Awareness": ["Advanced"], "Leadership": ["Advanced"]}
-const foundersAwards = ["Christian Education", "Community Spiritedness", "Global Awareness", "Leadership"]
+const foundersAwards = ["Senior Proficiency Award", "Christian Education", "Community Spiritedness", "Global Awareness", "Leadership"]
 const foundersMasteries = {"Community Spiritedness": ["Master"], "Global Awareness": ["Master"], "Leadership": ["Master"]}
+const serviceAwards = ["Link Badge", "1 Year Service (First Year)", "1 Year Service (Second Year)", "1 Year Service (Third Year)", "3 Year Service", "National Event"]
 
-function checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked) {
+function checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, serviceAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked) {
     const ipaFixedRequirements = [{'name': "1 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 1)}}]
     const spaFixedRequirements = [{'name': "IPA", 'requirements': (boy, newIpaAttained) => {return(newIpaAttained[boy.id])}}, {'name': "4 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 4)}}]
     const foundersFixedRequirements = [{'name': "SPA", 'requirements': (boy, newSpaAttained) => {return(newSpaAttained[boy.id])}}, {'name': "6 Elective Points", 'requirements': (boy, newElectivePoints) => {return (newElectivePoints[boy.id] >= 6)}}]
-    const fixedRequirements = {"IPA": ipaFixedRequirements, "SPA": spaFixedRequirements, "Founders": foundersFixedRequirements}
+    const fixedRequirements = {"IPA": ipaFixedRequirements, "SPA": spaFixedRequirements, "Founders": foundersFixedRequirements, "Service": []}
 
     setCheckingMilestone(true)
     let newElectivePoints = {...electivePoints}
     let newIpaAttained = {...ipaAttained}
     let newSpaAttained = {...spaAttained}
     let newFoundersAttained = {...foundersAttained}
-    let specialAwards = [ipaAwards, spaAwards, foundersAwards]
-    let specialMasteries = [ipaMasteries, spaMasteries, foundersMasteries]
-    let newAttained = [newIpaAttained, newSpaAttained, newFoundersAttained]
-    let milestones = ["IPA", "SPA", "Founders"]
+    let newServiceAttained = {...serviceAttained}
+    let specialAwards = [ipaAwards, spaAwards, foundersAwards, serviceAwards]
+    let specialMasteries = [ipaMasteries, spaMasteries, foundersMasteries, {}]
+    let newAttained = [newIpaAttained, newSpaAttained, newFoundersAttained, newServiceAttained]
+    let milestones = ["IPA", "SPA", "Founders", "Service"]
     let defaultChecked = {}
     boys.map((boy) => {
       let electivePoint = 0

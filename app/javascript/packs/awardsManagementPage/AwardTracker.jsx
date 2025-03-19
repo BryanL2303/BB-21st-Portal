@@ -18,6 +18,7 @@ const AwardTracker = () => {
   const [ipaAttained, setIpaAttained] = useState({})
   const [spaAttained, setSpaAttained] = useState({})
   const [foundersAttained, setFoundersAttained] = useState({})
+  const [serviceAttained, setServiceAttained] = useState({})
   const [checkingMilestone, setCheckingMilestone] = useState(false)
   const milestones = ["IPA", "SPA", "Founders"]
   const milestonesAttained = {"IPA": ipaAttained, "SPA": spaAttained, "Founders": foundersAttained}
@@ -50,6 +51,7 @@ const AwardTracker = () => {
         setIpaAttained(initialAttained)
         setSpaAttained(initialAttained)
         setFoundersAttained(initialAttained)
+        setServiceAttained(initialAttained)
         axios.post('/api/award_tracker/0/get_attainments', {}, {
           withCredentials: true
         })
@@ -63,7 +65,7 @@ const AwardTracker = () => {
   }, [])
 
   useEffect(() => {
-    checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
+    checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, serviceAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
     setChangeLog({})
   }, [boys, attained])
 
@@ -111,7 +113,7 @@ const AwardTracker = () => {
       }, {withCredentials: true})
       .then(resp => {
         setAttained(resp.data)
-        checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
+        checkMilestones(boys, attained, setCheckingMilestone, electivePoints, ipaAttained, spaAttained, foundersAttained, serviceAttained, setElectivePoints, setIpaAttained, setSpaAttained, setFoundersAttained, setChecked)
       })
       .catch(resp => handleServerError(resp.response.status))
     }
