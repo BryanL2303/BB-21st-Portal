@@ -1,223 +1,240 @@
-import React, { useEffect, useState } from 'react'
-import Popup from 'reactjs-popup';
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError';
 
-/*To edit awards information and delete award only accessible by the Administrator
-*/
-const AwardEditor = ({awardId}) => {
-  const [award, setAward] = useState();
-  const [masteries, setMasteries] = useState([]);
-  const [hasMastery, setHasMastery] = useState(false);
-  const [level1, setRecommendedLevel1] = useState()
-  const [level2, setRecommendedLevel2] = useState()
-  const [level3, setRecommendedLevel3] = useState()
+// To edit awards information (Administrator)
+const AwardEditor = ({ awards }) => {
+	const [selectedAward, setSelectedAward] = useState(null);
+	const [masteries, setMasteries] = useState([]);
+	const [hasMastery, setHasMastery] = useState(false);
+	const [level1, setRecommendedLevel1] = useState()
+	const [level2, setRecommendedLevel2] = useState()
+	const [level3, setRecommendedLevel3] = useState()
 
-  useEffect(() => {
-    setAward()
-    setMasteries([])
-    axios.post('/api/award/' + awardId + '/get_award', {
-      'id': awardId
-    }, {
-      withCredentials: true
-    })
-    .then(resp => {
-      setAward(resp.data)
-      setHasMastery(resp.data.has_mastery)
-      if (resp.data.has_mastery) {
-        axios.post('/api/award/0/get_masteries', {
-          'award_id': awardId
-        }, {
-          withCredentials: true
-        })
-        .then(resp => {
-          setMasteries(resp.data)
-          setRecommendedLevel1(resp.data[0].recommended_level)
-          setRecommendedLevel2(resp.data[1].recommended_level)
-          setRecommendedLevel3(resp.data[2].recommended_level)
-        })
-        .catch(resp => handleServerError(resp.response.status))
-      } else {
-        setRecommendedLevel1(resp.data.recommended_level)
-      }
-    })
-    .catch(resp => handleServerError(resp.response.status))
-  }, [awardId])
+	function awardDetails(id) {
+		axios.post(`/api/award/${id}/get_award`, {}, { withCredentials: true })
+		.then(resp => {
+			setSelectedAward(resp.data)
+			if (resp.data.has_mastery) {
+				setHasMastery(resp.data.has_mastery)
 
-  function setLevel(e) {
-    e.preventDefault()
-    document.getElementsByClassName('create-award-form__level')[0].innerHTML = e.target.className
-    setRecommendedLevel1(e.target.className)
-  }
+				axios.post(`/api/award/0/get_masteries`, { award_id: id }, { withCredentials: true })
+				.then(resp => {
+					setMasteries(resp.data)
+					setRecommendedLevel1(resp.data[0]?.recommended_level)
+					setRecommendedLevel2(resp.data[1]?.recommended_level)
+					setRecommendedLevel3(resp.data[2]?.recommended_level)
+				})
+				.catch(resp => handleServerError(resp.response))
+			} else {
+				setRecommendedLevel1(resp.data.recommended_level)
+			}
+		})
+		.catch(resp => handleServerError(resp.response))
+	}
 
-  function setLevel2(e) {
-    e.preventDefault()
-    let m = 0
-    if (e.target.id == "Advanced") {
-      m = 1
-      setRecommendedLevel2(e.target.className)
-    }
-    if (e.target.id == "Master") {
-      m = 2
-      setRecommendedLevel3(e.target.className)
-    }
-    document.getElementsByClassName('create-award-form__level')[m].value = e.target.className
-  }
+	function setLevel2(e) {
+		if (e.target.getAttribute("data-mastery") == "Advanced") setRecommendedLevel2(e.target.value)
+		if (e.target.getAttribute("data-mastery") == "Master") setRecommendedLevel3(e.target.value)
+	}
 
-  function toggleHasMastery(e) {
-    setHasMastery(e.target.checked)
-  }
+	function editAward(e) {
+		e.preventDefault()
+		let details = []
+		let submit = true
+		const form = e.target
 
-  function updateHeight(e) {
-    let descriptionBox = e.target
-    descriptionBox.style['height'] = '0px'
-    descriptionBox.style['height'] = `${descriptionBox.scrollHeight}px`
-  }
+		submit = !["badge-name", 2, 3].some(field => form.elements[field].value === '')
+		
+		if (form.elements["has-mastery"].value === "no") {
+			details.push({
+				'badge_requirements': form.elements["badge-requirements"].value,
+				'results_description': form.elements["results-description"].value,
+				'recommended_level': level1,
+				'require_certification': form.elements["requires-results"].value === "yes"
+			})
+		} else {
+			submit = ![5, 6, 8, 9].some(field => form.elements[field].value === '')
 
-  function editAward(e) {
-    e.preventDefault()
-    let details = []
-    let submit = true
-    if (e.target[0].value == '' || e.target[1].value == '') {
-      submit = false
-    }
-    if (!e.target[1].checked) {
-      if (e.target[2].value == '' || e.target[3].value == '') {
-        submit = false
-      }
-      details.push({'badge_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
-    } else {
-      if (e.target[2].value == '' || e.target[3].value == '') {
-        submit = false
-      }
-      details.push({'id': e.target[2].id, 'mastery_requirements': e.target[2].value, 'results_description': e.target[3].value, 'recommended_level': level1, 'require_certification': e.target[4].checked})
-      if (e.target[5].value == '' || e.target[6].value == '') {
-        submit = false
-      }
-      details.push({'id': e.target[5].id, 'mastery_requirements': e.target[5].value, 'results_description': e.target[6].value, 'recommended_level': level2, 'require_certification': e.target[7].checked})
-      if (e.target[8].value == '' || e.target[9].value == '') {
-        submit = false
-      }
-      details.push({'id': e.target[8].id, 'mastery_requirements': e.target[8].value, 'results_description': e.target[9].value, 'recommended_level': level3, 'require_certification': e.target[10].checked})
-    }
-    if (submit) {
-      axios.post('/api/award/' + awardId + '/edit_award', {
-        id: awardId,
-        badge_name: e.target[0].value,
-        has_mastery: e.target[1].checked,
-        details: details
-      }, {
-        withCredentials: true
-      })
-      .then(resp => {
-        if (resp.data != false) {
-          alert("Award has been updated, please refresh the page to update award information")
-        }
-        else{
-          alert("Failed to update")
-        }
-      })
-      .catch(resp => handleServerError(resp.response.status))
-    }
-    else {
-      alert("Please fill in all fields first")
-    }
-  }
+			details.push({
+				'id': e.target[2].getAttribute('data-id'),
+				'mastery_requirements': e.target[2].value,
+				'results_description': e.target[3].value,
+				'recommended_level': level1,
+				'require_certification': e.target[4].value === "yes"
+			})
 
-  return(
-    <div className='award-information'>
-      {award != null && <form className="edit-award-form" onSubmit={editAward}>
-        <label>Badge name: </label>
-        <input className='edit-field' defaultValue={award.badge_name}></input>
-        <br/>
-        <label>This badge has mastery levels: </label>
-        <input type='checkbox' defaultChecked={award.has_mastery} onClick={toggleHasMastery}></input>
-        <br/>
-        {award != null && !hasMastery && <div>
-          <label>Badge requirements (description of requirements): </label>
-          <br/>
-          <textarea className='edit-field' defaultValue={award.badge_requirements} onChange={updateHeight}></textarea>
-          <br/>
-          <label>Result descriptions (the description that should appear in the results for 32A form): </label>
-          <br/>
-          <textarea className='edit-field' defaultValue={award.results_description} onChange={updateHeight}></textarea>
-          <br/>
-          <label>Recommended level for completion: Sec </label>
-          <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>{award.recommended_level}</label>} position="bottom">
-            <p className='5' onClick={setLevel}>5</p>
-            <p className='4' onClick={setLevel}>4</p>
-            <p className='3' onClick={setLevel}>3</p>
-            <p className='2' onClick={setLevel}>2</p>
-            <p className='1' onClick={setLevel}>1</p>
-          </Popup>
-          <br/>
-          <label>This badge requires results: </label>
-          <input className='create-award-form__certification' type='checkbox' defaultChecked={award.has_results}></input>
-          <br/>
-          <label>This badge requires pass/fail: </label>
-          <input className='create-award-form__certification' type='checkbox' defaultChecked={award.has_pass}></input>
-          <br/>
-          <label>This badge requires custom descriptions: </label>
-          <input className='create-award-form__certification' type='checkbox' defaultChecked={award.custom_description}></input>
-          <br/>
-          {award.custom_description && <label>Result descriptions cue (To cue the user on what they need to include in the description): </label>}
-          {award.custom_description && <br/>}
-          {award.custom_description && <textarea className='edit-field' defaultValue={award.description_cue} onChange={updateHeight}></textarea>}
-          {award.custom_description && <br/>}
-          <label>This badge requires custom columns: </label>
-          <input className='create-award-form__certification' type='checkbox' defaultChecked={award.has_custom_columns}></input>
-          <br/>
-        </div>}
-        {award != null && hasMastery && masteries.map((mastery) => {
-          return (
-            <div key={mastery.id}>
-              <br/>
-              <label style={{fontSize: '20px'}}>{mastery.mastery_name}</label>
-              <br/>
-              <label>Badge requirements (description of requirements): </label>
-              <br/>
-              <textarea id={mastery.id} className='edit-field' defaultValue={mastery.mastery_requirements} onChange={updateHeight}></textarea>
-              <br/>
-              {!mastery.custom_description && <label>Result descriptions (the description that should appear in the results for 32A form): </label>}
-              {!mastery.custom_description && <br/>}
-              {!mastery.custom_description && <textarea className='edit-field' defaultValue={mastery.results_description} onChange={updateHeight}></textarea>}
-              {!mastery.custom_description && <br/>}
-              <label>Recommended level for completion: Sec </label>
-              <Popup className='award-level-popup' trigger={<label className='create-award-form__level'>{mastery.recommended_level}</label>} position="bottom">
-                <p id={mastery.mastery_name} className='5' onClick={setLevel2}>5</p>
-                <p id={mastery.mastery_name} className='4' onClick={setLevel2}>4</p>
-                <p id={mastery.mastery_name} className='3' onClick={setLevel2}>3</p>
-                <p id={mastery.mastery_name} className='2' onClick={setLevel2}>2</p>
-                <p id={mastery.mastery_name} className='1' onClick={setLevel2}>1</p>
-              </Popup>
-              <br/>
-              <label>This badge requires results: </label>
-              <input className='create-award-form__certification' type='checkbox' defaultChecked={mastery.has_results}></input>
-              <br/>
-              <label>This badge requires pass/fail: </label>
-              <input className='create-award-form__certification' type='checkbox' defaultChecked={mastery.has_pass}></input>
-              <br/>
-              <label>This badge requires custom descriptions: </label>
-              <input className='create-award-form__certification' type='checkbox' defaultChecked={mastery.custom_description}></input>
-              <br/>
-              {mastery.custom_description && <label>Result descriptions cue (To cue the user on what they need to include in the description): </label>}
-              {mastery.custom_description && <br/>}
-              {mastery.custom_description && <textarea className='edit-field' defaultValue={mastery.description_cue} onChange={updateHeight}></textarea>}
-              {mastery.custom_description && <br/>}
-              <label>This badge requires custom columns: </label>
-              <input className='create-award-form__certification' type='checkbox' defaultChecked={mastery.has_custom_columns}></input>
-              <br/>
-            </div>
-          )
-        })}
-      </form>}
-    </div>
-  )
+			details.push({
+				'id': e.target[5].getAttribute('data-id'),
+				'mastery_requirements': e.target[5].value,
+				'results_description': e.target[6].value,
+				'recommended_level': level2,
+				'require_certification': e.target[7].value === "yes"
+			})
+
+			details.push({
+				'id': e.target[8].getAttribute('data-id'),
+				'mastery_requirements': e.target[8].value,
+				'results_description': e.target[9].value,
+				'recommended_level': level3,
+				'require_certification': e.target[10].value === "yes"
+			})
+		}
+
+		if (submit) {
+			axios.post(`/api/award/${selectedAward.id}/edit_award`, {
+				id: selectedAward.id,
+				badge_name: e.target[0].value,
+				has_mastery: e.target[1].value === "yes",
+				details: details
+			}, { withCredentials: true })
+			.then(resp => {
+				if (resp.data != false) alert("Award has been updated, please refresh the page to update award information")
+				else alert("Failed to update")
+			})
+			.catch(resp => handleServerError(resp.response))
+		} else {
+			alert("Please fill in all fields first")
+		}
+	}
+
+	console.log(selectedAward?.badge_name)
+
+	return (
+		<div className='award-information'>
+			<div>
+				<div>
+					{awards.map(award => (
+						<React.Fragment key={award.badge_name}>
+							<input type="radio" id={award.id} name="awards-list" onChange={(e) => awardDetails(e.target.id)} />
+							<label htmlFor={award.id}>{award.badge_name}</label>
+						</React.Fragment>
+					))}
+				</div>
+			</div>
+			
+			<hr />
+			
+			<div>
+				{selectedAward ? (
+					<form className="edit-award-form" onSubmit={editAward}>
+						<label htmlFor='badge-name-input'>Badge name:</label>
+						<input type='text' id='badge-name-input' name='badge-name' defaultValue={selectedAward.badge_name} />
+						
+						<label htmlFor='has-mastery-input'>Badge has mastery levels:</label>
+						<select id="has-mastery-input" name="has-mastery" defaultValue={hasMastery == true ? "yes" : "no"} onChange={(e) => setHasMastery(e.target.value === "yes")}>
+							<option value="yes">Yes</option>
+							<option value="no">No</option>
+						</select>
+						
+						{(selectedAward && !hasMastery) ? (<>
+							<label htmlFor='badge-requirements'>Description of badge requirements:</label>
+							<textarea id='badge-requirements' name='badge-requirements' defaultValue={selectedAward.badge_requirements}></textarea>
+							
+							<label htmlFor='results-description'>Description for 32A form results:</label>
+							<textarea id='results-description' name='results-description' defaultValue={selectedAward.results_description}></textarea>
+							
+							<label htmlFor='recommended-level'>Recommended level for completion:</label>
+							<select id='recommended-level' defaultValue={selectedAward.recommended_level} onChange={(e) => setRecommendedLevel1(e.target.value)} >
+								<option value="1">Secondary 1</option>
+								<option value="2">Secondary 2</option>
+								<option value="3">Secondary 3</option>
+								<option value="4">Secondary 4</option>
+								<option value="5">Secondary 5</option>
+							</select>
+							
+							<label htmlFor='requires-results'>Badge requires results:</label>
+							<select id='requires-results' name='requires-results' defaultValue={selectedAward.has_results ? "yes" : "no"}>
+								<option value="yes">Yes</option>
+								<option value="no">No</option>
+							</select>
+							
+							<label htmlFor='requires-pass-fail'>Badge requires pass / fail:</label>
+							<select id='requires-pass-fail' defaultValue={selectedAward.has_pass ? "yes" : "no"}>
+								<option value="yes">Yes</option>
+								<option value="no">No</option>
+							</select>
+							
+							<label htmlFor='requires-custom-description'>Badge requires custom descriptions:</label>
+							<select id='requires-custom-description' defaultValue={selectedAward.custom_description ? "yes" : "no"}>
+								<option value="yes">Yes</option>
+								<option value="no">No</option>
+							</select>
+							
+							{selectedAward.custom_description && <>
+								<label>Result description cue (for user input):</label>
+								<textarea className='edit-field' defaultValue={selectedAward.description_cue} ></textarea>
+							</>}
+							
+							<label htmlFor='requires-custom-columns'>Badge requires custom columns: </label>
+							<select id='requires-custom-columns' defaultValue={selectedAward.has_custom_columns ? "yes" : "no"}>
+								<option value="yes">Yes</option>
+								<option value="no">No</option>
+							</select>
+
+						</>) : (masteries.map((mastery) => (
+							<React.Fragment key={mastery.id}>
+								<h3>{mastery.mastery_name}</h3>
+								
+								<label htmlFor={`${mastery.id}-badge-requirements`}>Description of badge requirements:</label>
+								<textarea id={`${mastery.id}-badge-requirements`} data-id={mastery.id} defaultValue={mastery.mastery_requirements}></textarea>
+								
+								{!mastery.custom_description && <>
+									<label htmlFor={`${mastery.id}-results-description`}>Description for 32A form results:</label>
+									<textarea id={`${mastery.id}-results-description`} defaultValue={mastery.results_description}></textarea>
+								</>}
+
+								<label htmlFor={`${mastery.id}-recommended-level`}>Recommended level for completion:</label>
+								<select id={`${mastery.id}-recommended-level`} defaultValue={mastery.recommended_level} onChange={(e) => setLevel2(e)} data-mastery={mastery.mastery_name}>
+									<option value="1">Secondary 1</option>
+									<option value="2">Secondary 2</option>
+									<option value="3">Secondary 3</option>
+									<option value="4">Secondary 4</option>
+									<option value="5">Secondary 5</option>
+								</select>
+								
+								<label htmlFor={`${mastery.id}-requires-results`}>Badge requires results:</label>
+								<select id={`${mastery.id}-requires-results`} defaultValue={mastery.has_results ? "yes" : "no"}>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+								
+								<label htmlFor={`${mastery.id}-pass-fail`}>Badge requires pass / fail:</label>
+								<select id={`${mastery.id}-pass-fail`} defaultValue={mastery.has_pass ? "yes" : "no"}>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+								
+								<label htmlFor={`${mastery.id}-requires-custom-description`}>Badge requires custom descriptions:</label>
+								<select id={`${mastery.id}-requires-custom-description`} defaultValue={mastery.custom_description ? "yes" : "no"}>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+								
+								{mastery.custom_description && <>
+									<label htmlFor={`${mastery.id}-custom-description`}>Result description cue (for user input):</label>
+									<textarea id={`${mastery.id}-custom-description`} defaultValue={mastery.description_cue}></textarea>
+								</>}
+
+								<label htmlFor={`${mastery.id}-requires-custom-columns`}>Badge requires custom columns:</label>
+								<select id={`${mastery.id}-requires-custom-columns`} defaultValue={mastery.has_custom_columns ? "yes" : "no"}>
+									<option value="yes">Yes</option>
+									<option value="no">No</option>
+								</select>
+							</React.Fragment>
+						)))}
+
+						<button>Submit</button>
+					</form>
+				) : <p>Select an Award</p>}
+			</div>
+		</div>
+	)
 }
 
 AwardEditor.propTypes = {
-  awardId: PropTypes.string.isRequired
+	awards: PropTypes.array.isRequired
 }
 
 export { AwardEditor }

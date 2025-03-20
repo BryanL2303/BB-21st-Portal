@@ -350,14 +350,14 @@ function HelpPageSectionContent({ accountType, appointment }) {
                     <li>You may see multiple masteries</li>
                     <li>A description from the company&apos;s perspective will be displayed per mastery</li>
                     <li>The recommended secondary level for the completion of the mastery is displayed at the top right of every mastery</li>
-                    <li>Clicking the book icon (found at the right of the award name) would redirect you to the BBSP Notion for that award, where you may learn more about the award</li>
+                    <li>Clicking the book icon (found at the right of the award name if available) would redirect you to the BBSP Notion for that award, where you may learn more about the award</li>
                 </ul>
 
                 <p>For Awards <strong>without</strong> Masteries</p>
                 <ul>
                     <li>You may only see one description</li>
                     <li>The recommended secondary level for the completion of the award is displayed at the top right of the description</li>
-                    <li>Clicking the book icon (found at the right of the award name) would redirect you to the BBSP Notion for that award, where you may learn more about the award</li>
+                    <li>Clicking the book icon (found at the right of the award name if available) would redirect you to the BBSP Notion for that award, where you may learn more about the award</li>
                 </ul>
             </section>
 

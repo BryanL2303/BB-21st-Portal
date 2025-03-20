@@ -30,10 +30,11 @@ const AwardInformation = ({ awards }) => {
 		const linkRegex = /(https?:\/\/[^\s]+)/g;
 		const links = data[requirement_key].match(linkRegex);
 		const cleanedDescription = data[requirement_key].replace(/Read more about the requirements( here)?:?\s?(https?:\/\/\S+)?/, '').trim();
+		const paragraphedDescription = cleanedDescription.replace(/\n/g, '<br/>');
 
 		return {
 			...data,
-			[requirement_key]: cleanedDescription,
+			[requirement_key]: paragraphedDescription,
 			link: links ? links[0] : null
 		};
 	}
@@ -41,12 +42,14 @@ const AwardInformation = ({ awards }) => {
 	return (
 		<div className='award-information'>
 			<div>
-				{awards.map(award => (
-					<React.Fragment key={award.badge_name}>
-						<input type="radio" id={award.id} name="awards-list" onChange={(e) => awardDetails(e.target.id)} />
-						<label htmlFor={award.id}>{award.badge_name}</label>
-					</React.Fragment>
-				))}
+				<div>
+					{awards.map(award => (
+						<React.Fragment key={award.badge_name}>
+							<input type="radio" id={award.id} name="awards-list" onChange={(e) => awardDetails(e.target.id)} />
+							<label htmlFor={award.id}>{award.badge_name}</label>
+						</React.Fragment>
+					))}
+				</div>
 			</div>
 			
 			<hr />
@@ -55,9 +58,9 @@ const AwardInformation = ({ awards }) => {
 				{selectedAward ? <>
 					<div>
 						<h1>{selectedAward.badge_name}</h1>
-						<a href={selectedAward.link} target="_blank" rel="noreferrer" aria-label='Learn More' title='Learn More'>
+						{(selectedAward?.link || masteries[0]?.link) && <a href={selectedAward?.link || masteries[0]?.link} target="_blank" rel="noreferrer" aria-label='Learn More' title='Learn More'>
 							<i className='fa-solid fa-book-open-cover'></i>
-						</a>
+						</a>}		
 					</div>
 						
 					{!selectedAward.has_mastery &&
@@ -67,7 +70,7 @@ const AwardInformation = ({ awards }) => {
 							<span title='Recommended level for completion'>Sec {selectedAward.recommended_level}</span>
 						</div>
 
-						<p>{selectedAward.badge_requirements}</p>
+						<p dangerouslySetInnerHTML={{ __html: selectedAward.badge_requirements }} />
 					</div>}
 
 					{selectedAward.has_mastery && masteries.map((mastery) => (
@@ -77,7 +80,7 @@ const AwardInformation = ({ awards }) => {
 								<span title='Recommended level for completion'>Sec {mastery.recommended_level}</span>
 							</div>
 
-							<p>{mastery.mastery_requirements}</p>
+							<p dangerouslySetInnerHTML={{ __html: mastery.mastery_requirements }} />
 						</div>
 					))}
 				</> : <p>Select an Award</p>}
