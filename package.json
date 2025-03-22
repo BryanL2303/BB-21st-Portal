@@ -12,7 +12,7 @@
     "test": "jest --coverage",
     "playwright_test": "playwright test",
     "build": "rails webpacker:compile",
-    "prestart": "if exist node_modules\\cache rmdir /s /q node_modules\\cache",
+    "prestart": "rimraf node_modules/cache",
     "start": "rails server"
   },
   "engines": {
@@ -93,6 +93,7 @@
     "jest": "^29.7.0",
     "jest-cli": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdom": "^25.0.1"
+    "jsdom": "^25.0.1",
+    "rimraf": "^6.0.1"
   }
 }
