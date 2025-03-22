@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202501070000001) do
+ActiveRecord::Schema[7.0].define(version: 202503220000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,13 @@ ActiveRecord::Schema[7.0].define(version: 202501070000001) do
     t.string "rank_5"
     t.boolean "graduated"
     t.string "member_id"
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.string "year"
+    t.string "achievement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "answer_rubrics", force: :cascade do |t|
@@ -288,6 +295,14 @@ ActiveRecord::Schema[7.0].define(version: 202501070000001) do
     t.datetime "updated_at", null: false
     t.index ["component_field_id"], name: "index_selected_components_on_component_field_id"
     t.index ["uniform_inspection_id"], name: "index_selected_components_on_uniform_inspection_id"
+  end
+
+  create_table "testimonials", force: :cascade do |t|
+    t.datetime "date"
+    t.string "name"
+    t.text "testimony"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "uniform_components", force: :cascade do |t|

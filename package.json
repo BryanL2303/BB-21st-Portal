@@ -12,7 +12,7 @@
     "test": "jest --coverage",
     "playwright_test": "playwright test",
     "build": "rails webpacker:compile",
-    "prestart": "if exist node_modules\\.cache rmdir /s /q node_modules\\cache",
+    "prestart": "if exist node_modules\\cache rmdir /s /q node_modules\\cache",
     "start": "rails server"
   },
   "engines": {
