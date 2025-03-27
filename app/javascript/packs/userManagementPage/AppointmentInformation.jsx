@@ -5,7 +5,7 @@ import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
 // To manage permissions for appointment holders
-const AppointmentInformation = ({ accountType, accountAppointment, appointment, appointmentHolders, boyList, primerList, officerList }) => {
+const AppointmentInformation = ({ accountType, appointment, appointmentHolders, boyList, primerList, officerList }) => {
   const coreAppointments = ['Captain', 'CSM', 'DY CSM', 'Sec 4/5 PS', 'Sec 3 PS', 'Sec 2 PS', 'Sec 1 PS']
   const [accountId, setAccountId] = useState()
 
@@ -75,7 +75,6 @@ const AppointmentInformation = ({ accountType, accountAppointment, appointment, 
 
 AppointmentInformation.propTypes = {
   accountType: PropTypes.string,
-  accountAppointment: PropTypes.string,
   appointment: PropTypes.shape({
     id: PropTypes.number,
     appointment_name: PropTypes.string,

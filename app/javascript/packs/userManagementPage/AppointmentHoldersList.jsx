@@ -106,7 +106,7 @@ const AppointmentHoldersList = ({ account_type, accountAppointment, load, reLoad
       <label style={{fontSize: '30px'}}>Appointment Holders</label>
       <br/>
       {appointments.map((appointment) => 
-        <AppointmentInformation accountType={account_type} accountAppointment={accountAppointment} key={appointment.id} appointment={appointment} appointmentHolders={appointmentHolders}
+        <AppointmentInformation accountType={account_type} key={appointment.id} appointment={appointment} appointmentHolders={appointmentHolders}
          boyList={boyList} primerList={primerList} officerList={officerList}/>
       )}
       {(account_type == "Officer" || account_type == "Admin") &&

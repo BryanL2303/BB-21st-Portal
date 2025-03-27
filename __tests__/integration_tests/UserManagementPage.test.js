@@ -53,7 +53,7 @@ describe('UserManagementPage with all of its components', () => {
         // Mock axios.post implementation
         mockAxios.post.mockImplementation((url, data) => {
             if (url === '/application/0/check_session') {
-                return Promise.resolve({ data: true })  // Session check returns true
+                return Promise.resolve({ data: {user: {account_type: "Admin", appointment: null}} })  // Session check returns true
             }
             if (url === '/api/account/0/get_accounts_by_type' && data.account_type === "Officer") {
                 // Officer accounts
@@ -156,7 +156,7 @@ describe('UserManagementPage with all of its components', () => {
         // Mock axios.post implementation
         mockAxios.post.mockImplementation((url, data) => {
             if (url === '/application/0/check_session') {
-                return Promise.resolve({ data: true })  // Session check returns true
+                return Promise.resolve({ data: {user: {account_type: "Admin", appointment: null}} })  // Session check returns true
             }
             if (url === '/api/account/0/get_accounts_by_type' && data.account_type === "Officer") {
                 // Officer accounts
@@ -287,7 +287,7 @@ describe('UserManagementPage with all of its components', () => {
         // Mock axios.post implementation
         mockAxios.post.mockImplementation((url, data) => {
             if (url === '/application/0/check_session') {
-                return Promise.resolve({ data: true })  // Session check returns true
+                return Promise.resolve({ data:  { user: {account_type: "Admin", appointment: null} } })  // Session check returns true
             }
             if (url === '/api/account/0/get_accounts_by_type' && data.account_type === "Officer") {
                 // Officer accounts

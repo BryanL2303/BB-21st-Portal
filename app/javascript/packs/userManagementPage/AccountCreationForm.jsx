@@ -25,7 +25,7 @@ const AccountCreationForm = ({ account_type, appointment, reLoad }) => {
 		e.preventDefault()
 		let submit = true
 
-		if (account_type !== "Boy" && e.target.elements['credentials'].value == '') submit = false
+		if (accountType !== "Boy" && e.target.elements['credentials'].value == '') submit = false
 		if (e.target.elements['user_name'].value == '' || e.target.elements['password'].value == '') submit = false
 		
 		if (submit) {
