@@ -1,13 +1,11 @@
 import React, { useState } from 'react'
 import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
 // To manage permissions for appointment holders
-const AppointmentInformation = ({ appointment, appointmentHolders, boyList, primerList, officerList }) => {
-  const cookies = new Cookies()
+const AppointmentInformation = ({ accountType, accountAppointment, appointment, appointmentHolders, boyList, primerList, officerList }) => {
   const coreAppointments = ['Captain', 'CSM', 'DY CSM', 'Sec 4/5 PS', 'Sec 3 PS', 'Sec 2 PS', 'Sec 1 PS']
   const [accountId, setAccountId] = useState()
 
@@ -45,7 +43,7 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
   return(
     <div className='appointment-holder-information'>
         <label>{appointment.appointment_name}: </label>
-        {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
+        {(accountType == "Officer" || accountType == "Admin") &&
           <Popup currentStyle={{maxHeight: '5vh', overscrollY: 'auto'}} className='account-name-popup' trigger={
           <label className={'update-' + appointment.appointment_name + '__name'}>
             {appointmentHolders[appointment.id]['account_name']}</label>} position="bottom">
@@ -59,14 +57,14 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
                 return(<p key={boy.id} id={boy.id} className={boy.account_name} onClick={setAccount}>{boy.account_name}</p>)
             })}
           </Popup>}
-        {cookies.get('Type') != "Officer" && cookies.get('Type') != "Admin" &&
+        {accountType != "Officer" && accountType != "Admin" &&
             <label>{appointmentHolders[appointment.id]['account_name']}</label>
         }
-        {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
+        {(accountType == "Officer" || accountType == "Admin") &&
             <button id={appointment.id} className={appointment.appointment_name} onClick={updateAppointmentHolder}>
                 Update Appointment Holder</button>
         }
-        {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
+        {(accountType == "Officer" || accountType == "Admin") &&
             !(coreAppointments.includes(appointment.appointment_name)) &&
                 <button className={appointment.id} onClick={deleteAppointment}>Remove Appointment</button>
         }
@@ -76,6 +74,8 @@ const AppointmentInformation = ({ appointment, appointmentHolders, boyList, prim
 }
 
 AppointmentInformation.propTypes = {
+  accountType: PropTypes.string,
+  accountAppointment: PropTypes.string,
   appointment: PropTypes.shape({
     id: PropTypes.number,
     appointment_name: PropTypes.string,

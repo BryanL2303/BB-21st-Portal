@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 // To create new accounts
-const AccountCreationForm = ({ reLoad }) => {
-	const cookies = useCookies()
+const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
 	const [accountType, setAccountType] = useState('Boy');
 	const [accountRank, setAccountRank] = useState('REC');
 	const [accountLevel, setAccountLevel] = useState('1');
@@ -79,8 +77,8 @@ const AccountCreationForm = ({ reLoad }) => {
 				
 				<label htmlFor='account-type-input'>Account Type: </label>
 				<select name="account-type" id="account-type-input" onChange={(e) => setType(e)} defaultValue="Boy">
-					{["Admin", "Officer"].includes(cookies.get('Type')) && <option value="Officer">Officer</option>}
-					{["Admin", "Officer", "Primer"].includes(cookies.get('Type')) && <option value="Primer">Primer</option>}
+					{["Admin", "Officer"].includes(accountType) && <option value="Officer">Officer</option>}
+					{["Admin", "Officer", "Primer"].includes(accountType) && <option value="Primer">Primer</option>}
 					<option value="Boy">Boy</option>
 				</select>
 
@@ -110,7 +108,7 @@ const AccountCreationForm = ({ reLoad }) => {
 				</select>
 				)}
 
-				{(["Admin", "Officer"].includes(cookies.get("Type")) || cookies.get("Appointment") == 'CSM') && <>
+				{(["Admin", "Officer"].includes(accountType) || appointment == 'CSM') && <>
 					<label htmlFor='roll-call-input'>Attendance Appearance:</label>
 					<select id="roll-call-input" onChange={(e) => setAccountRollCall(e.target.value == 'Yes')} defaultValue="Yes">
 						<option value="Yes">Yes</option>
@@ -160,6 +158,8 @@ const AccountCreationForm = ({ reLoad }) => {
 }
 
 AccountCreationForm.propTypes = {
+	accountType: PropTypes.string,
+	appointment: PropTypes.string,
 	reLoad: PropTypes.func
 }
 
