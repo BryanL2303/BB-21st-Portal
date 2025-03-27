@@ -1,10 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useCookies from '../general/useCookies'
 
-const PendingTasks = ({ userId, paradesAfterToday }) => {
-    const cookies = useCookies();
-
+const PendingTasks = ({ accountType, appointment, userId, paradesAfterToday }) => {
     function daysUntilSaturday() {
         const today = new Date();
         const dayOfWeek = today.getDay();
@@ -35,7 +32,7 @@ const PendingTasks = ({ userId, paradesAfterToday }) => {
                     })}
 
                     {/* Check if there is no parade notice and that there is < 2 days to sat */}
-                    {paradesAfterToday.length === 0 && daysUntilSaturday().lessThanTwoDays && (['Admin', 'Officer'].includes(cookies.get('Type')) || ['CSM', 'DY CSM', 'Admin Sergeant'].includes(cookies.get('Appointment'))) &&
+                    {paradesAfterToday.length === 0 && daysUntilSaturday().lessThanTwoDays && (['Admin', 'Officer'].includes(accountType) || ['CSM', 'DY CSM', 'Admin Sergeant'].includes(appointment)) &&
                         <li>The Parade Notice for this coming Saturday has not been created. Days to Saturday: {daysUntilSaturday().days}</li>
                     }
                 </ol>}
@@ -51,6 +48,8 @@ const PendingTasks = ({ userId, paradesAfterToday }) => {
 };
 
 PendingTasks.propTypes = {
+    accountType: PropTypes.string,
+    appointment: PropTypes.string,
     userId: PropTypes.number,
     paradesAfterToday: PropTypes.array
 };

@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup';
 import PropTypes from 'prop-types'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 import { AppointmentInformation } from './AppointmentInformation';
 
 // To manage permissions for appointment holders
-const AppointmentHoldersList = ({ load, reLoad }) => {
-  const cookies = new Cookies()
+const AppointmentHoldersList = ({ account_type, load, reLoad }) => {
   const [appointments, setAppointments] = useState([])
   const [appointmentHolders, setAppointmentHolders] = useState({})
   const [boyList, setBoyList] = useState([])
@@ -21,7 +19,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
     retrieveAppointments()
     loadList()
     setAccountType()
-    if (cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") {
+    if (account_type == "Officer" || account_type == "Admin") {
         document.getElementsByClassName('create-appointment-form__name')[0].value = ""
         document.getElementsByClassName('create-appointment-form__type')[0].innerHTML = "Select Account Type"
         setAccountId()
@@ -108,13 +106,13 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
       <label style={{fontSize: '30px'}}>Appointment Holders</label>
       <br/>
       {appointments.map((appointment) => 
-        <AppointmentInformation key={appointment.id} appointment={appointment} appointmentHolders={appointmentHolders}
+        <AppointmentInformation accountType={account_type} key={appointment.id} appointment={appointment} appointmentHolders={appointmentHolders}
          boyList={boyList} primerList={primerList} officerList={officerList}/>
       )}
-      {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
+      {(account_type == "Officer" || account_type == "Admin") &&
        <label style={{fontSize: '30px'}}>Add Appointment</label>
       }
-      {(cookies.get('Type') == "Officer" || cookies.get('Type') == "Admin") &&
+      {(account_type == "Officer" || account_type == "Admin") &&
        <form onSubmit={createAppointment}>
         <label>Appointment Name: </label>
         <input className='create-appointment-form__name'></input>
@@ -160,6 +158,7 @@ const AppointmentHoldersList = ({ load, reLoad }) => {
 }
 
 AppointmentHoldersList.propTypes = {
+  account_type: PropTypes.string,
   load: PropTypes.bool.isRequired,
   reLoad: PropTypes.func.isRequired
 }

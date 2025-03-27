@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
-import useCookies from '../general/useCookies';
 
 // To view users information and delete user accounts
-const UserInformation = ({userId, showForm, reLoad}) => {
-  const cookies = useCookies()
+const UserInformation = ({accountType, appointment, userId, showForm, reLoad}) => {
   const [account, setAccount] = useState();
   const [accountRank, setAccountRank] = useState();
   const [accountLevel, setAccountLevel] = useState();
@@ -90,7 +88,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
     let credentials = null
     let submit = true
     let password = null
-    if (cookies.get('Type') == 'Admin') {
+    if (accountType == 'Admin') {
       password = e.target.elements['password'].value
       if (password == '') submit = false
     }
@@ -176,7 +174,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         <label htmlFor='name-input'>Name:</label>
         <input className='edit-field' id='name-input' name={"account_name"} defaultValue={account.account_name} placeholder='Enter Name' />
         
-        {cookies.get("Type") == 'Admin' && <>
+        {accountType == 'Admin' && <>
           <label htmlFor='user-name-input'>User Name:</label>
           <input className='edit-field' id='user-name-input' name={"user_name"} defaultValue={account.user_name} placeholder='Enter User Name' />
         </>}
@@ -184,7 +182,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
         <label htmlFor='abb-name-input'>Abbreviated Name: </label>
         <input className='edit-field' id='abb-name-input' name={"abbreviated_name"} defaultValue={account.abbreviated_name} placeholder='Enter Abbreviated Name' />
         
-        {cookies.get("Type") == 'Admin' && <>
+        {accountType == 'Admin' && <>
           <label htmlFor='password-input'>Password:</label>
           <input name={"password"} className='edit-field' defaultValue={account.password} id='password-input' placeholder='Enter Password' />
         </>}
@@ -218,7 +216,7 @@ const UserInformation = ({userId, showForm, reLoad}) => {
           </>}
         </select>
 
-        {(["Admin", "Officer"].includes(cookies.get("Type")) || cookies.get("Appointment") == 'CSM') && !accountGraduated && <>
+        {(["Admin", "Officer"].includes(accountType) || appointment == 'CSM') && !accountGraduated && <>
           <label htmlFor='attendance-appearance'>Attendance Appearance:</label>
           <select id="attendance-appearance" defaultValue={account.roll_call} onChange={(e) => setAccountRollCall(e.target.value === 'Yes')}>
             <option value="Yes">Yes</option>
@@ -323,6 +321,8 @@ const UserInformation = ({userId, showForm, reLoad}) => {
 }
 
 UserInformation.propTypes = {
+  accountType: PropTypes.string,
+  appointment: PropTypes.string,
   userId: PropTypes.string.isRequired,
   showForm: PropTypes.func,
   reLoad: PropTypes.func

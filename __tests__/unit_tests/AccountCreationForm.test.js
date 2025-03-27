@@ -30,7 +30,7 @@ describe('AccountCreationForm Component', () => {
         mockAxios.post.mockResolvedValueOnce({data: true});
     
         await act(async () => {
-            render(<AccountCreationForm reLoad={reLoad} />)
+            render(<AccountCreationForm account_type={"Admin"} appointment={null} reLoad={reLoad} />)
         })
 
         // Simulate changing input and creating account
@@ -78,7 +78,7 @@ describe('AccountCreationForm Component', () => {
         mockAxios.post.mockResolvedValueOnce({data: true});
     
         await act(async () => {
-            render(<AccountCreationForm reLoad={reLoad} />)
+            render(<AccountCreationForm account_type={"Admin"} appointment={null} reLoad={reLoad} />)
         })
 
         // Simulate changing input and creating account

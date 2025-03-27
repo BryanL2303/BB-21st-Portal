@@ -104,7 +104,7 @@ const DashboardPage = () => {
                 </div>
             </div>
 
-            <PendingTasks userId={userId} paradesAfterToday={paradesAfterToday} />
+            <PendingTasks accountType={user.account_type} appointment={user.appointment} userId={userId} paradesAfterToday={paradesAfterToday} />
         </div>
     )
 }

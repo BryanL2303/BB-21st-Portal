@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import useCookies from '../general/useCookies'
 import { AccountCreationForm } from './AccountCreationForm'
 import { AppointmentHoldersList } from './AppointmentHoldersList'
 import { UserInformation } from './UserInformation'
@@ -11,18 +10,21 @@ import { GraduatedBoyAccountsList } from './GraduatedBoyAccountsList'
 
 // To access current users and create new accounts
 const UserManagementPage = () => {
-	const cookies = useCookies()
 	const [renderPage, setRenderPage] = useState(false)
 	const [load, setLoad] = useState(false);
 	const [pageState, setPageState] = useState("form");
 	const [user, setUser] = useState(null);
 	const [pageSize,] = useState(window.innerWidth > 800);
+	const [accountType, setAccountType] = useState()
+	const [appointment, setAppointment] = useState()
 
 	useEffect(() => {
 		// If there is no ongoing session go back to log in page
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
 		.then(response => {
 			if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
+			setAccountType(response.data.user.account_type)
+			setAppointment(response.data.user.appointment)
 			setRenderPage(true)
 		})
 		.catch(() => window.location.href = '/')
@@ -93,10 +95,10 @@ const UserManagementPage = () => {
 
 							<div id='all-users'>
 								<p>Current Users</p>
-								{["Admin", "Officer"].includes(cookies.get('Type')) && <OfficerAccountsList setPageState={showUser} load={load} />}
-								{cookies.get('Type') != "Boy" && <PrimerAccountsList setPageState={showUser} load={load} />}
+								{["Admin", "Officer"].includes(accountType) && <OfficerAccountsList setPageState={showUser} load={load} />}
+								{accountType != "Boy" && <PrimerAccountsList setPageState={showUser} load={load} />}
 								<BoyAccountsList setPageState={showUser} load={load} />
-								
+
 								<p>Graduated Boys</p>
 								<GraduatedBoyAccountsList setPageState={showUser} load={load} />
 							</div>
@@ -105,9 +107,9 @@ const UserManagementPage = () => {
 					</>}
 
 					<div className='main-block'>
-						{pageState == "form" && <AccountCreationForm reLoad={reLoad} />}
-						{pageState == "appointments" && <AppointmentHoldersList load={load} reLoad={reLoad} />}
-						{pageState == "user" && <UserInformation userId={user} showForm={showForm} reLoad={reLoad} />}
+						{pageState == "form" && <AccountCreationForm account_type={accountType} appointment={appointment} reLoad={reLoad} />}
+						{pageState == "appointments" && <AppointmentHoldersList account_type={accountType} load={load} reLoad={reLoad} />}
+						{pageState == "user" && <UserInformation accountType={accountType} appointment={appointment} userId={user} showForm={showForm} reLoad={reLoad} />}
 					</div>
 				</div>
 			</div>
