@@ -4,7 +4,7 @@ import axios from 'axios'
 import { handleServerError } from '../general/handleServerError'
 
 // To create new accounts
-const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
+const AccountCreationForm = ({ account_type, appointment, reLoad }) => {
 	const [accountType, setAccountType] = useState('Boy');
 	const [accountRank, setAccountRank] = useState('REC');
 	const [accountLevel, setAccountLevel] = useState('1');
@@ -25,7 +25,7 @@ const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
 		e.preventDefault()
 		let submit = true
 
-		if (accountType !== "Boy" && e.target.elements['credentials'].value == '') submit = false
+		if (account_type !== "Boy" && e.target.elements['credentials'].value == '') submit = false
 		if (e.target.elements['user_name'].value == '' || e.target.elements['password'].value == '') submit = false
 		
 		if (submit) {
@@ -77,8 +77,8 @@ const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
 				
 				<label htmlFor='account-type-input'>Account Type: </label>
 				<select name="account-type" id="account-type-input" onChange={(e) => setType(e)} defaultValue="Boy">
-					{["Admin", "Officer"].includes(accountType) && <option value="Officer">Officer</option>}
-					{["Admin", "Officer", "Primer"].includes(accountType) && <option value="Primer">Primer</option>}
+					{["Admin", "Officer"].includes(account_type) && <option value="Officer">Officer</option>}
+					{["Admin", "Officer", "Primer"].includes(account_type) && <option value="Primer">Primer</option>}
 					<option value="Boy">Boy</option>
 				</select>
 
@@ -108,7 +108,7 @@ const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
 				</select>
 				)}
 
-				{(["Admin", "Officer"].includes(accountType) || appointment == 'CSM') && <>
+				{(["Admin", "Officer"].includes(account_type) || appointment == 'CSM') && <>
 					<label htmlFor='roll-call-input'>Attendance Appearance:</label>
 					<select id="roll-call-input" onChange={(e) => setAccountRollCall(e.target.value == 'Yes')} defaultValue="Yes">
 						<option value="Yes">Yes</option>
@@ -158,7 +158,7 @@ const AccountCreationForm = ({ accountType, appointment, reLoad }) => {
 }
 
 AccountCreationForm.propTypes = {
-	accountType: PropTypes.string,
+	account_type: PropTypes.string,
 	appointment: PropTypes.string,
 	reLoad: PropTypes.func
 }
