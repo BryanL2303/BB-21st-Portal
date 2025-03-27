@@ -63,6 +63,8 @@ const ParadeList = ({accountType, appointment, setPageState, reload}) => {
 }
 
 ParadeList.propTypes = {
+    accountType: PropTypes.string.isRequired,
+    appointment: PropTypes.string.isRequired,
     setPageState: PropTypes.func.isRequired,
     reload: PropTypes.bool.isRequired
 }
