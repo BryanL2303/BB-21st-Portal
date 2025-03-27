@@ -108,7 +108,7 @@ const UserManagementPage = () => {
 
 					<div className='main-block'>
 						{pageState == "form" && <AccountCreationForm account_type={accountType} appointment={appointment} reLoad={reLoad} />}
-						{pageState == "appointments" && <AppointmentHoldersList account_type={accountType} accountAppointment={appointment} load={load} reLoad={reLoad} />}
+						{pageState == "appointments" && <AppointmentHoldersList account_type={accountType} load={load} reLoad={reLoad} />}
 						{pageState == "user" && <UserInformation accountType={accountType} appointment={appointment} userId={user} showForm={showForm} reLoad={reLoad} />}
 					</div>
 				</div>

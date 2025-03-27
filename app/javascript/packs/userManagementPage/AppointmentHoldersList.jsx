@@ -6,7 +6,7 @@ import { handleServerError } from '../general/handleServerError'
 import { AppointmentInformation } from './AppointmentInformation';
 
 // To manage permissions for appointment holders
-const AppointmentHoldersList = ({ account_type, accountAppointment, load, reLoad }) => {
+const AppointmentHoldersList = ({ account_type, load, reLoad }) => {
   const [appointments, setAppointments] = useState([])
   const [appointmentHolders, setAppointmentHolders] = useState({})
   const [boyList, setBoyList] = useState([])
@@ -159,7 +159,6 @@ const AppointmentHoldersList = ({ account_type, accountAppointment, load, reLoad
 
 AppointmentHoldersList.propTypes = {
   account_type: PropTypes.string,
-  accountAppointment: PropTypes.string,
   load: PropTypes.bool.isRequired,
   reLoad: PropTypes.func.isRequired
 }
