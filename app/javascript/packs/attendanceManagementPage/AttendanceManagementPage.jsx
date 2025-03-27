@@ -8,13 +8,19 @@ import { ParadeInformation } from './ParadeInformation'
 const AttendanceManagementPage = () => {
   const [pageState, setPageState] = useState('form')
   const [renderPage, setRenderPage] = useState(false)
+  const [accountType, setAccountType] = useState()
+  const [appointment, setAppointment] = useState()
   const [reload, setReload] = useState(false)
 
   useEffect(() => {
     // If there is no ongoing session go back to log in page
     axios.post("/application/0/check_session", {},
     {withCredentials: true})
-    .then(() => setRenderPage(true))
+    .then((resp) => {
+      setAccountType(resp.data.user.account_type)
+      setAppointment(resp.data.user.appointment)
+      setRenderPage(true)
+    })
     .catch(() => window.location.href = '/')
   }, [])
 
@@ -24,10 +30,10 @@ const AttendanceManagementPage = () => {
     <div className='attendance-management-page'>
       <div className='page-container'>
         <div className='parades'>
-          <ParadeList reload={reload} setPageState={setPageState}/>
+          <ParadeList accountType={accountType} appointment={appointment} reload={reload} setPageState={setPageState}/>
           <div className='main-block'>
             {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
-            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation id={Number(pageState)} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation accountType={accountType} appointment={appointment} id={Number(pageState)} setPageState={setPageState} reload={reload} setReload={setReload}/>}
           </div>
         </div>
       </div>

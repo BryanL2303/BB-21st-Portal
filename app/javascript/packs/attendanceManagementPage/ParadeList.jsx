@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 import { HandleDownloadWithExcelJS } from './AnnualAttendanceExcel'
 
-const ParadeList = ({setPageState, reload}) => {
-    const cookies = useCookies()
+const ParadeList = ({accountType, appointment, setPageState, reload}) => {
     const [parades, setParades] = useState([])
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear())
 
@@ -45,9 +43,8 @@ const ParadeList = ({setPageState, reload}) => {
                         </button>
                     </div>
                     <div>
-                        {(cookies.get('Type') == 'Admin' || cookies.get('Type') == 'Officer' || cookies.get('Type') == 'Primer' ||
-                        cookies.get('Appointment') == 'CSM' || cookies.get('Appointment') == 'DY CSM' ||
-                        cookies.get('Appointment') == 'Admin Sergeant') &&
+                        {(accountType == 'Admin' || accountType == 'Officer' || accountType == 'Primer' ||
+                        appointment == 'CSM' || appointment == 'DY CSM' || appointment == 'Admin Sergeant') &&
                         <button onClick={showNewParadeForm}><i className='fa-solid fa-plus'></i>New</button>
                         }
                         <HandleDownloadWithExcelJS key={currentYear} year={currentYear}/>

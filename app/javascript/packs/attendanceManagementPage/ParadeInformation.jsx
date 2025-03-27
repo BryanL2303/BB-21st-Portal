@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 import { ParadeNoticePDF } from './ParadeNoticePDF'
 import { ParadeAttendance } from './ParadeAttendance'
 import { ParadeEditor } from './ParadeEditor'
 
 // To access attendance records and take new attendance
-const ParadeInformation = ({id, setPageState, reload, setReload}) => {
-  const cookies = useCookies()
+const ParadeInformation = ({accountType, appointment, id, setPageState, reload, setReload}) => {
   const [render, setRender] = useState(false)
   const [showParadeNotice, setShowParadeNotice] = useState(true)
   const [showParadeEditor, setShowParadeEditor] = useState(false)
@@ -79,7 +77,7 @@ const ParadeInformation = ({id, setPageState, reload, setReload}) => {
         {!showParadeNotice && <button onClick={toggleParadeNotice} aria-label='Show Parade Notice' name='show-parade-notice'>Show Parade Notice</button>}
         {showParadeNotice && <button onClick={toggleParadeNotice} aria-label='Hide Parade Notice' name='hide-parade-notice'>Hide Parade Notice</button>}
 
-        {(['Admin', 'Officer', 'Primer'].includes(cookies.get('Type')) || ['CSM', 'DY CSM', 'Admin Sergeant'].includes(cookies.get('Appointment'))) && (
+        {(['Admin', 'Officer', 'Primer'].includes(accountType) || ['CSM', 'DY CSM', 'Admin Sergeant'].includes(appointment)) && (
           <button onClick={toggleEditor} name='edit-parade-notice'>Edit Parade Notice</button>
         )}
       </div>
