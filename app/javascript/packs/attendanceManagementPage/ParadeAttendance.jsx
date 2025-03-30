@@ -32,7 +32,7 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
       setTakingAttendance(false)
     }
     if (accountName == parade.cos?.account_name) setParadeAppointment('cos')
-    else if ((accountName == parade.csm?.account_name || appointment.includes("CSM"))) setParadeAppointment('csm')
+    else if ((accountName == parade.csm?.account_name || appointment?.includes("CSM"))) setParadeAppointment('csm')
     else if (appointment == 'Captain') setParadeAppointment('captain')
     else if (accountName == parade.do?.account_name) setParadeAppointment('do')
   }, [parade])
