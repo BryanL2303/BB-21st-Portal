@@ -7,7 +7,7 @@ import { ParadeAttendance } from './ParadeAttendance'
 import { ParadeEditor } from './ParadeEditor'
 
 // To access attendance records and take new attendance
-const ParadeInformation = ({accountType, appointment, id, setPageState, reload, setReload}) => {
+const ParadeInformation = ({accountName, accountType, appointment, id, setPageState, reload, setReload}) => {
   const [render, setRender] = useState(false)
   const [showParadeNotice, setShowParadeNotice] = useState(true)
   const [showParadeEditor, setShowParadeEditor] = useState(false)
@@ -85,7 +85,7 @@ const ParadeInformation = ({accountType, appointment, id, setPageState, reload, 
       {showParadeNotice && <ParadeNoticePDF parade={parade} />}
       {showParadeEditor && <ParadeEditor parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} setPageState={setPageState}/>}
 
-      <ParadeAttendance parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} />
+      <ParadeAttendance accountName={accountName} appointment={appointment} parade={parade} boys={boys} primers={primers} officers={officers} setReload={setReload} />
     </div>
   )
 }
