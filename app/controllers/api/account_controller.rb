@@ -53,7 +53,9 @@ module Api
     end
 
     def accounts_by_type
-      accounts = Account.where(account_type: params[:account_type])
+      columns = Account.column_names - ['password']
+      accounts = Account.select(columns)
+      accounts = accounts.where(account_type: params[:account_type])
       accounts = accounts.where(graduated: [false, nil]) if params[:account_type] == 'Boy'
       accounts = accounts.order('level').order('account_name')
       render json: accounts, status: :ok
