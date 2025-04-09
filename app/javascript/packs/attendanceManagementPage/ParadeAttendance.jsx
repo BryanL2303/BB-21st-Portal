@@ -105,7 +105,7 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
     }))
   }
 
-  function attendanceShortcut(e) {
+  function attendanceShortcut() {
     if (!takingAttendance) return;
 
     const handleKeyDown = (e1) => {
