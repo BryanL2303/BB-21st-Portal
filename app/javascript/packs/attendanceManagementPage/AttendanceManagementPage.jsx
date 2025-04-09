@@ -8,6 +8,7 @@ import { ParadeInformation } from './ParadeInformation'
 const AttendanceManagementPage = () => {
   const [pageState, setPageState] = useState('form')
   const [renderPage, setRenderPage] = useState(false)
+  const [accountName, setAccountName] = useState()
   const [accountType, setAccountType] = useState()
   const [appointment, setAppointment] = useState()
   const [reload, setReload] = useState(false)
@@ -17,6 +18,7 @@ const AttendanceManagementPage = () => {
     axios.post("/application/0/check_session", {},
     {withCredentials: true})
     .then((resp) => {
+      setAccountName(resp.data.user.account_name)
       setAccountType(resp.data.user.account_type)
       setAppointment(resp.data.user.appointment)
       setRenderPage(true)
@@ -33,7 +35,7 @@ const AttendanceManagementPage = () => {
           <ParadeList accountType={accountType} appointment={appointment} reload={reload} setPageState={setPageState}/>
           <div className='main-block'>
             {pageState == 'form' && <NewParadeForm setReload={setReload}/>}
-            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation accountType={accountType} appointment={appointment} id={Number(pageState)} setPageState={setPageState} reload={reload} setReload={setReload}/>}
+            {pageState != 'list' && pageState != 'form' && !(pageState.includes('Y')) && <ParadeInformation accountName={accountName} accountType={accountType} appointment={appointment} id={Number(pageState)} setPageState={setPageState} reload={reload} setReload={setReload}/>}
           </div>
         </div>
       </div>

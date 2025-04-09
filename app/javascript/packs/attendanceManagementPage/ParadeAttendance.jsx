@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Popup from 'reactjs-popup'
 import axios from 'axios'
 import PropTypes from 'prop-types'
-import useCookies from '../general/useCookies'
 import { handleServerError } from '../general/handleServerError'
 
 // To access attendance records and take new attendance
-const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
-  const cookies = useCookies()
+const ParadeAttendance = ({accountName, appointment, parade, boys, primers, officers, setReload}) => {
   const [paradeAppointment, setParadeAppointment] = useState()
   const [takingAttendance, setTakingAttendance] = useState(false)
   const [currentAttendance, setCurrentAttendance] = useState(parade.parade_attendance)
@@ -21,22 +19,22 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
 
     if (
       (paradeDate.getFullYear() === currentYear) &&
-      ((cookies.get("Appointment")?.includes("PS") && !parade.info.cos_finalized &&
+      ((appointment?.includes("PS") && !parade.info.cos_finalized &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
-      (cookies.get("Name") == parade.cos?.account_name &&
+      (accountName == parade.cos?.account_name &&
         !parade.info.csm_finalized && !parade.info.do_finalized && !parade.info.captain_finalized) ||
-      ((cookies.get("Name") == parade.csm?.account_name || cookies.get("Appointment")?.includes("CSM")) && !parade.info.do_finalized && !parade.info.captain_finalized) ||
-      (cookies.get("Name") == parade.do?.account_name && !parade.info.captain_finalized) ||
-      (cookies.get("Appointment") == 'Captain' && !parade.info.captain_finalized))
+      ((accountName == parade.csm?.account_name || appointment?.includes("CSM")) && !parade.info.do_finalized && !parade.info.captain_finalized) ||
+      (accountName == parade.do?.account_name && !parade.info.captain_finalized) ||
+      (appointment == 'Captain' && !parade.info.captain_finalized))
       ) {
         setTakingAttendance(true)
     } else {
       setTakingAttendance(false)
     }
-    if (cookies.get("Name") == parade.cos?.account_name) setParadeAppointment('cos')
-    else if ((cookies.get("Name") == parade.csm?.account_name || cookies.get("Appointment")?.includes("CSM"))) setParadeAppointment('csm')
-    else if (cookies.get("Appointment") == 'Captain') setParadeAppointment('captain')
-    else if (cookies.get("Name") == parade.do?.account_name) setParadeAppointment('do')
+    if (accountName == parade.cos?.account_name) setParadeAppointment('cos')
+    else if ((accountName == parade.csm?.account_name || appointment?.includes("CSM"))) setParadeAppointment('csm')
+    else if (appointment == 'Captain') setParadeAppointment('captain')
+    else if (accountName == parade.do?.account_name) setParadeAppointment('do')
   }, [parade])
 
   useEffect(() => {
@@ -238,6 +236,8 @@ const ParadeAttendance = ({parade, boys, primers, officers, setReload}) => {
 }
 
 ParadeAttendance.propTypes = {
+  accountName: PropTypes.string.isRequired,
+  appointment: PropTypes.string.isRequired,
   id: PropTypes.number,  
   setPageState: PropTypes.func,
   reload: PropTypes.bool,
