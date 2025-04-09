@@ -1,0 +1,120 @@
+.home-editor *:not(i) {
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+
+.home-editor {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    h1 {
+        font-size: 24px;
+        grid-column: span 2;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    > div {
+        border: 1px solid black;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        height: 85vh;
+        overflow: auto;
+
+        button {
+            padding: 5px 10px;
+            background: black;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: auto;
+            margin-left: auto;
+            grid-column: span 2;
+
+            i {
+                margin-right: 5px;
+            }
+        }
+
+        > div:first-of-type {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+
+            button {
+                padding: 3px 8px;
+                background: black;
+                border: none;
+                outline: none;
+                border-radius: 10px;
+                color: white;
+                cursor: pointer;
+            }
+        }
+
+        > div:not(:first-of-type) {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid black;
+            box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.3);
+            border-radius: 10px;
+            padding: 15px;
+
+            .fa-trash {
+                cursor: pointer;
+            }
+        }
+
+        input[type="number"] {
+            width: 20%;
+            padding: 5px;
+            text-align: center;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+
+            &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+                display: none;
+                appearance: none;
+            }
+        }
+
+        input[type="text"], input[type="date"] {
+            flex: 1;
+            padding: 5px;
+            border: none;
+            border-bottom: 1px solid black;
+            outline: none;
+        }
+
+        .testimonial-editor {
+            display: grid !important;
+            grid-template-columns: 80px 1fr;
+            justify-content: start;
+
+            textarea, label:last-of-type {
+                grid-column: span 2;
+            }
+
+            textarea {
+                width: 100%;
+                padding: 20px;
+                border-radius: 10px;
+                resize: none;
+                outline: none;
+                height: 100px;
+            }
+        }
+    }
+}
