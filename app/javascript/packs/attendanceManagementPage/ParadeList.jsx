@@ -16,6 +16,12 @@ const ParadeList = ({accountType, appointment, setPageState, reload}) => {
         .catch(resp => handleServerError(resp.response.status))
     }, [currentYear, reload])
 
+    useEffect(() => {
+        if (accountType == "Boy" && !appointment) {
+            if (parades.length > 0) setPageState(String(parades[parades.length - 1]?.id))
+        }
+    }, [parades])
+
     function showNewParadeForm() {
         setPageState('form')
     }
@@ -50,7 +56,7 @@ const ParadeList = ({accountType, appointment, setPageState, reload}) => {
                         <HandleDownloadWithExcelJS key={currentYear} year={currentYear}/>
                     </div>
                 </div>
-                <div>
+                <div id='parade-list-container'>
                     {parades.slice().reverse().map((parade) => {
                     return(
                         <button key={parade.id} className={parade.id} onClick={showParadeInformation}>{parade.date.split('T')[0]}</button>
@@ -64,7 +70,7 @@ const ParadeList = ({accountType, appointment, setPageState, reload}) => {
 
 ParadeList.propTypes = {
     accountType: PropTypes.string.isRequired,
-    appointment: PropTypes.string.isRequired,
+    appointment: PropTypes.string,
     setPageState: PropTypes.func.isRequired,
     reload: PropTypes.bool.isRequired
 }

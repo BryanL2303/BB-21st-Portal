@@ -237,7 +237,7 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
 
 ParadeAttendance.propTypes = {
   accountName: PropTypes.string.isRequired,
-  appointment: PropTypes.string.isRequired,
+  appointment: PropTypes.string,
   id: PropTypes.number,  
   setPageState: PropTypes.func,
   reload: PropTypes.bool,
