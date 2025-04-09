@@ -59,7 +59,7 @@ const ParadeList = ({accountType, appointment, setPageState, reload}) => {
                 <div id='parade-list-container'>
                     {parades.slice().reverse().map((parade) => {
                     return(
-                        <button key={parade.id} className={parade.id} onClick={showParadeInformation}>{parade.date.split('T')[0]}</button>
+                        <button tabIndex={0} key={parade.id} className={parade.id} onClick={showParadeInformation}>{parade.date.split('T')[0]}</button>
                     )
                     })}
                 </div>
