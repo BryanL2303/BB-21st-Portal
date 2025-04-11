@@ -1,0 +1,9 @@
+@media screen and (max-width: 800px) {
+    .home-editor h1 {
+        grid-column: span 1 !important;
+    }
+
+    .home-editor {
+        grid-template-columns: 1fr !important;
+    }
+}

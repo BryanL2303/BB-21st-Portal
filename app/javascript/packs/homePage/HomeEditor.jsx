@@ -4,14 +4,28 @@ import { handleServerError } from "../general/handleServerError";
 
 function HomePageEditor() {
     const [testimonials, setTestimonials] = useState([]);
+    const [achievements, setachievements] = useState([]);
+
+    useEffect(() => {
+        // If there is no ongoing session go back to log in page
+        axios.post("/application/0/check_session", {}, { withCredentials: true })
+        .then(response => {
+            if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
+        })
+        .catch(() => window.location.href = '/')
+    }, [])
 
     useEffect(() => {
         axios.get("/api/home_editor/0/all_testimonies", { headers: { "Content-Type": "application/json" }, withCredentials: true })
         .then(resp => setTestimonials(resp.data))
         .catch(resp => handleServerError(resp.response.status))
 
+        axios.get("/api/home_editor/0/all_achievements", { headers: { "Content-Type": "application/json" }, withCredentials: true })
+        .then(resp => setachievements(resp.data))
+        .catch(resp => handleServerError(resp.response.status))
+
         const handleDelete = (e) => {
-            if ((e.target.tagName === "BUTTON" && e.target.textContent.trim().toLowerCase() === "delete") || (e.target.classList.contains("fa-trash"))) {
+            if ((e.target.tagName === "BUTTON" && e.target.textContent.trim().toLowerCase() === "delete")) {
                 const id = e.target.parentElement.getAttribute("data-id")
                 if (!id) {
                     e.target.parentElement.remove()
@@ -29,6 +43,24 @@ function HomePageEditor() {
                     console.error(error)
                     handleServerError(error.response.status)
                 })
+            } else if (e.target.classList.contains("fa-trash")) {
+                const id = e.target.parentElement.getAttribute("data-id")
+                if (!id) {
+                    e.target.parentElement.remove()
+                    return;
+                }
+
+                axios.post("/api/home_editor/0/delete_achievement", { achievement_id: id }, { headers: { "Content-Type": "application/json" }, withCredentials: true })
+                .then(resp => {
+                    if (resp.data != false) {
+                        alert("Achievement deleted")
+                        e.target.parentElement.remove() 
+                    }
+                })
+                .catch(error => {
+                    console.error(error)
+                    handleServerError(error.response.status)
+                }) 
             }
         }
 
@@ -72,10 +104,36 @@ function HomePageEditor() {
         })
     }
 
+    const achievementSubmit = (e) => {
+        e.preventDefault();
+        const data = [];
+        if (!e.target.checkValidity()) return alert("One or more fields in the Achievement Form is invalid")
+
+        Array.from(e.target.getElementsByClassName("achievement-editor")).map(achievement => {
+            const id = achievement.getAttribute("data-id")
+            const [date, content] = Array.from(achievement.getElementsByTagName("input")).map(input => input.value);
+            
+            data.push({
+                "id": id,
+                "date": date,
+                "achievement": content
+            })
+        })
+
+        axios.put("/api/home_editor/0/update_achievements", data, { headers: { "Content-Type": "application/json" }, withCredentials: true })
+        .then(resp => {
+            if (resp.data != false) alert("Achievements updated")
+        })
+        .catch(error => {
+            console.error(error)
+            handleServerError(error.response.status)
+        })
+    }
+
     return (
         <div className="home-editor">
             <h1>Home Page Editor</h1>
-            <form id="achievement-container">
+            <form id="achievement-container" onSubmit={achievementSubmit} noValidate>
                 <div>
                     <h2>Yearly Achievement(s)</h2>
                     <div>
@@ -83,6 +141,14 @@ function HomePageEditor() {
                         <button type="submit"><i className="fa-solid fa-save"></i> Save</button>
                     </div>
                 </div>
+
+                {achievements.map(achievement => (
+                    <div key={achievement.id} className="achievement-editor" data-id={achievement.id}>
+                        <input type="number" name="year" placeholder="Enter Year" defaultValue={achievement.year} max={new Date().getFullYear()} min={"1984"} required />
+                        <input type="text" placeholder="Enter Achievement" name="achievement" required defaultValue={achievement.achievement} />
+                        <i className="fa-solid fa-trash"></i>
+                    </div>
+                ))}
             </form>
 
             <form id="testimonial-container" onSubmit={testimonySubmit} noValidate>

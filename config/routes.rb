@@ -173,6 +173,9 @@ Rails.application.routes.draw do
         get '/all_testimonies' => 'home_editor#all_testimonies'
         put '/update_testimonies' => 'home_editor#update_testimonies'
         post '/delete_testimony' => 'home_editor#delete_testimony'
+        get '/all_achievements' => 'home_editor#all_achievements'
+        put '/update_achievements' => 'home_editor#update_achievements'
+        post '/delete_achievement' => 'home_editor#delete_achievement'
       end
     end
   end

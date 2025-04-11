@@ -59,11 +59,16 @@ const DashboardPage = () => {
                     <p>My Awards</p>
                 </div>}
 
-                {(user?.account_type != "Boy" || user?.appointment != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) && <>
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
                     <p>User Management</p> 
-                </div>}
+                </div>
+                <div onClick={() => goTo('/home_editor')}>
+                    <i className='fa-solid fa-edit'></i>
+                    <p>Home Page Editor </p> 
+                </div>
+                </>}
 
                 <div onClick={() => goTo('/attendance_management')}>
                     <i className='fa-solid fa-file'></i>
