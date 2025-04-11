@@ -5,7 +5,6 @@ module Api
   # within the API, such as CRUD functions of testimonies and achievements.
   class HomeEditorController < ApplicationController
     protect_from_forgery with: :null_session
-    before_action :authenticate_request
 
     def all_testimonies
       testimonies = Testimony.all
