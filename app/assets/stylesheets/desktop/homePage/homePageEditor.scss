@@ -18,15 +18,10 @@
         font-size: 22px;
     }
 
-    > div {
-        border: 1px solid black;
-        border-radius: 10px;
-        padding: 20px;
+    > form {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        height: 85vh;
-        overflow: auto;
 
         button {
             padding: 5px 10px;
@@ -50,6 +45,12 @@
             align-items: center;
             justify-content: space-between;
             margin-bottom: 10px;
+
+            div {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
 
             button {
                 padding: 3px 8px;

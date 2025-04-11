@@ -167,6 +167,14 @@ Rails.application.routes.draw do
         get '/parades_after_today' => 'parade#parades_after_today'
       end
     end
+
+    resources :home_editor do
+      member do
+        get '/all_testimonies' => 'home_editor#all_testimonies'
+        put '/update_testimonies' => 'home_editor#update_testimonies'
+        post '/delete_testimony' => 'home_editor#delete_testimony'
+      end
+    end
   end
 
   match '/api/*path', to: 'application#not_found', via: :all
