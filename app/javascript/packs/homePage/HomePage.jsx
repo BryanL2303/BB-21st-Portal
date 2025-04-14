@@ -24,7 +24,7 @@ function HomePage() {
 					}
 				})
 
-				setAchievements(reversedAchievements)
+				setAchievements(data)
 			}
 		})
 		.catch(err => {
