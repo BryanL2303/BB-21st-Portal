@@ -21,6 +21,7 @@ import { ParadeNoticePage } from './attendanceManagementPage/ParadeNoticePage';
 import { UserAwards } from './awardsManagementPage/UserAwards';
 import { HelpPage } from './helpPage/HelpPage';
 import { HomePageEditor } from './homePage/HomeEditor';
+import { UniformInspectionUser } from './uniformInspectionPage/UniformInspectionUser';
 
 const container = document.body.appendChild(document.createElement('div'));
 const root = createRoot(container);
@@ -43,6 +44,7 @@ root.render(
         <Route path='/uniform_inspection_results' element={<UniformInspectionPage/>}/>
         <Route path='/view_uniform_inspection/:id' element={<UniformInspectionResultPage/>}/>
         <Route path='/uniform_inspection_form' element={<UniformInspectionForm/>}/>
+        <Route path='/user_inspections' element={<UniformInspectionUser/>}/>
         <Route path='/user_management' element={<UserManagementPage/>}/>
         <Route path='/user_management/:userId' element={<UserManagementSmallPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>

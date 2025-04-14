@@ -84,6 +84,9 @@ const Header = () => {
 					{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
 
+					{(user.account_type == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
+
 					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Award Management</button>}
 
@@ -134,6 +137,9 @@ const Header = () => {
 
 						{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+
+						{(user.account_type == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
 
 						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards Management</button>}

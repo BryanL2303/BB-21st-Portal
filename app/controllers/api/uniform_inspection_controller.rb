@@ -114,5 +114,30 @@ module Api
         render json: { error: assignment.errors.messages }, status: 422
       end
     end
+
+    def inspection_results_by_account
+      user_id = @current_user.id
+      data = UniformInspection.where(account_id: user_id)
+      render json: data, status: :ok
+    end
+
+    def inspection_results_simplified
+      inspection_id = params[:inspection_id]
+      details = UniformInspection
+                .joins('INNER JOIN accounts ON accounts.id = uniform_inspections.assessor_id')
+                .select('uniform_inspections.*, accounts.account_name AS assessor_name')
+                .where(id: inspection_id)
+                .first
+
+      fields = SelectedComponent.where(uniform_inspection_id: inspection_id)
+      subheadings = ComponentField.all
+      headings = UniformComponent.all
+      render json: {
+        details: details.as_json,
+        checked: fields.as_json,
+        subheadings: subheadings.as_json,
+        headings: headings.as_json
+      }, status: :ok
+    end
   end
 end

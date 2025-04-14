@@ -151,6 +151,8 @@ Rails.application.routes.draw do
         post '/get_inspections' => 'uniform_inspection#inspections_summary'
         post '/get_component_fields' => 'uniform_inspection#component_fields'
         post '/delete_uniform_inspection' => 'uniform_inspection#delete_uniform_inspection'
+        get '/get_user_inspection_results' => 'uniform_inspection#inspection_results_by_account'
+        post '/get_user_inspection_results_simplified' => 'uniform_inspection#inspection_results_simplified'
       end
     end
 
