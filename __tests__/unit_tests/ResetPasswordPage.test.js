@@ -39,7 +39,7 @@ describe('ResetPasswordPage Component', () => {
         });
     })
 
-    it('should call edit account with new password and inform user if successfull', async () => {
+    it('should call edit account with new password and inform user if successful', async () => {
         // Mock axios post response
         const mockResponse = {
             data: {
@@ -74,10 +74,10 @@ describe('ResetPasswordPage Component', () => {
             '/api/account/0/get_own_account', {}, {withCredentials: true}
         ));
 
-        const passwordInput = screen.getByDisplayValue('John Doe');
-        await expect(passwordInput).toBeInTheDocument()
+        const passwordInput = screen.getByLabelText('New Password:');
+        expect(passwordInput).toBeInTheDocument()
         const button = screen.getByText('Save Changes');
-        await expect(button).toBeInTheDocument()
+        expect(button).toBeInTheDocument()
     
         // Simulate button click
         fireEvent.change(passwordInput, { target: { value: 'new password' } });
@@ -141,7 +141,7 @@ describe('ResetPasswordPage Component', () => {
             '/api/account/0/get_own_account', {}, {withCredentials: true}
         ));
 
-        const passwordInput = screen.getByDisplayValue('John Doe');
+        const passwordInput = screen.getByLabelText('New Password:');
         await expect(passwordInput).toBeInTheDocument()
         const button = screen.getByText('Save Changes');
         await expect(button).toBeInTheDocument()
