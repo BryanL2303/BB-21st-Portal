@@ -1,0 +1,13 @@
+@media screen and (max-width: 800px) {
+    .uniform-inspection-user > div {
+        flex-direction: column !important;
+    }
+
+    .uniform-inspection-user > div > section:first-of-type {
+        width: 100% !important;
+    }
+
+    .uniform-inspection-user > div > section:first-of-type > div {
+        flex-direction: row !important;
+    }
+}

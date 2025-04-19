@@ -5,6 +5,7 @@ import { handleServerError } from '../general/handleServerError'
 // To allow boys to reset their password
 const ResetPasswordPage = () => {
   const [account, setAccount] = useState();
+  const [password, setPassword] = useState("password");
 
   useEffect(() => {
     //If there is no ongoing session go back to log in page
@@ -57,8 +58,10 @@ const ResetPasswordPage = () => {
         {account != null && <form className="edit-account-form" onSubmit={editAccount}>
           <label htmlFor='user_name'>Username: </label>
           <input className='edit-field' type="text" name={'user_name'} defaultValue={account.user_name} id='user_name' autoComplete='username'></input>
-          <label htmlFor='password'>Password: </label>
-          <input className='edit-field' name={'password'} defaultValue={account.password} id='password' autoComplete='new-password'></input>
+          <span></span>
+          <label htmlFor='password'>New Password: </label>
+          <input type={password} className='edit-field' name={'password'} id='password' placeholder='Enter New Password' autoComplete='new-password'></input>
+          <i className={`fa-solid ${password === "password" ? "fa-eye" : "fa-eye-slash"}`} onClick={() => setPassword(password === 'password' ? 'text' : 'password')}></i>
           <button className="edit-button">Save Changes</button>
         </form>}
       </div>

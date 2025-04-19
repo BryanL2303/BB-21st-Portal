@@ -53,17 +53,27 @@ const DashboardPage = () => {
                     <p>Admin Page</p>
                 </div>}
 
-                {user?.account_type == "Boy" &&
+                {user?.account_type == "Boy" && <>
                 <div onClick={() => goTo('/user_awards')}>
                     <i className='fa-solid fa-award'></i>
                     <p>My Awards</p>
-                </div>}
+                </div>
+                <div onClick={() => goTo('/user_inspections')}>
+                    <i className='fa-solid fa-shirt-long-sleeve'></i>
+                    <p>My Inspections Results</p>
+                </div>
+                </>}
 
-                {(user?.account_type != "Boy" || user?.appointment != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) && <>
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
                     <p>User Management</p> 
-                </div>}
+                </div>
+                <div onClick={() => goTo('/home_editor')}>
+                    <i className='fa-solid fa-edit'></i>
+                    <p>Home Page Editor </p> 
+                </div>
+                </>}
 
                 <div onClick={() => goTo('/attendance_management')}>
                     <i className='fa-solid fa-file'></i>

@@ -22,23 +22,15 @@ const UniformInspectionForm = () => {
 	.catch(() => { window.location.href = '/' })
 
 	useEffect(() => {
-		axios.post('/api/uniform_inspection/0/get_component_fields', {}, {
-			withCredentials: true  // Include credentials (cookies)
-		})
+		axios.post('/api/uniform_inspection/0/get_component_fields', {}, { withCredentials: true })
 		.then(resp => {
 			setComponents(resp.data['components'])
 			setComponentFields(resp.data)
 		})
-		.catch(error => { console.error(error) })
+		.catch(error => console.error(error))
 
-		axios.post('/api/account/0/get_accounts_by_type', {
-			'account_type': 'Boy'
-		}, {
-			withCredentials: true  // Include credentials (cookies)
-		})
-		.then(resp => {
-			setBoyAccounts(resp.data)
-		})
+		axios.post('/api/account/0/get_accounts_by_type', { 'account_type': 'Boy' }, { withCredentials: true })
+		.then(resp => setBoyAccounts(resp.data))
 		.catch(resp => handleServerError(resp.response.status))
 	}, [])
 

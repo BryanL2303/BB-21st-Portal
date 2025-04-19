@@ -39,46 +39,7 @@ describe('ResetPasswordPage Component', () => {
         });
     })
 
-    it('should render page with current password', async () => {
-        // Mock axios post response
-        const mockResponse = {
-            data: {
-                id: 1,
-                account_name: 'John Doe',
-                password: 'John Doe',
-                account_type: 'Boy',
-                rank: 'REC',
-                level: '1'
-            }
-        };
-
-        mockAxios.post.mockResolvedValueOnce({
-            data: true
-        }).mockResolvedValueOnce(mockResponse);
-
-        await act(async () => {
-            render(<ResetPasswordPage />)
-        })
-
-        // Wait for axios post call and check its parameters
-        await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
-            '/application/0/check_session',
-            {},
-            { withCredentials: true }
-        ));
-
-        // Wait for axios post call and check its parameters
-        await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
-            '/api/account/0/get_own_account', {}, {withCredentials: true}
-        ));
-
-        const passwordInput = screen.getByDisplayValue('John Doe');
-        await expect(passwordInput).toBeInTheDocument()
-        const button = screen.getByText('Save Changes');
-        await expect(button).toBeInTheDocument()
-    });
-
-    it('should call edit account with new password and inform user if successfull', async () => {
+    it('should call edit account with new password and inform user if successful', async () => {
         // Mock axios post response
         const mockResponse = {
             data: {
@@ -113,10 +74,10 @@ describe('ResetPasswordPage Component', () => {
             '/api/account/0/get_own_account', {}, {withCredentials: true}
         ));
 
-        const passwordInput = screen.getByDisplayValue('John Doe');
-        await expect(passwordInput).toBeInTheDocument()
+        const passwordInput = screen.getByLabelText('New Password:');
+        expect(passwordInput).toBeInTheDocument()
         const button = screen.getByText('Save Changes');
-        await expect(button).toBeInTheDocument()
+        expect(button).toBeInTheDocument()
     
         // Simulate button click
         fireEvent.change(passwordInput, { target: { value: 'new password' } });
@@ -180,7 +141,7 @@ describe('ResetPasswordPage Component', () => {
             '/api/account/0/get_own_account', {}, {withCredentials: true}
         ));
 
-        const passwordInput = screen.getByDisplayValue('John Doe');
+        const passwordInput = screen.getByLabelText('New Password:');
         await expect(passwordInput).toBeInTheDocument()
         const button = screen.getByText('Save Changes');
         await expect(button).toBeInTheDocument()

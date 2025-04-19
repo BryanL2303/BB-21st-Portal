@@ -76,10 +76,16 @@ const Header = () => {
 					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
 					
+					{(user.account_type != "Boy" || user.appointment != null) &&
+						<button className="award-management--button" onClick={() => { toUrl('/home_editor') }}>Home Page Editor</button>}
+
 					<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
 					{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+
+					{(user.account_type == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
 
 					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Award Management</button>}
@@ -124,10 +130,16 @@ const Header = () => {
 						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
 						
+						{(user.account_type != "Boy" || user.appointment != null) &&
+							<button className="award-management--button" onClick={() => { toUrl('/home_editor') }}>Home Page Editor</button>}
+
 						<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
 
 						{(user.account_type == "Boy") &&
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+
+						{(user.account_type == "Boy") &&
+						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
 
 						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards Management</button>}
