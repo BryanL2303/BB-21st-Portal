@@ -178,6 +178,7 @@ Rails.application.routes.draw do
         get '/all_achievements' => 'home_editor#all_achievements'
         put '/update_achievements' => 'home_editor#update_achievements'
         post '/delete_achievement' => 'home_editor#delete_achievement'
+        get '/show_images' => 'home_editor#show'
       end
     end
   end

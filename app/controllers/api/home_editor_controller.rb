@@ -91,5 +91,18 @@ module Api
         render json: false, status: :not_found
       end
     end
+
+    def show
+      images = Image.all.map do |image|
+        {
+          id: image.id,
+          image: Base64.encode64(image.image),
+          created_at: image.created_at,
+          updated_at: image.updated_at
+        }
+      end
+
+      render json: images, status: :ok
+    end
   end
 end

@@ -20,7 +20,7 @@ import { DashboardPage } from "./dashboardPage/dashboardPage";
 import { ParadeNoticePage } from './attendanceManagementPage/ParadeNoticePage';
 import { UserAwards } from './awardsManagementPage/UserAwards';
 import { HelpPage } from './helpPage/HelpPage';
-import { HomePageEditor } from './homePage/HomeEditor';
+import { HomeEditorPage } from './homePage/HomeEditorPage';
 import { UniformInspectionUser } from './uniformInspectionPage/UniformInspectionUser';
 
 const container = document.body.appendChild(document.createElement('div'));
@@ -49,7 +49,7 @@ root.render(
         <Route path='/user_management/:userId' element={<UserManagementSmallPage/>}/>
         <Route path='/reset_password' element={<ResetPasswordPage/>}/>
         <Route path='/help' element={<HelpPage />} />
-        <Route path='/home_editor' element={<HomePageEditor />} />
+        <Route path='/home_editor' element={<HomeEditorPage />} />
 
         <Route path="*" element={<NotFound />} /> 
       </Route>

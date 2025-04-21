@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { handleServerError } from "../general/handleServerError";
 
-function HomePageEditor() {
+function HomeEditorText() {
     const [testimonials, setTestimonials] = useState([]);
     const [achievements, setachievements] = useState([]);
 
@@ -130,8 +130,7 @@ function HomePageEditor() {
     }
 
     return (
-        <div className="home-editor">
-            <h1>Home Page Editor</h1>
+        <React.Fragment>
             <form id="achievement-container" onSubmit={achievementSubmit} noValidate>
                 <div>
                     <h2>Yearly Achievement(s)</h2>
@@ -191,8 +190,8 @@ function HomePageEditor() {
                     <i className="fa-solid fa-trash"></i>
                 </div>
             </template>
-        </div>
+        </React.Fragment>
     )
 }
 
-export { HomePageEditor }
+export default HomeEditorText

@@ -9,9 +9,42 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 
+    > div:first-of-type {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        grid-column: span 2;
+
+        .editor-toggle {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+
+            input {
+                display: none;
+            }
+
+            input + label {
+                display: flex;
+                border: 1px solid black;
+                border-radius: 10px;
+                padding: 5px 10px;
+                cursor: pointer;
+                color: black;
+                width: 150px;
+                justify-content: center;
+                align-items: center;
+            }
+
+            input:checked + label {
+                background: black;
+                color: white;
+            }
+        }
+    }
+
     h1 {
         font-size: 24px;
-        grid-column: span 2;
     }
 
     h2 {
