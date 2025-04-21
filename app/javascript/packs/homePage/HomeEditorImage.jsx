@@ -16,7 +16,7 @@ function HomeEditorImage() {
 
     return (
         <div className="home-editor-images">
-            {images.map(image => <img src={`data:image/webp;base64,${image.image}`} alt="Image" />)} 
+            {images.map(image => <img key={image.id} src={`data:image/webp;base64,${image.image}`} alt="Image" />)} 
         </div>  
     )
 }
