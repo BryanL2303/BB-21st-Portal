@@ -97,12 +97,63 @@ module Api
         {
           id: image.id,
           image: Base64.encode64(image.image),
+          order: image.order,
           created_at: image.created_at,
           updated_at: image.updated_at
         }
       end
 
       render json: images, status: :ok
+    end
+
+    def upload_image
+      file = params[:file]
+
+      if file.present?
+        image_data = file.read
+        image = Image.new(image: image_data)
+        image.created_at = Time.current
+        image.updated_at = Time.current
+        if image.save
+          render json: {
+            id: image.id,
+            image: Base64.encode64(image.image)
+          }, status: :created
+        else
+          render json: false, status: 422
+        end
+      else
+        render json: false, status: 422
+      end
+    end
+
+    def delete_image
+      record = Image.find_by(id: params[:image_id])
+      if record
+        record.destroy
+        render json: true, status: :ok
+      else
+        render json: false, status: :not_found
+      end
+    end
+
+    def update_image
+      new_images = params.require(:_json)
+
+      if new_images.nil?
+        render json: false, status: 422
+        return
+      end
+
+      new_images.each do |image|
+        record = Image.find_by(id: image[:id])
+        record&.update(
+          updated_at: Time.current,
+          order: image[:order]
+        )
+      end
+
+      render json: true, status: :accepted
     end
   end
 end

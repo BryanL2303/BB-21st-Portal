@@ -179,6 +179,9 @@ Rails.application.routes.draw do
         put '/update_achievements' => 'home_editor#update_achievements'
         post '/delete_achievement' => 'home_editor#delete_achievement'
         get '/show_images' => 'home_editor#show'
+        post '/upload_image' => 'home_editor#upload_image'
+        post '/delete_image' => 'home_editor#delete_image'
+        put '/update_image' => 'home_editor#update_image'
       end
     end
   end

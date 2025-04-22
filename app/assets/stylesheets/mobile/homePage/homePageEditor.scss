@@ -1,9 +1,13 @@
 @media screen and (max-width: 800px) {
-    .home-editor h1 {
+    .home-editor h1, .home-editor > div:first-of-type {
         grid-column: span 1 !important;
     }
 
-    .home-editor {
+    .home-editor, .home-editor-images > div:last-of-type {
         grid-template-columns: 1fr !important;
+    }
+
+    .home-editor .home-editor-images label[for='file'] {
+        grid-row: 2 !important;
     }
 }
