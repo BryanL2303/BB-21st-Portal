@@ -93,7 +93,7 @@ module Api
     end
 
     def show
-      images = Image.all.map do |image|
+      images = Image.order(:order).map do |image|
         {
           id: image.id,
           image: Base64.encode64(image.image),
