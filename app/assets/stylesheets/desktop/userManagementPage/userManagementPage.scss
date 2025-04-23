@@ -92,7 +92,7 @@
 			}
 		}
 
-		.users {
+		.users:not(:has(.appointment-holders-list)) {
 			height: 85vh;
 		}
 
@@ -230,13 +230,94 @@
 		}
 	}
 
-	// Note: Styles below this point are not updated
+	.user-management-page .main-block .appointment-holders-list {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
 
-	.user-management-page .main-block .appointment-holders-list{
-		max-height: 100%;
-		overflow-x: hidden;
-		overflow-y: auto;
+		form {
+			border: 1px solid black;
+			padding: 20px;
+			border-radius: 10px;
+			display: grid;
+			grid-template-columns: 210px max-content;
+			gap: 20px;
+			align-items: center;
+			width: max-content;
+
+			h3 {
+				grid-column: span 2;
+				font-size: 18px;
+			}
+
+			input, select {
+				border: none;
+				padding: 5px;
+				outline: none;
+				border-bottom: 1px solid black;
+				background: transparent;
+				color: black;
+				border-radius: 0;
+			}
+
+			button {
+				grid-column: span 2;
+				margin-left: auto;
+				width: max-content;
+				cursor: pointer;
+				background: black;
+				color: white;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: none;
+				outline: none;
+				min-height: unset;
+				border-radius: 10px;
+				padding: 5px 10px;
+			}
+		}
+
+		.appointment-holders-users {
+			display: grid;
+			gap: 20px;
+			grid-template-columns: max-content 300px max-content;
+			align-items: center;
+
+			select {
+				cursor: pointer;
+				border: none;
+				border-bottom: 1px solid black;
+				outline: none;
+				background: transparent;
+				color: black;
+				border-radius: 0;
+				padding: 5px;
+			}
+
+			button {
+				cursor: pointer;
+				background: black;
+				color: white;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border: none;
+				outline: none;
+				min-height: unset;
+				border-radius: 10px;
+				padding: 5px 10px;
+				font-size: 14px;
+			}
+
+			div {
+				display: flex;
+				gap: 10px;
+			}
+		}
 	}
+
+	// Note: Styles below this point are not updated
 
 	.account-name-popup-content{
 		max-height: 10%;
