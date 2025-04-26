@@ -11,7 +11,7 @@ function HomeEditorPage() {
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
         .then(response => {
-            if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment == null) window.location.href = '/home'
+            if (response.data.user?.account_type == 'Boy' && response.data.user?.appointment != "Admin") window.location.href = '/home'
             setUser(response.data.user)
         })
         .catch((err) => handleServerError(err.status))
