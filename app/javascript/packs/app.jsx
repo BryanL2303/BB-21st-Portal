@@ -2,7 +2,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './Layout';
-// import { HomePage } from './homePage/HomePage'
+import { HomePage } from './homePage/HomePage'
 import { LogInPage } from './logInPage/LogInPage'
 import { AttendanceManagementPage } from './attendanceManagementPage/AttendanceManagementPage'
 import { AwardsManagementPage } from './awardsManagementPage/AwardsManagementPage'
@@ -30,10 +30,10 @@ root.render(
     <Routes>
       <Route element={<Layout />}>
         {/* Temporarily disable home page since its filled with filler data */}
-        {/* <Route path='/' element={<HomePage/>}/> */}
+        <Route path='/' element={<HomePage/>}/>
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
-        <Route path='/' element={<LogInPage/>}/>
+        {/* <Route path='/' element={<LogInPage/>}/> */}
         <Route path='/home' element={<DashboardPage/>}/>
         <Route path='/parade_notice' element={<ParadeNoticePage />}/>
         <Route path='/attendance_management' element={<AttendanceManagementPage/>}/>
