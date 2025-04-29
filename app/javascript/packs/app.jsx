@@ -30,7 +30,7 @@ root.render(
     <Routes>
       <Route element={<Layout />}>
         {/* Temporarily disable home page since its filled with filler data */}
-        <Route path='/' element={<HomePage/>}/>
+        {/* <Route path='/' element={<HomePage/>}/> */}
         <Route path='/log_in' element={<LogInPage/>}/>
         <Route path='/admin' element={<AdminPage/>}/>
         <Route path='/' element={<LogInPage/>}/>
