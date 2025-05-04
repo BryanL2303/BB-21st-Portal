@@ -1,0 +1,16 @@
+@media screen and (max-width: 800px) {
+    .admin-page {
+        flex-direction: column !important;
+
+        .admin-tables-list > div {
+            flex-direction: row !important;
+        }
+
+        .admin-tables-list {
+            width: unset !important;
+            padding-right: unset !important;
+            border-right: unset !important;
+        }
+    }
+    
+}
