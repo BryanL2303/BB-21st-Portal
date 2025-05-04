@@ -130,7 +130,7 @@ const Header = () => {
 						{(user.account_type != "Boy" || user.appointment != null) &&
 							<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
 						
-						{(user.account_type == "Officer" || user.appointment.toLowerCase().includes("tech")) &&
+						{(user.account_type == "Officer" || user.appointment?.toLowerCase().includes("tech")) &&
 							<button className="award-management--button" onClick={() => { toUrl('/home_editor') }}>Home Page Editor</button>}
 
 						<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
