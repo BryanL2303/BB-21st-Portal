@@ -8,7 +8,7 @@ const Header = () => {
 	const [buttons, setButtons] = useState(2);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [user, setUser] = useState({});
-	const [currentPage, setCurrentPage] = useState(window.location.pathname);
+	const [currentPage,] = useState(window.location.pathname);
 
 	useEffect(() => {
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
