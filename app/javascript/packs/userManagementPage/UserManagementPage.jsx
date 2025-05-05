@@ -7,6 +7,7 @@ import { OfficerAccountsList } from './OfficerAccountsList'
 import { PrimerAccountsList } from './PrimerAccountsList'
 import { BoyAccountsList } from './BoyAccountsList'
 import { GraduatedBoyAccountsList } from './GraduatedBoyAccountsList'
+import { handleServerError } from '../general/handleServerError'
 
 // To access current users and create new accounts
 const UserManagementPage = () => {
@@ -27,7 +28,7 @@ const UserManagementPage = () => {
 			setAppointment(response.data.user.appointment)
 			setRenderPage(true)
 		})
-		.catch(() => window.location.href = '/')
+		.catch(err => handleServerError(err.response.status))
 	}, [])
 
 	// Show the form to create new accounts
