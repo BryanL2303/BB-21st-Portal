@@ -1,14 +1,12 @@
 import React from 'react'
 import axios from 'axios'
-import { handleServerError } from '../general/handleServerError';
+import { addError, handleServerError } from '../general/handleServerError';
 
 // To log in, accounts can only be created by existing users
 const LogInPage = () => {
   // If there is an ongoing session go to home page
   // No useEffect as we do not need to render the component if we are redirecting
-  axios.post("/application/0/check_session", {}, {
-    withCredentials: true
-  })
+  axios.post("/application/0/check_session", {}, { withCredentials: true})
   .then(response => {
     if (response.data.user) window.location.href = '/home'
   })
@@ -22,16 +20,12 @@ const LogInPage = () => {
     axios.post('/api/account/0/authenticate_account', {
       user_name: e.target.elements["username"].value,
       password: e.target.elements["password"].value,
-    }, {
-      withCredentials: true
-    })
+    }, { withCredentials: true })
     .then(resp => {
-      if (resp.data != false) {
-        window.location.href = '/home'
-      }
+      if (resp.data != false) window.location.href = '/home'
     })
     .catch(resp => {
-      if (!resp.data) alert("Incorrect Username or Password. Please try again.")
+      if (!resp.data) addError("Incorrect username or password")
       else handleServerError(resp.response.status)
     })
   }

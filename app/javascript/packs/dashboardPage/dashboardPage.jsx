@@ -7,7 +7,7 @@ const DashboardPage = () => {
     const [userId, setUserId] = useState(null)
     const [paradesAfterToday, setParadesAfterToday] = useState([])
     const [account, setAccount] = useState(null)
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({ account_type: null })
 
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
@@ -27,17 +27,13 @@ const DashboardPage = () => {
             })
             .catch(resp => {handleServerError(resp.response.status)})
         })
-        .catch(() => {window.location.href = '/'})
+        .catch(() => window.location.href = '/')
     }, [setAccount])
 
-    function goTo(url) {
-        window.location.href = url
-    }
+    const goTo = (url) => window.location.href = url;
 
     function logOut() {
-		axios.post("/application/0/log_out", {}, {
-			withCredentials: true
-		})
+		axios.post("/application/0/log_out", {}, { withCredentials: true })
 		.then(() => window.location.href = '/')
 		.catch()
 	}
