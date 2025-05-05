@@ -12,7 +12,6 @@ const DatabaseTable = ({ table_name }) => {
 		if (table_name) {
 			axios.post('/api/admin/0/get_table', { table_name: table_name }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
 			.then(resp => {
-				console.log(resp.data)
 				setData(resp.data['data'])
 				setColumns(resp.data['columns'])
 				let initialEdit = {}

@@ -31,7 +31,15 @@ describe('DatabaseTable Component', () => {
                         credentials: null
                     }
                 ],
-                columns: ['id', 'account_name', 'account_type', 'password', 'rank', 'level', 'credentials']
+                columns: [
+                    {name: 'id'},
+                    {name: 'account_name'},
+                    {name: 'account_type'},
+                    {name: 'password'},
+                    {name: 'rank'},
+                    {name: 'level'},
+                    {name: 'credentials'}
+                ]
             }
         }
         mockAxios.post.mockResolvedValueOnce(mockResponse);
@@ -44,7 +52,7 @@ describe('DatabaseTable Component', () => {
         await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/admin/0/get_table',
             {table_name: 'Accounts'},
-            {withCredentials: true}
+            {headers: { "Content-Type": "application/json" }, withCredentials: true}
         ));
     })
 
@@ -108,13 +116,10 @@ describe('DatabaseTable Component', () => {
         await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/admin/0/get_table',
             {table_name: 'Accounts'},
-            {withCredentials: true}
+            {headers: { "Content-Type": "application/json" }, withCredentials: true}
         ));
 
-        // const showTableButton = screen.getByText('Show Table')
-        // fireEvent.click(showTableButton)
-
-        const editRowButton = screen.getByText('Edit Row')
+        const editRowButton = screen.getByText('Edit')
         fireEvent.click(editRowButton)
 
         const accountTypeInput = screen.getByDisplayValue('Boy')
@@ -221,7 +226,7 @@ describe('DatabaseTable Component', () => {
         await waitFor(() => expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/admin/0/get_table',
             {table_name: 'Accounts'},
-            {withCredentials: true}
+            {headers: { "Content-Type": "application/json" }, withCredentials: true}
         ));
 
         // const showTableButton = screen.getByText('Show Table')
