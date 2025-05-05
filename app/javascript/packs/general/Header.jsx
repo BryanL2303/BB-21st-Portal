@@ -8,6 +8,7 @@ const Header = () => {
 	const [buttons, setButtons] = useState(2);
 	const [sidebarOpen, setSidebarOpen] = useState(false);
 	const [user, setUser] = useState({});
+	const [currentPage, setCurrentPage] = useState(window.location.pathname);
 
 	useEffect(() => {
 		axios.post("/application/0/check_session", {}, { withCredentials: true })
@@ -120,66 +121,71 @@ const Header = () => {
 						<button onClick={() => toUrl('/parade_notice')}>Parade Notice</button>
 						<button onClick={() => toUrl('/log_in')}>Members Log In</button>
 					</> : <>
+						<button onClick={() => toUrl('/home')} className={currentPage == '/home' ? 'active' : ''}>
+							<i className='fa-solid fa-house'></i>
+							Dashboard
+						</button>
+
 						{user.account_type == "Admin" &&
-						<button onClick={() => toUrl('/admin')}>
+						<button onClick={() => toUrl('/admin')} className={currentPage == '/admin' ? 'active' : ''}>
 							<i className='fa-solid fa-gear'></i>
 							Admin Page
 						</button>}
 
 						{(user.account_type != "Boy" || user.appointment != null) &&
-						<button onClick={() => toUrl('/user_management')}>
+						<button onClick={() => toUrl('/user_management')} className={currentPage == '/user_management' ? 'active' : ''}>
 							<i className='fa-solid fa-users'></i>
 							Users Management
 						</button>}
 						
 						{(user.account_type == "Officer" || user.appointment?.toLowerCase().includes("tech")) &&
-						<button onClick={() => toUrl('/home_editor')}>
+						<button onClick={() => toUrl('/home_editor')} className={currentPage == '/home_editor' ? 'active' : ''}>
 							<i className='fa-solid fa-edit'></i>
 							Home Page Editor
 						</button>}
 
-						<button onClick={() => toUrl('/attendance_management')}>
+						<button onClick={() => toUrl('/attendance_management')} className={currentPage == '/attendance_management' ? 'active' : ''}>
 							<i className='fa-solid fa-file'></i>
 							Parades & Attendance
 						</button>
 
 						{(user.account_type == "Boy") && <>
-						<button onClick={() => toUrl('/user_awards')}>
+						<button onClick={() => toUrl('/user_awards')} className={currentPage == '/user_awards' ? 'active' : ''}>
 							<i className='fa-solid fa-award'></i>
 							My Awards
 						</button>
-						<button onClick={() => toUrl('/user_inspections')}>
+						<button onClick={() => toUrl('/user_inspections')} className={currentPage == '/user_inspections' ? 'active' : ''}>
 							<i className='fa-solid fa-shirt-long-sleeve'></i>
 							My Inspection Results
 						</button>
 						</>}
 
 						{(user.account_type != "Boy" || user.appointment != null) && <>
-						<button onClick={() => toUrl('/awards')}>
+						<button onClick={() => toUrl('/awards')} className={currentPage == '/awards' ? 'active' : ''}>
 							<img src="assets/awards_tracker-27eebc7c26359df7efb6e2ac54d10547b766b986e0b4923657d4f07c0543251c.webp" alt="Awards Management Icon" />
 							Awards Management
 						</button>
-						<button onClick={() => toUrl('/generate_result')}>
+						<button onClick={() => toUrl('/generate_result')} className={currentPage == '/generate_result' ? 'active' : ''}>
 							<i className='fa-solid fa-file-invoice'></i>
 							Result Generation
 						</button>
 						</>}
 						
 						{user.account_type != "Boy" &&
-						<button onClick={() => toUrl('/uniform_inspection_results')}>
+						<button onClick={() => toUrl('/uniform_inspection_results')} className={currentPage == '/uniform_inspection_results' ? 'active' : ''}>
 							<i className='fa-solid fa-shirt-long-sleeve'></i>
 							Uniform Inspection
 						</button>}
 						
-						<button onClick={() => toUrl('/reset_password')}>
+						<button onClick={() => toUrl('/reset_password')} className={currentPage == '/reset_password' ? 'active' : ''}>
 							<i className='fa-solid fa-rotate-right'></i>
 							Reset Log In Information
 						</button>
-						<button onClick={() => toUrl('/help')}>
+						<button onClick={() => toUrl('/help')} className={currentPage == '/help' ? 'active' : ''}>
 							<i className='fa-solid fa-question'></i>
 							Help
 						</button>
-						<button onClick={logOut}>
+						<button onClick={logOut} className='log-out--button'>
 							<i className='fa-solid fa-lock'></i>
 							Log Out
 						</button>

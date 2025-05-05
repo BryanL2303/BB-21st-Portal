@@ -121,5 +121,3 @@ const DashboardPage = () => {
 }
 
 export { DashboardPage }
-
-// Note to Developer: To add stats and pending tasks to the dashboard

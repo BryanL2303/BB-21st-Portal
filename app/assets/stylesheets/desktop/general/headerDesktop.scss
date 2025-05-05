@@ -77,6 +77,15 @@
                 i, img {
                     width: 20px;
                 }
+
+                &.active {
+                    background: black;
+                    color: white;
+
+                    img {
+                        filter: invert(1);
+                    }
+                }
             }
         }
     }
