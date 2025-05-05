@@ -85,7 +85,7 @@ const Header = () => {
 						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
 
 					{(user.account_type == "Boy") &&
-						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
+						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Inspection Results</button>}
 
 					{(user.account_type != "Boy" || user.appointment != null) &&
 						<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Award Management</button>}
@@ -116,45 +116,74 @@ const Header = () => {
 				</div>
 
 				<div>
-					{!loggedIn && <>
-						<button className="log-in--button" onClick={() => { toUrl('/parade_notice') }}>Parade Notice</button>
-
-						<button className="log-in--button" onClick={() => { toUrl('/log_in') }}>Members Log In</button>
-					</>}
-
-					{loggedIn &&
-						<>
+					{!loggedIn ? <>
+						<button onClick={() => toUrl('/parade_notice')}>Parade Notice</button>
+						<button onClick={() => toUrl('/log_in')}>Members Log In</button>
+					</> : <>
 						{user.account_type == "Admin" &&
-							<button className="admin--button" onClick={() => { toUrl('/admin') }}>Admin Page</button>}
+						<button onClick={() => toUrl('/admin')}>
+							<i className='fa-solid fa-gear'></i>
+							Admin Page
+						</button>}
 
 						{(user.account_type != "Boy" || user.appointment != null) &&
-							<button className="user-management--button" onClick={() => { toUrl('/user_management') }}>Users Management</button>}
+						<button onClick={() => toUrl('/user_management')}>
+							<i className='fa-solid fa-users'></i>
+							Users Management
+						</button>}
 						
 						{(user.account_type == "Officer" || user.appointment?.toLowerCase().includes("tech")) &&
-							<button className="award-management--button" onClick={() => { toUrl('/home_editor') }}>Home Page Editor</button>}
+						<button onClick={() => toUrl('/home_editor')}>
+							<i className='fa-solid fa-edit'></i>
+							Home Page Editor
+						</button>}
 
-						<button className="attendance-management--button" onClick={() => { toUrl('/attendance_management') }}>Parades & Attendance</button>
+						<button onClick={() => toUrl('/attendance_management')}>
+							<i className='fa-solid fa-file'></i>
+							Parades & Attendance
+						</button>
 
-						{(user.account_type == "Boy") &&
-						<button className="user-management--button" onClick={() => { toUrl('/user_awards') }}>My Awards</button>}
+						{(user.account_type == "Boy") && <>
+						<button onClick={() => toUrl('/user_awards')}>
+							<i className='fa-solid fa-award'></i>
+							My Awards
+						</button>
+						<button onClick={() => toUrl('/user_inspections')}>
+							<i className='fa-solid fa-shirt-long-sleeve'></i>
+							My Inspection Results
+						</button>
+						</>}
 
-						{(user.account_type == "Boy") &&
-						<button className="user-management--button" onClick={() => { toUrl('/user_inspections') }}>My Uniform Inspection Results</button>}
-
-						{(user.account_type != "Boy" || user.appointment != null) &&
-							<button className="award-management--button" onClick={() => { toUrl('/awards') }}>Awards Management</button>}
-
-						{(user.account_type != "Boy" || user.appointment != null) &&
-							<button className="result-generation--button" onClick={() => { toUrl('/generate_result') }}>Result Generation</button>}
+						{(user.account_type != "Boy" || user.appointment != null) && <>
+						<button onClick={() => toUrl('/awards')}>
+							<img src="assets/awards_tracker-27eebc7c26359df7efb6e2ac54d10547b766b986e0b4923657d4f07c0543251c.webp" alt="Awards Management Icon" />
+							Awards Management
+						</button>
+						<button onClick={() => toUrl('/generate_result')}>
+							<i className='fa-solid fa-file-invoice'></i>
+							Result Generation
+						</button>
+						</>}
 						
 						{user.account_type != "Boy" &&
-							<button className="uniform-inspection--button" onClick={() => { toUrl('/uniform_inspection_results') }}>Uniform Inspection</button>}
+						<button onClick={() => toUrl('/uniform_inspection_results')}>
+							<i className='fa-solid fa-shirt-long-sleeve'></i>
+							Uniform Inspection
+						</button>}
 						
-						<button onClick={() => { toUrl('/reset_password') }}>Reset Log In Information</button>
-						<button onClick={() => { toUrl('/help') }}>Help</button>
-						<button className="log-out--button" onClick={logOut}>Log Out</button>
-						</>
-					}
+						<button onClick={() => toUrl('/reset_password')}>
+							<i className='fa-solid fa-rotate-right'></i>
+							Reset Log In Information
+						</button>
+						<button onClick={() => toUrl('/help')}>
+							<i className='fa-solid fa-question'></i>
+							Help
+						</button>
+						<button onClick={logOut}>
+							<i className='fa-solid fa-lock'></i>
+							Log Out
+						</button>
+					</>}
 				</div>
 			</div>
 		</header>
