@@ -202,7 +202,7 @@ const UserInformation = ({ accountType, appointment, userId, showForm, reLoad })
 
 					{(["Admin", "Officer"].includes(accountType) || appointment == 'CSM') && !accountGraduated && <>
 						<label htmlFor='attendance-appearance'>Attendance Appearance:</label>
-						<select id="attendance-appearance" defaultValue={account.roll_call} onChange={(e) => setAccountRollCall(e.target.value === 'Yes')}>
+						<select id="attendance-appearance" defaultValue={account.roll_call ? "Yes" : "No"} onChange={(e) => setAccountRollCall(e.target.value === 'Yes')}>
 							<option value="Yes">Yes</option>
 							<option value="No">No</option>
 						</select>
