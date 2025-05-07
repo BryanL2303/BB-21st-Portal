@@ -10,4 +10,12 @@
     .uniform-inspection-user > div > section:first-of-type > div {
         flex-direction: row !important;
     }
+
+    .uniform-inspection-user textarea {
+        width: 100% !important;
+    }
+
+    .uniform-inspection-result-page .page-container > div:first-of-type > div:first-of-type {
+        flex-wrap: wrap;
+    }
 }

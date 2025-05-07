@@ -16,8 +16,7 @@ const AppointmentHoldersList = ({ account_type, load, reLoad }) => {
 
 	useEffect(() => {
 		axios.post("/api/appointment/0/get_appointments", {}, { withCredentials: true })
-		.then((resp) => {
-			console.log(resp.data)
+		.then(resp => {
 			setAppointments(resp.data.appointments)
 			setAppointmentHolders(resp.data.appointment_to_accounts)
 		})

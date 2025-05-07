@@ -51,7 +51,6 @@ function HomeEditorImage() {
                 order: image.order,
             }));
 
-            console.log(newOrder)
             axios.put("/api/home_editor/0/update_image", newOrder, { headers: { "Content-Type": "application/json" }, withCredentials: true })
             .then(resp => {
                 if (resp.data == false) throw new Error("Failed to update images");

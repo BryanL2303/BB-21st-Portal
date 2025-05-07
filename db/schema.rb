@@ -10,8 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202504210000001) do
+ActiveRecord::Schema[7.0].define(version: 202505070000001) do
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
@@ -170,11 +171,8 @@ ActiveRecord::Schema[7.0].define(version: 202504210000001) do
     t.binary "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "images", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "order", default: 0, null: false
+    t.index ["order"], name: "unique_order_number", unique: true
   end
 
   create_table "masteries", force: :cascade do |t|
@@ -319,6 +317,14 @@ ActiveRecord::Schema[7.0].define(version: 202504210000001) do
   create_table "uniform_components", force: :cascade do |t|
     t.string "component_name"
     t.integer "total_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "uniform_inspection_remarks", force: :cascade do |t|
+    t.integer "inspection_id"
+    t.integer "component_id"
+    t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

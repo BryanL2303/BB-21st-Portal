@@ -6,6 +6,7 @@ function UniformInspectionUser() {
     const [inspectionList, setInspectionList] = useState([]);
     const [selectedInspection, setSelectedInspection] = useState();
     const [checked, setChecked] = useState([]);
+    const [remarks, setRemarks] = useState({});
 
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
@@ -13,10 +14,8 @@ function UniformInspectionUser() {
             if (response.data.user?.account_type != 'Boy') window.location.href = '/home'
 
             axios.get("/api/uniform_inspection/0/get_user_inspection_results", { withCredentials: true })
-            .then(response => {
-                setInspectionList(response.data)
-            })
-            .catch((response) => handleServerError(response.statusCode))
+            .then(resp => setInspectionList(resp.data))
+            .catch(resp => handleServerError(resp.response?.status))
         })
         .catch(() => window.location.href = '/')
     }, []);
@@ -24,11 +23,15 @@ function UniformInspectionUser() {
     const getInspection = (id) => {
         axios.post(`/api/uniform_inspection/0/get_user_inspection_results_simplified`, { inspection_id: id })
         .then(resp => {
-            console.log(resp.data) 
+            let remarks = {}
+            resp.data.remarks.map(remark => {
+                remarks[remark.component_id] = remark
+            })
+            setRemarks(remarks)
             setSelectedInspection(resp.data)
             setChecked(Array.from(resp.data.checked).map(field => `${field.component_field_id}`))
         })
-        .catch(resp => handleServerError(resp.response.status))
+        .catch(resp => handleServerError(resp.response?.status))
     }
 
     return (
@@ -74,6 +77,7 @@ function UniformInspectionUser() {
                                         </li>
                                     ))}
                                     </ul>
+                                    <textarea name={`${heading?.component_name}-remarks`} placeholder='Components Remarks (if any)' defaultValue={remarks[heading.id]?.remarks ?? 'No Remarks Given'} disabled></textarea>
                                 </div>
                             ))}
                         </>

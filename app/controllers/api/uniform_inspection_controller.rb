@@ -27,6 +27,17 @@ module Api
         end
         uniform_inspection.total_score = total_score
         uniform_inspection.save
+
+        remarks = params[:remarks][boy['id'].to_s]
+        remarks&.each do |component_id, remark|
+          next if remark.blank?
+
+          puts remark
+          puts component_id
+          puts uniform_inspection.id
+          uniform_remark = UniformRemark.new(inspection_id: uniform_inspection.id, component_id:, remarks: remark)
+          uniform_remark.save
+        end
       end
 
       render json: true, status: :created
@@ -57,7 +68,9 @@ module Api
           inspections[account.id]['keys'].append(account_inspection.id)
         end
       end
-      data = { 'boy': boy, 'inspections': inspections, 'boys': boys }
+
+      remarks = UniformRemark.where(inspection_id: params[:id])
+      data = { 'boy': boy, 'inspections': inspections, 'boys': boys, 'remarks': remarks }
 
       render json: data, status: :ok
     end
@@ -129,6 +142,8 @@ module Api
                 .where(id: inspection_id)
                 .first
 
+      remarks = UniformRemark.where(inspection_id:)
+
       fields = SelectedComponent.where(uniform_inspection_id: inspection_id)
       subheadings = ComponentField.all
       headings = UniformComponent.all
@@ -136,7 +151,8 @@ module Api
         details: details.as_json,
         checked: fields.as_json,
         subheadings: subheadings.as_json,
-        headings: headings.as_json
+        headings: headings.as_json,
+        remarks:
       }, status: :ok
     end
   end

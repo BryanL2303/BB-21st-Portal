@@ -10,10 +10,7 @@ function HomePage() {
 
 	useEffect(() => {
 		axios.get('/api/home_editor/0/show_images', { headers: { "Content-Type": "application/json" }, withCredentials: true })
-        .then(resp => {
-			console.log(resp.data)
-			setImages(resp.data)
-		})
+        .then(resp => setImages(resp.data))
         .catch(resp => handleServerError(resp.response.status))
 
 		const interval = setInterval(() => {

@@ -11,6 +11,8 @@ const UniformInspectionResultPage = () => {
 	const [inspections, setInspections] = useState();
 	const [allInspections, setAllInspections] = useState();
 	const [boys, setBoys] = useState([]);
+	const [remarks, setRemarks] = useState([]);
+	const [defaultBoy, setDefaultBoy] = useState();
 	const { id } = useParams()
 
 	// If there is no ongoing session go back to log in page
@@ -34,10 +36,16 @@ const UniformInspectionResultPage = () => {
 
 		axios.post('/api/uniform_inspection/' + id + '/get_inspection', { 'id': id })
 		.then(resp => {
+			let remarks = {}
+			resp.data['remarks'].map(remark => {
+				remarks[remark.component_id] = remark
+			})
+			setRemarks(remarks)
 			setAllInspections(resp.data['inspections'])
 			setInspections(resp.data['inspections'][resp.data['boy']['id']])
 			setCurrentInspection(resp.data['inspections'][resp.data['boy']['id']][id])
 			setBoys(resp.data['boys'])
+			setDefaultBoy(resp.data['boy']['id'])
 		})
 		.catch(resp => handleServerError(resp.response.status))
 	}, [])
@@ -51,6 +59,13 @@ const UniformInspectionResultPage = () => {
 		let defaultInspection = relevantInspections['inspections'][0]
 		setInspections(relevantInspections)
 		setCurrentInspection(relevantInspections[defaultInspection['id']])
+
+		components.forEach(component => {
+			const remarkInput = document.getElementsByTagName('textarea')
+			Array.from(remarkInput).forEach(input => {
+				input.value = remarks[component.id]?.['remark'] ?? ''	
+			})
+		})
 	}
 
 	return (
@@ -61,7 +76,7 @@ const UniformInspectionResultPage = () => {
 				<div>
 					<div>
 						<label htmlFor='boy-select'>Viewing Results of:</label>
-						{boys.length != 0 && <select onChange={selectBoy} id='boy-select'>
+						{boys.length != 0 && <select onChange={selectBoy} id='boy-select' defaultValue={defaultBoy}>
 							{boys.map((boy) => {
 								return (
 									<option key={boy.id} value={boy.id}>{boy.rank} {boy.account_name}</option>
@@ -95,12 +110,13 @@ const UniformInspectionResultPage = () => {
 							{componentFields[component.component_name].map((field) => {
 								return (
 									<li key={field.id}>
-										<input type='checkbox' disabled id='{field.id}-field' checked={currentInspection['selected_components'][field.id] != null} className={`${field.description.toLowerCase().includes("missing") ? "field-missing" : ""}`} />
+										<input type='checkbox' disabled id={`${field.id}-field`} checked={currentInspection['selected_components'][field.id] != null} className={`${field.description.toLowerCase().includes("missing") ? "field-missing" : ""}`} />
 										<label htmlFor={`${field.id}-field`}>{field.description}</label>
 									</li>
 								)
 							})}
 							</ul>
+							<textarea name={`${component.component_name}-remarks`} placeholder='Components Remarks (if any)' defaultValue={remarks[component.id]?.remarks ?? 'No Remarks Given'} disabled></textarea>
 						</div>
 					)
 				})}

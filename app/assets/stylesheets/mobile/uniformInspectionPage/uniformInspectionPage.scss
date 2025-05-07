@@ -18,6 +18,10 @@
 	.uniform-inspection-list-table {
 		grid-template-columns: max-content 1fr repeat(2, 110px) max-content;
 	}
+
+	.uniform-inspection-result-page .page-container textarea {
+		width: 100% !important;
+	}
 }
 
 @media screen and (max-width: 600px) {
