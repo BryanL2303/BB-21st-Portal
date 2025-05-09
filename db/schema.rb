@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[7.0].define(version: 202505070000001) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
@@ -171,8 +170,7 @@ ActiveRecord::Schema[7.0].define(version: 202505070000001) do
     t.binary "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "order", default: 0, null: false
-    t.index ["order"], name: "unique_order_number", unique: true
+    t.integer "order"
   end
 
   create_table "masteries", force: :cascade do |t|
