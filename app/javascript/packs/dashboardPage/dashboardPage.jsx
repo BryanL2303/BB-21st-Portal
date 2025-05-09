@@ -7,7 +7,7 @@ const DashboardPage = () => {
     const [userId, setUserId] = useState(null)
     const [paradesAfterToday, setParadesAfterToday] = useState([])
     const [account, setAccount] = useState(null)
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({ account_type: null })
 
     useEffect(() => {
         axios.post("/application/0/check_session", {}, { withCredentials: true })
@@ -27,17 +27,13 @@ const DashboardPage = () => {
             })
             .catch(resp => {handleServerError(resp.response.status)})
         })
-        .catch(() => {window.location.href = '/'})
+        .catch(() => window.location.href = '/')
     }, [setAccount])
 
-    function goTo(url) {
-        window.location.href = url
-    }
+    const goTo = (url) => window.location.href = url;
 
     function logOut() {
-		axios.post("/application/0/log_out", {}, {
-			withCredentials: true
-		})
+		axios.post("/application/0/log_out", {}, { withCredentials: true })
 		.then(() => window.location.href = '/')
 		.catch()
 	}
@@ -53,16 +49,27 @@ const DashboardPage = () => {
                     <p>Admin Page</p>
                 </div>}
 
-                {user?.account_type == "Boy" &&
+                {user?.account_type == "Boy" && <>
                 <div onClick={() => goTo('/user_awards')}>
                     <i className='fa-solid fa-award'></i>
                     <p>My Awards</p>
-                </div>}
+                </div>
+                <div onClick={() => goTo('/user_inspections')}>
+                    <i className='fa-solid fa-shirt-long-sleeve'></i>
+                    <p>My Inspections Results</p>
+                </div>
+                </>}
 
-                {(user?.account_type != "Boy" || user?.appointment != null) &&
+                {(user?.account_type != "Boy" || user?.appointment != null) && 
                 <div onClick={() => goTo('/user_management')}>
                     <i className='fa-solid fa-users'></i>
                     <p>User Management</p> 
+                </div>}
+
+                {(user.account_type == "Officer" || user.appointment?.toLowerCase().includes("tech")) &&
+                <div onClick={() => goTo('/home_editor')}>
+                    <i className='fa-solid fa-edit'></i>
+                    <p>Home Page Editor </p> 
                 </div>}
 
                 <div onClick={() => goTo('/attendance_management')}>
@@ -110,5 +117,3 @@ const DashboardPage = () => {
 }
 
 export { DashboardPage }
-
-// Note to Developer: To add stats and pending tasks to the dashboard

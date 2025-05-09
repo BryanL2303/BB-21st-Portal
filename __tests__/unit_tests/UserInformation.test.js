@@ -3,17 +3,9 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import mockAxios from 'axios';
-import useCookies from '../../app/javascript/packs/general/useCookies';
 import { UserInformation } from '../../app/javascript/packs/userManagementPage/UserInformation';
 
 jest.mock('axios');
-jest.mock('../../app/javascript/packs/general/useCookies');
-
-let cookies;
-
-useCookies.mockReturnValue({
-    get: jest.fn().mockReturnValue('Admin')
-});
 
 alert = jest.fn()
 showForm = jest.fn()
@@ -22,8 +14,6 @@ reLoad = jest.fn()
 describe('UserInformation Component', () => {
     beforeEach(() => {
         jest.clearAllMocks();
-
-        cookies = useCookies();
     });
 
     it('should display default values of returned account', async () => {
@@ -63,7 +53,7 @@ describe('UserInformation Component', () => {
             data: {
                 id: 1,
                 account_name: 'John Doe',
-                password: 'John Doe',
+                password_digest: 'John Doe',
                 account_type: 'Boy',
                 rank: 'REC',
                 level: '1'
@@ -96,8 +86,8 @@ describe('UserInformation Component', () => {
         fireEvent.change(levelInput, { target: { value: "2" } })
 
         // Simulate clicking the save button
-        const form = screen.getByTestId('user-information-form')
-        fireEvent.submit(form)
+        const saveButton = screen.getByText('Save Changes')
+        fireEvent.click(saveButton)
 
         expect(mockAxios.post).toHaveBeenCalledWith(
             '/api/account/1/edit_account', {
@@ -150,7 +140,7 @@ describe('UserInformation Component', () => {
         mockAxios.post.mockResolvedValueOnce(mockResponse);
     
         await act(async () => {
-            render(<UserInformation userId={'1'} showForm={showForm} reLoad={reLoad} />)
+            render(<UserInformation accountType={"Admin"} appointment={null} userId={'1'} showForm={showForm} reLoad={reLoad} />)
         })
 
         // Wait for axios post call and check its parameters

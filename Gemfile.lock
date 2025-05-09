@@ -242,6 +242,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    secure_headers (7.1.0)
     selenium-webdriver (4.10.0)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
@@ -314,6 +315,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   sassc-rails
+  secure_headers
   selenium-webdriver
   sprockets-rails
   stimulus-rails

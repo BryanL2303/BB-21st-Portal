@@ -280,6 +280,16 @@
 				border-radius: 10px;
 				cursor: pointer;
 			}
+
+			textarea {
+				padding: 10px;
+				width: 600px;
+				height: 100px;
+				border: 1px solid black;
+				border-radius: 10px;
+				outline: none;
+				resize: none;
+			}
 		}
 	}
 
@@ -357,6 +367,18 @@
 
 		.field-missing + label {
 			color: red;
+		}
+
+		textarea {
+			padding: 10px;
+			width: 600px;
+			height: 100px;
+			border: 1px solid black;
+			border-radius: 10px;
+			outline: none;
+			font-family: sans-serif;
+			resize: none;
+			box-sizing: border-box;
 		}
 	}
 }

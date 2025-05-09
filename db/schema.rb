@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 202504090000001) do
+ActiveRecord::Schema[7.0].define(version: 202505070000001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -166,6 +166,13 @@ ActiveRecord::Schema[7.0].define(version: 202504090000001) do
     t.index ["mastery_id"], name: "index_custom_columns_on_mastery_id"
   end
 
+  create_table "home_images", force: :cascade do |t|
+    t.binary "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order"
+  end
+
   create_table "masteries", force: :cascade do |t|
     t.string "mastery_name"
     t.string "results_description"
@@ -308,6 +315,14 @@ ActiveRecord::Schema[7.0].define(version: 202504090000001) do
   create_table "uniform_components", force: :cascade do |t|
     t.string "component_name"
     t.integer "total_score"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "uniform_inspection_remarks", force: :cascade do |t|
+    t.integer "inspection_id"
+    t.integer "component_id"
+    t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

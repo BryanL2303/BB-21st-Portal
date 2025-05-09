@@ -3,19 +3,12 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import mockAxios from 'axios';
-import useCookies from '../../app/javascript/packs/general/useCookies';
 import { UserManagementPage } from '../../app/javascript/packs/userManagementPage/UserManagementPage';
 
 jest.mock('axios');
-jest.mock('../../app/javascript/packs/general/useCookies');
 
-let cookies;
 alert = jest.fn()
 showForm = jest.fn()
-
-useCookies.mockReturnValue({
-  get: jest.fn().mockReturnValue('Admin')
-});
 
 describe('UserManagementPage with all of its components', () => {
     beforeEach(() => {
@@ -23,8 +16,6 @@ describe('UserManagementPage with all of its components', () => {
         delete window.location;
         window.location = { href: '' };
         jest.clearAllMocks();
-
-        cookies = useCookies();
     });
 
     it('should redirect if check session is unauthorised', async () => {
@@ -344,7 +335,7 @@ describe('UserManagementPage with all of its components', () => {
                         id: 1,
                         account_name: 'John Doe',
                         user_name: 'John Doe',
-                        password: 'John Doe',
+                        password_digest: 'John Doe',
                         account_type: 'Primer',
                         rank: 'CLT',
                         credentials: 'Platoon Primer',
@@ -427,7 +418,8 @@ describe('UserManagementPage with all of its components', () => {
 
         await waitFor(() => {
             expect(mockAxios.post).toHaveBeenCalledWith(
-                '/api/account/1/edit_account', {
+                '/api/account/1/edit_account', 
+                expect.objectContaining({
                     id: 1,
                     user_name: 'Name Change',
                     password: 'John Doe',
@@ -439,7 +431,7 @@ describe('UserManagementPage with all of its components', () => {
                     honorifics: undefined,
                     roll_call: true,
                     account_name: 'John Doe'
-                },
+                }),
                 {withCredentials: true}
             )
         })

@@ -1,0 +1,21 @@
+@media screen and (max-width: 800px) {
+    .uniform-inspection-user > div {
+        flex-direction: column !important;
+    }
+
+    .uniform-inspection-user > div > section:first-of-type {
+        width: 100% !important;
+    }
+
+    .uniform-inspection-user > div > section:first-of-type > div {
+        flex-direction: row !important;
+    }
+
+    .uniform-inspection-user textarea {
+        width: 100% !important;
+    }
+
+    .uniform-inspection-result-page .page-container > div:first-of-type > div:first-of-type {
+        flex-wrap: wrap;
+    }
+}

@@ -1,4 +1,5 @@
 .achievements {
+    font-family: sans-serif;
     padding: 10px 30px;
     display: flex;
     flex-direction: column;
@@ -15,6 +16,7 @@ li {
 }
 
 .hero {
+    font-family: sans-serif;
     margin-top: 20px;
     padding: 10px 30px;
     display: flex;
@@ -51,56 +53,7 @@ li {
     width: 100%;
     height: calc(100vh - 100px);
     transition: all 0.3s ease-in-out;
-}
-
-.slider[data-slide="1"] {
-    background: url("/assets/slide 1-33d3a75424fd99dd5496cfcc0a826a4d61682b740f677546b441b852c5bc3eaf.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="2"] {
-    background: url("/assets/slide 2-2a5632daac50d47f2c80ddbc3b93f583a1e2b9a6611005409b3cef19e92eded2.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="3"] {
-    background: url("/assets/slide 3-2b16ec326434e1820740701eaf15c0bad14d3c0dcabbeb8ba37b705c78416ebf.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="4"] {
-    background: url("/assets/slide 4-4d066934af31f0ac016f2b6fbb760a38c09ee24406afbf299d514f8dae08fc81.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="5"] {
-    background: url("/assets/slide 5-c82dc754afdd70b3d458447eaf1b010e068df46946cac8709218dc3d765864a9.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="6"] {
-    background: url("/assets/slide 6-2f002ffdb32ed6b84fe389d4a5d49242df535091f5e949d2131e5a2a31c282ba.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="7"] {
-    background: url("/assets/slide 7-fc0180bca98594375fd4c40699ae2325b71644ed44703484f63a549abbad2629.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="8"] {
-    background: url("/assets/slide 8-d4ae70c939744a94d3accec48721307d7f589a4778ff5f903e2a5b5ff5429aef.webp") center/cover no-repeat;
-}
-
-.slider[data-slide="9"] {
-    background: url("/assets/slide 9-dcf597c266c943c194b8f98e4355d6732fee325ea90db60922e3dc8aa64e75c7.webp") center/cover no-repeat;
-}
-
-::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-}
-
-::-webkit-scrollbar-track {
-    background: white;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgb(183, 183, 183);
-    border-radius: 10px;
+    object-fit: cover;
 }
 
 .testimonies {
@@ -108,6 +61,7 @@ li {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    font-family: sans-serif;
 }
 
 .scroller {
@@ -132,6 +86,7 @@ li {
 }
 
 .testimony {
+    font-family: sans-serif;
     display: flex;
     border: 1px solid black;
     flex-direction: column;

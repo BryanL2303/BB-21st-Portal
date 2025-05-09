@@ -26,4 +26,9 @@
     .award-management-page .page-container .award-attainment-table .award-table {
         grid-template-columns: 120px repeat(var(--columns), 130px);
     }
+
+    .award-management-page .page-container .award-information > div:first-of-type > div {
+        height: unset !important;
+        flex-direction: row !important;
+    }
 }

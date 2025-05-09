@@ -31,4 +31,28 @@
         font-size: 18px;
         margin-bottom: 10px;
     }
+
+    .user-management-page .appointment-holders-users {
+        grid-template-columns: max-content 1fr !important;
+
+        div {
+            grid-column: span 2;
+            justify-content: end;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .user-management-page .appointment-holders-list form {
+        grid-template-columns: 1fr !important;
+        width: unset !important;
+
+        h3, button {
+            grid-column: span 1 !important;
+        }
+
+        button {
+            margin-left: auto !important;
+        }
+    }
 }

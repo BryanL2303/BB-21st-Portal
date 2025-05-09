@@ -151,6 +151,8 @@ Rails.application.routes.draw do
         post '/get_inspections' => 'uniform_inspection#inspections_summary'
         post '/get_component_fields' => 'uniform_inspection#component_fields'
         post '/delete_uniform_inspection' => 'uniform_inspection#delete_uniform_inspection'
+        get '/get_user_inspection_results' => 'uniform_inspection#inspection_results_by_account'
+        post '/get_user_inspection_results_simplified' => 'uniform_inspection#inspection_results_simplified'
       end
     end
 
@@ -165,6 +167,21 @@ Rails.application.routes.draw do
         post '/update_finalize' => 'parade#update_finalize'
         post '/delete_parade' => 'parade#delete_parade'
         get '/parades_after_today' => 'parade#parades_after_today'
+      end
+    end
+
+    resources :home_editor do
+      member do
+        get '/all_testimonies' => 'home_editor#all_testimonies'
+        put '/update_testimonies' => 'home_editor#update_testimonies'
+        post '/delete_testimony' => 'home_editor#delete_testimony'
+        get '/all_achievements' => 'home_editor#all_achievements'
+        put '/update_achievements' => 'home_editor#update_achievements'
+        post '/delete_achievement' => 'home_editor#delete_achievement'
+        get '/show_images' => 'home_editor#show'
+        post '/upload_image' => 'home_editor#upload_image'
+        post '/delete_image' => 'home_editor#delete_image'
+        put '/update_image' => 'home_editor#update_image'
       end
     end
   end
