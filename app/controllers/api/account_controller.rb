@@ -35,7 +35,7 @@ module Api
       account = Account.find_by(user_name: params[:user_name])
       if account.nil?
         render json: false, status: :not_found
-      elsif account.password == params[:password]
+      elsif account.authenticate(params[:password])
         token = encode_token({ user_id: account.id })
         cookies[:jwt] = { value: token, httponly: true, secure: Rails.env.production?, same_site: :strict }
 
@@ -95,7 +95,7 @@ module Api
         account['account_name'] = params[:account_name]
         account['account_type'] = params[:account_type]
         account['user_name'] = params[:user_name] unless params[:user_name].nil?
-        account['password'] = params[:password] unless params[:password].nil?
+        account.password = params[:password] if params[:password]
         account['member_id'] = params[:member_id] unless params[:member_id].nil?
         account['rank'] = params[:rank]
         account['rank_1'] = params[:rank1]

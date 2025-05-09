@@ -1,0 +1,50 @@
+.error-container {
+    position: fixed;
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%);
+    width: 40vw;
+    z-index: 2;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .error {
+        background: red;
+        border-radius: 10px;
+        color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        font-family: sans-serif;
+        gap: 10px;
+        box-shadow: 0 0 8px rgba($color: #000000, $alpha: 0.4);
+        animation: errorAnimation 5s ease-in-out forwards;
+
+        &::before {
+            font: var(--fa-font-solid);
+            content: '\f06a';
+        }
+    }
+}
+
+@keyframes errorAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    5% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    95% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+}

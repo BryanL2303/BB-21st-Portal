@@ -35,6 +35,20 @@ main {
     flex: 1;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(183, 183, 183);
+    border-radius: 10px;
+}
+
 @media screen and (max-width: 350px) {
     main *, header *, footer *, footer, header {
         display: none !important;

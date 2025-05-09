@@ -83,3 +83,7 @@ gem 'rack-cors'
 
 gem 'bigdecimal'
 gem 'mutex_m'
+
+gem 'bcrypt', '~> 3.1.7'
+
+gem 'secure_headers'

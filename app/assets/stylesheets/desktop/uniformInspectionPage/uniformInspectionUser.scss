@@ -1,0 +1,103 @@
+@media screen {
+    .uniform-inspection-user {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        min-height: 85vh;
+
+        > div {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+
+            > section:first-of-type {
+                width: 20vw;
+                flex-shrink: 0;
+
+                > div {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    position: sticky;
+                    top: 10px;
+                    overflow-y: auto;
+                }
+            }
+
+            > section:last-of-type {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                > div:first-of-type {
+                    display: grid;
+                    grid-template-columns: repeat(2, max-content);
+                    gap: 10px;
+                    align-items: center;
+
+                    p:nth-of-type(odd) {
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+
+        input[name="inspection_selection"] {
+            display: none;
+        }
+
+        input[name="inspection_selection"] + label {
+            cursor: pointer;
+            border: 1px solid black;
+            outline: none;
+            border-radius: 10px;
+            padding: 3px 5px;
+            color: black;
+            display: flex;
+            justify-content: space-between;
+            min-width: 120px;
+        }
+
+        input[name="inspection_selection"]:checked + label {
+            background: black;
+            color: white;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="checkbox"]:not(.field-missing):checked + label {
+			color: darkgreen;
+		}
+
+		.field-missing + label {
+			color: red;
+		}
+
+        ul {
+            margin-left: 10px;
+        }
+
+        li {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        textarea {
+            padding: 10px;
+			width: 600px;
+			height: 100px;
+			border: 1px solid black;
+			border-radius: 10px;
+			outline: none;
+            font-family: sans-serif;
+			resize: none;
+            box-sizing: border-box;
+        }
+    }
+}

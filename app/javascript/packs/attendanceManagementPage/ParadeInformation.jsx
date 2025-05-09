@@ -93,7 +93,7 @@ const ParadeInformation = ({accountName, accountType, appointment, id, setPageSt
 ParadeInformation.propTypes = {
   accountName: PropTypes.string.isRequired,
   accountType: PropTypes.string.isRequired,
-  appointment: PropTypes.string.isRequired,
+  appointment: PropTypes.string,
   id: PropTypes.number.isRequired,  
   setPageState: PropTypes.func.isRequired,
   reload: PropTypes.bool.isRequired,

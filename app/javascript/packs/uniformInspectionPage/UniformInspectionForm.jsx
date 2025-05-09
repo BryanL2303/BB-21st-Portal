@@ -11,6 +11,7 @@ const UniformInspectionForm = () => {
 	const [selectedContents, setSelectedContents] = useState({});	// Checked Fields Per Section Per Boy
 	const [currentForm, setCurrentForm] = useState();				// Selected Boy ID else undefined
 	const [sectionCollapse, setSectionCollapse] = useState(false)   // Name List Section Collapse State
+	const [remarks, setRemarks] = useState({})						// Remarks Per Section Per Boy
 
 	// If there is no ongoing session go back to log in page
 	axios.post("/application/0/check_session", {}, {
@@ -22,23 +23,15 @@ const UniformInspectionForm = () => {
 	.catch(() => { window.location.href = '/' })
 
 	useEffect(() => {
-		axios.post('/api/uniform_inspection/0/get_component_fields', {}, {
-			withCredentials: true  // Include credentials (cookies)
-		})
+		axios.post('/api/uniform_inspection/0/get_component_fields', {}, { withCredentials: true })
 		.then(resp => {
 			setComponents(resp.data['components'])
 			setComponentFields(resp.data)
 		})
-		.catch(error => { console.error(error) })
+		.catch(error => console.error(error))
 
-		axios.post('/api/account/0/get_accounts_by_type', {
-			'account_type': 'Boy'
-		}, {
-			withCredentials: true  // Include credentials (cookies)
-		})
-		.then(resp => {
-			setBoyAccounts(resp.data)
-		})
+		axios.post('/api/account/0/get_accounts_by_type', { 'account_type': 'Boy' }, { withCredentials: true })
+		.then(resp => setBoyAccounts(resp.data))
 		.catch(resp => handleServerError(resp.response.status))
 	}, [])
 
@@ -74,7 +67,7 @@ const UniformInspectionForm = () => {
 				}
 			}
 		})
-		.catch(resp => handleServerError(resp.response.status))
+		.catch(resp => handleServerError(resp.response?.status))
 	}
 
 	function selectField(e) {
@@ -99,6 +92,11 @@ const UniformInspectionForm = () => {
 				const fieldKey = field.id.split("-")[0];
 				field.checked = selectedContents[boyId]?.[component.id]?.[fieldKey] ?? false
 			})
+
+			const remarkInput = document.getElementsByTagName('textarea')
+			Array.from(remarkInput).forEach(input => {
+				input.value = selectedContents[boyId]?.[component.id]?.['remark'] ?? ''	
+			})
 		})
 	}
 
@@ -114,17 +112,17 @@ const UniformInspectionForm = () => {
 		boys.map((boy) => {
 			data[boy.id] = (selectedContents[boy.id])
 		})
+
 		axios.post('/api/uniform_inspection/0/create_uniform_inspection', {
 			'selectedContents': data,
 			'date': formattedDate,
-			'boys': boys
-		}, {
-			withCredentials: true  // Include credentials (cookies)
-		})
+			'boys': boys,
+			'remarks': remarks
+		}, { withCredentials: true })
 		.then(() => {
 			window.location.href = '/uniform_inspection_results'
 		})
-		.catch(resp => handleServerError(resp.response.status))
+		.catch(resp => handleServerError(resp.response?.status))
 	}
 
 	return (
@@ -176,6 +174,7 @@ const UniformInspectionForm = () => {
 									)
 								})}
 								</ul>
+								<textarea name={`${component.component_name}-remarks`} placeholder='Remarks (Optional)' value={remarks[currentForm]?.[component.id]} onChange={(e) => setRemarks({...remarks, [currentForm]: {...remarks[currentForm], [component.id]: e.target.value}})}></textarea>
 							</div>
 						)
 					})}

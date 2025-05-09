@@ -11,6 +11,7 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
   const [currentAttendance, setCurrentAttendance] = useState(parade.parade_attendance)
   const levels = ['1', '2', '3', '4/5']
   const [platoonAttendance, setPlatonAttendance] = useState({"1": { current: 0, total: 0 }, "2": { current: 0, total: 0 }, "3": { current: 0, total: 0 }, "4": { current: 0, total: 0 }, "primer": { current: 0, total: 0 }, "officer": { current: 0, total: 0 }})
+  let selectedIndex = 0;
 
   useEffect(() => {
     setCurrentAttendance(parade.parade_attendance)
@@ -45,6 +46,12 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
     calculateTotalAttendance("primer")
     calculateTotalAttendance("officer")
   }, [currentAttendance])
+
+  useEffect(() => {
+    if (takingAttendance) {
+      attendanceShortcut()
+    }
+  }, [takingAttendance]);
 
   function setAttendance(attendance, account_id, level) {
     axios.post('/api/parade/' + parade.info.id + '/update_attendance', {
@@ -96,6 +103,77 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
         current: current
       }
     }))
+  }
+
+  function attendanceShortcut() {
+    if (!takingAttendance) return;
+
+    const handleKeyDown = (e1) => {
+      const allInputs = Array.from(document.querySelectorAll("td:has(label)"));
+      allInputs.forEach(input => input.style.background = "white");
+      const currentInput = allInputs[selectedIndex];
+      currentInput.style.background = "lightgrey";
+
+      const executeAttendanceAction = (index) => {
+        allInputs[selectedIndex].querySelector('label').click();
+          
+        setTimeout(() => {
+          const popupItems = Array.from(document.querySelectorAll(".popup-content.account-attendance-popup-content p"));
+          if (popupItems.length > 1) {
+            popupItems[index].click();
+          }
+        }, 10);
+  
+        const interval = setInterval(() => {
+          if (Array.from(document.querySelectorAll(".popup-content.account-attendance-popup-content p")).length !== 0) {
+            allInputs[selectedIndex].querySelector('label').click();
+          } else {
+            clearInterval(interval);
+            const event = new KeyboardEvent('keydown', {
+              key: 'Enter',
+              keyCode: 13,
+              code: 'Enter',
+              which: 13,
+              bubbles: true,
+              cancelable: true,
+            });
+          
+            document.dispatchEvent(event);
+          }
+        }, 100);
+      }
+
+      if (e1.key === "Enter") {
+        e1.preventDefault();
+        selectedIndex += 1;
+        if (selectedIndex >= allInputs.length) {
+          selectedIndex = 0; 
+        }
+      } else if (e1.altKey) {
+        e1.preventDefault();
+        selectedIndex -= 1;
+        if (selectedIndex < 0) {
+          selectedIndex = allInputs.length - 1; 
+        }
+      } else if (e1.key === "1") {
+        e1.preventDefault();
+        executeAttendanceAction(1);
+      } else if (e1.key === "0") {
+        e1.preventDefault();
+        executeAttendanceAction(4);
+      } else if (e1.key === "s" || e1.key === "S") {
+        e1.preventDefault();
+        executeAttendanceAction(2);
+      } else if (e1.key === "e" || e1.key === "E") {
+        e1.preventDefault();
+        executeAttendanceAction(3);
+      } else if (e1.key === "Backspace") {
+        e1.preventDefault();
+        executeAttendanceAction(0);
+      } 
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
   }
 
   return(
@@ -237,7 +315,7 @@ const ParadeAttendance = ({accountName, appointment, parade, boys, primers, offi
 
 ParadeAttendance.propTypes = {
   accountName: PropTypes.string.isRequired,
-  appointment: PropTypes.string.isRequired,
+  appointment: PropTypes.string,
   id: PropTypes.number,  
   setPageState: PropTypes.func,
   reload: PropTypes.bool,

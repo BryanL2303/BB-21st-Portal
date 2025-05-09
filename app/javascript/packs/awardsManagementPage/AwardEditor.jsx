@@ -99,8 +99,6 @@ const AwardEditor = ({ awards }) => {
 		}
 	}
 
-	console.log(selectedAward?.badge_name)
-
 	return (
 		<div className='award-information'>
 			<div>

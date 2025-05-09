@@ -1,13 +1,73 @@
-@media screen and (min-width: 800px) {
+@media screen {
 	.admin-page {
 		font-family: sans-serif;
+		box-sizing: border-box;
+		display: flex;
+		padding: 20px;
+		gap: 20px;
+
+		.admin-tables-list {
+			display: flex;
+			width: 20vw;
+			flex-shrink: 0;
+			padding-right: 20px;
+			border-right: 1px solid black;
+
+			> div {
+				flex: 1;
+				position: sticky;
+				top: 10px;
+				max-height: 95vh;
+				overflow-y: auto;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+			}
+
+			input {
+				display: none;
+			}
+
+			label {
+				padding: 5px 10px;
+				border-radius: 10px;
+				cursor: pointer;
+				color: black;
+				outline: none;
+				font-size: 13px;
+
+				p {
+					overflow-x: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+				}
+			}
+
+			input:checked + label {
+				background: black;
+				color: white;
+			}
+		}
 	}
 
 	.admin-page .page-container {
-		margin: 20px 30px;
 		text-align: center;
 		overflow-x: auto;
-		height: 85vh;
+
+		button {
+			white-space: nowrap;
+		}
+
+		textarea {
+			width: 100%;
+			padding: 5px;
+			box-sizing: border-box;
+			outline: none;
+			border: 1px solid black;
+			resize: none;
+			height: 100px;
+			font-family: sans-serif;
+		}
 	}
 
 	.admin-page .page-container table {
@@ -18,7 +78,11 @@
 	.admin-page .page-container thead th {
 		font-weight: bold;
 		border: 1px solid #ddd;
-		padding: 1px;
+		padding: 10px 8px;
+	}
+
+	.admin-page .page-container thead th:not(.id_column) {
+		min-width: 150px;
 	}
 
 	.admin-page .page-container tbody tr {
@@ -26,8 +90,20 @@
 	}
 
 	.admin-page .page-container td {
-		padding: 1px;
+		padding: 5px 8px;
+		font-size: 13px;
 		border: 1px solid #ddd;
+		max-width: 500px;
+		overflow: hidden;
+
+		input {
+			width: 100%;
+			outline: none;
+			border: 1px solid black;
+			padding: 3px 5px;
+			box-sizing: border-box;
+			background: transparent;
+		}
 	}
 
 	.admin-page .page-container tbody tr:hover {
